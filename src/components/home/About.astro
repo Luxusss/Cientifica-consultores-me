@@ -1,17 +1,16 @@
 ---
-import { Image, getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
+import AdvisoryVideo from '@/components/sections/AdvisoryVideo.astro';
 import { site } from '@/config/site';
 import { tools } from '@/data/proof';
 import { listEs } from '@/lib/format';
 import office from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg';
 import team from '@/assets/images/banner/nuestro-equipo-de-asesores-de-tesis.jpg';
-import session from '@/assets/images/otros/equipo-de-asesores-en-reunion.jpg';
 
 const slides = [
   { src: office, alt: 'Reunión del equipo de Científica Consultores en su oficina' },
   { src: team, alt: 'Equipo de asesores de tesis de Científica Consultores' },
 ];
-const poster = await getImage({ src: session, width: 960, format: 'webp' });
 
 const facts = [
   { label: 'Experiencia', value: 'Más de 10 años' },
@@ -22,14 +21,14 @@ const facts = [
 ---
 
 <section class="section page about" aria-labelledby="nosotros">
-  <header class="head">
+  <header class="head" data-reveal="stagger">
     <h2 id="nosotros">Más de 10 años investigando</h2>
     <p class="lead">Somos un equipo multidisciplinario de asesores en Lima. Desde hace más de 10 años acompañamos a estudiantes de pregrado, maestría y doctorado de habla hispana, con asesoría académica para tesis, tesinas y trabajos de grado, online o en nuestra oficina.</p>
   </header>
 
   <div class="mosaic">
     <figure class="photo-tile">
-      <div class="slides">
+      <div class="slides" data-reveal="shutter">
         {slides.map((s, i) => (
           <Image src={s.src} alt={i === 0 ? s.alt : ''} widths={[640, 960, 1280]} sizes="(min-width: 64em) 62vw, 100vw" class="slide" />
         ))}
@@ -37,14 +36,14 @@ const facts = [
       <p class="note">Tu proyecto es confidencial por contrato. Revisamos la originalidad con Turnitin en cada entrega y trabajamos en horarios flexibles, por videollamada o en persona.</p>
     </figure>
 
-    <div class="color-tile theme-field">
+    <div class="color-tile theme-field" data-reveal>
       <ul class="countries" role="list" aria-label="Países donde atendemos">
         {site.countries.map((c) => <li>{c}</li>)}
       </ul>
       <p class="tile-note">Atendemos online en estos seis países y en persona en Lima.</p>
     </div>
 
-    <dl class="facts">
+    <dl class="facts" data-reveal="stagger">
       {facts.map((f) => (
         <div>
           <dt>{f.label}</dt>
@@ -54,12 +53,7 @@ const facts = [
     </dl>
   </div>
 
-  <figure class="video">
-    <video controls preload="none" playsinline poster={poster.src} width="1280" height="720">
-      <source src="/videos/Asi-son-nuestras-asesorias.mp4" type="video/mp4" />
-    </video>
-    <figcaption>Así son nuestras asesorías</figcaption>
-  </figure>
+  <div class="video-wrap"><AdvisoryVideo /></div>
 </section>
 
 <style>
@@ -89,9 +83,6 @@ const facts = [
   .facts dt { color: var(--color-text-soft); font-size: var(--step-small); }
   .facts dd { font-size: var(--step-body); line-height: var(--leading-small); font-weight: var(--weight-medium); }
 
-  .video { display: grid; gap: var(--space-2xs); }
-  .video video { inline-size: 100%; block-size: auto; aspect-ratio: 16 / 9; background-color: var(--ink-900); }
-  .video figcaption { font-size: var(--step-small); color: var(--color-text-soft); }
 
   @media (min-width: 64em) {
     .head { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
@@ -111,7 +102,7 @@ const facts = [
     .color-tile { grid-column: 9 / -1; align-self: start; aspect-ratio: 4 / 5; }
     .facts { grid-column: 9 / -1; }
 
-    .video { inline-size: min(100%, 56rem); justify-self: end; }
+    .video-wrap { inline-size: min(100%, 56rem); justify-self: end; }
   }
 
   @media (prefers-reduced-motion: no-preference) {

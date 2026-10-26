@@ -8,8 +8,6 @@ El reglamento y las normas que las modifique o reemplacen, establece que para ef
 
 Cuando se solicita llenar los campos de información personal, con la cual usted puede ser identificado; lo hacemos asegurando que sólo se empleará de acuerdo con los términos de este documento. Sin embargo, estas Políticas de Privacidad pueden cambiar con el tiempo o ser actualizada, por lo que le recomendamos y enfatizamos revisar continuamente esta página para asegurarse que está de acuerdo con dichos cambios. Cualquier modificación sustancial será notificada a través de un aviso en nuestra página web o, si fuera necesario, mediante comunicación directa a los usuarios registrados.
 
-**__________________________________________________________________________________________**
-
 ## 2. Banco de Datos Personales
 
 **CIENTÍFICA CONSULTORES**, titular del banco de datos personales, informa que los datos personales remitidos mediante el presente formulario serán almacenados en la base de datos personales denominada “Usuarios y potenciales clientes de Científica Consultores S.A.C.”, por plazo indeterminado hasta que se decida revocar la autorización, debido a la naturaleza de las finalidades informativas y comerciales que se autorizan mediante este documentos, y que se describen a continuación.
@@ -17,8 +15,6 @@ Cuando se solicita llenar los campos de información personal, con la cual usted
 Es preciso indicar que, unicamente se reacolectarán los datos personales que usted nos desee proporcionar o que son necesarios para brindarle y mejorar nuestros servicios, y para los fines que se describen en el punto 3 de la presente Política y que usted acepta libremente.
 
 Dependiendo del formulario que llene o de las acciones que realice en nuestro sitio web (como una compra), podemos solicitarle información personal tales como: nombre completo, número de documento de identidad (DNI/CE/Pasaporte), teléfono de contacto fijo o móvil, correo electrónico, dirección de residencia o de facturación, profesión, datos de pago (número de tarjeta, fecha de vencimiento, código de seguridad, nombre del titular de la tarjeta, etc.). La autorización para el tratamiento de sus datos personales resulta obligatoria para la ejecución de las actividades descritas en los formularios de la página web de **CIENTÍFICA CONSULTORES** y aquellas señaladas en la presente Política; en caso de su negativa, ellas no se podrán realizar
-
-**__________________________________________________________________________________________**
 
 ## 3. Finalidad del Tratamiento de sus Datos Personales
 
@@ -31,13 +27,9 @@ Los datos personales que usted nos proporcione serán tratados para las siguient
 **• Cumplimiento Legal:** Para cumplir con obligaciones legales y requerimientos de autoridades competentes.
 **• Fines Estadísticos y de Investigación:** Para realizar análisis internos sobre el comportamiento de nuestros usuarios y la efectividad de nuestras campañas.
 
-**__________________________________________________________________________________________**
-
 ## 4. Plazo de Conservación de los Datos Personales
 
 Sus datos personales serán conservados por **CIENTÍFICA CONSULTORES** por el tiempo estrictamente necesario para cumplir con las finalidades descritas en esta Política, o hasta que usted solicite su cancelación, siempre y cuando no exista una obligación legal o contractual que requiera su conservación por un período mayor.
-
-**__________________________________________________________________________________________**
 
 ## 5. Transferencia y Destinatarios de los Datos Personales
 
@@ -49,13 +41,9 @@ Para cumplir con las finalidades mencionadas, sus datos personales podrán ser c
 
 **CIENTÍFICA CONSULTORES** se compromete a no vender, alquilar ni divulgar sus datos personales a terceros no autorizados.
 
-**__________________________________________________________________________________________**
-
 ## 6. Medidas de Seguridad Implementadas
 
 **CIENTÍFICA CONSULTORES** ha adoptado las medidas de seguridad técnicas, organizativas y legales necesarias y adecuadas para garantizar la protección de sus datos personales y evitar su alteración, pérdida, tratamiento o acceso no autorizado, teniendo en cuenta el estado de la tecnología, la naturaleza de los datos almacenados y los riesgos a los que están expuestos. Esto incluye, pero no se limita a, el uso de cifrado SSL para la transmisión de datos sensibles (como los de pago) y el cumplimiento de estándares de seguridad en el manejo de la información la originalidad final y el contenido de su tesis, siendo la asesoría un apoyo y guía.
-
-**__________________________________________________________________________________________**
 
 ## 7. Ejercicio de los Derechos ARCO (Acceso, Rectificación, Cancelación y Oposición)
 
@@ -68,21 +56,15 @@ Usted tiene derecho a:
 
 Para ejercer cualquiera de estos derechos, puede enviar una solicitud por escrito a la siguiente dirección de correo electrónico: [**informes@cientificaconsultores.com**](mailto:informes@cientificaconsultores.com), adjuntando una copia de su documento de identidad. Atenderemos su solicitud en los plazos establecidos por la Ley N° 29733 y su reglamento.
 
-**__________________________________________________________________________________________**
-
 ## 8. Uso de Cookies y Tecnologías Similares
 
 Nuestro sitio web utiliza cookies y otras tecnologías similares (como píxeles de seguimiento de Meta Ads o Google Analytics) para mejorar su experiencia de navegación, analizar el tráfico del sitio, personalizar contenido y anuncios, y comprender cómo interactúa con nuestras campañas. Las cookies son pequeños archivos de texto que se almacenan en su dispositivo.
 
 Al utilizar nuestro sitio web, usted acepta el uso de estas cookies. Puede gestionar sus preferencias de cookies a través de la configuración de su navegador. Para obtener más información detallada sobre las cookies que utilizamos y cómo gestionarlas, le invitamos a consultar nuestra **Política de Cookies** o la sección específica en este documento.
 
-**__________________________________________________________________________________________**
-
 ## 9. Enlaces a Terceros
 
 Nuestra página web puede contener enlaces a otros sitios que pueden ser de su interés. Una vez que usted haga clic en estos enlaces y abandone nuestra página, ya no tenemos control sobre el sitio al que es redirigido y, por lo tanto, no somos responsables de los términos o privacidad ni de la protección de sus datos en esos otros sitios de terceros. Dichos sitios están sujetos a sus propias políticas de privacidad, por lo cual es recomendable que los consulte para confirmar que usted está de acuerdo con estas.
-
-**__________________________________________________________________________________________**
 
 ## 10. Oficial de Datos Personales
 
@@ -93,8 +75,6 @@ Sus funciones son:
 1. Informar y asesorar al titular de banco de datos y al personal sobre las obligaciones.
 2. Corroborar el cumplimiento de la normativa aplicable a la protección de datos personales.
 3. Actuar como contacto entre la Autoridad Nacional de Protección de Datos Personales y nuestra empresa.
-
-**__________________________________________________________________________________________**
 
 ## 11. Aceptación de esta Política
 

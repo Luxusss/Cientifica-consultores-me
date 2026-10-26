@@ -5,14 +5,14 @@ import { services } from '@/data/services';
 
 <section class="services theme-surface" aria-labelledby="servicios">
   <div class="page grid">
-    <header class="head">
+    <header class="head" data-reveal>
       <h2 id="servicios">Asesoría para cada grado</h2>
       <p class="intro">Nuestros servicios de asesoría para tesis y trabajos académicos te acompañan desde cero: definir el tema, ordenar la literatura, diseñar la metodología, procesar los datos y preparar la versión final. Nos adaptamos al formato de tu universidad, se llame tesis, tesina, trabajo de grado, TFG o TFM.</p>
     </header>
 
     <ol class="rows" role="list">
       {services.map((s, i) => (
-        <li class:list={['row', { flip: i % 2 === 1 }]}>
+        <li class:list={['row', { flip: i % 2 === 1 }]} data-reveal="stagger">
           <h3>{s.name}</h3>
           <div class="pair">
             <Image src={s.image} alt={s.imageAlt} widths={[240, 360, 480]} sizes="(min-width: 64em) 13rem, 40vw" class="portrait" />

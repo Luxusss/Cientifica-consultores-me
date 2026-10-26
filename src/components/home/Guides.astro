@@ -9,13 +9,13 @@ const guides = [
 ---
 
 <section class="section page guides" aria-labelledby="guias">
-  <header class="head">
+  <header class="head" data-reveal>
     <h2 id="guias">Guías para tu tesis</h2>
     <p>Recursos académicos para tu proyecto y desarrollo de tesis, gratis, para estudiantes de pregrado, maestría y doctorado.</p>
     <a href="/blog.html">Ver el blog</a>
   </header>
 
-  <ul class="list" role="list">
+  <ul class="list" role="list" data-reveal="stagger">
     {guides.map((g) => (
       <li>
         <h3>{g.href ? <a href={g.href}>{g.title}</a> : g.title}</h3>

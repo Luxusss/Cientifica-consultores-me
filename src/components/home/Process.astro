@@ -39,18 +39,18 @@ for (let i = 0; i < 48; i++) {
 ---
 
 <section class="section page process" aria-labelledby="como-trabajamos">
-  <header class="head">
+  <header class="head" data-reveal>
     <h2 id="como-trabajamos">Cómo trabajamos</h2>
     <p>Del primer mensaje a tu asesor asignado, en seis pasos claros.</p>
   </header>
 
-  <svg class="diagram" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Diagrama: de una tesis en desorden a un plan ordenado">
+  <svg data-reveal class="diagram" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Diagrama: de una tesis en desorden a un plan ordenado">
     {squares.map((s) => (
       <rect x={s.x} y={s.y} width={size} height={size} class={`z${s.zone}`} />
     ))}
   </svg>
 
-  <ol class="steps" role="list">
+  <ol class="steps" role="list" data-reveal="stagger">
     {steps.map((step) => (
       <li>
         <h3>{step.name}</h3>
@@ -68,6 +68,13 @@ for (let i = 0; i < 48; i++) {
   .z0 { fill: var(--color-surface-strong); }
   .z1 { fill: var(--navy-100); }
   .z2 { fill: var(--color-accent); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .diagram rect { opacity: 0; transition: opacity var(--duration-reveal) var(--ease-out); }
+    :global(.js) .diagram:global(.is-in) rect { opacity: 1; }
+    :global(.js) .diagram:global(.is-in) .z1 { transition-delay: 300ms; }
+    :global(.js) .diagram:global(.is-in) .z2 { transition-delay: 600ms; }
+  }
 
   .steps { display: grid; gap: var(--space-l); }
   .steps h3 { font-weight: var(--weight-semibold); margin-block-end: var(--space-2xs); }

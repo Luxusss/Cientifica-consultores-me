@@ -10,7 +10,7 @@ const { testimonial } = Astro.props;
 
 <section class="quote theme-field" aria-label="Testimonio">
   <div class="page grid">
-    <figure>
+    <figure data-reveal>
       <blockquote>
         <p>“{testimonial.highlight ?? testimonial.quote}”</p>
       </blockquote>

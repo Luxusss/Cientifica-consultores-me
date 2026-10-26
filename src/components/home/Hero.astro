@@ -26,7 +26,7 @@ const cards = [
 
   <div class="page inner">
     <div class="text">
-      <h1 id="hero-title">Asesoría de tesis online</h1>
+      <h1 id="hero-title"><span class="line"><span>Asesoría de</span></span> <span class="line"><span>tesis online</span></span></h1>
       <p class="lede">Un asesor especialista te acompaña en tu tesis de pregrado, maestría, doctorado o TSP, desde el proyecto hasta la sustentación.</p>
       <div class="action"><WhatsAppButton /></div>
       <p class="pin"><span class="dot" aria-hidden="true"></span>Asesores en Lima, atención en toda Latinoamérica</p>
@@ -139,8 +139,17 @@ const cards = [
     }
   }
 
+  .line { display: block; overflow: hidden; padding-block-end: 0.08em; margin-block-end: -0.08em; }
+  .line > span { display: block; }
+
   @media (prefers-reduced-motion: no-preference) {
     .photo { animation: drift 24s var(--ease-soft) both; }
+    .line > span { animation: line-up var(--duration-reveal) var(--ease-expo) 100ms both; }
+    .line + .line > span { animation-delay: calc(100ms + var(--stagger)); }
+    .lede, .action, .pin { animation: rise 500ms var(--ease-out) 420ms both; }
+    .cards { animation: rise 600ms var(--ease-out) 600ms both; }
     @keyframes drift { from { transform: scale(1.08); } to { transform: scale(1); } }
+    @keyframes line-up { from { transform: translateY(105%); } }
+    @keyframes rise { from { opacity: 0; transform: translateY(12px); } }
   }
 </style>

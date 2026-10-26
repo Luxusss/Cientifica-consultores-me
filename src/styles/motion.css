@@ -1,0 +1,41 @@
+@view-transition { navigation: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}
+
+@layer motion {
+  ::view-transition-old(root) { animation: vt-leave 200ms var(--ease-exit) both; }
+  ::view-transition-new(root) { animation: vt-arrive 380ms var(--ease-out) 60ms both; }
+
+  @keyframes vt-leave { to { opacity: 0; } }
+  @keyframes vt-arrive { from { opacity: 0; transform: translateY(16px); } }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .js [data-reveal]:not([data-reveal='stagger']):not([data-reveal='shutter']) {
+      opacity: 0;
+      transform: translateY(var(--rise));
+      transition:
+        opacity var(--duration-reveal) var(--ease-expo),
+        transform var(--duration-reveal) var(--ease-expo);
+    }
+    .js [data-reveal].is-in:not([data-reveal='stagger']):not([data-reveal='shutter']) { opacity: 1; transform: none; }
+
+    .js [data-reveal='stagger'] > * {
+      opacity: 0;
+      transform: translateY(var(--rise));
+      transition:
+        opacity var(--duration-reveal) var(--ease-expo),
+        transform var(--duration-reveal) var(--ease-expo);
+    }
+    .js [data-reveal='stagger'] > :nth-child(2) { transition-delay: var(--stagger); }
+    .js [data-reveal='stagger'] > :nth-child(3) { transition-delay: calc(var(--stagger) * 2); }
+    .js [data-reveal='stagger'] > :nth-child(n + 4) { transition-delay: calc(var(--stagger) * 3); }
+    .js [data-reveal='stagger'].is-in > * { opacity: 1; transform: none; }
+
+    .js [data-reveal='shutter'] { clip-path: inset(0 0 100% 0); transition: clip-path var(--duration-open) var(--ease-in-out); }
+    .js [data-reveal='shutter'] img { transform: scale(1.08); transition: transform var(--duration-settle) var(--ease-soft); }
+    .js [data-reveal='shutter'].is-in { clip-path: inset(0); }
+    .js [data-reveal='shutter'].is-in img { transform: none; }
+  }
+}

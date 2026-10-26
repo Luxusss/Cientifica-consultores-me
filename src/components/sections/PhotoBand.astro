@@ -4,14 +4,19 @@ import office from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg';
 import session from '@/assets/images/otros/equipo-de-asesores-en-reunion.jpg';
 import team from '@/assets/images/banner/nuestro-equipo-de-asesores-de-tesis.jpg';
 
+interface Props {
+  omit?: string[];
+}
+
+const { omit = [] } = Astro.props;
 const photos = [
-  { src: office, alt: 'Reunión del equipo en la oficina de Científica Consultores' },
-  { src: session, alt: 'Sesión de asesoría con estudiantes' },
-  { src: team, alt: 'Equipo de asesores de tesis de Científica Consultores' },
-];
+  { id: 'office', src: office, alt: 'Reunión del equipo en la oficina de Científica Consultores' },
+  { id: 'session', src: session, alt: 'Sesión de asesoría con estudiantes' },
+  { id: 'team', src: team, alt: 'Equipo de asesores de tesis de Científica Consultores' },
+].filter((p) => !omit.includes(p.id));
 ---
 
-<section class="band" aria-label="Nuestro equipo">
+<section class="band" aria-label="Nuestro equipo" data-reveal="stagger">
   {photos.map((p) => (
     <Image src={p.src} alt={p.alt} widths={[480, 720, 960]} sizes="(min-width: 48em) 33vw, 100vw" class="photo" />
   ))}
@@ -20,8 +25,9 @@ const photos = [
 <style>
   .band { display: grid; grid-template-columns: 1fr; }
   .photo { inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .band:has(> :only-child) .photo { aspect-ratio: 21 / 9; }
   @media (min-width: 48em) {
-    .band { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .band { grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); grid-template-columns: none; }
     .photo { aspect-ratio: 1; }
   }
 </style>

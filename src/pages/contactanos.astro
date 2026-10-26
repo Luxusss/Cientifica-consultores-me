@@ -3,6 +3,7 @@ import Base from '@/layouts/Base.astro';
 import LeadForm from '@/components/forms/LeadForm.astro';
 import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
 import PhotoBand from '@/components/sections/PhotoBand.astro';
+import AdvisoryVideo from '@/components/sections/AdvisoryVideo.astro';
 import { Image } from 'astro:assets';
 import officeImg from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
@@ -38,11 +39,11 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
   </section>
 
   <section class="section page plans" aria-labelledby="planes">
-    <header class="head">
+    <header class="head" data-reveal>
       <h2 id="planes">Nuestros planes</h2>
       <p>Dos formas de trabajar tu tesis completa. Escríbenos y te enviamos un presupuesto según tu caso.</p>
     </header>
-    <div class="table-wrap">
+    <div class="table-wrap" data-reveal>
       <table>
         <thead>
           <tr>
@@ -62,11 +63,15 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
     </div>
   </section>
 
-  <PhotoBand />
+  <section class="section page watch" aria-label="Video de una asesoría">
+    <AdvisoryVideo />
+  </section>
+
+  <PhotoBand omit={['office']} />
 
   <section class="section page visit" aria-labelledby="horarios">
-    <h2 id="horarios">Horarios y ubicación</h2>
-    <dl class="hours">
+    <h2 id="horarios" data-reveal>Horarios y ubicación</h2>
+    <dl class="hours" data-reveal="stagger">
       {site.hours.map((h) => (
         <div>
           <dt>{h.days}</dt>
@@ -74,12 +79,12 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
         </div>
       ))}
     </dl>
-    <address>
+    <address data-reveal>
       <p>{address}</p>
       <p class="text-soft">{capitalize(site.address.reference)}. Atención presencial previa cita.</p>
       <a href={mapUrl} target="_blank" rel="noopener">Ver en Google Maps</a>
     </address>
-    <Image src={officeImg} alt="Oficina de Científica Consultores en Los Olivos" widths={[480, 720]} sizes="(min-width: 64em) 30vw, 100vw" class="office" />
+    <Image data-reveal src={officeImg} alt="Oficina de Científica Consultores en Los Olivos" widths={[480, 720]} sizes="(min-width: 64em) 30vw, 100vw" class="office" />
   </section>
 </Base>
 
@@ -106,6 +111,11 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
     td::before { content: attr(data-plan); display: block; font-size: var(--step-small); color: var(--color-text-soft); }
   }
 
+  .watch { display: grid; }
+  @media (min-width: 64em) {
+    .watch { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
+    .watch :global(.video) { grid-column: calc(var(--axis) + 1) / -1; }
+  }
   .visit { display: grid; gap: var(--space-l); }
   .hours { display: grid; gap: var(--space-s); }
   .hours dt { color: var(--color-text-soft); font-size: var(--step-small); }

@@ -172,6 +172,21 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
   .drawer-main { margin-block-start: var(--space-m); }
   .drawer-main a { font-size: var(--step-head); line-height: var(--leading-head); }
 
+  @media (prefers-reduced-motion: no-preference) {
+    .panel, .drawer {
+      transition:
+        opacity var(--duration-ui) var(--ease-out),
+        transform var(--duration-ui) var(--ease-out),
+        overlay var(--duration-ui) allow-discrete,
+        display var(--duration-ui) allow-discrete;
+    }
+    .panel:not(:popover-open), .drawer:not(:popover-open) { opacity: 0; transform: translateY(-8px); }
+    .panel:popover-open, .drawer:popover-open { opacity: 1; transform: none; }
+    @starting-style {
+      .panel:popover-open, .drawer:popover-open { opacity: 0; transform: translateY(-8px); }
+    }
+  }
+
   @media (max-width: 63.99em) {
     .nav, .action { display: none; }
     .menu-toggle { display: inline-flex; align-items: center; }

@@ -11,8 +11,8 @@ const { items, title = 'Preguntas frecuentes', id = 'preguntas' } = Astro.props;
 ---
 
 <section class="section page faq" aria-labelledby={id}>
-  <h2 id={id}>{title}</h2>
-  <div class="answers">
+  <h2 id={id} data-reveal>{title}</h2>
+  <div class="answers" data-reveal>
     {items.map((item) => (
       <p>
         <strong>{item.question}</strong> {item.answer}

@@ -54,11 +54,15 @@
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
   --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-exit: cubic-bezier(0.55, 0.055, 0.675, 0.19);
   --duration-press: 120ms;
   --duration-hover: 180ms;
   --duration-ui: 240ms;
   --duration-reveal: 800ms;
   --duration-fade: 1600ms;
+  --duration-open: 1100ms;
+  --duration-settle: 1400ms;
+  --rise: 24px;
   --stagger: 80ms;
 
   --color-bg: var(--paper-0);

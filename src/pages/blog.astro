@@ -26,20 +26,23 @@ const schema = [
   schema={schema}
 >
   <section class="section page hero" aria-labelledby="titulo">
-    <Breadcrumbs current="Blog" />
-    <h1 id="titulo">Guías para tu tesis</h1>
-    <p class="text-lead">Guías prácticas y recursos para tu tesis de pregrado, maestría o doctorado.</p>
+    <div class="intro">
+      <Breadcrumbs current="Blog" />
+      <h1 id="titulo">Guías para tu tesis</h1>
+    </div>
+    <p class="text-lead">Guías prácticas y recursos para tu tesis de pregrado, maestría o doctorado, escritas por nuestro equipo de asesores.</p>
   </section>
 
-  <section class="section page posts" aria-label="Artículos">
-    <ul role="list">
+  <section class="section page posts" aria-labelledby="articulos">
+    <h2 id="articulos" class="posts-title" data-reveal>Todos los artículos</h2>
+    <ul role="list" data-reveal="stagger">
       {posts.map((post, i) => (
         <li class:list={['post', { lead: i === 0 }]}>
           <a href={`/blog/${post.id}.html`} class="post-link">
             <Image src={post.data.cover} alt="" widths={[480, 720, 960]} sizes={i === 0 ? '(min-width: 64em) 58vw, 100vw' : '(min-width: 64em) 30vw, 100vw'} class="cover" />
-            <span class="meta"><time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time></span>
-            <h2 class="post-title">{post.data.heading}</h2>
+            <h3 class="post-title">{post.data.heading}</h3>
             <p class="excerpt">{post.data.description}</p>
+            <span class="meta"><time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time></span>
           </a>
         </li>
       ))}
@@ -51,6 +54,9 @@ const schema = [
 
 <style>
   .hero { display: grid; gap: var(--space-m); }
+  .intro { display: grid; gap: var(--space-m); }
+  .posts { display: grid; gap: var(--space-l); }
+  .posts-title { font-size: var(--step-head); }
   .posts ul { display: grid; gap: var(--space-2xl); }
   .post-link { display: grid; gap: var(--space-s); color: var(--color-text); text-decoration: none; }
   .cover { inline-size: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
@@ -63,12 +69,14 @@ const schema = [
   }
 
   @media (min-width: 64em) {
+    .hero { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: end; }
+    .intro { grid-column: 1 / span var(--axis); }
+    .hero .text-lead { grid-column: calc(var(--axis) + 1) / -1; }
     .posts ul { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
     .post { grid-column: span 4; }
     .lead { grid-column: 1 / -1; }
     .lead .post-link { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: end; }
     .lead .cover { grid-column: 1 / span 7; grid-row: 1 / span 3; }
     .lead .meta, .lead .post-title, .lead .excerpt { grid-column: 8 / -1; }
-    .lead .post-title { font-size: var(--step-head); line-height: var(--leading-head); letter-spacing: var(--tracking-head); }
   }
 </style>

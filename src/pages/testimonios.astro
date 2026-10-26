@@ -27,7 +27,7 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios'
 
   <section class="section page voices" aria-labelledby="historias">
     <h2 id="historias">Historias de quienes sustentaron</h2>
-    <ul class="list" role="list">
+    <ul class="list" role="list" data-reveal="stagger">
       {testimonials.map((t) => (
         <li>
           <figure>
@@ -42,7 +42,7 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios'
   <section class="captures theme-surface" aria-labelledby="mensajes">
     <div class="page">
       <h2 id="mensajes">Mensajes de nuestros clientes</h2>
-      <ul class="gallery" role="list">
+      <ul class="gallery" role="list" data-reveal="stagger">
         {captures.map((src, i) => (
           <li><Image src={src} alt={`Captura del mensaje de un cliente, testimonio ${i + 1}`} widths={[320, 480, 640]} sizes="(min-width: 64em) 25vw, (min-width: 48em) 33vw, 50vw" class="shot" /></li>
         ))}

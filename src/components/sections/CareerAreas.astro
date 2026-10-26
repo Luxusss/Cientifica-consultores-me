@@ -3,11 +3,11 @@ import { careerAreas } from '@/data/servicePages';
 ---
 
 <section class="section page areas" aria-labelledby="carreras">
-  <header class="head">
+  <header class="head" data-reveal>
     <h2 id="carreras">Un asesor de tu carrera</h2>
     <p>Accede a asesoría personalizada según tu disciplina, con especialistas para cada carrera.</p>
   </header>
-  <div class="cols">
+  <div class="cols" data-reveal="stagger">
     {careerAreas.map((area) => (
       <div>
         <h3>{area.name}</h3>

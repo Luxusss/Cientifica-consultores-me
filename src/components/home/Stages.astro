@@ -15,11 +15,11 @@ const start = stageTracks.find((t) => t.id === initial) ?? stageTracks[0];
 ---
 
 <section class="section page stages" aria-labelledby="etapas" data-stages>
-  <div class="top">
+  <div class="top" data-reveal>
     <Heading id="etapas">Tu tesis por etapas</Heading>
     <WhatsAppButton message={message(start.degree)} data-stages-cta />
   </div>
-  <p class="intro">Elige tu grado y mira el camino completo hasta la sustentación.</p>
+  <p class="intro" data-reveal>Elige tu grado y mira el camino completo hasta la sustentación.</p>
 
   <div class="tabs" role="tablist" aria-label="Grado académico" hidden data-stages-tabs>
     {stageTracks.map((t) => (
@@ -118,12 +118,16 @@ const start = stageTracks.find((t) => t.id === initial) ?? stageTracks[0];
 
   .panel { display: grid; gap: var(--space-s); margin-block-start: var(--space-m); }
   .panel[hidden] { display: none; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .is-tabs .panel { transition: opacity 160ms var(--ease-out); }
+    @starting-style { .is-tabs .panel { opacity: 0; } }
+  }
   .is-tabs .panel-title { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
   .panel-title { font-weight: var(--weight-semibold); }
 
   .bands { display: grid; gap: var(--space-3xs); }
   .bands li {
-    max-inline-size: none;
     display: grid;
     gap: var(--space-3xs);
     padding: var(--space-s) var(--space-m);

@@ -7,7 +7,7 @@ import ContactBand from '@/components/sections/ContactBand.astro';
 import { fullAddress, site } from '@/config/site';
 import { breadcrumb } from '@/lib/schema';
 import { listEs } from '@/lib/format';
-import team from '@/assets/images/otros/equipo-de-asesores.jpg';
+import office from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg';
 
 const ways = [
   { title: 'Compromiso con tu éxito académico', text: 'Nos involucramos en cada etapa de tu proceso. Un equipo multidisciplinario te guía con responsabilidad y puntualidad, para que avances con seguridad y claridad hacia tu objetivo profesional.' },
@@ -38,10 +38,10 @@ const schema = [
       <h1 id="titulo">Quiénes somos</h1>
       <p class="text-lead">Asesoría especializada en tesis, investigación y capacitación académica, desde Lima, hace más de 10 años.</p>
     </div>
-    <Image src={team} alt="Equipo de asesores de Científica Consultores" widths={[640, 960, 1280]} sizes="(min-width: 64em) 58vw, 100vw" loading="eager" fetchpriority="high" class="photo" />
+    <Image src={office} alt="Equipo de Científica Consultores reunido en su oficina de Los Olivos" widths={[640, 960, 1280]} sizes="(min-width: 64em) 58vw, 100vw" loading="eager" fetchpriority="high" class="photo" />
   </section>
 
-  <section class="section page story" aria-labelledby="historia">
+  <section class="section page story" aria-labelledby="historia" data-reveal="stagger">
     <h2 id="historia">Nuestra historia</h2>
     <p class="text-lead">Brindamos asesoría especializada en tesis, investigación y capacitación académica. Nuestro equipo lleva más de 10 años difundiendo y contribuyendo a la cultura científica, y ayudando a estudiantes y profesionales a lograr un desarrollo académico integral.</p>
   </section>
@@ -49,7 +49,7 @@ const schema = [
   <section class="ways theme-surface" aria-labelledby="acompanamos">
     <div class="page grid">
       <h2 id="acompanamos">Cómo te acompañamos</h2>
-      <ul class="list" role="list">
+      <ul class="list" role="list" data-reveal="stagger">
         {ways.map((w) => (
           <li><h3>{w.title}</h3><p>{w.text}</p></li>
         ))}
@@ -59,18 +59,18 @@ const schema = [
 
   <section class="section page pillars" aria-labelledby="creemos">
     <h2 id="creemos">En qué creemos</h2>
-    <dl>
+    <dl data-reveal="stagger">
       {pillars.map((p) => (
         <div><dt>{p.title}</dt><dd>{p.text}</dd></div>
       ))}
     </dl>
   </section>
 
-  <PhotoBand />
+  <PhotoBand omit={['office']} />
 
   <section class="section page where" aria-labelledby="atendemos">
     <h2 id="atendemos">Dónde atendemos</h2>
-    <div class="where-cols">
+    <div class="where-cols" data-reveal="stagger">
       <div>
         <h3>Oficina</h3>
         <p>{fullAddress}. Previa cita.</p>

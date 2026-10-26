@@ -27,6 +27,7 @@ const loadGtm = import.meta.env.PROD;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <script is:inline>document.documentElement.classList.add('js');setTimeout(function(){var r=document.documentElement;if(!r.hasAttribute('data-reveal-ready'))r.classList.remove('js')},2500);</script>
     <meta name="theme-color" content={site.themeColor} />
     <meta name="format-detection" content="telephone=no" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -51,6 +52,9 @@ const loadGtm = import.meta.env.PROD;
     </main>
     <Footer />
     <WhatsAppFloat />
+    <script>
+      import '@/scripts/reveal';
+    </script>
   </body>
 </html>
 

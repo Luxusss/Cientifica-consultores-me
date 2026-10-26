@@ -4,7 +4,7 @@ import { site, whatsappUrl } from '@/config/site';
 import portrait from '@/assets/images/otros/asesor-de-tesis-de-maestria-cientifica-consultores.jpg';
 ---
 
-<section class="section page contact" aria-labelledby="contacto">
+<section class="section page contact" aria-labelledby="contacto" data-reveal="stagger">
   <p class="statement" id="contacto">Cuéntanos tu universidad, tu grado y tu fecha de entrega, y te decimos cómo podemos ayudarte.</p>
   <Image src={portrait} alt="Asesor de Científica Consultores en la biblioteca" widths={[200, 340]} sizes="10rem" class="portrait" />
   <div class="reach">
@@ -21,7 +21,7 @@ import portrait from '@/assets/images/otros/asesor-de-tesis-de-maestria-cientifi
   .portrait { inline-size: 8rem; aspect-ratio: 1; object-fit: cover; object-position: 50% 25%; }
   .reach { display: grid; gap: var(--space-2xs); justify-items: start; }
   .ask { font-weight: var(--weight-semibold); }
-  .reach a { font-size: var(--step-body); overflow-wrap: anywhere; }
+  .reach a { font-size: var(--step-body); overflow-wrap: break-word; }
   .meta { color: var(--color-text-soft); font-size: var(--step-small); margin-block-start: var(--space-2xs); }
 
   @media (min-width: 48em) {
@@ -32,7 +32,7 @@ import portrait from '@/assets/images/otros/asesor-de-tesis-de-maestria-cientifi
   @media (min-width: 64em) {
     .contact { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
     .statement { grid-column: 1 / span 5; }
-    .portrait { grid-column: 8 / span 2; inline-size: 100%; max-inline-size: 10rem; }
-    .reach { grid-column: 10 / -1; }
+    .portrait { grid-column: 7 / span 2; inline-size: 100%; max-inline-size: 10rem; }
+    .reach { grid-column: 9 / -1; }
   }
 </style>

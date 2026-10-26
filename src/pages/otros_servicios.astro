@@ -20,9 +20,16 @@ const schema = [
   schema={schema}
 >
   <section class="section page hero" aria-labelledby="titulo">
-    <Breadcrumbs current="Otros servicios" />
-    <h1 id="titulo">Otros servicios</h1>
-    <p class="text-lead">Más allá de la tesis: apoyo en cada parte de tu investigación.</p>
+    <div class="intro">
+      <Breadcrumbs current="Otros servicios" />
+      <h1 id="titulo">Otros servicios</h1>
+      <p class="text-lead">Más allá de la tesis: apoyo en cada parte de tu investigación.</p>
+    </div>
+    <nav class="index" aria-label="Grupos de servicios">
+      <ol role="list">
+        {otherServices.map((g) => <li><a href={`#${g.id}`}>{g.name}</a></li>)}
+      </ol>
+    </nav>
   </section>
 
   <ol class="groups" role="list">
@@ -30,7 +37,7 @@ const schema = [
       <li class:list={['group', { flip: i % 2 === 1, 'theme-surface': i % 2 === 1 }]}>
         <section class="page grid inner" aria-labelledby={g.id}>
           <Image src={g.image} alt="" widths={[480, 720, 960]} sizes="(min-width: 64em) 40vw, 100vw" class="photo" />
-          <div class="body">
+          <div class="body" data-reveal="stagger">
             <h2 id={g.id}>{g.name}</h2>
             <ul class="items" role="list">
               {g.items.map((item) => <li>{item}</li>)}
@@ -46,17 +53,28 @@ const schema = [
 </Base>
 
 <style>
-  .hero { display: grid; gap: var(--space-m); }
+  .hero { display: grid; gap: var(--space-xl); }
+  .intro { display: grid; gap: var(--space-m); align-content: start; }
+  .index ol { display: grid; gap: var(--space-2xs); }
+  .index a { display: block; padding-block: var(--space-2xs); font-size: var(--step-head); line-height: var(--leading-head); letter-spacing: var(--tracking-head); color: var(--color-text); text-decoration-color: transparent; }
+  .body h2 { max-inline-size: none; }
   .group { padding-block: calc(var(--section-gap) / 2); }
   .group.theme-surface { padding-block: var(--section-gap); }
   .inner { align-items: center; }
   .photo { grid-column: 1 / -1; inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
   .body { grid-column: 1 / -1; display: grid; gap: var(--space-m); justify-items: start; }
-  .body h2 { font-size: var(--step-head); }
+  .body h2 { font-size: min(var(--step-head), 2.75rem); }
   .items { display: grid; gap: var(--space-2xs); }
   .items li { font-size: var(--step-lead); line-height: var(--leading-lead); }
 
+  @media (hover: hover) and (pointer: fine) {
+    .index a:hover { text-decoration-color: var(--color-accent); }
+  }
+
   @media (min-width: 64em) {
+    .hero { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: end; }
+    .intro { grid-column: 1 / span 5; }
+    .index { grid-column: 7 / -1; }
     .photo { grid-column: 1 / span 6; }
     .body { grid-column: 8 / -1; }
     .flip .photo { grid-column: 7 / -1; order: 2; }

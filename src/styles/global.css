@@ -1,6 +1,7 @@
-@import './tokens.css';
+@layer reset, base, layout, utilities, motion;
 
-@layer reset, base, layout, utilities;
+@import './tokens.css';
+@import './motion.css';
 
 @layer reset {
   *, *::before, *::after { box-sizing: border-box; }
@@ -47,7 +48,8 @@
   h3 { font-size: var(--step-lead); line-height: var(--leading-lead); }
   h4 { font-size: var(--step-body); line-height: var(--leading-body); font-weight: var(--weight-semibold); }
 
-  p, li, dd, blockquote { max-inline-size: var(--measure); text-wrap: pretty; }
+  p, dd, blockquote { max-inline-size: var(--measure); text-wrap: pretty; }
+  li { text-wrap: pretty; }
   strong, b { font-weight: var(--weight-semibold); }
   small { font-size: var(--step-small); line-height: var(--leading-small); }
 
@@ -59,6 +61,10 @@
     transition: text-decoration-color var(--duration-hover) ease;
   }
   a, button, [role='button'], summary, label { touch-action: manipulation; }
+
+  @media (hover: hover) and (pointer: fine) {
+    a:hover { text-decoration-thickness: 0.14em; }
+  }
 
   :focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
   ::selection { background-color: var(--color-accent); color: var(--color-on-accent); }

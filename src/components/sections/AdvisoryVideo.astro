@@ -1,0 +1,19 @@
+---
+import { getImage } from 'astro:assets';
+import session from '@/assets/images/otros/equipo-de-asesores-en-reunion.jpg';
+
+const poster = await getImage({ src: session, width: 960, format: 'webp' });
+---
+
+<figure class="video" data-reveal>
+  <video controls preload="none" playsinline poster={poster.src} width="1280" height="720">
+    <source src="/videos/Asi-son-nuestras-asesorias.mp4" type="video/mp4" />
+  </video>
+  <figcaption>Así son nuestras asesorías</figcaption>
+</figure>
+
+<style>
+  .video { display: grid; gap: var(--space-2xs); }
+  .video video { inline-size: 100%; block-size: auto; aspect-ratio: 16 / 9; background-color: var(--ink-900); }
+  .video figcaption { font-size: var(--step-small); color: var(--color-text-soft); }
+</style>

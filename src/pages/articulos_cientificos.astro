@@ -45,7 +45,7 @@ const schema = [
 
   <section class="section page routes" aria-labelledby="partida">
     <h2 id="partida">Tres puntos de partida</h2>
-    <ul class="list" role="list">
+    <ul class="list" role="list" data-reveal="stagger">
       {routes.map((r) => (
         <li>
           <Image src={r.image} alt="" widths={[360, 540, 720]} sizes="(min-width: 64em) 30vw, 100vw" class="route-img" />
@@ -59,7 +59,7 @@ const schema = [
   <section class="commit theme-surface" aria-labelledby="compromiso">
     <div class="page grid">
       <h2 id="compromiso">Nuestro compromiso</h2>
-      <ul class="items" role="list">
+      <ul class="items" role="list" data-reveal="stagger">
         {commitments.map((c) => <li>{c}</li>)}
       </ul>
     </div>
@@ -70,6 +70,9 @@ const schema = [
 
 <style>
   .hero { display: grid; gap: var(--space-l); }
+  @media (max-width: 47.99em) {
+    .hero h1 { font-size: var(--step-head); line-height: var(--leading-head); letter-spacing: var(--tracking-head); }
+  }
   .text { display: grid; gap: var(--space-m); align-content: start; }
   .form { display: grid; gap: var(--space-m); padding: var(--space-m); max-inline-size: 34rem; }
   .photo { inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 20%; grid-row: 1; }
