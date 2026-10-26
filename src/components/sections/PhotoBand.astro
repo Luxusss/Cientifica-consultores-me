@@ -1,0 +1,27 @@
+---
+import { Image } from 'astro:assets';
+import office from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg';
+import session from '@/assets/images/otros/equipo-de-asesores-en-reunion.jpg';
+import team from '@/assets/images/banner/nuestro-equipo-de-asesores-de-tesis.jpg';
+
+const photos = [
+  { src: office, alt: 'Reunión del equipo en la oficina de Científica Consultores' },
+  { src: session, alt: 'Sesión de asesoría con estudiantes' },
+  { src: team, alt: 'Equipo de asesores de tesis de Científica Consultores' },
+];
+---
+
+<section class="band" aria-label="Nuestro equipo">
+  {photos.map((p) => (
+    <Image src={p.src} alt={p.alt} widths={[480, 720, 960]} sizes="(min-width: 48em) 33vw, 100vw" class="photo" />
+  ))}
+</section>
+
+<style>
+  .band { display: grid; grid-template-columns: 1fr; }
+  .photo { inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  @media (min-width: 48em) {
+    .band { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .photo { aspect-ratio: 1; }
+  }
+</style>

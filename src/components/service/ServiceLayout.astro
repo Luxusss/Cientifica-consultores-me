@@ -1,0 +1,87 @@
+---
+import { Image } from 'astro:assets';
+import Base from '@/layouts/Base.astro';
+import LeadForm from '@/components/forms/LeadForm.astro';
+import PointsBlock from '@/components/sections/PointsBlock.astro';
+import CareerAreas from '@/components/sections/CareerAreas.astro';
+import Stages from '@/components/home/Stages.astro';
+import FaqText from '@/components/sections/FaqText.astro';
+import ContactBand from '@/components/sections/ContactBand.astro';
+import PhotoBand from '@/components/sections/PhotoBand.astro';
+import type { ServicePage } from '@/data/servicePages';
+import { breadcrumb, faqPage } from '@/lib/schema';
+import { site } from '@/config/site';
+
+interface Props {
+  page: ServicePage;
+}
+
+const { page } = Astro.props;
+const schema = [
+  breadcrumb([
+    { name: 'Inicio', path: '/' },
+    { name: page.crumb, path: page.path },
+  ]),
+  {
+    '@type': 'Service',
+    name: page.h1,
+    description: page.description,
+    provider: { '@id': `${site.url}/#organizacion` },
+    areaServed: site.countries,
+    url: new URL(page.path, site.url).href,
+  },
+  faqPage(page.faq),
+];
+---
+
+<Base title={page.title} description={page.description} schema={schema}>
+  <section class="hero" aria-labelledby="titulo">
+    <div class="page grid">
+      <div class="text">
+        <nav class="crumbs" aria-label="Migas de pan">
+          <a href="/">Inicio</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">{page.crumb}</span>
+        </nav>
+        <h1 id="titulo">{page.h1}</h1>
+        {page.kicker && <p class="kicker">{page.kicker}</p>}
+        <p class="lede">{page.lede}</p>
+        <div class="form-card theme-surface">
+          <h2 class="form-title">Pide tu primera asesoría gratis</h2>
+          <LeadForm subject={page.formSubject} variant="short" submitLabel="Quiero asesoría" />
+        </div>
+      </div>
+      <Image src={page.image} alt={page.imageAlt} widths={[480, 720, 960]} sizes="(min-width: 64em) 40vw, 100vw" loading="eager" fetchpriority="high" class="photo" />
+    </div>
+  </section>
+
+  {page.extra?.map((block) => <PointsBlock block={block} />)}
+  <PointsBlock block={page.includes} surface />
+  <CareerAreas />
+  <PhotoBand />
+  <Stages initial={page.id} />
+  <PointsBlock block={page.why} />
+  <FaqText items={page.faq} />
+  <ContactBand />
+</Base>
+
+<style>
+  .hero { padding-block: var(--space-xl) var(--section-gap); }
+  .text { grid-column: 1 / -1; display: grid; gap: var(--space-m); align-content: start; }
+
+  .crumbs { display: flex; gap: var(--space-2xs); font-size: var(--step-small); color: var(--color-text-soft); }
+  .crumbs a { color: var(--color-text-soft); }
+
+  .kicker { font-size: var(--step-lead); line-height: var(--leading-lead); font-weight: var(--weight-medium); margin-block-start: calc(var(--space-s) * -1); }
+  .lede { font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 38ch; }
+
+  .form-card { display: grid; gap: var(--space-m); padding: var(--space-m); margin-block-start: var(--space-s); max-inline-size: 34rem; }
+  .form-title { font-size: var(--step-lead); line-height: var(--leading-lead); font-weight: var(--weight-semibold); max-inline-size: none; }
+
+  .photo { grid-column: 1 / -1; grid-row: 1; inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 25%; }
+
+  @media (min-width: 64em) {
+    .text { grid-column: 1 / span 7; }
+    .photo { grid-column: 8 / -1; grid-row: 1; aspect-ratio: 4 / 5; position: sticky; inset-block-start: calc(var(--header-height) + var(--space-l)); }
+  }
+</style>
