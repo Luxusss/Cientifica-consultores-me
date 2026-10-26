@@ -1,0 +1,65 @@
+---
+import { Image } from 'astro:assets';
+import Base from '@/layouts/Base.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import ContactBand from '@/components/sections/ContactBand.astro';
+import { otherServices } from '@/data/otherServices';
+import { breadcrumb } from '@/lib/schema';
+import { site } from '@/config/site';
+
+const schema = [
+  breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Otros servicios', path: '/otros_servicios.html' }]),
+  ...otherServices.map((g) => ({ '@type': 'Service', name: g.name, description: g.items.join('. '), provider: { '@id': `${site.url}/#organizacion` } })),
+];
+---
+
+<Base
+  title="Otros servicios de investigación | Científica Consultores"
+  description="Revisiones sistemáticas, metaanálisis, planes de negocio, trabajo de campo, análisis estadístico y corrección de estilo para tu investigación."
+  schema={schema}
+>
+  <section class="section page hero" aria-labelledby="titulo">
+    <Breadcrumbs current="Otros servicios" />
+    <h1 id="titulo">Otros servicios</h1>
+    <p class="text-lead">Más allá de la tesis: apoyo en cada parte de tu investigación.</p>
+  </section>
+
+  <ol class="groups" role="list">
+    {otherServices.map((g, i) => (
+      <li class:list={['group', { flip: i % 2 === 1, 'theme-surface': i % 2 === 1 }]}>
+        <section class="page grid inner" aria-labelledby={g.id}>
+          <Image src={g.image} alt="" widths={[480, 720, 960]} sizes="(min-width: 64em) 40vw, 100vw" class="photo" />
+          <div class="body">
+            <h2 id={g.id}>{g.name}</h2>
+            <ul class="items" role="list">
+              {g.items.map((item) => <li>{item}</li>)}
+            </ul>
+            <WhatsAppButton message={`Hola, quiero cotizar un servicio de ${g.name.toLowerCase()}.`} label="Cotizar por WhatsApp" />
+          </div>
+        </section>
+      </li>
+    ))}
+  </ol>
+
+  <ContactBand />
+</Base>
+
+<style>
+  .hero { display: grid; gap: var(--space-m); }
+  .group { padding-block: calc(var(--section-gap) / 2); }
+  .group.theme-surface { padding-block: var(--section-gap); }
+  .inner { align-items: center; }
+  .photo { grid-column: 1 / -1; inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .body { grid-column: 1 / -1; display: grid; gap: var(--space-m); justify-items: start; }
+  .body h2 { font-size: var(--step-head); }
+  .items { display: grid; gap: var(--space-2xs); }
+  .items li { font-size: var(--step-lead); line-height: var(--leading-lead); }
+
+  @media (min-width: 64em) {
+    .photo { grid-column: 1 / span 6; }
+    .body { grid-column: 8 / -1; }
+    .flip .photo { grid-column: 7 / -1; order: 2; }
+    .flip .body { grid-column: 1 / span 5; }
+  }
+</style>

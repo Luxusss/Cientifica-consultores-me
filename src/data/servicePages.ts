@@ -137,7 +137,7 @@ export const servicePages: Record<string, ServicePage> = {
     id: 'tsp',
     path: '/trabajo-de-suficiencia-profesional.html',
     crumb: 'Trabajo de suficiencia profesional',
-    title: 'Asesoría de Trabajo de Suficiencia Profesional (TSP) | Científica Consultores',
+    title: 'Asesoría de Trabajo de Suficiencia Profesional (TSP)',
     description: 'Asesoría para tu trabajo de suficiencia profesional (TSP): estructura, redacción, Turnitin y observaciones del jurado, según el formato de tu universidad.',
     h1: 'Asesoría de TSP',
     kicker: 'Trabajo de suficiencia profesional',

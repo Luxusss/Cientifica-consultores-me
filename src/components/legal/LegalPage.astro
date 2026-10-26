@@ -1,0 +1,41 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import Prose from '@/components/ui/Prose.astro';
+import { breadcrumb } from '@/lib/schema';
+
+interface Props {
+  entry: 'politica-privacidad' | 'terminos-condiciones';
+  title: string;
+  description: string;
+  heading: string;
+}
+
+const { entry, title, description, heading } = Astro.props;
+const doc = await getEntry('legal', entry);
+if (!doc) throw new Error(`Falta el contenido legal: ${entry}`);
+const { Content } = await render(doc);
+const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: heading, path: `/${entry}.html` }])];
+---
+
+<Base title={title} description={description} schema={schema}>
+  <article class="section page legal">
+    <header class="head">
+      <Breadcrumbs current={heading} />
+      <h1>{heading}</h1>
+    </header>
+    <Prose><Content /></Prose>
+  </article>
+</Base>
+
+<style>
+  .legal { display: grid; gap: var(--space-xl); }
+  .head { display: grid; gap: var(--space-s); align-content: start; }
+
+  @media (min-width: 64em) {
+    .legal { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
+    .head { grid-column: 1 / span var(--axis); position: sticky; inset-block-start: calc(var(--header-height) + var(--space-l)); }
+    .legal :global(.prose) { grid-column: calc(var(--axis) + 1) / -1; }
+  }
+</style>

@@ -1,0 +1,13 @@
+<div class="prose"><slot /></div>
+
+<style>
+  .prose { display: grid; gap: var(--space-s); inline-size: 100%; max-inline-size: 42rem; }
+  .prose :global(h2) { font-size: var(--step-lead); line-height: var(--leading-lead); font-weight: var(--weight-semibold); margin-block-start: var(--space-l); max-inline-size: none; }
+  .prose :global(h3) { font-size: var(--step-body); font-weight: var(--weight-semibold); margin-block-start: var(--space-s); }
+  .prose :global(ul), .prose :global(ol) { padding-inline-start: 1.25em; display: grid; gap: var(--space-3xs); }
+  .prose :global(img) { inline-size: 100%; block-size: auto; margin-block: var(--space-s); }
+  .prose :global(table) { inline-size: 100%; border-collapse: collapse; font-size: var(--step-small); line-height: var(--leading-small); margin-block: var(--space-s); display: block; overflow-x: auto; }
+  .prose :global(caption) { text-align: start; font-weight: var(--weight-semibold); padding-block-end: var(--space-2xs); }
+  .prose :global(th), .prose :global(td) { padding: var(--space-2xs) var(--space-xs); text-align: start; vertical-align: top; border-block-end: 1px solid var(--color-surface-strong); }
+  .prose :global(a) { overflow-wrap: anywhere; }
+</style>

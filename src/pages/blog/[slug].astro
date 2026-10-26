@@ -1,0 +1,66 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, render } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import Prose from '@/components/ui/Prose.astro';
+import { breadcrumb } from '@/lib/schema';
+import { formatDate, isoDate } from '@/lib/dates';
+import { site } from '@/config/site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const url = `${site.url}/blog/${post.id}.html`;
+const schema = [
+  breadcrumb([
+    { name: 'Inicio', path: '/' },
+    { name: 'Blog', path: '/blog.html' },
+    { name: post.data.heading, path: `/blog/${post.id}.html` },
+  ]),
+  {
+    '@type': 'BlogPosting',
+    headline: post.data.heading,
+    description: post.data.description,
+    datePublished: isoDate(post.data.date),
+    inLanguage: 'es',
+    mainEntityOfPage: url,
+    image: new URL(post.data.cover.src, site.url).href,
+    author: { '@id': `${site.url}/#organizacion` },
+    publisher: { '@id': `${site.url}/#organizacion` },
+  },
+];
+---
+
+<Base title={post.data.title} description={post.data.description} type="article" image={post.data.cover.src} schema={schema}>
+  <article class="section page article">
+    <header class="head">
+      <Breadcrumbs trail={[{ label: 'Blog', href: '/blog.html' }]} />
+      <h1>{post.data.heading}</h1>
+      <p class="meta"><time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time></p>
+    </header>
+    <Image src={post.data.cover} alt="" widths={[640, 960, 1280]} sizes="(min-width: 64em) 60rem, 100vw" loading="eager" fetchpriority="high" class="cover" />
+    <Prose><Content /></Prose>
+    <aside class="cta theme-surface" aria-label="Asesoría">
+      <p class="text-lead">¿Necesitas ayuda con tu tesis? Un asesor especialista te acompaña desde el proyecto hasta la sustentación.</p>
+      <WhatsAppButton />
+    </aside>
+  </article>
+</Base>
+
+<style>
+  .article { display: grid; gap: var(--space-l); justify-items: center; }
+  .head, .cta { inline-size: 100%; max-inline-size: 42rem; }
+  .head { display: grid; gap: var(--space-s); }
+  .head h1 { max-inline-size: none; font-size: var(--step-head); line-height: var(--leading-head); letter-spacing: var(--tracking-head); }
+  .meta { color: var(--color-text-soft); font-size: var(--step-small); }
+  .cover { inline-size: 100%; max-inline-size: 60rem; aspect-ratio: 16 / 9; object-fit: cover; }
+
+
+  .cta { display: grid; gap: var(--space-m); justify-items: start; padding: var(--space-l); margin-block-start: var(--space-l); }
+</style>

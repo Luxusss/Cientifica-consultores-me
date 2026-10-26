@@ -19,6 +19,11 @@ const next = `${site.url}/libro-de-reclamaciones.html?enviado=1`;
       <Breadcrumbs current="Libro de reclamaciones" />
       <h1 id="titulo">Libro de reclamaciones</h1>
       <p class="text-lead">Conforme a lo establecido en el Código de Protección y Defensa del Consumidor, ponemos a tu disposición nuestro Libro de Reclamaciones virtual.</p>
+      <dl class="provider">
+        <div><dt>Razón social</dt><dd>{site.legalName}</dd></div>
+        <div><dt>RUC</dt><dd>{site.ruc}</dd></div>
+        <div><dt>Domicilio</dt><dd>{site.legalAddress}</dd></div>
+      </dl>
       <p class="sent" role="status" hidden data-sent>Tu reclamo o queja se envió correctamente. Lo estamos revisando y te responderemos por correo electrónico.</p>
     </header>
 
@@ -88,6 +93,9 @@ const next = `${site.url}/libro-de-reclamaciones.html?enviado=1`;
 <style>
   .claims { display: grid; gap: var(--space-xl); }
   .head { display: grid; gap: var(--space-m); align-content: start; }
+  .provider { display: grid; gap: var(--space-2xs); }
+  .provider dt { color: var(--color-text-soft); font-size: var(--step-small); }
+  .provider dd { font-weight: var(--weight-medium); }
   .sent { padding: var(--space-s) var(--space-m); background-color: var(--color-surface); color: var(--color-success); font-weight: var(--weight-semibold); }
   .sent[hidden] { display: none; }
 

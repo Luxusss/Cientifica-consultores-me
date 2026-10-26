@@ -1,5 +1,8 @@
 export const site = {
   name: 'Científica Consultores',
+  legalName: 'Científica Consultores S.A.C.',
+  ruc: '20605810315',
+  legalAddress: 'Cal. Los Chasquis N.° 7173, Urb. El Trébol, Los Olivos, Lima',
   url: 'https://cientificaconsultores.com',
   locale: 'es_PE',
   lang: 'es',
