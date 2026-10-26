@@ -1,13 +1,39 @@
-// @ts-check
 import { defineConfig, fontProviders } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 const literata = './node_modules/@fontsource-variable/literata/files/literata-latin-opsz';
+const site = 'https://cientificaconsultores.com';
 
 export default defineConfig({
-  site: 'https://cientificaconsultores.com',
-  // Genera tesis.html, nosotros.html…: las mismas URLs que hoy tiene el sitio.
+  site,
   build: { format: 'file' },
   devToolbar: { enabled: false },
+  integrations: [
+    sitemap({
+      filter: (page) => !/\/(sistema|404)(\.html)?$/.test(page),
+    }),
+  ],
+  security: {
+    csp: {
+      algorithm: 'SHA-256',
+      directives: [
+        "default-src 'self'",
+        "base-uri 'self'",
+        "object-src 'none'",
+        "font-src 'self'",
+        "img-src 'self' data: https:",
+        "media-src 'self'",
+        "connect-src 'self' https:",
+        "frame-src https://www.googletagmanager.com https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://td.doubleclick.net https://www.facebook.com",
+        "form-action 'self' https://formsubmit.co",
+        'upgrade-insecure-requests',
+      ],
+      scriptDirective: {
+        resources: ["'self'", "'unsafe-eval'", 'https://www.googletagmanager.com'],
+        strictDynamic: true,
+      },
+    },
+  },
   fonts: [
     {
       provider: fontProviders.local(),

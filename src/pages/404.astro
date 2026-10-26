@@ -1,0 +1,24 @@
+---
+import Base from '@/layouts/Base.astro';
+import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import { services } from '@/config/navigation';
+---
+
+<Base title="Página no encontrada | Científica Consultores" description="La página que buscas no existe o cambió de dirección." noindex>
+  <section class="section page grid">
+    <div class="before-axis">
+      <h1>Esta página no existe</h1>
+    </div>
+    <div class="on-axis flow flow-l">
+      <p class="text-lead">Puede que el enlace esté mal escrito o que la página haya cambiado de dirección. Estas son las asesorías que ofrecemos:</p>
+      <ul class="list" role="list">
+        {services.map((s) => <li><a href={s.href}>{s.label}</a></li>)}
+      </ul>
+      <WhatsAppButton />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .list { display: grid; gap: var(--space-2xs); font-size: var(--step-lead); line-height: var(--leading-lead); }
+</style>

@@ -1,0 +1,140 @@
+---
+import Field from '@/components/ui/Field.astro';
+import Button from '@/components/ui/Button.astro';
+import { countries, endpoints, formsubmit } from '@/config/forms';
+import { site } from '@/config/site';
+
+interface Props {
+  subject: string;
+  variant?: 'short' | 'full';
+  submitLabel?: string;
+}
+
+const { subject, variant = 'full', submitLabel = 'Enviar mensaje' } = Astro.props;
+const uid = `f${Math.random().toString(36).slice(2, 8)}`;
+const options = countries.map((c) => ({ value: c.name, label: `${c.name} (${c.code})` }));
+---
+
+<form
+  class="lead-form"
+  method="POST"
+  action={formsubmit(endpoints.leads)}
+  data-lead-form
+  data-crm={endpoints.crm}
+  data-mail={formsubmit(endpoints.leads, true)}
+  data-codes={JSON.stringify(Object.fromEntries(countries.map((c) => [c.name, c.code])))}
+  data-phone={site.phone.display}
+  data-reply={site.replyTime}
+>
+  <input type="hidden" name="_subject" value={subject} />
+  <input type="hidden" name="_template" value="table" />
+  <input type="hidden" name="_captcha" value="false" />
+  <div class="trap" aria-hidden="true">
+    <label for={`${uid}-honey`}>No llenar</label>
+    <input id={`${uid}-honey`} type="text" name="_honey" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <Field id={`${uid}-nombre`} label="Nombres y apellidos" name="nombre" autocomplete="name" required minlength="3" error="Escribe tu nombre y apellido." />
+  {variant === 'full' && (
+    <Field id={`${uid}-email`} label="Correo electrónico" name="email" type="email" autocomplete="email" inputmode="email" required error="Revisa el formato del correo." />
+  )}
+  <div class="phone">
+    <Field id={`${uid}-pais`} label="País" name="pais" type="select" options={options} autocomplete="country-name" />
+    <Field id={`${uid}-telefono`} label="Teléfono" name="telefono" type="tel" autocomplete="tel-national" inputmode="tel" required pattern="[0-9 +()-]{7,20}" error="Escribe un teléfono válido (7 a 15 dígitos)." />
+  </div>
+  {variant === 'full' && (
+    <Field id={`${uid}-mensaje`} label="Cuéntanos qué necesitas" name="mensaje" type="textarea" required error="Cuéntanos brevemente tu caso." />
+  )}
+
+  <Button type="submit">{submitLabel}</Button>
+  <p class="status" role="status" aria-live="polite" data-status></p>
+</form>
+
+<script>
+  const isTouch = () => window.matchMedia('(pointer: coarse)').matches;
+
+  for (const form of document.querySelectorAll<HTMLFormElement>('[data-lead-form]')) {
+    const openedAt = Date.now();
+    const status = form.querySelector<HTMLElement>('[data-status]')!;
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const codes: Record<string, string> = JSON.parse(form.dataset.codes ?? '{}');
+    const label = button.textContent;
+
+    const setStatus = (text: string, tone: 'ok' | 'error' | '') => {
+      status.textContent = text;
+      status.dataset.tone = tone;
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      setStatus('', '');
+
+      if (!form.reportValidity()) return;
+
+      const data = new FormData(form);
+      if (String(data.get('_honey') ?? '') !== '' || Date.now() - openedAt < 2000) {
+        setStatus('Gracias. Te contactaremos pronto.', 'ok');
+        form.reset();
+        return;
+      }
+
+      const country = String(data.get('pais') ?? '');
+      const phone = `${codes[country] ?? ''} ${String(data.get('telefono') ?? '')}`.trim();
+      data.set('telefono_completo', phone);
+
+      const payload = {
+        social_network: 'google',
+        external_id: `google_${Date.now()}`,
+        name: String(data.get('nombre') ?? ''),
+        email: String(data.get('email') ?? ''),
+        phone,
+        notes: `${data.get('_subject')} ${isTouch() ? '(Móvil)' : '(PC)'} - ${data.get('mensaje') ?? 'Interesado en asesoría'}`,
+        page: window.location.href,
+      };
+
+      button.disabled = true;
+      button.textContent = 'Enviando…';
+
+      try {
+        await fetch(form.dataset.crm!, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(payload),
+          keepalive: true,
+        }).catch(() => undefined);
+
+        const mail = await fetch(form.dataset.mail!, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: data,
+        });
+        if (!mail.ok) throw new Error(String(mail.status));
+
+        form.reset();
+        setStatus(`Gracias, recibimos tu mensaje. Te escribimos en ${form.dataset.reply}.`, 'ok');
+        window.dataLayer?.push({ event: 'lead_form_submit', form_subject: data.get('_subject') });
+      } catch {
+        setStatus(`No pudimos enviar el formulario. Escríbenos por WhatsApp al ${form.dataset.phone}.`, 'error');
+      } finally {
+        button.disabled = false;
+        button.textContent = label;
+      }
+    });
+  }
+</script>
+
+<style>
+  .lead-form { display: grid; gap: var(--space-m); container-type: inline-size; }
+  .phone { display: grid; gap: var(--space-m); }
+  @container (min-width: 30rem) {
+    .phone { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
+  }
+  .lead-form :global(.button) { justify-self: start; }
+
+  .trap { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
+
+  .status { font-size: var(--step-small); line-height: var(--leading-small); font-weight: var(--weight-semibold); }
+  .status:empty { display: none; }
+  .status[data-tone='ok'] { color: var(--color-success); }
+  .status[data-tone='error'] { color: var(--color-error); }
+</style>

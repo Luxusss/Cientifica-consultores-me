@@ -1,63 +1,45 @@
-/*
-  Tokens globales de Científica Consultores.
-  Tres niveles: primitivos (valores crudos) → semánticos (el papel de cada valor)
-  → de componente. Los componentes leen solo los semánticos; ningún archivo escribe
-  un color, un tamaño o un espacio a mano.
-*/
-
 :root {
-  /* ── 1. Primitivos ───────────────────────────────────────────── */
-
-  /* Marca */
   --navy-700: #141f66;
-  --navy-600: #1d2d8c; /* azul del logo */
+  --navy-600: #1d2d8c;
   --navy-100: #c9cde8;
   --orange-600: #e07a00;
-  --orange-500: #fe8f01; /* naranja del logo */
+  --orange-500: #fe8f01;
 
-  /* Papel y tinta */
-  --paper-0: #f7f7f5; /* hueso neutro, no crema */
+  --paper-0: #f7f7f5;
   --paper-1: #eeeeea;
   --paper-2: #e2e2dc;
   --ink-900: #13183d;
   --ink-600: #4b5072;
 
-  /* Estados */
   --red-700: #b42318;
   --green-700: #1f6f43;
 
-  /* Tipografía */
   --font-text: var(--font-literata), Georgia, serif;
 
   --weight-regular: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
 
-  /* Cinco tamaños, fluidos entre 390 px y 1440 px */
-  --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);   /* 13–14 px */
-  --step-body: clamp(1.0625rem, 1.01rem + 0.24vw, 1.25rem);    /* 17–20 px */
-  --step-lead: clamp(1.25rem, 1.12rem + 0.55vw, 1.625rem);     /* 20–26 px */
-  --step-head: clamp(2rem, 1.42rem + 2.4vw, 4rem);             /* 32–64 px */
-  --step-display: clamp(2.75rem, 1.88rem + 3.6vw, 6rem);       /* 44–96 px */
+  --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  --step-body: clamp(1.0625rem, 1.01rem + 0.24vw, 1.25rem);
+  --step-lead: clamp(1.25rem, 1.12rem + 0.55vw, 1.625rem);
+  --step-head: clamp(2rem, 1.42rem + 2.4vw, 4rem);
+  --step-display: clamp(2.75rem, 1.88rem + 3.6vw, 6rem);
 
-  /* Interlineado: uno por cada tamaño */
   --leading-display: 1.04;
   --leading-head: 1.1;
   --leading-lead: 1.38;
   --leading-body: 1.6;
   --leading-small: 1.45;
 
-  /* Espaciado entre letras */
   --tracking-display: -0.025em;
   --tracking-head: -0.018em;
   --tracking-body: 0;
 
-  /* Ancho de lectura */
   --measure: 62ch;
   --measure-lead: 44ch;
   --measure-head: 20ch;
 
-  /* Espacios: escala fluida, de 4 px a 160 px aprox. */
   --space-3xs: clamp(0.25rem, 0.23rem + 0.1vw, 0.3125rem);
   --space-2xs: clamp(0.5rem, 0.47rem + 0.12vw, 0.5625rem);
   --space-xs: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);
@@ -68,7 +50,6 @@
   --space-2xl: clamp(4rem, 3.4rem + 2.4vw, 6rem);
   --space-3xl: clamp(5rem, 3.6rem + 5.7vw, 10rem);
 
-  /* Movimiento */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
@@ -79,8 +60,6 @@
   --duration-reveal: 800ms;
   --duration-fade: 1600ms;
   --stagger: 80ms;
-
-  /* ── 2. Semánticos ───────────────────────────────────────────── */
 
   --color-bg: var(--paper-0);
   --color-surface: var(--paper-1);
@@ -98,25 +77,20 @@
   --color-error: var(--red-700);
   --color-success: var(--green-700);
 
-  /* Marco de página */
-  --page-max: 90rem;                                 /* 1440 px */
-  --page-margin: clamp(1rem, 0.43rem + 2.35vw, 2rem); /* 16–32 px */
+  --page-max: 90rem;
+  --page-margin: clamp(1rem, 0.43rem + 2.35vw, 2rem);
   --gutter: clamp(1rem, 0.71rem + 1.2vw, 2rem);
-  --section-gap: var(--space-3xl);                   /* 80–160 px entre secciones */
-  --axis: 5;                                         /* el eje editorial: el contenido empieza en la columna 6 de 12 (≈ 42 %) */
+  --section-gap: var(--space-3xl);
+  --axis: 5;
 
-  /* Forma */
   --radius: 0;
-  --hit-min: 2.75rem;                                /* 44 px: área táctil mínima */
+  --hit-min: 2.75rem;
   --focus-ring: 3px solid var(--color-focus);
   --focus-offset: 3px;
 
-  /* Capas */
   --z-header: 50;
   --z-float: 60;
   --z-dialog: 100;
-
-  /* ── 3. Componentes ──────────────────────────────────────────── */
 
   --button-bg: var(--color-accent);
   --button-bg-hover: var(--color-accent-strong);
@@ -130,7 +104,6 @@
   --input-height: 3.25rem;
 }
 
-/* Una sección en color de marca reasigna los semánticos: todos sus componentes se invierten solos. */
 .theme-field {
   --color-bg: var(--navy-600);
   --color-surface: var(--navy-700);

@@ -1,0 +1,179 @@
+---
+import { Image } from 'astro:assets';
+import logo from '@/assets/brand/logo-color.png';
+import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import { mainNav, services } from '@/config/navigation';
+
+const current = Astro.url.pathname;
+const isCurrent = (href: string) => current === href || (href === '/index.html' && current === '/');
+---
+
+<header class="header">
+  <div class="page bar">
+    <a class="brand" href="/" aria-label="Científica Consultores, inicio">
+      <Image src={logo} alt="" width={168} loading="eager" fetchpriority="high" />
+    </a>
+
+    <nav class="nav" aria-label="Principal">
+      <ul role="list">
+        <li>
+          <button class="nav-link" type="button" popovertarget="menu-servicios" aria-haspopup="true">
+            Servicios
+          </button>
+        </li>
+        {mainNav.map((item) => (
+          <li>
+            <a class="nav-link" href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="action"><WhatsAppButton /></div>
+
+    <button class="menu-toggle" type="button" popovertarget="menu-movil" aria-label="Abrir menú">Menú</button>
+  </div>
+
+  <div id="menu-servicios" class="panel" popover>
+    <ul class="page services" role="list">
+      {services.map((s) => (
+        <li><a href={s.href} aria-current={isCurrent(s.href) ? 'page' : undefined}>{s.label}</a></li>
+      ))}
+    </ul>
+  </div>
+
+  <div id="menu-movil" class="drawer" popover>
+    <div class="drawer-inner">
+      <button class="menu-close" type="button" popovertarget="menu-movil" popovertargetaction="hide">Cerrar</button>
+      <nav aria-label="Menú del celular">
+        <p class="drawer-label">Servicios</p>
+        <ul role="list">
+          {services.map((s) => <li><a href={s.href}>{s.label}</a></li>)}
+        </ul>
+        <ul role="list" class="drawer-main">
+          {mainNav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        </ul>
+      </nav>
+      <WhatsAppButton />
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: var(--z-header);
+    background-color: var(--color-bg);
+    padding-block-start: env(safe-area-inset-top, 0px);
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-l);
+    min-block-size: 4.5rem;
+  }
+
+  .brand { display: block; flex-shrink: 0; }
+  .brand img { inline-size: clamp(8.5rem, 7rem + 4vw, 10.5rem); block-size: auto; }
+
+  .nav { margin-inline-start: auto; }
+  .nav ul { display: flex; gap: var(--space-m); }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--hit-min);
+    color: var(--color-text);
+    font-size: var(--step-small);
+    font-weight: var(--weight-semibold);
+    text-decoration-line: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 0.35em;
+    text-decoration-thickness: 2px;
+  }
+  .nav-link[aria-current='page'] { text-decoration-color: var(--color-accent); }
+
+  @media (hover: hover) and (pointer: fine) {
+    .nav-link:hover { text-decoration-color: currentColor; }
+  }
+
+  .panel {
+    inset: auto 0 auto 0;
+    inset-block-start: calc(4.5rem + env(safe-area-inset-top, 0px));
+    inline-size: 100%;
+    margin: 0;
+    padding: var(--space-l) 0;
+    border: 0;
+    background-color: var(--color-surface);
+    color: var(--color-text);
+  }
+  .services {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: var(--space-xs) var(--gutter);
+  }
+  .services a {
+    display: block;
+    padding-block: var(--space-2xs);
+    color: var(--color-text);
+    font-size: var(--step-lead);
+    line-height: var(--leading-lead);
+    text-decoration-color: transparent;
+  }
+  .services a[aria-current='page'] { text-decoration-color: var(--color-accent); }
+  @media (hover: hover) and (pointer: fine) {
+    .services a:hover { text-decoration-color: currentColor; }
+  }
+
+  .menu-toggle, .menu-close {
+    min-block-size: var(--hit-min);
+    padding-inline: var(--space-s);
+    background-color: var(--color-field);
+    color: var(--color-on-field);
+    font-weight: var(--weight-semibold);
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .menu-toggle { display: none; margin-inline-start: auto; }
+
+  .drawer {
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100dvh;
+    max-inline-size: none;
+    max-block-size: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: var(--color-field);
+    color: var(--color-on-field);
+    overscroll-behavior: contain;
+  }
+  .drawer-inner {
+    display: grid;
+    align-content: start;
+    gap: var(--space-l);
+    padding: calc(var(--space-s) + env(safe-area-inset-top, 0px)) var(--page-margin) calc(var(--space-l) + env(safe-area-inset-bottom, 0px));
+  }
+  .menu-close { justify-self: end; background-color: var(--navy-700); }
+  .drawer-label { color: var(--color-on-field-soft); font-size: var(--step-small); }
+  .drawer ul { display: grid; gap: var(--space-3xs); }
+  .drawer a {
+    display: block;
+    padding-block: var(--space-2xs);
+    color: var(--color-on-field);
+    font-size: var(--step-lead);
+    text-decoration: none;
+  }
+  .drawer-main { margin-block-start: var(--space-m); }
+  .drawer-main a { font-size: var(--step-head); line-height: var(--leading-head); }
+
+  @media (max-width: 63.99em) {
+    .nav, .action { display: none; }
+    .menu-toggle { display: inline-flex; align-items: center; }
+  }
+</style>

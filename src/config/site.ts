@@ -1,12 +1,9 @@
-// Única fuente de verdad de los datos del negocio. Ningún componente escribe
-// un teléfono, un correo o una dirección a mano: todos los leen de aquí.
-
 export const site = {
   name: 'Científica Consultores',
   url: 'https://cientificaconsultores.com',
   locale: 'es_PE',
   lang: 'es',
-  themeColor: '#f7f7f5', // igual a --paper-0: el color de la barra del navegador en el celular
+  themeColor: '#f7f7f5',
   phone: {
     display: '990 448 338',
     e164: '+51990448338',

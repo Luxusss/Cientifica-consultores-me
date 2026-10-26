@@ -74,7 +74,6 @@ const describedBy = [hintId, errorId].filter(Boolean).join(' ') || undefined;
   .hint, .error { font-size: var(--step-small); line-height: var(--leading-small); }
   .hint { color: var(--color-text-soft); }
 
-  /* El error aparece solo después de que la persona interactuó con el campo. */
   .error { display: none; color: var(--color-error); font-weight: var(--weight-semibold); }
   .field:has(:user-invalid) .error { display: block; }
   .field:has(:user-invalid) :is(input, select, textarea) { border-block-end-color: var(--color-error); }

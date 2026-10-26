@@ -1,0 +1,105 @@
+---
+import { site, whatsappUrl } from '@/config/site';
+import { legalNav, mainNav, services } from '@/config/navigation';
+
+const year = new Date().getFullYear();
+const address = `${site.address.street}, ${site.address.district}, ${site.address.city}`;
+---
+
+<footer class="footer theme-field">
+  <div class="page">
+    <p class="wordmark" aria-hidden="true">Científica Consultores</p>
+
+    <div class="grid body">
+      <address class="contact">
+        <a href={whatsappUrl()} target="_blank" rel="noopener">{site.phone.display}</a>
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+        <span>{address}</span>
+      </address>
+
+      <nav class="links" aria-label="Pie de página">
+        <div>
+          <p class="links-title">Servicios</p>
+          <ul role="list">{services.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+        </div>
+        <div>
+          <p class="links-title">Empresa</p>
+          <ul role="list">{mainNav.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+        </div>
+        <div>
+          <p class="links-title">Legal</p>
+          <ul role="list">{legalNav.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+        </div>
+      </nav>
+    </div>
+
+    <p class="countries">Atendemos en {site.countries.slice(0, -1).join(', ')} y {site.countries.at(-1)}.</p>
+
+    <div class="legal">
+      <p>© {year} {site.name}</p>
+      <a href="#contenido">Volver arriba</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding-block: var(--space-2xl) calc(var(--space-xl) + var(--button-height) + env(safe-area-inset-bottom, 0px));
+    overflow: hidden;
+  }
+
+  .wordmark {
+    max-inline-size: none;
+    font-size: clamp(2.5rem, 0.9rem + 7.2vw, 8.5rem);
+    line-height: 0.95;
+    letter-spacing: var(--tracking-display);
+    font-weight: var(--weight-medium);
+    text-wrap: balance;
+  }
+
+  .body { margin-block-start: var(--space-2xl); row-gap: var(--space-xl); }
+
+  .contact {
+    grid-column: 1 / -1;
+    display: grid;
+    align-content: start;
+    gap: var(--space-2xs);
+    font-style: normal;
+    font-size: var(--step-lead);
+    line-height: var(--leading-lead);
+  }
+  .contact a { color: var(--color-accent); text-decoration-color: transparent; overflow-wrap: anywhere; }
+  .contact span { color: var(--color-text-soft); }
+
+  .links {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: var(--space-l) var(--gutter);
+  }
+  .links-title { color: var(--color-text-soft); font-size: var(--step-small); margin-block-end: var(--space-xs); }
+  .links ul { display: grid; gap: var(--space-2xs); }
+  .links a { color: var(--color-text); text-decoration-color: transparent; font-size: var(--step-small); }
+
+  @media (min-width: 64em) {
+    .contact { grid-column: 1 / span var(--axis); }
+    .links { grid-column: calc(var(--axis) + 1) / -1; }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .contact a:hover, .links a:hover { text-decoration-color: currentColor; }
+  }
+
+  .countries { margin-block-start: var(--space-xl); color: var(--color-text-soft); font-size: var(--step-small); }
+
+  .legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-s);
+    margin-block-start: var(--space-l);
+    font-size: var(--step-small);
+    color: var(--color-text-soft);
+  }
+  .legal a { color: var(--color-text); }
+</style>

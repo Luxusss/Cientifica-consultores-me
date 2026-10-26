@@ -1,8 +1,11 @@
 ---
 import { Font } from 'astro:assets';
 import Seo from '@/components/Seo.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
 import WhatsAppFloat from '@/components/ui/WhatsAppFloat.astro';
 import { site } from '@/config/site';
+import { graph } from '@/lib/schema';
 import '@/styles/global.css';
 
 interface Props {
@@ -11,9 +14,12 @@ interface Props {
   image?: string;
   noindex?: boolean;
   type?: 'website' | 'article';
+  schema?: object[];
 }
 
-const props = Astro.props;
+const { schema = [], ...seo } = Astro.props;
+const gtm = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${site.gtmId}');`;
+const loadGtm = import.meta.env.PROD;
 ---
 
 <!doctype html>
@@ -23,18 +29,27 @@ const props = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content={site.themeColor} />
     <meta name="format-detection" content="telephone=no" />
-    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    {loadGtm && <link rel="preconnect" href="https://www.googletagmanager.com" />}
     <Font cssVariable="--font-literata" preload={[{ style: 'normal' }]} />
-    <Seo {...props} />
+    <Seo {...seo} />
+    <script type="application/ld+json" set:html={graph(schema)} />
+    {loadGtm && <script is:inline set:html={gtm} />}
     <slot name="head" />
   </head>
   <body>
+    {loadGtm && (
+      <noscript>
+        <iframe src={`https://www.googletagmanager.com/ns.html?id=${site.gtmId}`} height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe>
+      </noscript>
+    )}
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
-    <slot name="header" />
+    <Header />
     <main id="contenido">
       <slot />
     </main>
-    <slot name="footer" />
+    <Footer />
     <WhatsAppFloat />
   </body>
 </html>

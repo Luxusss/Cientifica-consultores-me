@@ -1,11 +1,9 @@
 ---
-// Página interna del sistema de diseño. No se indexa y se elimina antes de publicar (Fase 7).
 import Base from '@/layouts/Base.astro';
 import Button from '@/components/ui/Button.astro';
 import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
-import Field from '@/components/ui/Field.astro';
-import { site } from '@/config/site';
+import LeadForm from '@/components/forms/LeadForm.astro';
 
 const colors = [
   ['--color-bg', 'Fondo (papel)'],
@@ -28,11 +26,10 @@ const steps = [
 
 const spaces = ['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl', '2xl', '3xl'];
 
-const countries = site.countries.map((c) => ({ value: c, label: c }));
 ---
 
 <Base title="Sistema de diseño | Científica Consultores" description="Tokens y componentes del rediseño." noindex>
-  <section class="section page flow" style="--flow-space: var(--space-l)">
+  <section class="section page flow flow-l">
     <h1>Sistema de diseño</h1>
     <p class="text-lead">Todos los valores salen de <code>src/styles/tokens.css</code>. Ningún componente escribe un color, un tamaño o un espacio a mano.</p>
   </section>
@@ -97,7 +94,7 @@ const countries = site.countries.map((c) => ({ value: c, label: c }));
   </section>
 
   <section class="section theme-field" aria-labelledby="campo">
-    <div class="page flow" style="--flow-space: var(--space-l)">
+    <div class="page flow flow-l">
       <SectionHeading id="campo"><Fragment slot="title">Sección de marca</Fragment>Una clase invierte todos los tokens: los mismos componentes, sin estilos nuevos.</SectionHeading>
       <div class="row">
         <WhatsAppButton />
@@ -108,15 +105,7 @@ const countries = site.countries.map((c) => ({ value: c, label: c }));
 
   <section class="section page flow" aria-labelledby="formulario">
     <SectionHeading id="formulario"><Fragment slot="title">Formulario</Fragment>Campos de 16 px o más (en iOS no hacen zoom), foco visible y error solo después de interactuar.</SectionHeading>
-    <form class="form" novalidate={false} onsubmit="return false">
-      <Field label="Nombres y apellidos" name="nombre" autocomplete="name" required error="Escribe tu nombre." />
-      <Field label="Correo electrónico" name="correo" type="email" autocomplete="email" inputmode="email" required error="Revisa el formato del correo." />
-      <Field label="País" name="pais" type="select" options={countries} />
-      <Field label="Teléfono" name="telefono" type="tel" autocomplete="tel" inputmode="tel" hint="Con código de país, por ejemplo +51." />
-      <Field label="Mensaje" name="mensaje" type="textarea" required error="Cuéntanos qué necesitas." />
-      <Field label="Campo deshabilitado" name="demo" disabled value="No editable" />
-      <Button type="submit">Enviar mensaje</Button>
-    </form>
+    <div class="form"><LeadForm subject="Prueba - Sistema de diseño" /></div>
   </section>
 </Base>
 

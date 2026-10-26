@@ -1,10 +1,7 @@
 @import './tokens.css';
 
-/* Orden de prioridad fijado de antemano: nunca hace falta !important.
-   Los estilos de cada componente (en su .astro) van fuera de capas y ganan sobre estas. */
 @layer reset, base, layout, utilities;
 
-/* ── reset ─────────────────────────────────────────────────────── */
 @layer reset {
   *, *::before, *::after { box-sizing: border-box; }
   * { margin: 0; }
@@ -22,7 +19,6 @@
   :target { scroll-margin-block-start: 6rem; }
 }
 
-/* ── base ──────────────────────────────────────────────────────── */
 @layer base {
   html { color-scheme: light; }
 
@@ -67,7 +63,6 @@
   :focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
   ::selection { background-color: var(--color-accent); color: var(--color-on-accent); }
 
-  /* iOS no hace zoom si la letra de un campo es de 16 px o más */
   input, select, textarea { font-size: max(1rem, var(--step-body)); }
 
   @media (prefers-reduced-motion: reduce) {
@@ -80,9 +75,7 @@
   }
 }
 
-/* ── layout ────────────────────────────────────────────────────── */
 @layer layout {
-  /* El marco de toda página: un solo par de márgenes iguales. */
   .page {
     inline-size: min(100% - 2 * var(--page-margin), var(--page-max));
     margin-inline: auto;
@@ -94,7 +87,6 @@
     gap: var(--space-m) var(--gutter);
   }
 
-  /* El eje editorial: en pantallas anchas el contenido cuelga de la columna 6. */
   .on-axis { grid-column: 1 / -1; }
   .before-axis { grid-column: 1 / -1; }
   @media (min-width: 64em) {
@@ -104,11 +96,12 @@
 
   .section { padding-block: calc(var(--section-gap) / 2); }
 
-  /* Ritmo vertical entre elementos hermanos */
   .flow > * + * { margin-block-start: var(--flow-space, var(--space-s)); }
+  .flow-m { --flow-space: var(--space-m); }
+  .flow-l { --flow-space: var(--space-l); }
+  .flow-xl { --flow-space: var(--space-xl); }
 }
 
-/* ── utilities ─────────────────────────────────────────────────── */
 @layer utilities {
   .text-display { font-size: var(--step-display); line-height: var(--leading-display); letter-spacing: var(--tracking-display); }
   .text-head { font-size: var(--step-head); line-height: var(--leading-head); letter-spacing: var(--tracking-head); }

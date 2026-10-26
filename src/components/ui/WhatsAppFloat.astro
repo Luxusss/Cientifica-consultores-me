@@ -33,7 +33,6 @@ import Icon from './Icon.astro';
   .float:active { transform: scale(0.96); }
   .float:focus-visible { outline-color: var(--orange-500); }
 
-  /* En el celular solo el ícono, para no tapar el contenido. */
   @media (max-width: 47.99em) {
     .float { padding-inline: 0; inline-size: var(--button-height); justify-content: center; }
     .float span { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }

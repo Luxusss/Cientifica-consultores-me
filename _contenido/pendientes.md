@@ -20,6 +20,12 @@ Puedes responder directamente en este archivo o por el chat. Todo lo que no se c
 | 12 | **Razón social, RUC y dirección del proveedor** | Libro de reclamaciones (hoy faltan) | Lo exige INDECOPI |
 | 13 | **Ley citada en la Política de privacidad** | Política de privacidad | Confirmar que el texto legal se basa en la Ley 29733 |
 | 14 | **Fotos del equipo** | Hero, Nosotros, Servicios | ¿Hay más fotos de las que están en `images/banner` y `images/otros`? Con 3–4 del mismo encuadre se hace el fundido del hero |
+| 15 | **Logo en SVG (vectorial)** | Header, footer | Hoy solo existe en PNG y JPEG. El diseñador del logo debería tener el archivo `.svg` o `.ai` |
+| 16 | **14 imágenes que hoy dan 404 en producción** | Blog (Fiestas Patrias, Tesis vs TSP, Cómo hacer tu proyecto), Nosotros, miniatura del video, Artículos científicos, Testimonios y legales | ¿Existen los originales? Si no, se usan fotos del equipo que sí están |
+| 17 | **Libro de reclamaciones roto** | Hoy envía a `https://formsubmit.co/ informes@…` (con un espacio) | Enviar un reclamo de prueba en el sitio actual para confirmar si llegan. En el sitio nuevo ya está corregido |
+| 18 | **Correos visibles en el código** | Los formularios envían a formsubmit con el correo dentro del HTML (los bots lo recolectan para spam) | formsubmit da un alias aleatorio en el primer envío (llega por correo a `marketingcientificaconsultores@gmail.com`). Con ese alias el correo deja de estar expuesto |
+| 20 | **4 variables de JavaScript personalizado en GTM** | Contenedor `GTM-5TNL7PM2` | Obligan a permitir `'unsafe-eval'` en la CSP. Si quien administra GTM las reemplaza por variables nativas, se quita y la seguridad queda al máximo. El contenedor también carga Píxel de Meta, Meta CAPI, Píxel de TikTok y la conversión de Google Ads: todos funcionan con la CSP nueva |
+| 19 | **Medios de pago** | El footer actual muestra BCP, Interbank, Scotiabank, Banco de la Nación y PayPal | ¿Siguen vigentes? Si sí, van en Contáctanos |
 
 ## DECIDIR: decisiones de contenido
 

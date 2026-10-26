@@ -10,8 +10,13 @@
     "check": "astro check"
   },
   "dependencies": {
+    "@astrojs/sitemap": "3.7.4",
     "@fontsource-variable/literata": "5.3.0",
     "astro": "7.4.2",
     "simple-icons": "16.36.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "typescript": "6.0.3"
   }
 }

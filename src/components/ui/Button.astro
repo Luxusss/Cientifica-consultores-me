@@ -3,13 +3,21 @@ import type { HTMLAttributes } from 'astro/types';
 
 type Props = (HTMLAttributes<'a'> & { href: string }) | (HTMLAttributes<'button'> & { href?: undefined });
 
-const { href, class: className, ...rest } = Astro.props;
-const Tag = href ? 'a' : 'button';
+const { class: className, ...rest } = Astro.props;
+const classes = ['button', className];
 ---
 
-<Tag class:list={['button', className]} href={href} {...rest}>
-  <slot />
-</Tag>
+{
+  'href' in rest && rest.href !== undefined ? (
+    <a class:list={classes} {...(rest as HTMLAttributes<'a'>)}>
+      <slot />
+    </a>
+  ) : (
+    <button class:list={classes} {...(rest as HTMLAttributes<'button'>)}>
+      <slot />
+    </button>
+  )
+}
 
 <style>
   .button {
