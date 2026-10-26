@@ -1,0 +1,143 @@
+---
+// Página interna del sistema de diseño. No se indexa y se elimina antes de publicar (Fase 7).
+import Base from '@/layouts/Base.astro';
+import Button from '@/components/ui/Button.astro';
+import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import Field from '@/components/ui/Field.astro';
+import { site } from '@/config/site';
+
+const colors = [
+  ['--color-bg', 'Fondo (papel)'],
+  ['--color-surface', 'Superficie'],
+  ['--color-surface-strong', 'Superficie fuerte'],
+  ['--color-text', 'Texto'],
+  ['--color-text-soft', 'Texto suave'],
+  ['--color-field', 'Campo de marca'],
+  ['--color-accent', 'Acento (acción)'],
+  ['--color-error', 'Error'],
+] as const;
+
+const steps = [
+  ['text-display', '--step-display', 'Asesoría de tesis online'],
+  ['text-head', '--step-head', 'Asesoría para cada grado'],
+  ['text-lead', '--step-lead', 'Un asesor especialista te acompaña desde el proyecto hasta la sustentación.'],
+  ['text-body', '--step-body', 'Nos escribes por WhatsApp, correo o formulario, con tu universidad, tu tipo de trabajo y tus fechas. Te ayudamos a elegir el formato correcto.'],
+  ['text-small', '--step-small', 'Los Olivos, Lima. Respondemos en menos de 24 horas.'],
+] as const;
+
+const spaces = ['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl', '2xl', '3xl'];
+
+const countries = site.countries.map((c) => ({ value: c, label: c }));
+---
+
+<Base title="Sistema de diseño | Científica Consultores" description="Tokens y componentes del rediseño." noindex>
+  <section class="section page flow" style="--flow-space: var(--space-l)">
+    <h1>Sistema de diseño</h1>
+    <p class="text-lead">Todos los valores salen de <code>src/styles/tokens.css</code>. Ningún componente escribe un color, un tamaño o un espacio a mano.</p>
+  </section>
+
+  <section class="section page flow" aria-labelledby="color">
+    <SectionHeading id="color"><Fragment slot="title">Color</Fragment>Papel, tinta y dos colores de marca. El naranja solo aparece en la acción principal.</SectionHeading>
+    <ul class="swatches" role="list">
+      {colors.map(([token, name]) => (
+        <li>
+          <span class="swatch" style={`background-color: var(${token})`}></span>
+          <strong>{name}</strong>
+          <code class="text-small text-soft">{token}</code>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section page flow" aria-labelledby="tipo">
+    <SectionHeading id="tipo"><Fragment slot="title">Tipografía</Fragment>Literata en cinco tamaños, cada uno con su interlineado y su espaciado entre letras.</SectionHeading>
+    <div class="type-scale">
+      {steps.map(([cls, token, sample]) => (
+        <div class="type-row">
+          <code class="text-small text-soft">{token}</code>
+          <p class={cls}>{sample}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section page flow" aria-labelledby="espacio">
+    <SectionHeading id="espacio"><Fragment slot="title">Espacio</Fragment>Una escala fluida que crece con la pantalla.</SectionHeading>
+    <ul class="spaces" role="list">
+      {spaces.map((s) => (
+        <li>
+          <code class="text-small text-soft">--space-{s}</code>
+          <span class="bar" style={`inline-size: var(--space-${s})`}></span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section page" aria-labelledby="eje">
+    <div class="grid">
+      <div class="before-axis">
+        <h2 id="eje">El eje</h2>
+      </div>
+      <div class="on-axis flow">
+        <p class="text-lead">En pantallas anchas, títulos y textos cuelgan de una línea vertical en la columna 6 de 12, a un 42 % del ancho.</p>
+        <p>En el celular el eje se pliega al margen izquierdo y todo ocupa el ancho completo. Es la misma regla en todo el sitio, así el ojo encuentra siempre dónde empieza el texto.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section page flow" aria-labelledby="acciones">
+    <SectionHeading id="acciones"><Fragment slot="title">Acciones</Fragment>Una sola acción principal por pantalla; lo secundario es un enlace de texto.</SectionHeading>
+    <div class="row">
+      <WhatsAppButton />
+      <Button type="button">Enviar mensaje</Button>
+      <Button type="button" disabled>Enviando…</Button>
+      <a href="#acciones">Ver más testimonios</a>
+    </div>
+  </section>
+
+  <section class="section theme-field" aria-labelledby="campo">
+    <div class="page flow" style="--flow-space: var(--space-l)">
+      <SectionHeading id="campo"><Fragment slot="title">Sección de marca</Fragment>Una clase invierte todos los tokens: los mismos componentes, sin estilos nuevos.</SectionHeading>
+      <div class="row">
+        <WhatsAppButton />
+        <a href="#campo">informes@cientificaconsultores.com</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section page flow" aria-labelledby="formulario">
+    <SectionHeading id="formulario"><Fragment slot="title">Formulario</Fragment>Campos de 16 px o más (en iOS no hacen zoom), foco visible y error solo después de interactuar.</SectionHeading>
+    <form class="form" novalidate={false} onsubmit="return false">
+      <Field label="Nombres y apellidos" name="nombre" autocomplete="name" required error="Escribe tu nombre." />
+      <Field label="Correo electrónico" name="correo" type="email" autocomplete="email" inputmode="email" required error="Revisa el formato del correo." />
+      <Field label="País" name="pais" type="select" options={countries} />
+      <Field label="Teléfono" name="telefono" type="tel" autocomplete="tel" inputmode="tel" hint="Con código de país, por ejemplo +51." />
+      <Field label="Mensaje" name="mensaje" type="textarea" required error="Cuéntanos qué necesitas." />
+      <Field label="Campo deshabilitado" name="demo" disabled value="No editable" />
+      <Button type="submit">Enviar mensaje</Button>
+    </form>
+  </section>
+</Base>
+
+<style>
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    gap: var(--space-m);
+  }
+  .swatches li { display: grid; gap: var(--space-3xs); }
+  .swatch { display: block; aspect-ratio: 3 / 2; background-color: var(--color-surface); outline: 1px solid var(--color-surface-strong); }
+
+  .type-scale { display: grid; gap: var(--space-l); }
+  .type-row { display: grid; gap: var(--space-2xs); }
+
+  .spaces { display: grid; gap: var(--space-2xs); }
+  .spaces li { display: grid; grid-template-columns: 8rem 1fr; align-items: center; gap: var(--space-s); }
+  .bar { display: block; block-size: var(--space-xs); background-color: var(--color-field); }
+
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-m); }
+
+  .form { display: grid; gap: var(--space-m); max-inline-size: 36rem; }
+  .form :global(.button) { justify-self: start; }
+</style>

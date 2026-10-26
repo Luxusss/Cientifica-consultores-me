@@ -1,0 +1,18 @@
+---
+import { whatsappUrl } from '@/config/site';
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  message?: string;
+  label?: string;
+}
+
+// La acción principal del sitio: un solo nombre en todas las páginas.
+const { message, label = 'Escríbenos por WhatsApp' } = Astro.props;
+---
+
+<Button href={whatsappUrl(message)} target="_blank" rel="noopener">
+  <Icon name="whatsapp" />
+  {label}
+</Button>

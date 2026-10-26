@@ -1,0 +1,54 @@
+---
+import { Font } from 'astro:assets';
+import Seo from '@/components/Seo.astro';
+import WhatsAppFloat from '@/components/ui/WhatsAppFloat.astro';
+import { site } from '@/config/site';
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  noindex?: boolean;
+  type?: 'website' | 'article';
+}
+
+const props = Astro.props;
+---
+
+<!doctype html>
+<html lang={site.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content={site.themeColor} />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <Font cssVariable="--font-literata" preload={[{ style: 'normal' }]} />
+    <Seo {...props} />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <slot name="header" />
+    <main id="contenido">
+      <slot />
+    </main>
+    <slot name="footer" />
+    <WhatsAppFloat />
+  </body>
+</html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    inset-block-start: var(--space-xs);
+    inset-inline-start: var(--page-margin);
+    z-index: var(--z-dialog);
+    padding: var(--space-2xs) var(--space-s);
+    background-color: var(--color-field);
+    color: var(--color-on-field);
+    transform: translateY(-200%);
+  }
+  .skip-link:focus-visible { transform: none; }
+</style>

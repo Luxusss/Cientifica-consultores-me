@@ -1,0 +1,81 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Option = { value: string; label: string };
+
+interface Props extends Omit<HTMLAttributes<'input'>, 'type'> {
+  label: string;
+  name: string;
+  type?: HTMLAttributes<'input'>['type'] | 'textarea' | 'select';
+  hint?: string;
+  error?: string;
+  options?: Option[];
+}
+
+const { label, name, type = 'text', hint, error, options = [], id = name, required, ...rest } = Astro.props;
+const hintId = hint ? `${id}-hint` : undefined;
+const errorId = error ? `${id}-error` : undefined;
+const describedBy = [hintId, errorId].filter(Boolean).join(' ') || undefined;
+---
+
+<div class="field">
+  <label for={id}>
+    {label}
+    {required && <span class="required" aria-hidden="true">*</span>}
+  </label>
+
+  {type === 'textarea' ? (
+    <textarea id={id} name={name} required={required} aria-describedby={describedBy} rows="5" {...rest} />
+  ) : type === 'select' ? (
+    <select id={id} name={name} required={required} aria-describedby={describedBy} {...rest}>
+      {options.map((o) => <option value={o.value}>{o.label}</option>)}
+    </select>
+  ) : (
+    <input id={id} name={name} type={type} required={required} aria-describedby={describedBy} {...rest} />
+  )}
+
+  {hint && <p class="hint" id={hintId}>{hint}</p>}
+  {error && <p class="error" id={errorId}>{error}</p>}
+</div>
+
+<style>
+  .field { display: grid; gap: var(--space-2xs); }
+
+  label {
+    font-size: var(--step-small);
+    line-height: var(--leading-small);
+    font-weight: var(--weight-semibold);
+  }
+  .required { color: var(--color-error); margin-inline-start: 0.15em; }
+
+  input, select, textarea {
+    inline-size: 100%;
+    min-block-size: var(--input-height);
+    padding: var(--space-xs) var(--space-s);
+    background-color: var(--input-bg);
+    color: var(--color-text);
+    border: 0;
+    border-block-end: 2px solid var(--input-border);
+    border-radius: var(--radius);
+    line-height: var(--leading-small);
+    transition: border-color var(--duration-hover) ease;
+  }
+  textarea { resize: vertical; }
+  select { appearance: auto; }
+
+  input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: 0;
+    border-block-end-color: var(--input-border-focus);
+  }
+
+  input:disabled, select:disabled, textarea:disabled { opacity: 0.55; cursor: not-allowed; }
+
+  .hint, .error { font-size: var(--step-small); line-height: var(--leading-small); }
+  .hint { color: var(--color-text-soft); }
+
+  /* El error aparece solo después de que la persona interactuó con el campo. */
+  .error { display: none; color: var(--color-error); font-weight: var(--weight-semibold); }
+  .field:has(:user-invalid) .error { display: block; }
+  .field:has(:user-invalid) :is(input, select, textarea) { border-block-end-color: var(--color-error); }
+</style>

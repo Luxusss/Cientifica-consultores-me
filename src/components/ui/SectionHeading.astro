@@ -1,0 +1,24 @@
+---
+interface Props {
+  id?: string;
+  level?: 2 | 3;
+}
+
+const { id, level = 2 } = Astro.props;
+const Heading = `h${level}` as const;
+const hasIntro = Astro.slots.has('default');
+---
+
+<header class="section-heading">
+  <Heading id={id}><slot name="title" /></Heading>
+  {hasIntro && <p class="intro"><slot /></p>}
+</header>
+
+<style>
+  .section-heading { display: grid; gap: var(--space-s); }
+  .intro {
+    font-size: var(--step-lead);
+    line-height: var(--leading-lead);
+    max-inline-size: var(--measure-lead);
+  }
+</style>
