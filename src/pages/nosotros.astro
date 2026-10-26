@@ -1,0 +1,119 @@
+---
+import { Image } from 'astro:assets';
+import Base from '@/layouts/Base.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import PhotoBand from '@/components/sections/PhotoBand.astro';
+import ContactBand from '@/components/sections/ContactBand.astro';
+import { fullAddress, site } from '@/config/site';
+import { breadcrumb } from '@/lib/schema';
+import { listEs } from '@/lib/format';
+import team from '@/assets/images/otros/equipo-de-asesores.jpg';
+
+const ways = [
+  { title: 'Compromiso con tu éxito académico', text: 'Nos involucramos en cada etapa de tu proceso. Un equipo multidisciplinario te guía con responsabilidad y puntualidad, para que avances con seguridad y claridad hacia tu objetivo profesional.' },
+  { title: 'Experiencia que se mide en sustentaciones', text: 'Cientos de estudiantes y profesionales sustentaron su tesis con nuestro acompañamiento en investigación y redacción académica.' },
+  { title: 'Trato humano y profesional', text: 'Cada estudiante tiene su historia, sus metas y sus desafíos. Te acompañamos con orientación clara, metodología y práctica que realmente te ayudan a avanzar.' },
+];
+
+const pillars = [
+  { title: 'Misión', text: 'Somos una empresa constituida por un equipo profesional multidisciplinario, cuyo objetivo es brindar a nuestros clientes el mejor servicio personalizado en investigación, asesoría y capacitación académica en las diferentes áreas de las ciencias. Nuestra prioridad es el desarrollo profesional de nuestros clientes.' },
+  { title: 'Visión', text: 'Ser una de las más importantes empresas en el rubro de la investigación, asesoría de tesis y capacitación académica, reconocida por su excelencia y calidad en cada uno de sus servicios.' },
+  { title: 'Valores', text: 'Seriedad, compromiso, responsabilidad y puntualidad en cada uno de nuestros servicios.' },
+];
+
+const schema = [
+  breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Nosotros', path: '/nosotros.html' }]),
+  { '@type': 'AboutPage', name: 'Quiénes somos', about: { '@id': `${site.url}/#organizacion` } },
+];
+---
+
+<Base
+  title="Nosotros | Científica Consultores en Tesis e Investigación"
+  description="Nuestro equipo experto ofrece asesoría en tesis para pregrado, maestría y doctorado. Más de 10 años ayudando a lograr investigaciones exitosas."
+  schema={schema}
+>
+  <section class="section page hero" aria-labelledby="titulo">
+    <div class="text">
+      <Breadcrumbs current="Nosotros" />
+      <h1 id="titulo">Quiénes somos</h1>
+      <p class="text-lead">Asesoría especializada en tesis, investigación y capacitación académica, desde Lima, hace más de 10 años.</p>
+    </div>
+    <Image src={team} alt="Equipo de asesores de Científica Consultores" widths={[640, 960, 1280]} sizes="(min-width: 64em) 58vw, 100vw" loading="eager" fetchpriority="high" class="photo" />
+  </section>
+
+  <section class="section page story" aria-labelledby="historia">
+    <h2 id="historia">Nuestra historia</h2>
+    <p class="text-lead">Brindamos asesoría especializada en tesis, investigación y capacitación académica. Nuestro equipo lleva más de 10 años difundiendo y contribuyendo a la cultura científica, y ayudando a estudiantes y profesionales a lograr un desarrollo académico integral.</p>
+  </section>
+
+  <section class="ways theme-surface" aria-labelledby="acompanamos">
+    <div class="page grid">
+      <h2 id="acompanamos">Cómo te acompañamos</h2>
+      <ul class="list" role="list">
+        {ways.map((w) => (
+          <li><h3>{w.title}</h3><p>{w.text}</p></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section page pillars" aria-labelledby="creemos">
+    <h2 id="creemos">En qué creemos</h2>
+    <dl>
+      {pillars.map((p) => (
+        <div><dt>{p.title}</dt><dd>{p.text}</dd></div>
+      ))}
+    </dl>
+  </section>
+
+  <PhotoBand />
+
+  <section class="section page where" aria-labelledby="atendemos">
+    <h2 id="atendemos">Dónde atendemos</h2>
+    <div class="where-cols">
+      <div>
+        <h3>Oficina</h3>
+        <p>{fullAddress}. Previa cita.</p>
+      </div>
+      <div>
+        <h3>Online</h3>
+        <p>{listEs(site.countries)}.</p>
+      </div>
+    </div>
+  </section>
+
+  <ContactBand />
+</Base>
+
+<style>
+  .hero { display: grid; gap: var(--space-l); }
+  .text { display: grid; gap: var(--space-m); align-content: end; }
+  .photo { inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 30%; }
+
+  .story, .pillars, .where { display: grid; gap: var(--space-l); }
+
+  .ways { padding-block: var(--section-gap); }
+  .ways h2 { grid-column: 1 / -1; }
+  .list { grid-column: 1 / -1; display: grid; gap: var(--space-l); margin-block-start: var(--space-l); }
+  .list h3 { font-weight: var(--weight-semibold); margin-block-end: var(--space-2xs); }
+
+  .pillars dl { display: grid; gap: var(--space-l); }
+  .pillars dt { font-size: var(--step-lead); font-weight: var(--weight-semibold); margin-block-end: var(--space-2xs); }
+
+  .where-cols { display: grid; gap: var(--space-l); }
+  .where-cols h3 { font-weight: var(--weight-semibold); margin-block-end: var(--space-2xs); }
+
+  @media (min-width: 64em) {
+    .hero { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: end; }
+    .text { grid-column: 1 / span 5; }
+    .photo { grid-column: 6 / -1; aspect-ratio: 16 / 10; }
+
+    .story, .pillars, .where { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
+    .story h2, .pillars h2, .where h2 { grid-column: 1 / span var(--axis); }
+    .story p, .pillars dl, .where-cols { grid-column: calc(var(--axis) + 1) / -1; }
+
+    .ways h2 { grid-column: 1 / span var(--axis); }
+    .list { grid-column: calc(var(--axis) + 1) / -1; margin-block-start: 0; }
+    .where-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--gutter); }
+  }
+</style>

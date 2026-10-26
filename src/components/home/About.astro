@@ -2,6 +2,7 @@
 import { Image, getImage } from 'astro:assets';
 import { site } from '@/config/site';
 import { tools } from '@/data/proof';
+import { listEs } from '@/lib/format';
 import office from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg';
 import team from '@/assets/images/banner/nuestro-equipo-de-asesores-de-tesis.jpg';
 import session from '@/assets/images/otros/equipo-de-asesores-en-reunion.jpg';
@@ -11,12 +12,11 @@ const slides = [
   { src: team, alt: 'Equipo de asesores de tesis de Científica Consultores' },
 ];
 const poster = await getImage({ src: session, width: 960, format: 'webp' });
-const listFormat = new Intl.ListFormat('es', { style: 'long', type: 'conjunction' });
 
 const facts = [
   { label: 'Experiencia', value: 'Más de 10 años' },
   { label: 'Oficina', value: `${site.address.district}, ${site.address.city}` },
-  { label: 'Herramientas', value: listFormat.format(tools) },
+  { label: 'Herramientas', value: listEs(tools) },
   { label: 'Modalidad', value: 'Online y presencial' },
 ];
 ---

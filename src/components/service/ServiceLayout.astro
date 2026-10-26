@@ -10,6 +10,7 @@ import ContactBand from '@/components/sections/ContactBand.astro';
 import PhotoBand from '@/components/sections/PhotoBand.astro';
 import type { ServicePage } from '@/data/servicePages';
 import { breadcrumb, faqPage } from '@/lib/schema';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import { site } from '@/config/site';
 
 interface Props {
@@ -38,16 +39,12 @@ const schema = [
   <section class="hero" aria-labelledby="titulo">
     <div class="page grid">
       <div class="text">
-        <nav class="crumbs" aria-label="Migas de pan">
-          <a href="/">Inicio</a>
-          <span aria-hidden="true">/</span>
-          <span aria-current="page">{page.crumb}</span>
-        </nav>
+        <Breadcrumbs current={page.crumb} />
         <h1 id="titulo">{page.h1}</h1>
         {page.kicker && <p class="kicker">{page.kicker}</p>}
-        <p class="lede">{page.lede}</p>
+        <p class="text-lead">{page.lede}</p>
         <div class="form-card theme-surface">
-          <h2 class="form-title">Pide tu primera asesoría gratis</h2>
+          <h2 class="text-lead text-strong">Pide tu primera asesoría gratis</h2>
           <LeadForm subject={page.formSubject} variant="short" submitLabel="Quiero asesoría" />
         </div>
       </div>
@@ -69,14 +66,10 @@ const schema = [
   .hero { padding-block: var(--space-xl) var(--section-gap); }
   .text { grid-column: 1 / -1; display: grid; gap: var(--space-m); align-content: start; }
 
-  .crumbs { display: flex; gap: var(--space-2xs); font-size: var(--step-small); color: var(--color-text-soft); }
-  .crumbs a { color: var(--color-text-soft); }
 
   .kicker { font-size: var(--step-lead); line-height: var(--leading-lead); font-weight: var(--weight-medium); margin-block-start: calc(var(--space-s) * -1); }
-  .lede { font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 38ch; }
 
   .form-card { display: grid; gap: var(--space-m); padding: var(--space-m); margin-block-start: var(--space-s); max-inline-size: 34rem; }
-  .form-title { font-size: var(--step-lead); line-height: var(--leading-lead); font-weight: var(--weight-semibold); max-inline-size: none; }
 
   .photo { grid-column: 1 / -1; grid-row: 1; inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 25%; }
 

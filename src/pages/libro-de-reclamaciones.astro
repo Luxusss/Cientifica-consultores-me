@@ -1,0 +1,118 @@
+---
+import Base from '@/layouts/Base.astro';
+import Field from '@/components/ui/Field.astro';
+import Button from '@/components/ui/Button.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import { site } from '@/config/site';
+import { endpoints, formsubmit } from '@/config/forms';
+
+const next = `${site.url}/libro-de-reclamaciones.html?enviado=1`;
+---
+
+<Base
+  title="Libro de Reclamaciones | Científica Consultores"
+  description="Registra tu reclamo o queja sobre nuestros servicios. Te respondemos en un plazo máximo de 15 días hábiles, según la normativa de INDECOPI."
+  noindex
+>
+  <section class="section page claims" aria-labelledby="titulo">
+    <header class="head">
+      <Breadcrumbs current="Libro de reclamaciones" />
+      <h1 id="titulo">Libro de reclamaciones</h1>
+      <p class="text-lead">Conforme a lo establecido en el Código de Protección y Defensa del Consumidor, ponemos a tu disposición nuestro Libro de Reclamaciones virtual.</p>
+      <p class="sent" role="status" hidden data-sent>Tu reclamo o queja se envió correctamente. Lo estamos revisando y te responderemos por correo electrónico.</p>
+    </header>
+
+    <form class="form" method="POST" action={formsubmit(endpoints.claims)} enctype="multipart/form-data">
+      <input type="hidden" name="_subject" value="Libro de Reclamaciones - Nuevo registro" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_next" value={next} />
+      <div class="trap" aria-hidden="true">
+        <label for="lr-honey">No llenar</label>
+        <input id="lr-honey" type="text" name="_honey" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <fieldset>
+        <legend>1. Identificación del consumidor reclamante</legend>
+        <div class="cols">
+          <Field label="DNI" name="dni" inputmode="numeric" pattern="\d{8}" maxlength="8" required hint="8 dígitos" error="El DNI debe tener 8 dígitos." />
+          <Field label="Nombres" name="nombres" autocomplete="given-name" required error="Escribe tus nombres." />
+          <Field label="Apellidos" name="apellidos" autocomplete="family-name" required error="Escribe tus apellidos." />
+          <Field label="Correo electrónico" name="email" type="email" autocomplete="email" required error="Revisa el formato del correo." />
+          <Field label="Teléfono" name="telefono" type="tel" autocomplete="tel" inputmode="tel" pattern="[0-9 +()-]{7,20}" required hint="De 7 a 15 dígitos; puedes incluir +" error="Escribe un teléfono válido." />
+          <Field label="Dirección" name="direccion" autocomplete="street-address" required error="Escribe tu dirección." />
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>2. Identificación del servicio contratado</legend>
+        <div class="cols">
+          <Field label="Monto reclamado (S/)" name="monto_reclamado" type="number" step="0.01" min="0" inputmode="decimal" />
+          <Field label="Descripción del servicio contratado" name="servicio_descripcion" />
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>3. Detalle de la reclamación y pedido del consumidor</legend>
+        <div class="radios" role="radiogroup" aria-describedby="tipo-ayuda">
+          <label><input type="radio" name="tipo" value="Reclamo" required /> Reclamo</label>
+          <label><input type="radio" name="tipo" value="Queja" /> Queja</label>
+        </div>
+        <dl class="defs" id="tipo-ayuda">
+          <div><dt>Reclamo</dt><dd>Disconformidad relacionada con los productos o servicios.</dd></div>
+          <div><dt>Queja</dt><dd>Disconformidad no relacionada con los productos o servicios, o malestar respecto a la atención al público.</dd></div>
+        </dl>
+        <Field label="Detalle del inconveniente" name="detalle" type="textarea" required error="Describe el inconveniente." />
+        <Field label="Pedido del consumidor" name="pedido" type="textarea" required error="Indica qué solución solicitas." />
+        <div class="field-file">
+          <label for="lr-adjuntos">Adjuntar archivos (opcional)</label>
+          <input id="lr-adjuntos" type="file" name="attachment" multiple accept=".pdf,.jpg,.jpeg,.png" aria-describedby="lr-adjuntos-ayuda" />
+          <p id="lr-adjuntos-ayuda" class="text-small text-soft">Vouchers, estados de cuenta o imágenes. Máximo 5 MB por archivo.</p>
+        </div>
+      </fieldset>
+
+      <p class="legal">La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito previo para interponer una denuncia ante el INDECOPI. El proveedor debe dar respuesta al reclamo o queja en un plazo no mayor a quince (15) días hábiles, el cual es improrrogable. La respuesta será brindada mediante comunicación electrónica enviada a la dirección que has consignado. Si deseas que la respuesta te sea enviada a tu domicilio, indícalo en el detalle del reclamo o queja.</p>
+
+      <Button type="submit">Enviar reclamo</Button>
+    </form>
+  </section>
+</Base>
+
+<script>
+  if (new URLSearchParams(window.location.search).has('enviado')) {
+    const sent = document.querySelector<HTMLElement>('[data-sent]');
+    if (sent) sent.hidden = false;
+  }
+</script>
+
+<style>
+  .claims { display: grid; gap: var(--space-xl); }
+  .head { display: grid; gap: var(--space-m); align-content: start; }
+  .sent { padding: var(--space-s) var(--space-m); background-color: var(--color-surface); color: var(--color-success); font-weight: var(--weight-semibold); }
+  .sent[hidden] { display: none; }
+
+  .form { display: grid; gap: var(--space-xl); }
+  fieldset { display: grid; gap: var(--space-m); border: 0; padding: 0; margin: 0; min-inline-size: 0; }
+  legend { font-size: var(--step-lead); line-height: var(--leading-lead); font-weight: var(--weight-semibold); margin-block-end: var(--space-s); }
+  .cols { display: grid; gap: var(--space-m) var(--gutter); grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+
+  .radios { display: flex; gap: var(--space-l); }
+  .radios label { display: inline-flex; align-items: center; gap: var(--space-2xs); min-block-size: var(--hit-min); font-weight: var(--weight-semibold); }
+  .radios input { inline-size: 1.25rem; block-size: 1.25rem; accent-color: var(--color-field); }
+  .defs { display: grid; gap: var(--space-2xs); }
+  .defs dt { display: inline; font-weight: var(--weight-semibold); }
+  .defs dd { display: inline; color: var(--color-text-soft); }
+
+  .field-file { display: grid; gap: var(--space-2xs); }
+  .field-file label { font-size: var(--step-small); font-weight: var(--weight-semibold); }
+  .field-file input { font-size: var(--step-small); }
+
+  .trap { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
+  .form :global(.button) { justify-self: start; }
+
+  @media (min-width: 64em) {
+    .claims { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
+    .head { grid-column: 1 / span var(--axis); position: sticky; inset-block-start: calc(var(--header-height) + var(--space-l)); }
+    .form { grid-column: calc(var(--axis) + 1) / -1; }
+  }
+</style>

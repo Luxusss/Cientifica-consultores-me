@@ -1,9 +1,9 @@
 ---
-import { site, whatsappUrl } from '@/config/site';
+import { fullAddress, site, whatsappUrl } from '@/config/site';
 import { legalNav, mainNav, services } from '@/config/navigation';
+import { listEs } from '@/lib/format';
 
 const year = new Date().getFullYear();
-const address = `${site.address.street}, ${site.address.district}, ${site.address.city}`;
 ---
 
 <footer class="footer theme-field">
@@ -14,7 +14,7 @@ const address = `${site.address.street}, ${site.address.district}, ${site.addres
       <address class="contact">
         <a href={whatsappUrl()} target="_blank" rel="noopener">{site.phone.display}</a>
         <a href={`mailto:${site.email}`}>{site.email}</a>
-        <span>{address}</span>
+        <span>{fullAddress}</span>
       </address>
 
       <nav class="links" aria-label="Pie de página">
@@ -33,7 +33,7 @@ const address = `${site.address.street}, ${site.address.district}, ${site.addres
       </nav>
     </div>
 
-    <p class="countries">Atendemos en {site.countries.slice(0, -1).join(', ')} y {site.countries.at(-1)}.</p>
+    <p class="countries">Atendemos en {listEs(site.countries)}.</p>
 
     <div class="legal">
       <p>© {year} {site.name}</p>
@@ -79,7 +79,7 @@ const address = `${site.address.street}, ${site.address.district}, ${site.addres
   }
   .links-title { color: var(--color-text-soft); font-size: var(--step-small); margin-block-end: var(--space-xs); }
   .links ul { display: grid; gap: var(--space-2xs); }
-  .links a { color: var(--color-text); text-decoration-color: transparent; font-size: var(--step-small); }
+  .links a { color: var(--color-text); text-decoration-color: transparent; font-size: var(--step-body); line-height: var(--leading-small); }
 
   @media (min-width: 64em) {
     .contact { grid-column: 1 / span var(--axis); }
@@ -90,7 +90,7 @@ const address = `${site.address.street}, ${site.address.district}, ${site.addres
     .contact a:hover, .links a:hover { text-decoration-color: currentColor; }
   }
 
-  .countries { margin-block-start: var(--space-xl); color: var(--color-text-soft); font-size: var(--step-small); }
+  .countries { margin-block-start: var(--space-xl); color: var(--color-text-soft); }
 
   .legal {
     display: flex;

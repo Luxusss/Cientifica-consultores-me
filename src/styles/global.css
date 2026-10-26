@@ -109,6 +109,7 @@
   .text-body { font-size: var(--step-body); line-height: var(--leading-body); }
   .text-small { font-size: var(--step-small); line-height: var(--leading-small); }
   .text-soft { color: var(--color-text-soft); }
+  .text-strong { font-weight: var(--weight-semibold); }
   .nums { font-variant-numeric: tabular-nums; }
 
   .visually-hidden {

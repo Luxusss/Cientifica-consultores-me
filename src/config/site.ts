@@ -26,6 +26,8 @@ export const site = {
   gtmId: 'GTM-5TNL7PM2',
 } as const;
 
+export const fullAddress = `${site.address.street}, ${site.address.district}, ${site.address.city}`;
+
 export const defaultWhatsAppMessage = 'Hola, quiero información sobre la asesoría de tesis.';
 
 export function whatsappUrl(message: string = defaultWhatsAppMessage): string {
