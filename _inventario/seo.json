@@ -1,0 +1,319 @@
+[
+ {
+  "page": "articulos_cientificos.html",
+  "title": "Artículos Científicos - Científica Consultores",
+  "tlen": 46,
+  "desc": "Servicio de redacción y asesoría en artículos científicos para la publicación académica. Conoce cómo elaboramos tu artículo desde cero, desde una tesis o capítulo de libro.",
+  "h1": [
+   "Asesoría de Articulos Cientificos Asesoría de Articulos Cientificos"
+  ],
+  "nh2": 4,
+  "canonical": "https://cientificaconsultores.com/articulos_cientificos.html",
+  "og": true,
+  "robots": "index, follow",
+  "schema": [
+   "Article"
+  ],
+  "imgs": 4,
+  "noalt": 0
+ },
+ {
+  "page": "blog.html",
+  "title": "Blog de asesoría en tesis | Científica consultores",
+  "tlen": 50,
+  "desc": "Encuentra en nuestro blog guías, consejos y recursos para hacer tu tesis de pregrado, maestría o doctorado. Asesoramiento académico experto de Científica Consultores.",
+  "h1": [
+   "Tu guía para la tesis: blog académico"
+  ],
+  "nh2": 4,
+  "canonical": "https://cientificaconsultores.com/blog/",
+  "og": false,
+  "robots": "index, follow",
+  "schema": [
+   "Article"
+  ],
+  "imgs": 4,
+  "noalt": 0
+ },
+ {
+  "page": "blog/como-hacer-tu-proyecto-de-tesis.html",
+  "title": "¿Cómo hacer tu proyecto de tesis? Estructura para su elaboración",
+  "tlen": 64,
+  "desc": "Para poder saber cómo hacer una tesis es importante conocer cuáles son los pasos principales y elementos que componen su estructura.",
+  "h1": [
+   "¿Cómo HACER TU PROYECTO DE TESIS?"
+  ],
+  "nh2": 3,
+  "canonical": "https://cientificaconsultores.com/blog/como-hacer-tu-proyecto-de-tesis.html",
+  "og": true,
+  "robots": "index, follow",
+  "schema": [
+   "Article"
+  ],
+  "imgs": 2,
+  "noalt": 0
+ },
+ {
+  "page": "blog/dia-del-padre.html",
+  "title": "Día del Padre: Reflexión para Padres que Estudian y Trabajan",
+  "tlen": 60,
+  "desc": "Conoce la historia de los padres que, además de criar, estudian para superarse. Un homenaje a su esfuerzo y compromiso en el Día del Padre.",
+  "h1": [
+   "Día del Padre: Un Homenaje a los Padres que También Son Estudiantes"
+  ],
+  "nh2": 2,
+  "canonical": "www.cientificaconsultores.com/blog/dia-del-padre.html",
+  "og": true,
+  "robots": "index, follow",
+  "schema": [],
+  "imgs": 1,
+  "noalt": 0
+ },
+ {
+  "page": "blog/fiestas-patrias-peru.html",
+  "title": "Fiestas Patrias del Perú: Historia, Ideas y Consejos Académicos",
+  "tlen": 63,
+  "desc": "Conoce el origen de las Fiestas Patrias del Perú, ideas de actividades educativas y consejos para tus trabajos académicos. ¡Ideal para estudiantes y docentes!",
+  "h1": [
+   "Fiestas Patrias del Perú: Orgullo, Historia y Actividades para Celebrar"
+  ],
+  "nh2": 6,
+  "canonical": "https://cientificaconsultores.com/blog/fiestas-patrias-peru.html",
+  "og": true,
+  "robots": "index, follow",
+  "schema": [
+   "Article"
+  ],
+  "imgs": 2,
+  "noalt": 0
+ },
+ {
+  "page": "blog/tesis-vs-trabajo-suficiencia-profesional.html",
+  "title": "Tesis vs. Trabajo de Suficiencia Profesional | Científica Consultores",
+  "tlen": 69,
+  "desc": "Descubre las diferencias entre tesis y trabajo de suficiencia profesional. Te guiamos con ejemplos y una tabla comparativa para tomar la mejor decisión.",
+  "h1": [
+   "¿Cuál es la diferencia entre tesis y trabajo de suficiencia profesional?"
+  ],
+  "nh2": 5,
+  "canonical": "https://cientificaconsultores.com/blog/tesis-vs-trabajo-suficiencia-profesional.html",
+  "og": true,
+  "robots": "index, follow",
+  "schema": [
+   "Article"
+  ],
+  "imgs": 2,
+  "noalt": 0
+ },
+ {
+  "page": "contactanos.html",
+  "title": "Asesoría de Tesis Personalizada | Contáctanos Hoy",
+  "tlen": 49,
+  "desc": "Escríbenos para recibir asesoría profesional en tesis de pregrado, maestría o doctoral. Te respondemos en menos de 24 horas.",
+  "h1": [
+   "¿Necesitas una asesoría de tesis en Lima? Contáctanos"
+  ],
+  "nh2": 4,
+  "canonical": "https://www.cientificaconsultores.com/contactanos.html",
+  "og": true,
+  "robots": "index, follow",
+  "schema": [
+   "BreadcrumbList",
+   "LocalBusiness"
+  ],
+  "imgs": 2,
+  "noalt": 0
+ },
+ {
+  "page": "index.html",
+  "title": "Asesoría de Tesis Online con Expertos | Científica Consultores",
+  "tlen": 62,
+  "desc": "Asesoría de tesis online con expertos en investigación. Apoyo en metodología, análisis y redacción para estudiantes de Latinoamérica y España.",
+  "h1": [],
+  "nh2": 11,
+  "canonical": "https://cientificaconsultores.com/",
+  "og": true,
+  "robots": "index, follow",
+  "schema": [
+   "WebSite",
+   "Organization",
+   "FAQPage",
+   "VideoObject"
+  ],
+  "imgs": 21,
+  "noalt": 0
+ },
+ {
+  "page": "libro-de-reclamaciones.html",
+  "title": "Libro de reclamaciones",
+  "tlen": 22,
+  "desc": "Lee los testimonios de nuestros clientes satisfechos que han obtenido excelentes resultados con la asesoría de tesis de Científica Consultores.",
+  "h1": [],
+  "nh2": 1,
+  "canonical": "https://cientificaconsultores.com/libro-de-reclamaciones.html",
+  "og": true,
+  "robots": "noindex, follow",
+  "schema": [
+   "WebPage"
+  ],
+  "imgs": 0,
+  "noalt": 0
+ },
+ {
+  "page": "nosotros.html",
+  "title": "🎓 Nosotros | Científica Consultores en Tesis e Investigación",
+  "tlen": 60,
+  "desc": "Nuestro equipo experto ofrece asesoría en tesis para pregrado, maestría y doctorado. Más de 10 años ayudando a lograr investigaciones exitosas.",
+  "h1": [
+   "¿Quiénes Somos en Científica Consultores?"
+  ],
+  "nh2": 2,
+  "canonical": "https://cientificaconsultores.com/nosotros.html",
+  "og": true,
+  "robots": "index, follow",
+  "schema": [
+   "AboutPage"
+  ],
+  "imgs": 2,
+  "noalt": 0
+ },
+ {
+  "page": "otros_servicios.html",
+  "title": "Capacitaciones - Científica Consultores",
+  "tlen": 39,
+  "desc": "",
+  "h1": [],
+  "nh2": 2,
+  "canonical": "https://cientificaconsultores.com/otros_servicios.html",
+  "og": false,
+  "robots": "index, follow",
+  "schema": [
+   "Article"
+  ],
+  "imgs": 16,
+  "noalt": 0
+ },
+ {
+  "page": "politica-privacidad.html",
+  "title": "Política y privacidad",
+  "tlen": 21,
+  "desc": "",
+  "h1": [],
+  "nh2": 1,
+  "canonical": "https://cientificaconsultores.com/politica-privacidad.html",
+  "og": true,
+  "robots": "noindex, follow",
+  "schema": [
+   "WebPage"
+  ],
+  "imgs": 0,
+  "noalt": 0
+ },
+ {
+  "page": "terminos-condiciones.html",
+  "title": "Términos y Condiciones",
+  "tlen": 22,
+  "desc": "",
+  "h1": [],
+  "nh2": 2,
+  "canonical": "https://cientificaconsultores.com/terminos-condiciones.html",
+  "og": true,
+  "robots": "noindex, follow",
+  "schema": [
+   "WebPage"
+  ],
+  "imgs": 0,
+  "noalt": 0
+ },
+ {
+  "page": "tesis-doctoral.html",
+  "title": "Científica Consultores | ✅ Asesoría de Tesis Doctoral",
+  "tlen": 53,
+  "desc": "¿Necesitas ayuda con tu tesis doctoral? Ofrecemos asesoría especializada en la elaboración y redacción. ¡Contáctanos vía WhatsApp para una consulta gratuita!",
+  "h1": [
+   "Asesoría de Tesis Doctoral Asesoría de Tesis Doctoral"
+  ],
+  "nh2": 5,
+  "canonical": "https://cientificaconsultores.com/tesis-doctoral.html",
+  "og": true,
+  "robots": "index, follow",
+  "schema": [
+   "BreadcrumbList",
+   "FAQPage"
+  ],
+  "imgs": 2,
+  "noalt": 0
+ },
+ {
+  "page": "tesis-maestria.html",
+  "title": "Asesoría de Tesis de Maestría en Lima | Científica Consultores",
+  "tlen": 62,
+  "desc": "Asesoría online en tesis de Maestría: metodología, redacción y sustentación. Titúlate con el respaldo de expertos académicos.",
+  "h1": [
+   "Asesoría de Tesis de Maestría Asesoría de Tesis de Maestría"
+  ],
+  "nh2": 6,
+  "canonical": "https://cientificaconsultores.com/tesis-maestria.html",
+  "og": true,
+  "robots": "index, follow",
+  "schema": [
+   "BreadcrumbList"
+  ],
+  "imgs": 2,
+  "noalt": 0
+ },
+ {
+  "page": "tesis.html",
+  "title": "Asesoría de Tesis de Pregrado en Lima | Científica Consultores",
+  "tlen": 62,
+  "desc": "Asesoría profesional para tesis de pregrado en Lima y online: proyecto, informe final, observaciones, anti-plagio y sustentación. ¡Consulta gratuita!",
+  "h1": [
+   "Asesoría de Tesis de Pregrado Asesoría de Tesis de Pregrado"
+  ],
+  "nh2": 6,
+  "canonical": "https://cientificaconsultores.com/tesis.html",
+  "og": true,
+  "robots": "index, follow",
+  "schema": [
+   "BreadcrumbList"
+  ],
+  "imgs": 13,
+  "noalt": 0
+ },
+ {
+  "page": "testimonios.html",
+  "title": "Testimonios de nuestros clientes",
+  "tlen": 32,
+  "desc": "Lee los testimonios de nuestros clientes satisfechos que han obtenido excelentes resultados con la asesoría de tesis de Científica Consultores.",
+  "h1": [
+   "Testimonios de nuestros clientes"
+  ],
+  "nh2": 1,
+  "canonical": "https://cientificaconsultores.com/testimonios.html",
+  "og": true,
+  "robots": "index, follow",
+  "schema": [
+   "WebPage"
+  ],
+  "imgs": 12,
+  "noalt": 0
+ },
+ {
+  "page": "trabajo-de-suficiencia-profesional.html",
+  "title": "Científica Consultores | Asesoría TSP y Tesis Académicas Perú",
+  "tlen": 61,
+  "desc": "Asesoría especializada en tesis de pregrado, posgrado, TSP y proyectos de investigación. Con +500 casos exitosos en Perú. ¡Obtén tu consulta gratis!",
+  "h1": [
+   "Asesoría para tu Trabajo de SuficienciaProfesional (TSP) Asesoría para tu Trabajo de suficiencia Profesional (TSP)"
+  ],
+  "nh2": 5,
+  "canonical": "https://cientificaconsultores.com/trabajo-de-suficiencia-profesional.html",
+  "og": true,
+  "robots": "index, follow",
+  "schema": [
+   "BreadcrumbList"
+  ],
+  "imgs": 2,
+  "noalt": 0
+ }
+]
