@@ -166,7 +166,7 @@ El orden sale del argumento (una afirmación por sección, cada una con su prueb
 Cada fase termina con algo que puedes revisar en `localhost` antes de seguir.
 
 ### Fase 0 — Preparación
-- Crear la rama `rediseno` en el repo; `main` queda intacto como respaldo de producción.
+- Todo el trabajo va en la rama **`jhonbayro-feature`**, **solo en local**: no se sube a GitHub hasta que el sitio esté perfecto. `main` es la web actual de producción y no se toca.
 - Agregar `.taste-skill/` al `.gitignore`.
 - Inventariar todo el contenido real (textos, precios si los hay, testimonios, preguntas frecuentes, universidades) en `src/content/`.
 - Hacer la lista de todas las URLs actuales para verificar al final que ninguna se rompe.
