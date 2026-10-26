@@ -1,0 +1,328 @@
+/* ================================
+   Banner principal con texto encima
+   ================================*/
+.banner-area {
+  position: relative;
+  background-size: cover;
+  height: 725px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  overflow: hidden;
+  padding: 70px 0;
+}
+
+.banner-area::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+/* 🎯 Imágenes específicas */
+.banner-tesis {
+  position: relative;
+  background-size: cover;
+  background-position: center 50%;
+}
+
+.banner-content {
+  position: absolute;
+  /* se posiciona respecto al banner */
+  top: 60%;
+  /* lo centra verticalmente */
+  /*left: 0;*/
+  /* separación desde el borde izquierdo */
+  transform: translateY(-50%);
+  /* centra verticalmente */
+  z-index: 2;
+  text-align: center;
+}
+
+.titulo-normal {
+  font-size: 70px;
+  font-weight: bold;
+  line-height: 1.4;
+  color: white;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.65);
+}
+
+.br-mobile {
+  display: inline;
+}
+
+.mobile-text {
+  display: none;
+}
+
+.banner-img {
+  width: 100%;
+  height: 150%;
+  object-fit: cover;
+  object-position: center 0%;
+}
+
+/* 🔧 Adaptación del banner para móviles */
+@media (max-width: 768px) {
+  .banner-area {
+    background-size: cover;
+
+    height: 342px;
+    top: 35px;
+    overflow: hidden;
+  }
+
+  .banner-area.banner-servicios {
+    background-position: left 0%;
+    /* o el % que necesites */
+  }
+
+  .titulo-normal {
+    font-size: 28px;
+    line-height: 1.3;
+  }
+
+  .banner-content {
+    position: absolute;
+    top: 50%;
+    /* centro vertical */
+    left: 50%;
+    /* centro horizontal */
+    transform: translate(-50%, -50%);
+    width: 90%;
+    /* margen lateral automático */
+    text-align: center;
+    /* centrado */
+    padding: 0 10px;
+    /* respiro lateral */
+    z-index: 2;
+  }
+
+  .banner-img {
+    width: 120%;
+    height: auto;
+  }
+
+  .br-mobile {
+    display: none;
+  }
+
+  .pc-text {
+    display: none;
+  }
+
+  .mobile-text {
+    display: block;
+  }
+}
+
+/* ===========
+   MIGA DE PAN
+   =========== */
+.breadcrumb-nav {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+}
+
+.breadcrumb-wrapper {
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-start;
+  /* o 'center' si quieres centrar */
+  margin-left: -20px;
+}
+
+.custom-breadcrumb {
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+}
+
+.breadcrumb-item a.breadcrumb-link {
+  color: #3D3D3F;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb-item a.breadcrumb-link:hover {
+  color: #1D2D8C;
+}
+
+.breadcrumb-item.active {
+  color: #1D2D8C !important;
+  font-weight: 500;
+  /* Opcional para que resalte un poco */
+}
+
+.breadcrumb-nav .breadcrumb {
+  background: #ffffff;
+}
+
+/* =================
+   MIGA DE PAN MOVIL
+   ================= */
+@media (max-width: 768px) {
+  .breadcrumb-wrapper {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    margin-left: -6px;
+  }
+
+  .custom-breadcrumb {
+    padding: 0.5rem;
+    font-size: 14px;
+    margin-bottom: -3px;
+  }
+
+  .breadcrumb-item a.breadcrumb-link,
+  .breadcrumb-item.active {
+    font-size: 14px;
+  }
+}
+
+/* QUIENES SOMOS EN CIENTIFICA CONSULTORES */
+.parrafo-destacado {
+  font-size: 15px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.img-nosotros {
+  width: 100%;
+  height: auto;
+}
+
+.titulo-principal {
+  font-size: 24px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.subtitulo {
+  font-size: 20px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.parrafo-secundario {
+  font-size: 15px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* — Contenedor del logo de nosotros — */
+#banner-area.banner-nosotros {
+  width: 100vw;
+  /* o el % que quieras, p. ej. 70vw, 85vw... */
+  height: 60vh;
+  /* tu altura fija */
+  margin: 0 auto;
+  overflow: hidden;
+  background: none;
+}
+
+/* — Imagen que se expande al 100% en ambos ejes — */
+#banner-area.banner-nosotros img {
+  width: 100%;
+  /* llena todo el ancho del contenedor */
+  height: 100%;
+  /* llena toda la altura del contenedor */
+  object-fit: fill;
+  /* aquí permitimos distorsión para que no queden franjas */
+  display: block;
+}
+
+/* — IMAGEN DE NOSOTROS EN MOVIL — */
+@media (max-width: 768px) {
+  #banner-area.banner-nosotros {
+    position: relative;
+    width: 100%;
+    height: auto;
+    /* deja que crezca con la imagen */
+    overflow: visible;
+  }
+
+  #banner-area.banner-nosotros img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    /* muestra la imagen completa */
+    object-position: top;
+    /* ancla por arriba */
+    z-index: 1;
+  }
+
+  .parallax-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    /* tu overlay */
+  }
+
+  .banner-title-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    color: #fff;
+  }
+}
+
+@media (max-width: 768px) {
+  #banner-area.banner-nosotros {
+    /* Anulamos cualquier altura fija o máxima */
+    height: auto !important;
+    max-height: none !important;
+
+    /* Asegúrate de no tener overflow oculto en ningún wrapper padre */
+    overflow: visible !important;
+  }
+}
+
+@media (max-width: 768px) {
+  #banner-area.banner-nosotros {
+    /* Empuja el banner justo debajo del nav fijo */
+    padding-top: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  /* 1) Anulamos el margin-top que trae el section */
+  #main-container.mt-3 {
+    margin-top: 0 !important;
+  }
+
+  /* 2) “Subimos” el <h1> con un margin negativo o con top */
+  #main-container h1 {
+    /* quita el margin por defecto si lo tuviera */
+    margin-top: 0;
+    /* y súbelo un poco */
+    margin-top: -3.5rem;
+    /* ajusta este valor a tu gusto */
+    /* alternativa con position:
+    position: relative;
+    top: -8px;
+    */
+  }
+}
+
+/* FLECHA */
+#back-to-top .btn.btn-primary:hover {
+  background: #334F96;
+}
+
+#back-to-top .btn.btn-primary {
+  border-radius: 100%;
+  padding: 0px;
+  font-size: 18px;
+  width: 36px;
+  height: 36px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid transparent;
+  color: #fff;
+  opacity: 0.5;
+}

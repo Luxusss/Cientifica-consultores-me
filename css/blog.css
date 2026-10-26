@@ -1,0 +1,1041 @@
+/* ========================================
+   Estilos generales del banner superior
+   ======================================== */
+.info-bar {
+  position: relative;
+  z-index: 1020;
+  min-height: 60px;
+  background-color: #FE8F01;
+  font-family: inherit;
+  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.2);
+}
+
+/* Contenedor interno para alinear el contenido centrado */
+.banner-content-responsive {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0;
+  text-align: center;
+}
+
+/* Estilo general del ítem dentro del banner */
+.banner-item {
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 0.5rem;
+}
+
+/* Estilo cuando el ítem está destacado */
+.banner-item.destacado {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #ffffff;
+}
+
+/* Ícono dentro del banner */
+.banner-item i {
+  margin-right: 0.5rem;
+  color: #fff;
+  vertical-align: middle;
+}
+
+/* ========================================
+   Animaciones para el texto rotativo
+   ======================================== */
+@keyframes slideOutLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-out {
+  animation: slideOutLeft 0.6s forwards;
+}
+
+.slide-in {
+  animation: slideInRight 0.6s forwards;
+}
+
+/* ========================================
+   Adaptación del banner en pantallas móviles
+   ======================================== */
+@media (max-width: 768px) {
+  .banner-item {
+    font-size: 1rem;
+    flex-direction: column;
+  }
+
+  .banner-item.destacado {
+    font-size: 1.1rem;
+  }
+
+  #rotating-text-content {
+    padding: 0 1rem;
+  }
+}
+
+/* === MIGA DE PAN Breadcrumb general === */
+.breadcrumb-nav {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: -10px;
+}
+
+/* Breadcrumb limpio DEL BANNER DE BLOG DE INICIO*/
+.breadcrumb {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 1rem 0;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 1000;
+}
+
+/* === Contenedor interior del breadcrumb === */
+.breadcrumb-wrapper {
+  margin-left: -20px;
+}
+
+/* === Lista de migas de pan (estilo visual) === */
+.breadcrumb {
+  background: #f5f5f5;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0;
+}
+
+/* === Enlace dentro del breadcrumb (Inicio) === */
+.breadcrumb-link {
+  color: #3D3D8F;
+  text-decoration: none;
+}
+
+/* === Efecto hover del enlace breadcrumb === */
+.breadcrumb-link:hover {
+  color: #1D2D8C !important;
+}
+
+/* === Último elemento del breadcrumb (activo) === */
+.breadcrumb-item.active {
+  color: #1D2D8C !important;
+}
+
+/* ==== HEADER DEL BLOG ==== */
+.blog-header {
+  position: relative;
+  top: -70px; /* Sube el bloque hacia arriba */
+  margin-bottom: 10px !important;
+  padding-bottom: 0 !important;
+}
+
+
+.blog-header-title {
+  color: #1D2D8C;        /* Azul institucional */
+  font-weight: bold;     /* Texto en negrita */
+  font-size: 30px !important;
+}
+
+.blog-header p {
+  font-size: 15px;       /* Tamaño del texto descriptivo */
+}
+
+@media (max-width: 767px) {
+  .blog-header-title {
+    font-size: 28px !important;
+  }
+}
+
+/* Ajuste de posición del bloque de entradas del blog */
+.blog-posts-ajuste {
+  position: relative;
+  top: -60px;
+  margin-bottom: -90px;
+}
+
+.blog-posts {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* 🎯 Ajuste de comportamiento y espacio del carrusel de blog */
+.blog-carousel-ajuste {
+  scroll-behavior: smooth;
+  gap: 16px !important;
+}
+
+/*  para las tarjetas de blog */
+.blog-card-inline {
+  width: 300px;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px;
+}
+.blog-img-inline {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 0.4rem;
+}
+.blog-date-inline {
+  font-size: 13px;
+  color: #555;
+  margin: 0 0 0.4rem 0;
+}
+.blog-title-inline {
+  font-size: 16px;
+  font-weight: bold;
+  color: #1D2D8C;
+  margin: 0 0 0.3rem 0;
+  line-height: 1.2;
+  text-transform: none;
+}
+.blog-excerpt-inline {
+  font-size: 14px;
+  margin: 0 0 0.3rem 0;
+  line-height: 1.3;
+}
+.blog-comment-inline {
+  font-size: 13px;
+  color: #007BFF;
+  margin-bottom: 0;
+}
+
+/* para las tarjetas “Próximamente” */
+.upcoming-inline {
+  width: 300px;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 8px;
+}
+.upcoming-text-inline {
+  font-size: 16px;
+  font-weight: bold;
+  color: #999;
+}
+
+/* Quitar subrayado en todo el contenido de la card, incluso al hacer hover */
+a.blog-card-inline,
+a.blog-card-inline * {
+  text-decoration: none !important;
+}
+
+a.blog-card-inline:hover,
+a.blog-card-inline:hover * {
+  text-decoration: none !important;
+}
+
+/* estilos del carrusel */
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 1px solid #ccc;
+}
+
+.left-arrow {
+  left: -15px;
+}
+
+.right-arrow {
+  right: -50px;
+}
+
+@media (max-width: 768px) {
+    .left-arrow {
+       left: 10px; /* reglas adicionales para móvil */
+    }
+
+    .right-arrow {
+        right: 12px; /* o lo que quieras que sea en móvil */
+    }
+}
+
+/* Carrusel horizontal con flexbox */
+#blogCarousel {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 10px 0;
+  scroll-behavior: smooth;
+}
+
+#blogCarousel::-webkit-scrollbar {
+  display: none;
+}
+
+#blogCarousel > .col-md-4 {
+  flex: 0 0 auto;
+}
+
+/* Estilo para los puntos (dots) debajo del carrusel */
+.blog-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 1.5rem;
+}
+
+.blog-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #6D6E72; /* gris institucional */
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.blog-dot.active {
+  background-color: #1D2D8C; /* azul institucional */
+}
+
+/* ====================================================
+   Estilos generales de como hacer tu proyecto de tesis
+   ==================================================== */
+/* Breadcrumb wrapper corrige el desplazamiento */
+.breadcrumb-wrapper {
+  margin-left: -20px;
+}
+
+/* Nav de migas de pan */
+.breadcrumb-nav {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: -10px;
+}
+
+/* Estilos de lista de migas */
+.breadcrumb {
+  background: #f5f5f5;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0;
+}
+
+/* Links de las migas */
+.breadcrumb-link {
+  color: #3D3D8F;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.breadcrumb-link:hover {
+  color: #1D2D8C !important;
+}
+
+/* Elemento activo */
+.breadcrumb-item.active {
+  color: #1D2D8C !important;
+}
+
+/* 🔷 Título principal del artículo */
+.blog-title-principal {
+  
+  font-weight: 800;
+  color: #1D2D8C; /* Azul institucional */
+  margin-top: -40px; /* Ajuste para solapar el encabezado */
+  margin-bottom: 20px;
+}
+
+/* 🔷 Subtítulo del artículo */
+.blog-subtitle {
+  font-size: 28px;
+  font-weight: 400;
+  color: #1D2D8C;
+  margin-bottom: 30px;
+}
+
+/* 📅 Fecha de publicación */
+.blog-fecha {
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+/* 📌 Párrafo introductorio */
+.blog-intro {
+  font-size: 15px;
+  margin-top: 15px;
+}
+
+/* 📋 Lista de elementos principales */
+.blog-lista {
+  padding-left: 25px;
+  font-size: 18px;
+}
+
+/* 🔹 Espaciado entre ítems de la lista */
+.blog-lista li {
+  margin-bottom: 20px;
+}
+
+/* 📖 Párrafos justificados del contenido */
+.blog-parrafo {
+  font-size: 15px;
+  text-align: justify;
+  line-height: 1.8;
+}
+
+/* 🔗 Estilo del enlace dentro del texto */
+.blog-link {
+  color: #0066cc;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/* 🔗 Hover para enlace del texto */
+.blog-link:hover {
+  text-decoration: underline;
+}
+
+/* 🖼️ Imagen del artículo */
+.blog-img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 🔹 Margen superior/inferior del contenedor principal */
+.blog-estructura-seccion {
+  margin-top: -40px;
+  margin-bottom: 40px;
+}
+
+/* 🔹 Título de la sección */
+.blog-estructura-titulo {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1D2D8C;
+}
+
+/* 📋 Subtítulos dentro de la estructura */
+.blog-estructura-subtitulo {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1D2D8C;
+}
+
+/* 📌 Párrafos explicativos */
+.blog-estructura-parrafo {
+  font-size: 15px;
+  text-align: justify;
+  line-height: 1.8;
+}
+
+/* 📝 Lista de ítems del esquema */
+.blog-estructura-lista {
+  padding-left: 25px;
+  font-size: 18px;
+}
+
+/* Espaciado entre ítems de la lista */
+.blog-estructura-lista li {
+  margin-bottom: 20px;
+}
+
+/* ===========================================
+   📸 ESTILO DE IMAGEN CON ENLACE A WHATSAPP
+   =========================================== */
+
+.blog-whatsapp-banner img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* ===========================================
+   💬 ESTILOS DE SECCIÓN DE COMENTARIOS
+   =========================================== */
+
+/* 🔹 Contenedor general */
+.blog-comentarios-seccion {
+  max-width: 900px;
+  margin-top: -210px;
+}
+
+/* 🔹 Título principal */
+.blog-comentarios-titulo {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1D2D8C;
+}
+
+/* 🔹 Texto introductorio */
+.blog-comentarios-descripcion {
+  font-size: 18px;
+  text-align: justify;
+}
+
+/* 🔹 Color de asterisco obligatorio */
+.requerido {
+  color: red;
+}
+
+/* 🔹 Etiquetas */
+.blog-label {
+  color: #1D2D8C;
+  font-weight: 500;
+}
+
+/* 🔹 Campos de entrada */
+.blog-input {
+  background-color: #fff;
+  color: #212529;
+  font-size: 1rem;
+}
+
+/* 🔹 Checkbox */
+.blog-check {
+  margin-left: 10px;
+}
+
+.blog-check label {
+  font-size: 16px;
+}
+
+/* ==== Sección de la imagen con botón de WhatsApp ==== */
+.whatsapp-section {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+/* ==== Comentarios (Formulario) ==== */
+.comentarios-section {
+  max-width: 900px;
+  margin-top: -210px;
+}
+
+/* Título */
+.comentarios-titulo {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1D2D8C;
+}
+
+/* Texto debajo del título */
+.comentarios-texto {
+  font-size: 15px;
+  text-align: justify;
+}
+
+/* Etiquetas de los campos */
+.comentarios-label {
+  color: #1D2D8C;
+}
+
+/* Inputs y textarea */
+.comentarios-input {
+  background-color: #fff;
+  color: #212529;
+  font-size: 1rem;
+}
+
+/* Checkbox */
+.comentarios-check {
+  margin-left: 10px;
+}
+
+.comentarios-check .form-check-label {
+  font-size: 16px;
+}
+
+/* ===========================================
+   FIN DEL APARTADO DE COMO-HCER-TU-PROYECTO DE TESIS"
+   =========================================== */
+
+
+/* ===========================
+   APARTADO DEL DIA DEL PADRE"
+   =========================== */
+
+/* ===== Estilos para breadcrumb- miga de pan- Día del Padre ===== */
+.breadcrumb-nav {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: -10px;
+}
+
+.breadcrumb-inner {
+  margin-left: -20px;
+}
+
+.breadcrumb {
+  background: #f5f5f5;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0;
+}
+
+.breadcrumb-link {
+  color: #3D3D3F;
+  text-decoration: none;
+}
+
+.breadcrumb-link:hover {
+  color: #1D2D8C;
+}
+
+.breadcrumb-item.active {
+  color: #1D2D8C;
+}
+
+/* =========================
+   BLOG GENERAL STYLES
+   ========================= */
+.blog-content {
+  margin-top: 3rem;
+}
+
+.blog-article {
+  margin-bottom: 100px;
+}
+
+.blog-title {
+  
+  font-weight: 800;
+  color: #1D2D8C;
+  margin-top: -40px;
+  margin-bottom: 20px;
+}
+
+.blog-subtitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1D2D8C;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.blog-subsubtitle {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1D2D8C;
+  margin-top: 30px;
+}
+
+.blog-paragraph {
+  font-size: 15pxpx;
+  margin-top: 15px;
+}
+
+.blog-paragraph.text-justify {
+  text-align: justify;
+}
+
+.blog-image {
+  width: 60%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+/* ======================
+   FIN DEL DIA DEL PADRE"
+   ====================== */
+
+ 
+   
+/* ===========================
+   APARTADO DE FIESTAS PATRIAS"
+   =========================== */
+
+/* MIGA DE PAN */
+.fiestas-patrias-breadcrumb {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: -10px;
+}
+
+.breadcrumb-wrapper {
+  margin-left: -20px;
+}
+
+.breadcrumb-box {
+  background: #f5f5f5;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0;
+}
+
+.breadcrumb-link {
+  color: #3D3D3F;
+  text-decoration: none;
+}
+
+.breadcrumb-color-hover:hover {
+  color: #1D2D8C;
+}
+
+.current-page {
+  color: #1D2D8C;
+}
+
+/* =CONTENIDO PRINCIPAL FIESTAS PATRIAS= */
+.titulo-fiestas {
+  font-size: 32px;
+  font-weight: 700;
+  color: #C40000;
+  text-align: center;
+  margin-top: -30px;
+  margin-bottom: 30px;
+  text-transform: none;
+}
+
+.parrafo-intro {
+  font-size: 15px;
+  text-align: justify;
+  margin-top: 25px;
+}
+
+.imagen-fiestas {
+  max-width: 100%;
+  height: auto;
+}
+
+.subtitulo-fiestas {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1D2D8C;
+  margin-top: 40px;
+  text-transform: none;
+}
+
+.parrafo-fiestas {
+  font-size: 15px;
+  text-align: justify;
+}
+
+.subsubtitulo-fiestas {
+  font-size: 22px;
+  font-weight: 600;
+  color: #3A3A3A;
+  margin-top: 20px;
+  text-transform: none;
+}
+
+.lista-fiestas {
+  font-size: 15px;
+  padding-left: 25px;
+}
+
+.lista-fiestas li {
+  margin-bottom: 10px;
+}
+
+/* ==== Sección Perú del mañana y Tesis de Posgrado ==== */
+.peru-h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1D2D8C;
+  margin-top: 40px;
+  text-transform: none;
+}
+
+.peru-h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #3A3A3A;
+  margin-top: 20px;
+  text-transform: none;
+}
+
+.peru-p {
+  font-size: 18px;
+  text-align: justify;
+}
+
+.peru-a {
+  color: #0066cc;
+  font-weight: 500;
+}
+
+.peru-ul {
+  font-size: 18px;
+  padding-left: 25px;
+}
+
+.peru-li {
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+/* ==== Comentarios ==== */
+.comentarios-container {
+  max-width: 900px;
+  margin: -110px auto 5rem;
+}
+
+.comentarios-title {
+  margin-top: 1rem;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1D2D8C;
+}
+
+.comentarios-desc {
+  font-size: 18px;
+  text-align: justify;
+}
+
+.required {
+  color: red;
+}
+
+.form-label {
+  color: #1D2D8C;
+}
+
+.form-input {
+  background-color: #fff;
+  color: #212529;
+  font-size: 1rem;
+}
+
+.form-check-text {
+  font-size: 16px;
+}
+
+/* =====================================
+   APARTADO DEL TRABAJO DE SUFICIENCIA"
+   ===================================== */
+/* MIGA DE PAN */
+.suficiencia-breadcrumb {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: -10px;
+}
+
+.breadcrumb-wrapper {
+  margin-left: -20px;
+}
+
+.breadcrumb-box {
+  background: #f5f5f5;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0;
+}
+
+.breadcrumb-link {
+  color: #3D3D3F;
+  text-decoration: none;
+}
+
+.breadcrumb-color-hover:hover {
+  color: #1D2D8C;
+}
+
+.current-page {
+  color: #1D2D8C;
+}
+
+.breadcrumb-mobile {
+  display: none;
+}
+
+.breadcrumb-desktop {
+  display: inline;
+}
+
+/* Mostrar "TSP" en móviles (pantallas menores o iguales a 767px) */
+@media (max-width: 767px) {
+  .breadcrumb-mobile {
+    display: inline;
+  }
+
+  .breadcrumb-desktop {
+    display: none;
+  }
+}
+
+/* =CONTENIDO PRINCIPAL SUFICIENCIA PROFESIONAL */
+.suficiencia-profesional {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1D2D8C;
+  text-align: center;
+  margin-top: -30px;
+  margin-bottom: 30px;
+  text-transform: none;
+}
+
+.imagen-fiestas {
+  max-width: 100%;
+  height: auto;
+}
+
+.subtitulo-fiestas {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1D2D8C;
+  margin-top: 40px;
+  text-transform: none;
+}
+
+.parrafo-fiestas {
+  font-size: 15px;
+  text-align: justify;
+}
+
+.subsubtitulo-suficiencia {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1D2D8C;
+  margin-top: 20px;
+  text-transform: none;
+}
+
+.lista-suficiencia li {
+  margin-bottom: 10px;
+}
+
+/* 🔵 Encabezado de la tabla con fondo azul oscuro y texto blanco */
+.tabla-comparativa thead {
+  color: #fc8642;
+  text-align: center;
+  
+}
+
+.tabla-comparativa .titulo-general th {
+  color: #1D2D8C;
+  text-align: center;
+}
+
+/* 🔵 Ajuste de padding de celdas para hacerla más compacta */
+.tabla-comparativa td,
+.tabla-comparativa th {
+  padding: 8px 12px;
+  padding-left: 16px;
+  padding-right: 6px;
+}
+
+/* 🔵 Imagen del equipo con ancho limitado en PC y full en mobile */
+.img-equipo {
+  max-width: 720px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .img-equipo {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+/* ==== Sección subtitulos ==== */
+.peru-h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1D2D8C;
+  margin-top: 40px;
+  text-transform: none;
+}
+
+.peru-h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #3A3A3A;
+  margin-top: 20px;
+  text-transform: none;
+}
+
+.peru-p {
+  font-size: 15px;
+  text-align: justify;
+}
+
+.peru-a {
+  color: #0066cc;
+  font-weight: 500;
+}
+
+.peru-ul {
+  font-size: 18px;
+  padding-left: 25px;
+}
+
+.peru-li {
+  margin-bottom: 10px;
+}
+
+/* ==== Comentarios ==== */
+.comentarios-container {
+  max-width: 900px;
+  margin: -110px auto 5rem;
+}
+
+.comentarios-title {
+  margin-top: 1rem;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1D2D8C;
+}
+
+.comentarios-desc {
+  font-size: 15px;
+  text-align: justify;
+}
+
+.required {
+  color: red;
+}
+
+.form-label {
+  color: #1D2D8C;
+}
+
+.form-input {
+  background-color: #fff;
+  color: #212529;
+  font-size: 1rem;
+}
+
+.form-check-text {
+  font-size: 16px;
+}
+
+/* FLECHA */
+#back-to-top .btn.btn-primary:hover {
+    background: #334F96;
+}
+
+#back-to-top .btn.btn-primary {
+    border-radius: 100%;
+    padding: 0px;
+    font-size: 18px;
+    width: 36px;
+    height: 36px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid transparent;
+    color: #fff;
+    opacity: 0.5;
+}

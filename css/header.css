@@ -1,0 +1,6 @@
+/* Asegúrate de que el navbar y su dropdown estén al frente */
+.navbar,
+.navbar .dropdown-menu {
+  z-index: 1050 !important; /* más alto que banners o sliders */
+  position: relative;
+}

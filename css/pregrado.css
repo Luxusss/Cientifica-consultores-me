@@ -1,0 +1,967 @@
+/* ================================
+   Banner principal con texto encima
+   ================================*/
+.banner-area {
+    position: relative;
+    background-size: cover;
+    height: 725px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    overflow: hidden;
+}
+
+.banner-area::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+/* 🎯 Imágenes específicas */
+.banner-tesis {
+    position: relative;
+    background-size: cover;
+    background-position: center 50%;
+}
+
+.banner-content {
+    position: absolute;
+    /* se posiciona respecto al banner */
+    top: 55%;
+    /* lo centra verticalmente */
+    left: 200px;
+    /* separación desde el borde izquierdo */
+    transform: translateY(-50%);
+    /* centra verticalmente */
+    z-index: 2;
+}
+
+.titulo-normal {
+    font-size: 70px;
+    font-weight: bold;
+    line-height: 1.2;
+    color: white;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.65);
+}
+
+.br-mobile {
+    display: inline;
+}
+
+.mobile-text {
+    display: none;
+}
+
+.banner-img {
+    width: 100%;
+    height: 150%;
+    object-fit: cover;
+    object-position: center 0%;
+}
+
+/* 🔧 Adaptación del banner para móviles */
+@media (max-width: 768px) {
+    .banner-area {
+        background-size: cover;
+        justify-content: right;
+        height: 342px;
+        top: 35px;
+        overflow: hidden;
+    }
+
+    .banner-area.banner-servicios {
+        background-position: left 0%;
+        /* o el % que necesites */
+    }
+
+    .titulo-normal {
+        font-size: 28px;
+        line-height: 1.3;
+    }
+
+    .banner-content {
+        position: absolute;
+        top: 50%;
+        /* centro vertical */
+        left: 50%;
+        /* centro horizontal */
+        transform: translate(-50%, -50%);
+        width: 90%;
+        /* margen lateral automático */
+        text-align: center;
+        /* centrado */
+        padding: 0 10px;
+        /* respiro lateral */
+        z-index: 2;
+    }
+
+    .banner-img {
+        width: 120%;
+        height: auto;
+    }
+
+    .br-mobile {
+        display: none;
+    }
+
+    .pc-text {
+        display: none;
+    }
+
+    .mobile-text {
+        display: block;
+    }
+}
+
+/* ===========
+   MIGA DE PAN
+   =========== */
+.breadcrumb-nav {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+}
+
+.breadcrumb-wrapper {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-start;
+    /* o 'center' si quieres centrar */
+    margin-left: -20px;
+}
+
+.custom-breadcrumb {
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+}
+
+.breadcrumb-item a.breadcrumb-link {
+    color: #3D3D3F;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.breadcrumb-item a.breadcrumb-link:hover {
+    color: #1D2D8C;
+}
+
+.breadcrumb-item.active {
+    color: #1D2D8C !important;
+    font-weight: 500;
+    /* Opcional para que resalte un poco */
+}
+
+.breadcrumb-nav .breadcrumb {
+    background: #ffffff;
+}
+
+/* =================
+   MIGA DE PAN MOVIL
+   ================= */
+@media (max-width: 768px) {
+    .breadcrumb-wrapper {
+        margin-top: 30px;
+        margin-bottom: 20px;
+        margin-left: -6px;
+    }
+
+    .custom-breadcrumb {
+        padding: 0.5rem;
+        font-size: 14px;
+        margin-bottom: -3px;
+    }
+
+    .breadcrumb-item a.breadcrumb-link,
+    .breadcrumb-item.active {
+        font-size: 14px;
+    }
+}
+
+/* ============================================
+   Áreas de Especialización en Asesoría de Tesis
+   ============================================ */
+
+/* Fuentes y espaciado general (antes en <section>) */
+.area-tesis-section {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Título */
+.titulo-areas {
+    color: #1D2D8C;
+    margin-bottom: 10px;
+    font-size: 28px;
+
+}
+
+/* Párrafo descriptivo */
+.descripcion-areas {
+    color: #555;
+}
+
+/* Línea separadora */
+.separador-areas {
+    width: 80px;
+    height: 3px;
+    background-color: #1D2D8C;
+    margin: 0 auto 10px auto;
+    border: none;
+}
+
+.custom-accordion .accordion-item {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 15px;
+    overflow: hidden;
+    transition: background-color 0.3s ease;
+}
+
+.custom-accordion .accordion-button {
+    background-color: white;
+    color: #1D2D8C;
+    font-weight: 600;
+    padding: 16px 20px;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.custom-accordion .accordion-button:hover {
+    background-color: #f0f4ff;
+    color: #1D2D8C;
+}
+
+.custom-accordion .accordion-button:not(.collapsed) {
+    background-color: #1D2D8C;
+    color: white;
+}
+
+.custom-accordion .accordion-body {
+    background-color: #ffffff;
+    color: #333;
+    padding: 15px 20px;
+    line-height: 1.6;
+}
+
+/* Íconos dinámicos */
+.icon-toggle {
+    transition: opacity 0.3s ease;
+}
+
+.accordion-button .dash {
+    display: none;
+}
+
+.accordion-button:not(.collapsed) .plus {
+    display: none;
+}
+
+.accordion-button:not(.collapsed) .dash {
+    display: inline-block;
+}
+
+@media (max-width: 768px) {
+    .custom-accordion .accordion-button {
+        padding: 14px 18px;
+    }
+
+    .custom-accordion .accordion-body {
+        padding: 14px 18px;
+    }
+
+    .titulo-areas {
+        color: #1D2D8C;
+        margin-bottom: 10px;
+        font-size: 19.2px;
+
+    }
+}
+
+/* =======================================
+   TITULOS QUE TIENEN H2 QUE SON 3 TITULOS 
+   =======================================*/
+.titulo-seccion {
+    margin-bottom: 1rem !important;
+    /* reduce espacio debajo del h2 */
+}
+
+.titulo-segundo {
+    margin-top: 20px !important;
+    /* o el valor que prefieras */
+}
+
+.titulo-tercero {
+    margin-top: 28px !important;
+    /* o el valor que prefieras */
+}
+
+.titulo {
+    margin-top: -2px !important;
+    padding-bottom: 20px;
+    /* o el valor que prefieras */
+}
+
+.titulo-uni {
+    margin-top: 40px;
+}
+
+/* TITULOS QUE TIENEN H2 QUE SON 3 TITULOS PARA MOVIL */
+@media (max-width: 768px) {
+
+    .titulo-seccion,
+    .titulo-segundo,
+    .titulo-tercero {
+        line-height: 1.1 !important;
+        font-size: 1.2rem !important;
+        margin-bottom: 0.75rem !important;
+        padding-left: 0;
+        text-align: center !important;
+    }
+
+    .titulo-segundo {
+        margin-top: -30px !important;
+    }
+
+    .titulo-tercero {
+        margin-top: 1.5rem !important;
+    }
+
+    .titulo-principal {
+        line-height: 1.1 !important;
+        font-size: 1.2rem !important;
+        margin-bottom: 0.75rem !important;
+        margin-top: 10px;
+        padding-left: 0;
+        text-align: center !important;
+    }
+
+    .p-lista {
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+        color: rgba(51, 79, 150, 1);
+        font-size: 14px;
+        text-align: left;
+    }
+
+    .titulo-uni {
+        margin-top: 10px;
+        font-size: 19px;
+        text-align: center !important;
+    }
+}
+
+/* =============================================================
+   PARRAFO DE CIENTIFICA CONSULTORES DE TESIS, ENLACE PARA INCIO 
+   =============================================================*/
+.parrafo-intro a {
+    color: #0066cc;
+    font-weight: 500;
+    text-decoration: none;
+    /* 👈 Oculta el subrayado por defecto */
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+    transition: all 0.2s ease-in-out;
+    /* 👈 Para una animación suave */
+}
+
+.parrafo-intro a:hover {
+    color: #004999;
+    /* 👈 Un azul más oscuro al pasar el mouse */
+    text-decoration: none !important;
+    /* 👈 Esto quita el subrayado */
+    cursor: pointer;
+}
+
+.parrafo-principal {
+    font-family: 'Inter', sans-serif;
+    font-size: 28px;
+    line-height: 1.3;
+    font-weight: 600;
+    color: #323232;
+}
+
+.heading {
+    padding-bottom: 5px;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+@media (max-width: 768px) {
+    .parrafo-principal {
+        line-height: 1.1 !important;
+        font-size: 1.2rem !important;
+        margin-bottom: 0.75rem !important;
+        padding-left: 0;
+        text-align: center !important;
+    }
+
+    .heading {
+        padding-bottom: 40px;
+        margin-top: 10px;
+        transition: 0.3s;
+    }
+}
+
+/* ===================
+   TIPOS DE ASESORÍAS
+   =================== */
+
+/* Contenedor general: sube toda la sección en todas las vistas */
+.tipos-asesorias {
+    margin-top: 40px !important;
+    padding-top: 0 !important;
+}
+
+/* Título */
+.title.classic {
+    color: #333;
+    font-size: 28px !important;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    margin-left: -20px;
+}
+
+/* Contenedor de la tarjeta */
+.container-asesoria {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Imagen */
+.section_asesoria_img {
+    width: 100%;
+    height: 310px;
+    object-fit: cover;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .tipos-asesorias {
+        margin-top: 50px !important;
+        margin-bottom: -70px;
+    }
+}
+
+/* ========================
+   IMÁGENES DE LAS TARJETAS 
+   ========================*/
+.card-img-top {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+@media (min-width: 1200px) {
+    .card-img-top {
+        height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-img-top {
+        height: 200px;
+    }
+}
+
+/* --- TARJETA --- */
+.servicio-card {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.servicio-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.seccion-servicios {
+    margin-top: -0.25rem !important;
+    /* reduce espacio encima de tarjetas */
+}
+
+/* ==================================
+   OVERLAY PARA EL BOTON COTICE AHORA 
+   ==================================*/
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 1;
+}
+
+.servicio-card:hover .overlay {
+    opacity: 1;
+}
+
+.btn-wsp-cotizar {
+    background-color: white;
+    color: #1D2D8C;
+    /* Azul corporativo */
+    font-weight: 600;
+    border: 2px solid #1D2D8C;
+    border-radius: 30px;
+    padding: 0.5rem 1.4rem;
+    font-size: 16px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+}
+
+.btn-wsp-cotizar:hover {
+    background-color: #25D366;
+    /* Verde WhatsApp */
+    border-color: #25D366;
+    color: white;
+}
+
+.btn-wsp-cotizar i {
+    font-size: 18px;
+}
+
+/* --- DESCRIPCIÓN OCULTA: bloque separado --- */
+.descripcion-oculta {
+    height: 0;
+    overflow: hidden;
+    margin-top: 0;
+    /* pegada cuando está oculta */
+    transition: height 0.3s ease,
+        margin-top 0.3s ease,
+        padding 0.3s ease;
+}
+
+/* --- Al hover sobre la tarjeta: mostramos el hermano separado --- */
+.servicio-card:hover+.descripcion-oculta {
+    height: auto;
+    margin-top: 0.5rem;
+    /* separación clara del título */
+    padding: 0.5rem 0;
+    /* espacio vertical interno */
+}
+
+/* --- Estilos de la franja (dentro) --- */
+.fondo-secundario {
+    background-color: #273280;
+    color: white;
+    border-radius: 0 0 0.1rem 0.1rem;
+    font-size: 17px;
+}
+
+h3 {
+    font-family: 'Inter', sans-serif;
+    color: #323232;
+    letter-spacing: 0.5px;
+    text-transform: none;
+    margin: 0 0 0.5em;
+    font-size: 16px;
+    line-height: 1.3;
+    font-weight: 600;
+}
+
+/* --- Móvil: la descripción siempre visible y separada --- */
+@media (max-width: 768px) {
+    .descripcion-oculta {
+        height: auto !important;
+        margin-top: 0.3rem !important;
+        padding: 0.5rem 0 !important;
+    }
+
+    h3 {
+        font-family: 'Inter', sans-serif;
+        color: #323232;
+        letter-spacing: 0.5px;
+        text-transform: none;
+        margin: 0 0 0.5em;
+        font-size: 16px;
+        line-height: 1.3;
+        font-weight: 600;
+    }
+
+    a {
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+        text-decoration: none;
+        color: rgba(51, 79, 150, 1);
+    }
+}
+
+.p-lista {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: rgba(51, 79, 150, 1);
+    font-size: 14px;
+    cursor: pointer;
+    /* para que parezca clickeable */
+    transition: color 0.3s ease;
+    /* transición suave */
+}
+
+.p-lista:hover {
+    color: #007bff;
+    /* color al pasar el mouse */
+}
+
+.desglosable {
+    font-size: 14px;
+    margin-bottom: -10px;
+}
+
+
+a {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    text-decoration: none;
+    color: rgba(51, 79, 150, 1);
+}
+
+#back-to-top .btn.btn-primary:hover {
+    background: #334F96;
+}
+
+#back-to-top .btn.btn-primary {
+    border-radius: 100%;
+    padding: 0px;
+    font-size: 18px;
+    width: 36px;
+    height: 36px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid transparent;
+    color: #fff;
+    opacity: 0.5;
+}
+
+/* =========================================================
+   LEAD FORM – Compact V2 (Banner / Móvil)  —  pegar tal cual
+   ========================================================= */
+
+/* Panel del formulario */
+.lead-form-wrapper {
+    /* reset tipografía dentro del panel */
+    font-size: 16px !important;
+    line-height: 1.25 !important;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+
+    padding: 20px 20px !important;
+    /* menos aire interno */
+    border-radius: 18px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: rgb(255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 8px 24px rgba(13, 24, 72, 0.18);
+    max-width: 600px;
+    box-sizing: border-box;
+}
+
+/* Debajo del título del banner */
+.banner-content .lead-form-wrapper {
+    margin-top: -20px !important;
+    /* pegado al título */
+    margin-left: 0;
+}
+
+/* Un solo gap gobierna TODAS las separaciones internas */
+.lead-form {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: 10px !important;
+    /* cambia a 12px si lo quieres más suelto */
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Bloque de 2 columnas */
+.lead-form .lf-2col {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px !important;
+}
+
+/* Quitar márgenes que inflan */
+.lead-form .lf-row,
+.lead-form .lf-input,
+.lead-form .lf-textarea,
+.lead-form .lf-btn,
+.lead-form button {
+    margin: 0 !important;
+    box-sizing: border-box;
+}
+
+/* Inputs (altura fija y tamaño normal) */
+.lead-form .lf-input {
+    width: 100%;
+    height: 46px !important;
+    /* altura consistente */
+    padding: 12px 14px !important;
+    border-radius: 12px;
+    border: 1px solid rgba(29, 45, 140, 0.15);
+    background: rgb(233 233 233 / 92%);
+    font-size: 16px !important;
+    /* evita herencia gigante */
+    line-height: 1.25 !important;
+    outline: none;
+    transition: box-shadow .2s, border-color .2s, background .2s;
+}
+
+.lead-form .lf-input::placeholder {
+    font-size: 16px !important;
+    color: rgba(0, 0, 0, .55);
+}
+
+.lead-form .lf-input:focus {
+    border-color: #1D2D8C;
+    box-shadow: 0 0 0 4px rgba(29, 45, 140, .08);
+    background: #fff;
+}
+
+/* Textarea (sin altura gigantesca) */
+.lead-form .lf-textarea {
+    height: auto !important;
+    /* no forzar altura de input */
+    min-height: 110px !important;
+    resize: vertical;
+}
+
+/* Botón (rige el gap, sin márgenes extra) */
+.lead-form .lf-btn {
+    width: 100%;
+    padding: 12px 16px !important;
+    border: none;
+    border-radius: 12px;
+    background: #1D2D8C;
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px !important;
+    letter-spacing: .2px;
+    cursor: pointer;
+    transition: background .2s ease, transform .05s ease, box-shadow .2s ease;
+}
+
+.lead-form .lf-btn:hover {
+    background: #334F96;
+}
+
+.lead-form .lf-btn:active {
+    transform: translateY(1px);
+}
+
+/* Visibilidad por dispositivo (si usas también la versión móvil bajo breadcrumb) */
+.lead-form--desktop {
+    display: block;
+}
+
+/* Limita a 10 elementos visibles en la lista abierta */
+#countryCode option {
+  padding: 6px 10px;
+}
+
+select#countryCode {
+  max-height: 10 * 42px; /* 10 filas aprox */
+  overflow-y: auto;
+}
+
+.lead-form-container-mobile,
+.lead-form--mobile {
+    display: none;
+}
+
+.lf-row-whatsapp-mobile {
+  display: grid !important;
+  grid-template-columns: 3fr 1fr;
+  gap: 10px;
+}
+
+/* Asegurar que el input de WhatsApp ocupa todo su columna */
+.lf-input-whatsapp-mobile {
+  width: 100%;
+}
+
+/* Wrapper del selector de país en móvil */
+.mobile-country-wrapper {
+  position: relative;
+}
+
+/* Icono centrado al inicio (cuando no hay país seleccionado) */
+.mobile-country-wrapper .lf-country-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+}
+
+/* Ocultar icono cuando ya hay un valor o cuando se abre el select */
+.mobile-country-wrapper.has-value .lf-country-icon,
+.mobile-country-wrapper.opened .lf-country-icon {
+  display: none;
+}
+
+/* Select de país en móvil: número bien centrado */
+.mobile-country-wrapper .lf-input-country {
+  text-align: center;
+  padding-left: 8px !important;
+  padding-right: 22px !important;
+  font-size: 15px;
+}
+
+/* Título dentro del formulario */
+.lf-title {
+    margin: 0 !important;
+    padding: 4px 2px;
+    font-size: 24px;
+    line-height: 1.25;
+    font-weight: 800;
+    text-align: center;
+    color: #000000;
+    /* texto blanco */
+    text-shadow: 0 1px 2px rgba(105, 105, 105, 0.25);
+    border-radius: 8px;
+}
+
+/* Fila especial: WhatsApp + selector de país más pequeño */
+.lead-form .lf-row.lf-2col.lf-row-whatsapp {
+    grid-template-columns: 2fr 1fr;
+    /* WhatsApp grande, país pequeño */
+}
+
+/* Ajuste visual del select de país */
+.lead-form .lf-input-country {
+    text-align: center;
+    font-size: 14px;
+    /* un pelín más pequeño */
+    padding-left: 2px !important;
+    padding-right: 5px !important;
+    /* deja espacio a la flecha */
+}
+
+/* Wrapper del select de país con icono */
+.lf-country-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+/* Icono de planeta (Bootstrap Icons) */
+.lf-country-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* CENTRADO */
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.55);
+    pointer-events: none;
+}
+
+/* Ocultar icono cuando ya hay un valor seleccionado */
+.lf-country-wrapper.has-value .lf-country-icon {
+    display: none;
+}
+
+.lf-country-wrapper.has-value .lf-input-country {
+    padding-left: 8px !important;
+    padding-right: 10px !important;
+    text-align: center;
+}
+
+/* Select de país */
+.lead-form .lf-input-country {
+    font-size: 14px;
+    padding-left: 8px !important;
+    padding-right: 24px !important;
+    /* deja aire con la flecha */
+    text-align: center;
+}
+
+/* ====== Mobile ====== */
+@media (max-width: 768px) {
+
+    /* Titulo */
+    .lf-title {
+        font-size: 15.5px;
+        padding: 9px 10px;
+    }
+
+    .lead-form .lf-row.lf-2col.lf-row-whatsapp {
+        grid-template-columns: 1fr;
+    }
+
+    /* Ocultar form del banner y mostrar el de móvil */
+    .lead-form--desktop {
+        display: none;
+    }
+
+    .lead-form-container-mobile,
+    .lead-form--mobile {
+        display: block;
+    }
+
+    /* separación bajo breadcrumb */
+    .lead-form-container-mobile {
+        margin-top: -4px;
+        margin-bottom: 14px;
+    }
+
+    /* inputs en una sola columna */
+    .lf-2col {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    /* Ajuste de fondo más sólido para legibilidad en móvil */
+    .lead-form-wrapper {
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        box-shadow: 0 6px 18px rgba(13, 24, 72, 0.12);
+        padding: 16px;
+        max-width: 100%;
+        margin-bottom: 30px;
+    }
+}
+
+@media (min-width: 992px) {
+    :root {
+        --push-distance: 100px;
+    }
+
+    /* cámbialo aquí si quieres más/menos */
+
+    section#service .row.mt-5>.card-container:nth-child(1):hover~.card-container:nth-child(4) {
+        transform: translateY(var(--push-distance));
+        transition: transform 0.35s ease;
+        will-change: transform;
+    }
+
+    section#service .row.mt-5>.card-container:nth-child(3):hover~.card-container:nth-child(5) {
+        transform: translateY(var(--push-distance));
+        transition: transform 0.35s ease;
+        will-change: transform;
+    }
+
+    section#service .row.mt-5>.card-container {
+        transform: none;
+    }
+}

@@ -1,0 +1,1816 @@
+/* ===========================
+   Variables (no invasivas) del home
+   =========================== */
+:root {
+  --color-primario: #1D2D8C;
+  --color-azul-oscuro: #152173;
+  --color-naranja: #FFA500;
+  --color-gris-oscuro: #4f4f4f;
+  --blanco: #ffffff;
+  --texto-oscuro: #212529;
+  --shadow-oscuro: rgba(0, 0, 0, 0.6);
+  --max-banner-width: 1000px;
+  --font-display: 'Montserrat', sans-serif;
+}
+
+/* ---- Parche: forzar qué versión mostrar (evita duplicado PC vs móvil) ---- */
+.text-mobile {
+  display: none !important;
+}
+
+.text-pc {
+  display: block !important;
+}
+
+/* ================================
+   Banner principal con texto encima
+   ================================*/
+.banner-area {
+  position: relative;
+  background-size: cover;
+  height: 725px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+.banner-area::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+/* 🎯 Imágenes específicas */
+.banner-tesis {
+  position: relative;
+  background-size: cover;
+  background-position: center 50%;
+}
+
+.banner-content {
+  position: absolute;
+  /* se posiciona respecto al banner */
+  top: 55%;
+  /* lo centra verticalmente */
+  left: 150px;
+  /* separación desde el borde izquierdo */
+  transform: translateY(-50%);
+  /* centra verticalmente */
+  z-index: 2;
+}
+
+.titulo-normal {
+  font-size: 70px;
+  font-weight: bold;
+  line-height: 1.4;
+  color: #ffffff;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.65);
+}
+
+.br-mobile {
+  display: inline;
+}
+
+.mobile-text {
+  display: none;
+}
+
+.banner-img {
+  width: 100%;
+  height: 150%;
+  object-fit: cover;
+  object-position: center 0%;
+}
+
+/* 🔧 Adaptación del banner para móviles */
+@media (max-width: 768px) {
+  .banner-area {
+    background-size: cover;
+    justify-content: right;
+    height: 342px;
+    top: 35px;
+    overflow: hidden;
+  }
+
+  .banner-area.banner-tesis {
+    background-position: left 0%;
+    /* o el % que necesites */
+  }
+
+  .titulo-normal {
+    font-size: 28px;
+    line-height: 1.3;
+    text-align: left;
+  }
+
+  .banner-content {
+    position: absolute;
+    top: 62%;
+    /* centro vertical */
+    left: 50%;
+    /* centro horizontal */
+    transform: translate(-50%, -50%);
+    width: 90%;
+    /* margen lateral automático */
+    text-align: left;
+    /* centrado */
+    padding: 0 10px;
+    /* respiro lateral */
+    z-index: 2;
+  }
+
+  .banner-img {
+    width: 120%;
+    height: auto;
+  }
+
+  .br-mobile {
+    display: none;
+  }
+
+  .pc-text {
+    display: none;
+  }
+
+  .mobile-text {
+    display: block;
+  }
+}
+
+/* =========================================
+   SECCIÓN SERVICIOS (CARDS) - Consolidado
+   ========================================= */
+#service .card {
+  border: 2px solid #ca7300 !important;
+}
+
+#service .card-body {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+}
+
+/* contenedor de cada tarjeta */
+.card-container {
+  position: relative;
+}
+
+/* imagenes tarjetas */
+.card-img-ajustada {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+}
+
+/* overlay en hover */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: 0.3s ease;
+  z-index: 2;
+}
+
+.card:hover .overlay {
+  opacity: 1;
+}
+
+/* ver-oculto que baja con animación (comportamiento por defecto: en flujo) */
+.card:hover+.ver-oculto {
+  max-height: 300px;
+  /* altura máxima al mostrar */
+  visibility: visible;
+}
+
+/* ver-oculto que baja con animación (regla base) */
+.ver-oculto {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  visibility: visible !important;
+  display: block !important;
+}
+
+/* lupa y texto en overlay */
+.lupa {
+  font-size: 2rem;
+  color: var(--blanco);
+  text-align: center;
+  margin-top: 45px;
+}
+
+.text {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--blanco);
+  font-weight: bold;
+  margin-top: -40px;
+}
+
+/* títulos de tarjeta */
+.card-titulo {
+  text-align: center;
+  color: var(--blanco);
+  font-weight: bold;
+}
+
+.card-titulo-sm {
+  font-size: 23px;
+}
+
+.card-titulo-lg {
+  font-size: 24px;
+}
+
+.card-titulo-xs {
+  font-size: 23px;
+}
+
+/* asegurar que los títulos dentro de enlaces se mantengan blancos */
+section#service .card a .card-titulo,
+section#service .card a h2 {
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+/* ver-oculto que aparece al hover (visibilidad por defecto) */
+.ver-oculto {
+  visibility: hidden;
+}
+
+.card:hover+.ver-oculto {
+  visibility: visible;
+}
+
+.ver-cuerpo {
+  background-color: #273280;
+  padding: 1rem;
+}
+
+.ver-texto {
+  color: var(--blanco);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .ver-oculto {
+    max-height: none;
+    /* sin límite */
+    overflow: visible;
+  }
+}
+
+/* ============================================================
+   COMPORTAMIENTO "no-push" (RESTAURADO + solo empuja la card
+   directamente debajo usando selectores de orden)
+   ===========================================================*/
+
+/* Mantener la tarjeta como referencia para estilos locales */
+section#service .card-container.no-push {
+  position: relative;
+}
+
+/* Volvemos a la versión absolute (no cambia la estructura ni el tamaño
+   por defecto). De este modo las cards no se “achican” ni aparecen
+   espacios en blanco por dejar .ver-oculto en el flujo. */
+section#service .card-container.no-push .ver-oculto {
+  position: absolute;
+  top: calc(100% - 15px);
+  left: 0;
+  right: 0;
+  z-index: 30;
+  display: block;
+  overflow: hidden;
+  max-height: 0;
+  padding: 0 1rem;
+  opacity: 0;
+  transition: max-height 0.4s ease, padding 0.35s ease, opacity 0.25s ease;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: max-height, padding, opacity;
+}
+
+/* Mostrar el panel en la propia tarjeta (overlay absoluto). */
+section#service .card-container.no-push:hover .ver-oculto,
+section#service .card-container.no-push:focus-within .ver-oculto {
+  max-height: 300px;
+  padding: 1rem;
+  opacity: 1;
+}
+
+/* Mantener estilo interior del cuerpo */
+section#service .card-container.no-push .ver-cuerpo {
+  background-color: #273280;
+  padding: 1rem;
+  border-radius: 0px;
+  transform: translateY(0);
+  transition: transform 0.35s ease;
+}
+
+/* ------------------------------------------------------------
+  CARDS: Al hacer hover en la card de arriba, desplazamos
+   solo la card que está *visualmente debajo* (posición fija en DOM)
+   ------------------------------------------------------------
+   Ajusta los índices (nth-child) sólo si reordenas las columnas.
+   Aquí asumimos la estructura actual: 1=card1, 2=card2, 3=card3,
+   4=card4, 5=card5.
+   Solo en pantallas grandes aplicamos el empuje.
+*/
+@media (min-width: 992px) {
+  :root {
+    --push-distance: 100px;
+  }
+
+  /* cámbialo aquí si quieres más/menos */
+
+  section#service .row.mt-5>.card-container:nth-child(1):hover~.card-container:nth-child(4) {
+    transform: translateY(var(--push-distance));
+    transition: transform 0.35s ease;
+    will-change: transform;
+  }
+
+  section#service .row.mt-5>.card-container:nth-child(2):hover~.card-container:nth-child(5) {
+    transform: translateY(var(--push-distance));
+    transition: transform 0.35s ease;
+    will-change: transform;
+  }
+
+  section#service .row.mt-5>.card-container:nth-child(3):hover~.card-container:nth-child(6) {
+    transform: translateY(var(--push-distance));
+    transition: transform 0.35s ease;
+    will-change: transform;
+  }
+
+  section#service .row.mt-5>.card-container {
+    transform: none;
+  }
+}
+
+
+/* Reglas para pantallas pequeñas: revertimos a comportamiento móvil */
+@media (max-width: 768px) {
+  section#service .card-container.no-push .card {
+    transition: transform 0.3s ease;
+  }
+
+  section#service .card-container.no-push .card:hover {
+    transform: translateY(-5px);
+  }
+
+  section#service .card-container.no-push .ver-oculto {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    opacity: 1 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    transition: none !important;
+  }
+
+  section#service .card-container.no-push .ver-cuerpo {
+    width: 100% !important;
+    padding: 1rem !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    height: auto !important;
+    transition: none !important;
+  }
+}
+
+/* =========================================
+   TITULOS / HEADING (Introducción bloques)
+   ========================================= */
+.heading .title {
+  color: #1d2d8c !important;
+  display: inline-block;
+  margin-top: -35px;
+  padding: 0 !important;
+  line-height: 1.8;
+}
+
+.heading .title h3 {
+  font-size: 28px !important;
+  margin-bottom: 10px !important;
+}
+
+.heading .title p {
+  font-size: 18px !important;
+  color: #34495e !important;
+  line-height: 1.5;
+  margin-top: 15px !important;
+}
+
+/* inicio-titulo / parrafo */
+.inicio-titulo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.inicio-subtitulo {
+  text-transform: none;
+  margin: 0 0 5px 0;
+  padding: 0 !important;
+  margin-top: 50px;
+  color: #1d2d8c;
+  font-weight: 700;
+  line-height: 1.8;
+
+}
+
+.tituloh3 {
+  color: #3D3D3F !important;
+  line-height: 1.0;
+  font-size: 28px;
+  margin-top: 40px;
+}
+
+.tituloh2 {
+  color: #1d2d8c !important;
+  line-height: 1.8;
+  font-size: 28px;
+  margin-top: 40px;
+}
+
+.espacio {
+  margin-bottom: 50px;
+}
+
+a {
+  font-family: 'Arial', sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+  color: rgba(51, 79, 150, 1);
+}
+
+.inicio-parrafo {
+  text-transform: none;
+  margin: 0;
+}
+
+.comienzo {
+  margin-top: 50px;
+}
+
+@media (max-width: 768px) {
+  .heading .title {
+    font-size: 20px;
+    margin-bottom: 5px !important;
+    margin-top: -5px;
+    line-height: 1.5;
+  }
+
+  h1 {
+    font-size: 21px;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .tituloh2 {
+    font-size: 20px;
+    text-align: center;
+    line-height: 1.5;
+    margin-top: 20px;
+  }
+
+  p {
+    font-size: 14px !important;
+  }
+
+  .parrafo1 {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .inicio-subtitulo {
+    line-height: 1.5;
+  }
+
+  .tituloh3 {
+    font-size: 20px;
+    margin-top: 15px;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .espacio {
+    margin-bottom: 120px;
+  }
+
+  .mb-5,
+  .my-5 {
+    margin-bottom: -25px !important;
+    margin-top: 3px !important;
+  }
+
+  .mt-4,
+  .my-4 {
+    margin-top: 5px !important;
+  }
+
+  .mt-3,
+  .my-3 {
+    margin-top: 5px !important;
+  }
+
+  .g-4,
+  .gy-4 {
+    --bs-gutter-y: 10px;
+  }
+
+  .seccion-faq {
+    padding-top: 20px !important;
+    padding-bottom: 90px !important;
+  }
+
+  .faq-titulo {
+    font-size: 24px !important;
+  }
+}
+
+/* =========================================
+   COUNTER / FACTS (Números clave)
+   ========================================= */
+.facts-label {
+  font-size: 18px !important;
+}
+
+/* =========================================
+   IMAGE BLOCK (¿POR QUÉ ELEGIRNOS?)
+   ========================================= */
+
+/* Contenedor del ícono */
+.feature-icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+/* Imagen dentro del círculo */
+.feature-icon img {
+  width: 50px;
+  /* Ajusta según el tamaño del icono */
+  height: 50px;
+  object-fit: contain;
+
+  /* Mueve el ícono dentro del círculo */
+  position: relative;
+  top: 1px;
+  /* Mover abajo (+) o arriba (-) */
+  left: 1px;
+  /* Mover derecha (+) o izquierda (-) */
+}
+
+/* === ¿Por qué elegirnos? === */
+.subtitulo-empresa {
+  font-size: 25px !important;
+  margin-bottom: -10px !important;
+}
+
+.titulo-empresa {
+  font-size: 50px !important;
+  font-weight: 800 !important;
+  font-family: Arial, sans-serif;
+}
+
+/* 🔸 Estilo especial para título de asesorías (definición única) */
+.title-asesorias {
+  font-size: 48px;
+  color: #080808;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7);
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 2px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-top: -20px;
+  margin-bottom: 120px;
+  animation: aparecer 1.2s ease-in-out;
+}
+
+/* Animación usada en .title-asesorias (definición única) */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   SECCIÓN VIDEO (PRICING / Parallax)
+   ========================================= */
+#pricing {
+  background-image: url('../images/otros/FONDO-VIDEO.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  text-align: center;
+  position: relative;
+}
+
+#pricing .row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#pricing .text-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 400px;
+  text-align: center;
+}
+
+/* video principal */
+#pricing video,
+.video-expertos-content {
+  width: 80%;
+  max-width: 900px;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  border-radius: 12px;
+  box-shadow: 0 0 20px var(--shadow-oscuro);
+  box-sizing: border-box;
+}
+
+.video-responsive {
+  width: 100%;
+  height: auto;
+}
+
+/* video escalado (desktop) */
+.video-ajustable {
+  display: inline-block;
+  transform: scale(1.4) translate(-20px, -105px);
+  transform-origin: center;
+}
+
+/* parallax helpers (mantuve tu estructura) */
+.parallax.page {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.page .video-bg {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.parallax.page .video-bg video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.parallax.page .parallax-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4) !important;
+  z-index: 1;
+}
+
+.parallax.page .container.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.parallax.page .container.content h2,
+.parallax.page .container.content a.btn {
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+/* no top padding helper */
+.no-top-padding {
+  padding-top: 0;
+  padding-bottom: 20px;
+}
+
+/* =========================================
+   FAQ / Acordeón
+   ========================================= */
+.seccion-faq {
+  padding-top: 50px;
+  padding-bottom: 80px;
+}
+
+.faq-titulo {
+  text-align: center;
+  font-weight: 700;
+  color: var(--color-primario);
+  margin-bottom: 10px;
+  font-size: 32px;
+}
+
+.faq-subtitulo {
+  text-align: center;
+  color: #555;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.faq-separador {
+  width: 80px;
+  height: 3px;
+  background-color: var(--color-primario);
+  margin: 0 auto 20px auto;
+  border: none;
+}
+
+/* acordeón custom */
+.custom-accordion .accordion-item {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 15px;
+  overflow: hidden;
+  transition: background-color .3s;
+}
+
+.custom-accordion .accordion-button {
+  background-color: var(--blanco);
+  color: var(--color-primario);
+  font-weight: 600;
+  padding: 16px 20px;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all .3s;
+}
+
+.custom-accordion .accordion-button:hover {
+  background-color: #f0f4ff;
+  color: var(--color-primario);
+}
+
+.custom-accordion .accordion-button:not(.collapsed) {
+  background-color: var(--color-primario);
+  color: var(--blanco);
+}
+
+.custom-accordion .accordion-body {
+  background-color: var(--blanco);
+  color: #333;
+  padding: 15px 20px;
+  line-height: 1.6;
+}
+
+.faq-header-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.faq-topic-icon {
+  font-size: 1.1rem;
+  color: #1d2d8c;
+  /* puedes cambiar al morado/azul de tu marca */
+}
+
+/* icon-toggle behavior */
+.icon-toggle {
+  transition: opacity .3s ease;
+}
+
+.accordion-button .dash {
+  display: none;
+}
+
+.accordion-button:not(.collapsed) .plus {
+  display: none;
+}
+
+.accordion-button:not(.collapsed) .dash {
+  display: inline-block;
+}
+
+/* =========================================
+   Banner informativo (info-bar)
+   ========================================= */
+.info-bar {
+  margin-top: 80px;
+  font-family: inherit;
+  background-color: #FE8F01;
+  box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.banner-content-responsive {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0;
+  text-align: center;
+}
+
+.banner-item {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 400;
+}
+
+.banner-item.destacado {
+  color: var(--blanco);
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+/* =========================================
+   BLOG / Carrusel
+   ========================================= */
+.blog-header-margin {
+  margin-top: -60px;
+  margin-bottom: 0;
+}
+
+.titulo-blog {
+  color: var(--color-primario);
+  font-weight: bold;
+}
+
+.slider-margin {
+  margin-top: -75px;
+  margin-bottom: -60px;
+}
+
+.blog-card-width {
+  width: 300px;
+}
+
+.blog-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.blog-fecha {
+  font-size: 14px;
+  color: #555;
+}
+
+.blog-comentario {
+  font-size: 14px;
+  color: #007BFF;
+}
+
+.proximamente-texto {
+  font-size: 18px;
+  font-weight: bold;
+  color: #999;
+}
+
+/* link de tarjeta blog (estructura flex-column) */
+.blog-card-link {
+  text-decoration: none;
+  color: var(--texto-oscuro);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+/* tarjeta */
+.blog-card {
+  min-height: 390px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--blanco);
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.blog-card p {
+  white-space: normal !important;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  margin: 0 0 .5rem 0;
+}
+
+/* titulo y descripcion truncadas */
+.blog-card .titulo {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--color-primario);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4em;
+  height: calc(1.4em * 2);
+  margin-bottom: .5rem;
+}
+
+.blog-card .descripcion {
+  font-size: 15px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4em;
+  height: calc(1.4em * 2);
+}
+
+/* dots blog */
+.blog-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 1.5rem;
+}
+
+.blog-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #6D6E72;
+  cursor: pointer;
+  transition: background-color .3s;
+}
+
+.blog-dot.active {
+  background-color: var(--color-primario);
+}
+
+/* flechas del carrusel */
+.slider-arrow {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  z-index: 2;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.left-arrow {
+  left: -5px;
+}
+
+.right-arrow {
+  right: -5px;
+}
+
+/* carrusel horizontal */
+.blog-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+}
+
+.blog-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* =========================================
+   BOTÓN "VER BLOG"
+   ========================================= */
+.btn-ver-blog {
+  background-color: var(--color-primario);
+  color: var(--blanco);
+  padding: 0.6rem 1.5rem;
+  font-weight: bold;
+  border-radius: 4px;
+  border: none;
+  text-decoration: none;
+  transition: background-color .3s ease;
+}
+
+.btn-ver-blog:hover {
+  background-color: #FE8F01;
+  color: var(--blanco);
+}
+
+/* =========================================
+   BLOQUE Asesoría Integral (FONDO GRIS)
+   ========================================= */
+.fondo-asesoria {
+  background-color: #FE8F01;
+  color: var(--blanco);
+  margin-top: -100px;
+}
+
+.titulo-asesoria {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--blanco);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.texto-asesoria {
+  color: var(--blanco);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.botones-asesoria {
+  display: flex;
+  gap: 40px;
+  margin-top: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.botones-asesoria a {
+  padding: 12px 26px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all .3s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 160px;
+}
+
+.btn-llamar {
+  background-color: var(--color-primario);
+  color: var(--blanco);
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn-llamar:hover {
+  background-color: #2c3ead;
+  transform: scale(1.04);
+}
+
+.btn-escribir {
+  background-color: transparent;
+  color: var(--blanco);
+  border: 2px solid var(--blanco);
+}
+
+.btn-escribir:hover {
+  background-color: var(--blanco);
+  color: var(--color-primario);
+  border-color: var(--color-primario);
+  transform: scale(1.04);
+}
+
+/* espacio PC helper */
+.espacio-pc {
+  display: none;
+}
+
+@media (min-width:769px) {
+  .espacio-pc {
+    display: block;
+    height: 80px;
+  }
+}
+
+/* separador por defecto */
+.separador {
+  height: 80px;
+}
+
+@media (max-width:767px) {
+  .separador {
+    display: none;
+  }
+}
+
+/* =========================================
+   Helpers y ajustes de sección service
+   ========================================= */
+section#service {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+section#service .row.mt-5 {
+  margin-top: 5px !important;
+  margin-bottom: 1rem !important;
+}
+
+section#service>.container {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+section#service.service.angle::before {
+  display: none !important;
+}
+
+section#service.service.angle {
+  padding-top: 0px !important;
+}
+
+section#service.service.angle>.container {
+  margin-top: 60px !important;
+}
+
+@media (max-width:767px) {
+  section#service.service.angle>.container {
+    margin-top: -60px !important;
+  }
+}
+
+@media (max-width:767px) {
+  section#service.service.angle {
+    padding-top: 80px !important;
+    margin-bottom: -20px !important;
+  }
+}
+
+section#service .heading {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 10px;
+  margin-bottom: 0;
+}
+
+section#service .heading .title-icon {
+  float: none !important;
+  margin: 0 !important;
+}
+
+/* =========================================
+   Herramientas
+   ========================================= */
+.herramienta-card {
+  border: 2px solid #1D2D8C;
+  background-color: #ffffff;
+  color: #000000;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.herramienta-card .card-title {
+  color: #1D2D8C;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.herramienta-card .card-text {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.herramienta-logo {
+  max-height: 110px;
+  object-fit: contain;
+}
+
+.como-trabajamos-section {
+  background-color: #1D2D8C;
+}
+
+/* Como trabajamos */
+.como-trabajamos-section {
+  background-color: #1D2D8C;
+}
+
+/* Tarjetas de pasos */
+.step-card {
+  background: #1D2D8C;
+  border-radius: 5px;
+  padding: 1.75rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.step-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.9rem auto;
+  /* 👈 centra el círculo */
+}
+
+.step-icon i {
+  font-size: 1.4rem;
+  color: #ffffff;
+}
+
+.step-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.45rem;
+  color: #ffffff;
+}
+
+.step-text {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  margin-bottom: 0;
+  color: #ffffff;
+}
+
+
+/* =========================================
+   VIDEO expertos (consolidado duplicados)
+   ========================================= */
+.video-expertos-content {
+  width: 70%;
+  max-height: 300px;
+  display: block;
+  margin: 0 auto;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+.video-wrapper {
+  position: relative;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.35);
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* =========================================
+   Ajustes menores responsive (agrupados)
+   ========================================= */
+
+/* MOBILE SMALL (<=576px) */
+@media (max-width:576px) {
+  body.index-page .banner-text {
+    padding: 20px;
+    top: 55% !important;
+    transform: translateY(-50%) !important;
+    left: 1% !important;
+    width: 90%;
+  }
+
+  .botones-asesoria {
+    flex-direction: row;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .botones-asesoria a {
+    padding: 10px 16px;
+    min-width: auto;
+    max-width: 140px;
+  }
+
+  .btn-wrapper {
+    margin-bottom: 0;
+  }
+
+  .fondo-asesoria {
+    margin-top: -60px;
+  }
+
+  .video-expertos-content {
+    width: 95%;
+    max-height: 200px;
+  }
+
+  #pricing {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    padding: 0 !important;
+    min-height: 0px;
+    padding-top: 20px !important;
+    padding-bottom: 40px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  #pricing .container {
+    width: 100%;
+    max-width: 900px;
+    padding: 0 15px;
+  }
+
+  #pricing .text-center {
+    min-height: 0 !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  #pricing video {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .title-asesorias {
+    position: absolute;
+    top: 10px !important;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    padding: 0 10px;
+    text-align: center;
+    color: rgb(7, 7, 7);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    z-index: 2;
+    white-space: nowrap;
+  }
+
+  .video-ajustable {
+    transform: scale(1) translate(0, 4px) !important;
+  }
+
+  .video-ajustable {
+    /* aseguramos overflow hidden en móviles para evitar que el video "salga" */
+    overflow: hidden;
+  }
+
+  .video-ajustable video {
+    display: block;
+  }
+
+  .video-ajustable .video-expertos-content {
+    max-width: 100%;
+  }
+
+  .video-ajustable {
+    transform: scale(1) translate(0, 4px) !important;
+  }
+
+  .banner-item.destacado {
+    font-size: 1.1rem;
+    padding: 0 1rem;
+  }
+
+  .info-bar {
+    margin-top: 0px !important;
+  }
+
+  #image-block {
+    position: relative !important;
+
+  }
+
+  #image-block .img-block-right {
+    margin-top: 20px !important;
+  }
+
+  section.parallax.page {
+    position: relative !important;
+    top: 28px !important;
+  }
+}
+
+/* TABLET (<=768px) */
+@media (max-width:768px) {
+  .text-pc {
+    display: none !important;
+  }
+
+  .text-mobile {
+    display: block !important;
+  }
+
+  .banner-text {
+    padding: 20px;
+    top: 60% !important;
+    transform: translateY(-50%) !important;
+  }
+
+  .banner-text p,
+  .banner-text h1 {
+    font-size: 20px !important;
+    line-height: 1.4;
+  }
+
+  .etiqueta {
+    font-size: 16px !important;
+    padding: 4px 10px !important;
+    display: inline-block !important;
+    border-radius: 4px !important;
+  }
+
+  .heading .title h3 {
+    font-size: 24px !important;
+  }
+
+  .heading .title p {
+    font-size: 16px !important;
+  }
+
+  #home,
+  .cd-hero,
+  .cd-hero-slider,
+  .cd-hero-slider li {
+    height: auto !important;
+    background: transparent !important;
+  }
+
+  .cd-hero .cd-full-width {
+    display: none !important;
+  }
+
+  .mobile-adjust {
+    padding-top: 20px !important;
+  }
+
+  .video-ajustable {
+    transform: scale(1) translate(0, 4px) !important;
+  }
+
+  .page .video-bg {
+    padding-bottom: 1%;
+  }
+
+  section#service .heading .title p {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  section#service .heading {
+    margin-bottom: 14px !important;
+    padding-bottom: 0 !important;
+  }
+}
+
+/* DESKTOP >=992px (ajustes puntuales: pricing/video)
+   Aquí se aplica la corrección para subir el título SOLO EN PC */
+@media (min-width:992px) {
+  #pricing .text-center {
+    margin-top: 3px !important;
+  }
+
+  #pricing video {
+    width: 80% !important;
+    max-width: 850px !important;
+    margin-left: 128px !important;
+    height: auto !important;
+    border-radius: 12px;
+    box-shadow: 0 0 20px var(--shadow-oscuro);
+  }
+
+  #pricing {
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .title-asesorias {
+    font-size: 42px;
+    margin-bottom: 20px;
+  }
+
+  /* -----------------------------
+     Subir título "Así son nuestras asesorías" — SOLO en desktop
+     Ajusta `top` si quieres subir más/menos
+     ----------------------------- */
+  #pricing .title-asesorias {
+    position: relative;
+    /* necesario para usar top */
+    top: -60px;
+    /* sube el título 60px en desktop (ajusta este valor) */
+    z-index: 3;
+    /* mantenerlo por encima si fuera necesario */
+    margin-top: 0;
+    /* elimina márgenes conflictivos */
+    margin-bottom: 20px;
+    /* separación inferior coherente */
+    transition: top .35s ease;
+    /* movimiento suave si cambian tamaños */
+  }
+}
+
+/* =========================================
+   Fixes añadidos: video móvil (mover a la derecha)
+   y ayuda para iconos FontAwesome del botón "Escribir"
+   ========================================= */
+
+/* Mover video ligeramente a la derecha en móvil y asegurar que no desborde */
+@media (max-width: 576px) {
+  .video-ajustable {
+    transform: scale(1) translate(22px, 4px) !important;
+    /* mueve a la derecha 12px */
+    transform-origin: center;
+    overflow: hidden !important;
+    /* evita que elementos se muestren fuera */
+    padding-left: 0.5rem !important;
+    /* un pequeño "respiro" interior */
+  }
+
+  /* fuerza ancho del video para que encaje dentro del contenedor con el shift */
+  #pricing .video-ajustable video,
+  #pricing video {
+    width: calc(100% - 24px) !important;
+    /* deja espacio para el shift */
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    margin-left: 0 !important;
+  }
+
+  /* reduce posibles marcos decorativos que empujan el video */
+  .video-expertos-content {
+    max-width: 100% !important;
+  }
+}
+
+/* Ajuste suave para tablets pequeñas */
+@media (min-width: 577px) and (max-width: 768px) {
+  .video-ajustable {
+    transform: scale(1) translate(8px, 0) !important;
+  }
+}
+
+/* Ayuda para que el icono del botón "Escribir" use las familias de Font Awesome correctas.
+   Esto reduce problemas cuando hay mezcla de versiones; igualmente reemplaza el <i> por fa-brands/fa-solid en HTML. */
+.btn-escribir i,
+.btn-escribir .fa,
+.btn-escribir .fas,
+.btn-escribir .fab,
+.btn-escribir .fa-brands,
+.btn-escribir .fa-solid {
+  /* intentamos apuntar a las familias de FA 6 si están disponibles */
+  font-family: "Font Awesome 6 Brands", "Font Awesome 6 Free", "Font Awesome 5 Free", sans-serif !important;
+  font-weight: 400 !important;
+  speak: none;
+  line-height: 1;
+  display: inline-block;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Texto estático “Blog” */
+.breadcrumb-item.active {
+  color: #555;
+  padding: 0.2rem 0.4rem;
+}
+
+/* Animación: texto sale hacia la izquierda */
+@keyframes slideOutLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+/* Animación: texto entra desde la derecha */
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Contenedor del texto rotativo */
+#rotating-text {
+  display: inline-block;
+  white-space: nowrap;
+  transition: transform 0.5s ease;
+  will-change: transform;
+}
+
+/* Animaciones aplicadas por JS */
+.slide-out {
+  animation: slideOutLeft 0.6s forwards;
+}
+
+.slide-in {
+  animation: slideInRight 0.6s forwards;
+}
+
+/* Ícono Font Awesome dentro del texto */
+#rotating-text i {
+  margin-right: 0.5rem;
+  color: #fff;
+  vertical-align: middle;
+}
+
+/* Centrado del contenido */
+.banner-content-responsive {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0;
+  text-align: center;
+}
+
+/* Estilo del texto */
+.banner-item {
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.banner-item.destacado {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #ffffff;
+}
+
+/* Ajuste del espacio entre encabezado del blog academico y los posts */
+.blog-header {
+  margin-bottom: 10px !important;
+  padding-bottom: 0 !important;
+}
+
+.blog-posts {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Ajuste de los eventos, clientes y proyectos */
+.facts-num span {
+  font-size: 48px;
+  margin-top: 5px;
+}
+
+/* Ajuste de banner */
+section {
+  padding: 77px 0;
+  position: relative;
+}
+
+/* === AJUSTES DE MOVIMIENTO ARRIBA Y ABAJO DE CLIENTES, EVENTOS REALIZADOS Y PROYECTOS EJECUTADOS' === */
+@media (max-width: 767px) {
+
+  /* Ajusta el bloque general del contador */
+  .ts_counter {
+    margin-top: -80px !important;
+    /* Sube el bloque completo */
+  }
+}
+
+/* === AJUSTES DEl CURSOR PARA VER EL TEXTO ADICIONAL EN ARTICULOS CIENTIFICOS,TESIS, OTROS SERVICIOS PARA MOVIL' === */
+@media (max-width: 767px) {
+
+  #ver,
+  #ver1,
+  #ver2 {
+    visibility: visible !important;
+    display: block !important;
+    margin-top: 15px;
+  }
+
+  #ver .card-body,
+  #ver1 .card-body,
+  #ver2 .card-body {
+    padding: 10px;
+  }
+
+  .facts-num span {
+    font-size: 48px;
+    margin-top: 5px;
+  }
+
+  .img-block-right {
+    padding-right: 0px;
+  }
+}
+
+/* Quitar subrayado y halo predeterminado en enlaces dentro de #service */
+section#service .card a,
+section#service .card a:link,
+section#service .card a:visited {
+  text-decoration: none;
+  /* elimina subrayado de enlaces */
+  -webkit-tap-highlight-color: transparent;
+  /* quita highlight en móviles/safari */
+  outline: none;
+  box-shadow: none;
+}
+
+/* eliminar foco visual predeterminado al clicar */
+section#service .card a:focus,
+section#service .card a:active {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+/* Mantener una señal de foco accesible pero sutil (solo cuando el usuario navega con teclado) */
+section#service .card a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(29, 45, 140, 0.12);
+  /* anillo azul suave alrededor */
+  border-radius: 6px;
+}
+
+/* Forzar que los títulos dentro de las tarjetas mantengan el color blanco visual
+   (esto corrige que el enlace "herede" un color no deseado). */
+section#service .card a .card-titulo,
+section#service .card a .card-text,
+section#service .card a h2,
+section#service .card a h1 {
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+/* Si hay texto adicional dentro del body de la tarjeta que debe tener otro color,
+   puedes ajustarlo aquí (por ejemplo el texto pequeño dentro de .ver-cuerpo). */
+section#service .card a .ver-texto {
+  color: #ffffff;
+}
+
+#back-to-top .btn.btn-primary:hover {
+  background: #334F96;
+}
+
+.img-block-right {
+  padding-right: 20px;
+}

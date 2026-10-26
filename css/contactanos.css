@@ -1,0 +1,511 @@
+/* BANNER CON TEXTO ROTATIVO */
+.info-bar {
+  background-color: #FE8F01;
+  font-family: inherit;
+  box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+  min-height: 60px;
+  position: relative;
+  z-index: 1020;
+}
+
+.banner-content-responsive {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0;
+  text-align: center;
+}
+
+.banner-item {
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 0.5rem;
+}
+
+.banner-item.destacado {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #ffffff;
+}
+
+.banner-item i {
+  margin-right: 0.5rem;
+  color: #fff;
+  vertical-align: middle;
+}
+
+@keyframes slideOutLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-out {
+  animation: slideOutLeft 0.6s forwards;
+}
+
+.slide-in {
+  animation: slideInRight 0.6s forwards;
+}
+
+@media (max-width: 768px) {
+  .banner-item {
+    font-size: 1rem;
+    flex-direction: column;
+  }
+
+  .banner-item.destacado {
+    font-size: 1.1rem;
+  }
+
+  #contactanos-text-content {
+    padding: 0 1rem;
+  }
+}
+
+
+/* MIGA DE PAN */
+.breadcrumb-nav {
+  padding-top: 0px;
+  padding-bottom: 0;
+}
+
+/* Breadcrumb limpio DEL BANNER DE CONTACTANOS*/
+.breadcrumb {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 1rem 0;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 1000;
+}
+
+.breadcrumb-container {
+  margin-left: -20px;
+}
+
+.custom-breadcrumb {
+  background: #f5f5f5;
+  border-radius: 4px;
+  padding: 1.0rem 2rem;
+  margin-bottom: 0;
+}
+
+.breadcrumb-link {
+  color: #3D3D3F;
+  text-decoration: none;
+}
+
+.breadcrumb-link:hover {
+  color: #1D2D8C !important;
+}
+
+.current-page {
+  color: #1D2D8C !important;
+}
+
+/* BOTON DE WSP */
+.btn-wsp-efecto {
+  background-color: #25D366;
+  color: white;
+  font-size: 1.1rem;
+  padding: 10px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-wsp-efecto i {
+  font-size: 1.3rem;
+  margin-right: 10px;
+}
+
+.btn-wsp-efecto:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  color: white;
+}
+
+/* ===== TÍTULO PRINCIPAL DE CONTACTO ===== */
+.titulo-contacto {
+  font-size: 26px;
+  font-weight: 700;
+  margin-top: 10px;
+  text-align: center;
+  color: #1D2D8C;
+  text-transform: none;
+}
+
+/* Texto en mayúsculas solo para la palabra "tesis" */
+.titulo-contacto .uppercase {
+  text-transform: uppercase;
+}
+
+/* ===== PÁRRAFO INTRODUCTORIO ===== */
+.parrafo-intro {
+  font-size: 15px;
+  text-align: center;
+  margin-top: 10px;
+  color: #000;
+}
+
+/* ===== ENLACES DENTRO DEL PÁRRAFO INTRODUCTORIO ===== */
+.parrafo-intro .enlace-intro {
+  color: #0066cc;
+  font-weight: 500;
+}
+
+/* Frase destacada */
+.frase-destacada p {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1D2D8C;
+  margin-bottom: 2rem;
+}
+
+/* Formulario de contacto */
+.formulario-contacto {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.formulario-contacto label {
+  color: #1D2D8C;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.formulario-contacto .form-control {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.formulario-contacto .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.formulario-contacto .form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.formulario-contacto .col-md-6 {
+  flex: 1 1 48%;
+}
+
+/* Asterisco rojo para campos obligatorios */
+.formulario-contacto .obligatorio {
+  color: red;
+}
+
+/* Botón enviar */
+.btn-enviar {
+  display: block;
+  width: 100%;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-enviar:hover {
+  background-color: #1D2D8C;
+}
+
+/* Fila de teléfono + país + correo */
+.form-row-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Teléfono y correo ocupan el mismo ancho */
+.col-telefono,
+.col-email {
+  flex: 1 1 0;
+}
+
+/* País más angosto al centro */
+.col-pais {
+  flex: 0 0 120px;
+}
+
+/* Fila teléfono + país */
+.telefono-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* El input de teléfono ocupa todo el espacio restante */
+.telefono-row #telefono {
+  flex: 1 1 auto;
+}
+
+/* Wrapper del selector de país */
+.contact-country-wrapper {
+  flex: 0 0 110px;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-country-wrapper {
+  position: relative;
+}
+
+/* Label "País" encima del select */
+.contact-country-label {
+  font-size: 0.85rem;
+  color: #1D2D8C;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 0.25rem;
+}
+
+/* Contenedor del select + icono */
+.contact-country-inner {
+  position: relative;
+}
+
+/* Icono dentro del bloque interno */
+.contact-country-inner .contact-country-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+}
+
+/* Select de país */
+.contact-country-inner .contact-country-select {
+  width: 100%;
+  text-align: center;
+  padding-left: 2.1rem;
+  padding-right: 1.8rem;
+  font-size: 0.95rem;
+}
+
+/* Select de país: centrado y con espacio para el icono/flecha */
+.contact-country-select {
+  width: 100%;
+  text-align: center;
+  padding-left: 2.1rem;
+  /* espacio para el icono */
+  padding-right: 1.8rem;
+  /* espacio para la flecha */
+  font-size: 0.95rem;
+}
+
+/* Icono de planeta centrado */
+.contact-country-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+}
+
+/* Cuando ya hay país seleccionado, ocultamos el icono y recentramos */
+.contact-country-wrapper.has-value .contact-country-icon {
+  display: none;
+}
+
+.contact-country-wrapper.has-value .contact-country-select {
+  padding-left: 0.75rem;
+  padding-right: 1.8rem;
+  text-align: center;
+}
+
+/* Te guiamos paso a paso en tu proyecto de */
+.mensaje-motivador {
+  font-size: 24px;
+  margin-bottom: 30px;
+  text-transform: none;
+  color: #000000;
+}
+
+/* 🔗 Enlace dentro del mensaje motivador */
+.mensaje-motivador .link-tesis {
+  color: #0066cc;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/* 👉 Margen inferior negativo para ajustar la posición de la imagen */
+.imagen-graduados {
+  margin-bottom: -50px;
+}
+
+/* 👉 Imagen adaptable: mantiene proporciones y ancho limitado al 80% */
+.img-fluid-graduados {
+  max-width: 100%;
+  width: 80%;
+  height: auto;
+  border-radius: 0.25rem;
+  /* Equivalente a Bootstrap's .rounded */
+}
+
+/* 🔵 Ajuste del título de la sección de planes */
+.titulo-planes {
+  color: #1D2D8C;
+  margin-top: -70px;
+  margin-bottom: 15px;
+}
+
+/* 🔵 Encabezado de la tabla con fondo azul oscuro y texto blanco */
+.tabla-planes thead {
+  background-color: #1D2D8C;
+  color: white;
+  text-align: center;
+}
+
+/* 🔵 Ajuste de padding de celdas para hacerla más compacta */
+.tabla-planes td,
+.tabla-planes th {
+  padding: 8px 12px;
+  padding-left: 16px;
+  padding-right: 6px;
+}
+
+/* 🔵 Imagen del equipo con ancho limitado en PC y full en mobile */
+.img-equipo {
+  max-width: 720px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .img-equipo {
+    max-width: 100%;
+    width: 100%;
+  }
+
+   /* Grid de 2 columnas en móvil */
+  .form-row-contact{
+    display: grid !important;
+    grid-template-columns: 1fr 120px; /* Teléfono grande | País pequeño */
+    gap: 12px !important;
+    align-items: end; /* alinea alturas por el label */
+  }
+
+  /* Teléfono en columna 1 */
+  .form-row-contact .col-telefono{
+    grid-column: 1 / 2;
+  }
+
+  /* País en columna 2 */
+  .form-row-contact .col-pais{
+    grid-column: 2 / 3;
+  }
+
+  /* Correo abajo ocupando todo el ancho */
+  .form-row-contact .col-email{
+    grid-column: 1 / 3;
+  }
+
+  /* Inputs más cómodos en móvil */
+  .formulario-contacto .form-control{
+    font-size: 1rem;
+    padding: 0.85rem;
+  }
+
+  /* Ajuste del select de país para que no se vea gigante */
+  .contact-country-wrapper{
+    width: 100%;
+  }
+
+  .contact-country-select{
+    text-align: center;
+  }
+}
+
+/* ==== Horarios y ubicación (centrado y estilos) ==== */
+
+.horarios-ubicacion {
+  text-align: center;
+}
+
+.titulo-horarios,
+.titulo-ubicacion {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #1D2D8C;
+  margin-top: 30px;
+}
+
+.titulo-ubicacion {
+  margin-top: 20px;
+}
+
+.lista-horarios {
+  list-style: none;
+  font-size: 1.1rem;
+  display: inline-block;
+  text-align: left;
+  margin: 0 auto;
+  padding-left: 0;
+}
+
+.lista-horarios .sabado {
+  text-align: center;
+}
+
+.direccion {
+  font-size: 15px;
+  margin-bottom: 0;
+}
+
+/* FLECHA */
+#back-to-top .btn.btn-primary:hover {
+  background: #334F96;
+}
+
+#back-to-top .btn.btn-primary {
+  border-radius: 100%;
+  padding: 0px;
+  font-size: 18px;
+  width: 36px;
+  height: 36px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid transparent;
+  color: #fff;
+  opacity: 0.5;
+}
