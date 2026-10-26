@@ -1,0 +1,75 @@
+/* MIGA DE PAN */
+.link-inicio {
+  color: #fffefe; /* Reemplaza con el color real que quieras usar */
+}
+
+/* OTROS SERVICIOS TABLA */
+.sidebar-servicios {
+  background-color: gray;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+/*------------------------------------------*/
+/* OTROS SERVICIOS IMAGEN DE FONDO PARA PC */
+/*------------------------------------------*/
+.otros_servicios-page #banner-area {
+  width: 100%;
+  height: 900px; /* 👈 Puedes ajustar este valor */
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+}
+
+.otros_servicios-page .img-cursos-banner {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 10%; /* 👈 aquí controlas cuánto se recorta de arriba/abajo */
+  display: block;
+}
+
+/* ✅ Ajustes para móviles: mostrar toda la imagen */
+@media (max-width: 768px) {
+  .otros_servicios-page #banner-area {
+    height: auto; /* 👈 Se ajusta automáticamente al contenido */
+  }
+
+  .otros_servicios-page .img-cursos-banner {
+    height: auto;           /* 👈 Ya no recorta */
+    object-fit: contain;    /* 👈 Muestra toda la imagen completa */
+    object-position: center center; /* Centrada */
+  }
+}
+/* ====== TEXTO DEL BANNER EN ESCRITORIO ====== */
+.otros_servicios-page .banner-title-content h2 {
+  font-size: 48px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 15px;
+}
+
+/* ====== TEXTO DEL BANNER EN MÓVIL ====== */
+@media (max-width: 768px) {
+  .otros_servicios-page .banner-title-content h2 {
+    font-size: 24px;
+    margin-top: 20px; /* 👈 Esto baja visualmente el texto solo en móvil */
+  }
+}
+
+/* FLECHA */
+#back-to-top .btn.btn-primary:hover {
+    background: #334F96;
+}
+
+#back-to-top .btn.btn-primary {
+    border-radius: 100%;
+    padding: 0px;
+    font-size: 18px;
+    width: 36px;
+    height: 36px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid transparent;
+    color: #fff;
+    opacity: 0.5;
+}

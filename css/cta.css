@@ -1,0 +1,80 @@
+/* 🎯 Tipografía de la sección CTA en cualquier página /
+
+/* Escritorio */
+body .cta-section .display-5 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+body .cta-section .lead {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+/* Móvil */
+@media (max-width: 768px) {
+  body .cta-section .display-5 {
+    font-size: 24px;
+  }
+  body .cta-section .lead {
+    font-size: 16px;
+  }
+}
+
+/* CONTACTANOS LLAMAR Y INCIAR CHAT */
+.cta-section {
+  background-color: #1D2D8C; 
+  background-size: cover;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.cta-section .btn-light {
+  color: #1D2D8C;
+  font-weight: 600;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cta-section .btn-light:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.cta-section .lead {
+  opacity: 0.9;
+}
+/* Asegura que todos los headings y párrafos dentro de .cta-section sean blancos */
+.cta-section h2,
+.cta-section .display-5,
+.cta-section .lead {
+  color: #fff !important;
+}
+.pago-titulo {
+  color: #fff; /* blanco */
+  font-size: 1.25rem; /* tamaño similar a h4 */
+  font-weight: bold;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2); /* leve sombra para que se lea mejor */
+}
+
+/* Forzar full-width visual del CTA aunque el HTML tenga .container */
+.cta-section {
+  background-color: #1D2D8C;
+  background-size: cover;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+/* Mantener el contenido con el mismo padding de container dentro del CTA */
+.cta-section .container {
+  max-width: 1200px; /* ajusta a tu ancho preferido */
+  padding-left: 15px;
+  padding-right: 15px;
+}

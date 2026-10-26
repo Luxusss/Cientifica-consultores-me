@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+Disallow: /cta.html
+Disallow: /footer.html
+Disallow: /header.html
+Disallow: /testimonios-clientes.html
+Disallow: /universidad.html
+Disallow: /universidades.html
+
+Sitemap: https://cientificaconsultores.com/sitemap.xml

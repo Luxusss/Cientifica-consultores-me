@@ -1,0 +1,395 @@
+/* =======================================================================================
+   CODIGO DEL FONDO DE FOOTER PARA TODOS LOS APARTADOS Y TAMBIEN ESTAN LOS ICONOS EN ROMBO
+  ======================================================================================== */
+/* Estilo profesional para la sección de Copyright */
+#copyright {
+  background-color: #111;
+  /* Fondo oscuro elegante */
+  color: #fff;
+  padding: 25px 0;
+  font-size: 14px;
+}
+
+/* Íconos sociales rombo sin que se corte */
+#copyright .footer-social .icon-pentagon {
+  background-color: #1d2d8c;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  border: 2px solid transparent;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+/* Hover: fondo blanco, ícono azul, borde azul visible */
+#copyright .footer-social .icon-pentagon:hover {
+  background-color: white;
+  color: #1d2d8c;
+  border-color: #1d2d8c;
+}
+
+/* Elimina cualquier flecha heredada sin afectar íconos */
+#copyright .footer-social ul,
+#copyright .footer-social li {
+  list-style: none !important;
+  margin: 0;
+  padding: 0;
+}
+
+#copyright .footer-social li::before {
+  content: none !important;
+}
+
+/* Elimina espacio innecesario entre la ubicación y el copyright */
+.footer {
+  padding-bottom: 40px !important;
+  /* antes estaba en 100px, puedes probar también 30px */
+}
+
+#copyright {
+  margin-top: -40px;
+  /* ajusta hacia arriba el bloque de los iconos */
+}
+
+/* email y celular del footer que esta en el mapa*/
+.footer-contact a {
+  color: #FFFFFF;
+  /* blanco sobre fondo negro */
+  font-size: 16px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-contact a:hover {
+  color: #1D2D8C;
+  /* Color de la empresa */
+}
+
+/* Títulos de sección */
+.pago-titulo {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #ffffff;
+}
+
+/* Logos de bancos y pagos */
+.logo-pago {
+  width: 30%;
+  height: auto;
+  border-radius: 15px;
+  max-width: 150px;
+  /* para que no se vean muy grandes en pantallas grandes */
+}
+
+/* BOTONES DE WHATSSAP Y DEJANOS TUS DATOS */
+.floating-ctas {
+  position: fixed;
+  right: 28px;
+  bottom: 45px;
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .15);
+  text-decoration: none;
+  transition: transform .2s, box-shadow .2s, opacity .2s, visibility .2s;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.cta-btn.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.cta-whatsapp {
+  background: #2ec400;
+  color: #fff;
+}
+
+.cta-whatsapp:hover {
+  box-shadow: 0 12px 24px rgba(37, 211, 102, .35);
+  transform: translateY(-2px);
+}
+
+.cta-lead {
+  background: #1d2d8c;
+  color: #fff;
+}
+
+.cta-lead:hover {
+  box-shadow: 0 12px 24px rgba(29, 78, 216, .35);
+  transform: translateY(-2px);
+}
+
+.cta-btn i {
+  font-size: 1.1rem;
+}
+
+.lead-form,
+.lead-form-wrapper {
+  scroll-margin-top: 0;
+  /* ajusta si tu header es más alto/bajo */
+}
+
+
+/* ===============================
+   CTAs móviles: centrado + transición
+   =============================== */
+@media (max-width:480px){
+  .floating-ctas{
+    position: fixed;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    z-index: 1050;
+    display: flex;
+    flex-direction: row;          /* siempre en fila en móvil */
+    justify-content: center;
+    align-items: center;          /* evita stretch vertical */
+    width: 100%;
+    padding: 0 16px;              /* margen visual a ambos lados */
+    gap: 10px;
+    box-sizing: border-box;
+  }
+
+  /* Botones: permitir animar ancho y no desbordar */
+  .floating-ctas .cta-btn{
+    padding: 12px 16px;
+    font-size: .95rem;
+    max-width: 100%;
+    transition: opacity .22s ease, transform .22s ease,
+                width .22s ease, flex-basis .22s ease; /* 👈 anima ancho */
+  }
+
+  /* ——— Estado: SOLO WhatsApp ——— */
+  .floating-ctas .cta-btn:not(.is-visible){
+    display: none !important;
+  }
+
+  .floating-ctas.is-single{
+    justify-content: center !important;
+  }
+  .floating-ctas.is-single #btn-whatsapp{
+    display: inline-flex;
+    justify-content: center;
+    text-align: center;
+    width: 100%;                  /* llena el ancho útil */
+    max-width: 600px;             /* tope opcional */
+    margin-left: auto !important; /* centrado real */
+    margin-right: auto !important;
+    flex: 0 0 auto;               /* no lo deforme flex */
+    align-self: center;
+  }
+
+  /* ——— Estado: DOS botones ——— */
+  .floating-ctas.is-duo{
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  .floating-ctas.is-duo .cta-btn{
+    flex: 1 1 0;                  /* 50/50 */
+    min-width: 0;
+    width: auto;
+    display: inline-flex;
+    justify-content: center;
+    text-align: center;
+    align-self: center;
+  }
+  /* Orden: Déjanos izq., WhatsApp der. */
+  .floating-ctas.is-duo #btn-lead{ order: 1; }
+  .floating-ctas.is-duo #btn-whatsapp{ order: 2; }
+}
+
+/* ——— Suavizar cambio 1 → 2 botones ——— */
+.floating-ctas.swap .cta-btn.is-visible{
+  opacity: .85;
+  transform: translateY(4px);
+}
+.floating-ctas.swap-done .cta-btn.is-visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+.floating-ctas, .floating-ctas .cta-btn{
+  transition: opacity .22s ease, transform .22s ease;
+}
+
+/* ——— Vibración suave, dos toques ——— */
+@keyframes ctaSwaySoft {
+  0%   { transform: translateX(0); }
+  25%  { transform: translateX(-3px); }
+  50%  { transform: translateX(0); }
+  75%  { transform: translateX(3px); }
+  100% { transform: translateX(0); }
+}
+.cta-btn.vibrate{
+  animation: ctaSwaySoft .45s ease-out 2;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce){
+  .cta-btn.vibrate{ animation: none !important; }
+}
+
+@keyframes ctaPushOutLoop {
+    0%   { transform: translateY(0) scale(1); }
+    30%  { transform: translateY(-6px) scale(1.04); }
+    60%  { transform: translateY(0) scale(1); }
+    100% { transform: translateY(0) scale(1); }
+  }
+  /* Se aplicará/quitara con JS según visibilidad */
+  #btn-whatsapp.desktop-loop.is-visible{
+    animation: ctaPushOutLoop 2.4s cubic-bezier(.22,.7,.25,1) infinite;
+    will-change: transform;
+  }
+  .cta-btn.desktop-pop{
+    animation: ctaPushOut .45s cubic-bezier(.22,.7,.25,1) 1; /* <- antes .6s */
+  }
+
+@media (prefers-reduced-motion: reduce){
+  #btn-whatsapp.desktop-loop{ animation: none !important; }
+}
+
+/* Quitar subrayado y color de link en los CTAs (todas las etapas) */
+a.cta-btn,
+a.cta-btn:link,
+a.cta-btn:visited,
+a.cta-btn:hover,
+a.cta-btn:active {
+  text-decoration: none !important;
+  color: #fff !important;            /* mantiene blanco el texto */
+}
+
+/* Opcional: sin outline al click con mouse, pero accesible con teclado */
+a.cta-btn:focus { outline: none; }
+a.cta-btn:focus-visible {
+  outline: 2px solid rgba(255,255,255,.9);
+  outline-offset: 2px;
+  border-radius: 999px;
+}
+
+/* Evita el flash azul en algunos navegadores móviles */
+.cta-btn { -webkit-tap-highlight-color: transparent; }
+
+/* Alineación en móvil */
+@media (max-width: 768px) {
+  .logo-pago {
+    width: 25%;
+    /* más grandes en móviles */
+    margin-bottom: 10px;
+  }
+
+  .footer {
+    padding-top: 20px;
+  }
+}
+
+/* === AJUSTES DE UBICACIÓN PARA MOVIL' === */
+@media (max-width: 767px) {
+  .footer-widget iframe {
+    height: 300px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .col-md-4 {
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+    padding-top: 40px;
+  }
+}
+
+/* Estilos para el mapa */
+.mapa-ubicacion {
+  border: 0;
+  border-radius: 0px;
+  /* opcional, para darle bordes suaves */
+}
+
+/* Contacto del footer */
+.footer-contact {
+  font-style: normal;
+  /* evitar cursiva por defecto en <address> */
+}
+
+.contact-item {
+  font-size: 16px;
+  font-weight: normal;
+  margin-top: -20px;
+}
+
+/* Desktop: centrados y sin separadores */
+#copyright .legal-links{
+  list-style:none;
+  padding:0;
+  margin:0 0 10px;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;   /* ⬅️ centrado en PC */
+  gap:16px 20px;            /* espacio entre enlaces (fila x columna) */
+  margin-top: 30px;
+}
+
+#copyright .legal-links li{
+  display:inline-flex;
+}
+
+#copyright .legal-links li + li::before{
+  content:none;             /* ⬅️ sin “|” en PC */
+}
+
+#copyright .legal-links a{
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  font-size:14px;
+}
+
+#copyright .legal-links a:hover{
+  color:#a3a3a3;
+  
+  text-underline-offset:2px;
+}
+
+
+/* MÓVIL: centrar, quitar “|” y permitir salto a varias líneas */
+@media (max-width: 576px){
+  #copyright .legal-links{
+    justify-content:center;   /* centrados */
+    row-gap:6px;              /* separación vertical entre filas */
+    margin-top: 20px;
+  }
+  /* ocultar separadores en móvil */
+  #copyright .legal-links li + li::before{
+    content:"";
+    margin:0;
+  }
+  /* que cada item pueda partir de línea si el texto es largo */
+  #copyright .legal-links li{
+    display:inline-flex;
+    white-space:nowrap;       /* evita cortes feos dentro de cada enlace */
+    margin:2px 6px;           /* pequeño respiro lateral */
+  }
+  #copyright .legal-links a{ font-size:13px; }
+}

@@ -1,0 +1,90 @@
+/* Paleta del cliente (ya las tienes en :root) */
+:root{
+  --blue-dark:#0c2c65; --blue-mid:#1652a5; --blue-accent:#2E86FF; --blue-accent-dark:#1B6DE0;
+  --beige:#e9e6df; --ink:#0b1531; --muted:#6b7280; --border:#e5e7eb; --chip-bg:#eef6ff; --chip-fg:#2E86FF;
+}
+
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #111;
+  background: #fff;
+}
+
+/* Wrapper */
+section {
+    padding-top: 40px;
+    padding-bottom: 25px;
+    position: relative;
+}
+.lr-title{color:var(--blue-dark);font-size:clamp(22px,3.2vw,28px);margin-top:60px;font-weight:700}
+
+/* Alert éxito */
+.lr-alert{
+  background:#eafff1;border:1px solid #b6f3cd;color:#06623b;
+  padding:12px 14px;border-radius:10px;margin:0 0 16px;font-weight:600
+}
+
+/* Fieldsets */
+.lr-fieldset{
+  border:1px solid var(--border);border-radius:14px;padding:16px 16px 25px;margin:12px 0 18px;background:#fff;
+  box-shadow:0 8px 24px rgba(12,44,101,.04)
+}
+.lr-fieldset legend{
+  padding:0 8px;background:linear-gradient(90deg,#fff 0,#f7f9ff 100%);
+  color:var(--blue-mid);font-weight:700;border-radius:8px
+}
+
+legend {
+  font-size: 16px;
+  margin-bottom: -10px;
+}
+
+/* Grid */
+.lr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.lr-col-2{grid-column:1 / -1}
+
+/* Inputs */
+.lr-item span{display:block;margin:2px 0 6px;font-weight:600;color:var(--ink); font-size: 15px;}
+.lr-item input[type="text"],
+.lr-item input[type="email"],
+.lr-item input[type="number"],
+.lr-item input[type="tel"],
+.lr-item input[type="file"],
+.lr-item textarea{
+  width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:10px;
+  font:inherit;color:#111;background:#fff;outline:none;transition:.2s; font-size: 15px;
+}
+.lr-item textarea{resize:vertical}
+.lr-item input:focus,
+.lr-item textarea:focus{border-color:var(--blue-accent);box-shadow:0 0 0 3px rgba(46,134,255,.15)}
+.hint{color:var(--muted);font-size:12px}
+
+/* Radios */
+.lr-radio{display:flex;gap:16px;flex-wrap:wrap; font-size: 15px;}
+.lr-radio input{accent-color:var(--blue-accent-dark)}
+
+/* Nota / Pie */
+.lr-note,.lr-footnote{color:var(--muted);font-size:14px;line-height:1.45}
+.lr-note strong,.lr-footnote strong{color:var(--blue-dark)}
+
+/* Botón */
+.lr-actions{display:flex;justify-content:flex-end}
+.lr-btn{
+  background:var(--blue-accent);border:0;color:#fff;padding:15px 40px;border-radius:12px;cursor:pointer;
+  font-weight:800;transition:.2s;box-shadow:0 6px 16px rgba(46,134,255,.25)
+}
+.lr-btn:hover{background:var(--blue-accent-dark)}
+
+/* Responsive */
+@media (max-width:768px){
+  .lr-grid{grid-template-columns:1fr}
+  .lr-actions{justify-content:center}
+  .lr-title {margin-top: 30px;}
+}
