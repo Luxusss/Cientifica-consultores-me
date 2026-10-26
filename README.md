@@ -1,23 +1,25 @@
 # cientificaconsultores.com
 
-Copia del sitio web de Científica Consultores.
+Código del sitio web de Científica Consultores — **copia exacta del servidor de producción**.
 
-- **Origen:** espejo del sitio público, descargado el 2026-10-26 desde https://cientificaconsultores.com/
-- **Hosting en producción:** VPS Hetzner `5.161.193.202`, servido por nginx 1.24 (Ubuntu)
-- **Stack:** HTML estático + CSS + jQuery (Bootstrap, Owl Carousel, FlexSlider, Isotope, WOW.js)
-- **Medición:** Google Tag Manager `GTM-5TNL7PM2` → GA4 `G-LWLH86B85F` (cuenta `marketingcientificaconsultores@gmail.com`)
+- **Origen:** `/var/www/cientificaconsultores` del VPS Hetzner `5.161.193.202` (servidor "Automata"), traído por SSH el 2026-10-26.
+- **Hosting:** nginx (sitio estático, sin PHP). Config en [`_servidor/`](_servidor/).
+- **Stack:** HTML estático + CSS/SCSS + jQuery (Bootstrap, Owl Carousel, FlexSlider, Isotope, WOW.js).
+- **Medición:** Google Tag Manager `GTM-5TNL7PM2` → GA4 `G-LWLH86B85F` (cuenta `marketingcientificaconsultores@gmail.com`).
 
-## Contenido
+## Estructura
 
-| Carpeta | Qué hay |
+| Ruta | Qué hay |
 |---|---|
-| `*.html` | Páginas del sitio (incluye los parciales `header.html`, `footer.html`, `cta.html`) |
-| `css/` | Hojas de estilo |
-| `js/` | Scripts propios del sitio |
-| `plugins/` | Librerías de terceros (Bootstrap, jQuery, Owl, etc.) |
-| `images/` | Imágenes |
-| `videos/` | Videos |
+| `*.html` | Páginas del sitio (incluye parciales `header.html`, `footer.html`, `cta.html`) |
+| `blog/` | Artículos del blog |
+| `asesoria-pregrado/` | Sección de asesoría de pregrado |
+| `css/` · `scss/` | Estilos compilados y fuentes SCSS |
+| `js/` | Scripts propios |
+| `plugins/` | Librerías de terceros |
+| `fonts/` · `images/` · `videos/` | Recursos estáticos |
+| `_servidor/` | Configuración de nginx del vhost (referencia, no se sirve) |
 
-## Alcance de esta copia
+## Desplegar cambios al servidor
 
-Es un espejo de lo que entrega el sitio público (HTML, CSS, JS, imágenes, videos). **No** incluye la configuración del servidor (nginx), ni archivos del lado del servidor que no estén enlazados desde las páginas. Para una copia exacta y completa del directorio del VPS hace falta acceso SSH al servidor.
+El sitio se sirve desde `/var/www/cientificaconsultores` en el VPS. Para publicar cambios hay que copiar los archivos a esa ruta (vía SSH/SCP) con el usuario que tenga acceso. La carpeta `_servidor/` es solo referencia de cómo está configurado nginx; no forma parte del contenido servido.

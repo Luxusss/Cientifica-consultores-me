@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pagar con tarjeta - Científica Consultores</title>
+  <script src="https://checkout.culqi.com/js/v4"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f6fb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .form-container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    .form-container h2 {
+      text-align: center;
+      color: #003366;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #003366;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #00509e;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Formulario de Pago</h2>
+
+    <input type="text" id="cliente_nombre" placeholder="Nombre completo" required />
+    <input type="email" id="cliente_email" placeholder="Correo electrónico" required />
+    <input type="tel" id="cliente_celular" placeholder="Celular (opcional)" />
+
+    <select id="monto" required>
+      <option value="">Selecciona el monto</option>
+      <option value="10000">S/ 100</option>
+      <option value="20000">S/ 200</option>
+      <option value="25000">S/ 250</option>
+      <option value="35000">S/ 350</option>
+      <option value="40000">S/ 400</option>
+      <option value="45000">S/ 450</option>
+      <option value="50000">S/ 500</option>
+      <option value="55000">S/ 550</option>
+      <option value="70000">S/ 700</option>
+      <option value="100000">S/ 1000</option>
+      <option value="200000">S/ 2000</option>
+    </select>
+
+    <button id="btn-pagar">💳 Pagar ahora</button>
+  </div>
+
+  <script>
+    // Tu llave pública de Culqi (test)
+    Culqi.publicKey = 'pk_test_xxxxxxxxxxxxxxxxxxxx'; // Reemplaza por tu llave pública
+
+    document.getElementById('btn-pagar').onclick = function () {
+      const nombre = document.getElementById('cliente_nombre').value.trim();
+      const email = document.getElementById('cliente_email').value.trim();
+      const celular = document.getElementById('cliente_celular').value.trim();
+      const monto = parseInt(document.getElementById('monto').value);
+
+      if (!nombre || !email || !monto) {
+        alert('Por favor completa todos los campos obligatorios.');
+        return;
+      }
+
+      Culqi.settings({
+        title: 'Científica Consultores',
+        currency: 'PEN',
+        description: `Pago - ${nombre}`,
+        amount: monto,
+        email: email,
+      });
+
+      Culqi.open();
+    };
+
+    function culqi() {
+      if (Culqi.token) {
+        const token = Culqi.token.id;
+        const email = document.getElementById('cliente_email').value.trim();
+        const nombre = document.getElementById('cliente_nombre').value.trim();
+        const monto = parseInt(document.getElementById('monto').value);
+
+        fetch('http://localhost:3000/pagar', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            token: token,
+            email: email,
+            monto: monto,
+            descripcion: `Pago de servicio - ${nombre}`
+          })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.mensaje && data.mensaje.includes('exitosamente')) {
+            alert('✅ ¡Pago realizado con éxito!');
+          } else {
+            alert('❌ Hubo un problema al procesar el pago.');
+            console.error(data);
+          }
+        })
+        .catch(err => {
+          alert('❌ Error inesperado al conectar con el servidor.');
+          console.error(err);
+        });
+
+      } else {
+        alert(Culqi.error.user_message);
+      }
+    }
+  </script>
+</body>
+</html>

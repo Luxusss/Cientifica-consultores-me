@@ -1,0 +1,116 @@
+/* =======================================
+   🔹 ESTILO GENERAL PARA LISTAS
+   Elimina los puntos o viñetas en todas las listas <li>
+   ======================================= */
+li {
+  list-style: none;
+}
+
+/* =======================================
+   🔹 CLASE DE IMAGEN PARA HEADER
+   Controla el ancho de un ícono o logotipo en el encabezado.
+   El !important fuerza el valor.
+   ======================================= */
+.iconohead {
+  width: 125px !important;
+  text-wrap: wrap; /* ⚠️ Nota: 'text-wrap' no es estándar, puede que no funcione. Usa 'overflow-wrap' si es necesario */
+}
+
+/* =======================================
+   🔹 ESTILO PARA <u>
+   Se desactiva el subrayado del texto subrayado
+   ======================================= */
+u {
+  text-decoration: none !important;
+}
+
+/* =======================================
+   🔹 VIDEO DE FONDO RESPONSIVO
+   Estas clases permiten mostrar un video embebido (ej. YouTube)
+   como fondo responsivo en una sección con clase .page
+   ======================================= */
+.page {
+  position: relative;
+  overflow: hidden;
+}
+
+.page .video-bg {
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* Relación 16:9 para video */
+  position: absolute;
+}
+
+.page .video-bg iframe {
+  border: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.page .content {
+  position: relative;
+  z-index: 1; /* Se asegura que el contenido esté sobre el video */
+}
+
+/* ===================================================
+   🔹 BOTONES ESTÁNDAR DEL SITIO
+   Estas clases afectan a cualquier botón que tenga la clase .btn.btn-primary,
+   por eso son "reutilizables en todo el sitio". Se usan en muchas secciones,
+   como formularios, banners, cards, etc.
+   =================================================== */
+
+.btn.btn-primary {
+  color: #323232;                /* Color del texto */
+  border-radius: 50px;           /* Bordes redondeados (tipo píldora) */
+  padding: 10px 30px;            /* Espaciado interno horizontal y vertical */
+  background: none;              /* Fondo transparente */
+  font-size: 14px;               /* Tamaño de letra */
+  text-transform: uppercase;     /* Letras en mayúscula */
+  transition: all 0.3s ease 0s;  /* Transición suave al hacer hover */
+}
+
+.btn.btn-primary:hover {
+  color: #fff;                   /* Cambia el color del texto al pasar el mouse */
+}
+
+/* 🔸 Variante: Botón blanco con borde blanco */
+.btn.btn-primary.white {
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+.btn.btn-primary.white:hover {
+  border: 2px solid transparent; /* Al pasar el mouse, se quita el borde */
+}
+
+/* 🔸 Variante: Botón con esquinas cuadradas */
+.btn.btn-primary.square {
+  border-radius: 0;
+  color: #fff;
+}
+
+/* 🔸 Variante: Botón con fondo sólido */
+.btn.btn-primary.solid {
+  color: #fff;
+}
+
+/* 🔸 Variante: botón sólido + clase adicional 'blank' */
+.btn.btn-primary.solid.blank:hover {
+  color: #333;
+}
+
+.btn.btn-primary.solid:hover {
+  background: none;
+}
+
+/* ===================================================
+   🔹 ÍCONO EXTRA GRANDE
+   Clase general que puede usarse para íconos muy visibles,
+   útil en secciones como testimonios, banners, llamadas a la acción, etc.
+   =================================================== */
+.icon-xl {
+  font-size: 200px;
+}
