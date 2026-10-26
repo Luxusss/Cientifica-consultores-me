@@ -16,7 +16,7 @@ export type ServicePage = {
   title: string;
   description: string;
   h1: string;
-  kicker?: string;
+  subtitle?: string;
   lede: string;
   image: ImageMetadata;
   imageAlt: string;
@@ -140,7 +140,7 @@ export const servicePages: Record<string, ServicePage> = {
     title: 'Asesoría de Trabajo de Suficiencia Profesional (TSP)',
     description: 'Asesoría para tu trabajo de suficiencia profesional (TSP): estructura, redacción, Turnitin y observaciones del jurado, según el formato de tu universidad.',
     h1: 'Asesoría de TSP',
-    kicker: 'Trabajo de suficiencia profesional',
+    subtitle: 'Trabajo de suficiencia profesional',
     lede: '¿Tienes 3 años de experiencia laboral y te falta el título? Tu trabajo de suficiencia profesional, guiado paso a paso.',
     image: tspImg,
     imageAlt: 'Asesora de trabajo de suficiencia profesional de Científica Consultores',

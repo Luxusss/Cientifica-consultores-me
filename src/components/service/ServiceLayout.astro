@@ -41,7 +41,7 @@ const schema = [
       <div class="text">
         <Breadcrumbs current={page.crumb} />
         <h1 id="titulo">{page.h1}</h1>
-        {page.kicker && <p class="kicker">{page.kicker}</p>}
+        {page.subtitle && <p class="subtitle">{page.subtitle}</p>}
         <p class="text-lead">{page.lede}</p>
         <div class="form-card theme-surface">
           <h2 class="text-lead text-strong">Pide tu primera asesoría gratis</h2>
@@ -67,7 +67,7 @@ const schema = [
   .text { grid-column: 1 / -1; display: grid; gap: var(--space-m); align-content: start; }
 
 
-  .kicker { font-size: var(--step-lead); line-height: var(--leading-lead); font-weight: var(--weight-medium); margin-block-start: calc(var(--space-s) * -1); }
+  .subtitle { font-size: var(--step-lead); line-height: var(--leading-lead); font-weight: var(--weight-medium); margin-block-start: calc(var(--space-s) * -1); }
 
   .form-card { display: grid; gap: var(--space-m); padding: var(--space-m); margin-block-start: var(--space-s); max-inline-size: 34rem; }
 
