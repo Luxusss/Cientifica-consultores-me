@@ -1,0 +1,42 @@
+---
+import type { Faq } from '@/data/faq';
+
+interface Props {
+  items: Faq[];
+  title?: string;
+  id?: string;
+}
+
+const { items, title = 'Preguntas frecuentes', id = 'preguntas' } = Astro.props;
+---
+
+<section class="section page faq" aria-labelledby={id}>
+  <h2 id={id}>{title}</h2>
+  <div class="answers">
+    {items.map((item) => (
+      <p>
+        <strong>{item.question}</strong> {item.answer}
+      </p>
+    ))}
+  </div>
+</section>
+
+<style>
+  .faq { display: grid; gap: var(--space-l); }
+  .faq h2 { font-size: var(--step-head); }
+
+  .answers { columns: 2 22rem; column-gap: var(--space-xl); }
+  .answers p {
+    break-inside: avoid;
+    margin-block-end: var(--space-m);
+    font-size: var(--step-body);
+    line-height: var(--leading-body);
+  }
+  .answers strong { font-weight: var(--weight-semibold); }
+
+  @media (min-width: 64em) {
+    .faq { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
+    .faq h2 { grid-column: 1 / span 3; }
+    .answers { grid-column: 5 / -1; }
+  }
+</style>

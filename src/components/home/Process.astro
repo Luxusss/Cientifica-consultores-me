@@ -1,0 +1,79 @@
+---
+const steps = [
+  {
+    name: 'Nos cuentas tu caso',
+    text: 'Nos escribes por WhatsApp, correo o formulario, con tu universidad, tu tipo de trabajo y tus fechas. Te ayudamos a elegir el formato correcto: tesis, tesina, TFG, TFM o TSP.',
+  },
+  {
+    name: 'Diagnóstico y presupuesto',
+    text: 'Revisamos tu tema, tus avances y el reglamento para trazar una ruta realista. Recibes una propuesta con el alcance, los entregables y la forma de pago.',
+  },
+  {
+    name: 'Contrato y asesor',
+    text: 'Firmamos un contrato digital que asegura confidencialidad y plazos. Te asignamos un asesor de tu área, que te acompaña capítulo por capítulo hasta la sustentación.',
+  },
+];
+
+const size = 12;
+const gap = 6;
+const W = 900;
+const H = 200;
+function rand(seed: number) {
+  const x = Math.sin(seed * 9301 + 49297) * 233280;
+  return x - Math.floor(x);
+}
+const squares: { x: number; y: number; zone: number }[] = [];
+for (let i = 0; i < 48; i++) {
+  squares.push({ x: 8 + rand(i) * 260, y: 8 + rand(i + 100) * (H - 28), zone: 0 });
+}
+for (let i = 0; i < 48; i++) {
+  const col = i % 16;
+  const row = Math.floor(i / 16);
+  squares.push({ x: 320 + col * (size + 4), y: H / 2 - 28 + row * (size + 4), zone: 1 });
+}
+for (let i = 0; i < 48; i++) {
+  const col = i % 8;
+  const row = Math.floor(i / 8);
+  squares.push({ x: 640 + col * (size + gap * 1.8), y: 22 + row * (size + gap * 2.2), zone: 2 });
+}
+---
+
+<section class="section page process" aria-labelledby="como-trabajamos">
+  <header class="head">
+    <h2 id="como-trabajamos">Cómo trabajamos</h2>
+    <p>Del primer mensaje a tu asesor asignado, en seis pasos claros.</p>
+  </header>
+
+  <svg class="diagram" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Diagrama: de una tesis en desorden a un plan ordenado">
+    {squares.map((s) => (
+      <rect x={s.x} y={s.y} width={size} height={size} class={`z${s.zone}`} />
+    ))}
+  </svg>
+
+  <ol class="steps" role="list">
+    {steps.map((step) => (
+      <li>
+        <h3>{step.name}</h3>
+        <p>{step.text}</p>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<style>
+  .process { display: grid; gap: var(--space-xl); }
+  .head { display: grid; gap: var(--space-s); max-inline-size: 36rem; }
+
+  .diagram { inline-size: 100%; block-size: auto; }
+  .z0 { fill: var(--color-surface-strong); }
+  .z1 { fill: var(--navy-100); }
+  .z2 { fill: var(--color-accent); }
+
+  .steps { display: grid; gap: var(--space-l); }
+  .steps h3 { font-weight: var(--weight-semibold); margin-block-end: var(--space-2xs); }
+  .steps p { font-size: var(--step-body); }
+
+  @media (min-width: 48em) {
+    .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--gutter); }
+  }
+</style>

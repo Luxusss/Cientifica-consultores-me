@@ -1,21 +1,34 @@
 ---
 import Base from '@/layouts/Base.astro';
-import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import Hero from '@/components/home/Hero.astro';
+import ServiceRows from '@/components/home/ServiceRows.astro';
+import Process from '@/components/home/Process.astro';
+import About from '@/components/home/About.astro';
+import Universities from '@/components/home/Universities.astro';
+import TestimonialQuote from '@/components/home/TestimonialQuote.astro';
+import Stages from '@/components/home/Stages.astro';
+import Guides from '@/components/home/Guides.astro';
+import FaqText from '@/components/sections/FaqText.astro';
+import ContactBand from '@/components/sections/ContactBand.astro';
+import { homeFaq } from '@/data/faq';
+import { testimonials } from '@/data/proof';
+import { faqPage } from '@/lib/schema';
 ---
 
 <Base
   title="Asesoría de Tesis Online con Expertos | Científica Consultores"
-  description="Asesoría de tesis online para pregrado, maestría, doctorado y TSP. Un asesor especialista te acompaña desde el proyecto hasta la sustentación."
-  noindex
+  description="Asesoría de tesis online con expertos en investigación. Apoyo en metodología, análisis y redacción para estudiantes de Latinoamérica y España."
+  image="/og/cientifica-consultores.jpg"
+  schema={[faqPage(homeFaq)]}
 >
-  <section class="section page grid">
-    <div class="before-axis">
-      <h1>Asesoría de tesis online</h1>
-    </div>
-    <div class="on-axis flow flow-l">
-      <p class="text-lead">Un asesor especialista te acompaña en tu tesis de pregrado, maestría, doctorado o TSP, desde el proyecto hasta la sustentación.</p>
-      <WhatsAppButton />
-      <p class="text-soft">Portada provisional de la Fase 3. La portada completa se construye en la Fase 4.</p>
-    </div>
-  </section>
+  <Hero />
+  <ServiceRows />
+  <Process />
+  <About />
+  <Universities />
+  <TestimonialQuote testimonial={testimonials[0]} />
+  <Stages />
+  <Guides />
+  <FaqText items={homeFaq} />
+  <ContactBand />
 </Base>

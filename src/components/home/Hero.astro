@@ -1,0 +1,146 @@
+---
+import { Image } from 'astro:assets';
+import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import heroImg from '@/assets/images/banner/asesores-de-tesis-cientifica-consultores.jpg';
+import blogImg from '@/assets/images/blog/asesor-como-hacer-tu-proyecto-de-tesis.jpg';
+import testimonialsImg from '@/assets/images/otros/graduados.jpg';
+
+const cards = [
+  { href: '/blog/como-hacer-tu-proyecto-de-tesis.html', title: 'Cómo hacer tu proyecto de tesis', image: blogImg },
+  { href: '/testimonios.html', title: 'Quienes ya sustentaron', image: testimonialsImg },
+];
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="media">
+    <Image
+      src={heroImg}
+      alt="Tres asesores de tesis de Científica Consultores en su oficina de Lima"
+      widths={[640, 960, 1280, 1600]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+      class="photo"
+    />
+  </div>
+
+  <div class="page inner">
+    <div class="text">
+      <h1 id="hero-title">Asesoría de tesis online</h1>
+      <p class="lede">Un asesor especialista te acompaña en tu tesis de pregrado, maestría, doctorado o TSP, desde el proyecto hasta la sustentación.</p>
+      <div class="action"><WhatsAppButton /></div>
+      <p class="pin"><span class="dot" aria-hidden="true"></span>Asesores en Lima, atención en toda Latinoamérica</p>
+    </div>
+
+    <ul class="cards" role="list">
+      {cards.map((card) => (
+        <li>
+          <a class="card" href={card.href}>
+            <Image src={card.image} alt="" widths={[240, 420]} sizes="14rem" class="card-img" />
+            <span class="card-title">{card.title}<span aria-hidden="true">→</span></span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    display: grid;
+    background-color: var(--color-field);
+    color: var(--color-on-field);
+    overflow: hidden;
+  }
+
+  .media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+  .photo {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    object-position: 72% 30%;
+  }
+
+  .inner {
+    display: grid;
+    gap: var(--space-l);
+    padding-block: var(--space-xl) var(--space-2xl);
+  }
+
+  .text { display: grid; gap: var(--space-m); justify-items: start; }
+  h1 { color: var(--color-on-field); max-inline-size: 11ch; }
+  .lede {
+    font-size: var(--step-lead);
+    line-height: var(--leading-lead);
+    max-inline-size: 40ch;
+    color: var(--color-on-field);
+  }
+
+  .pin {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    font-size: var(--step-small);
+    color: var(--color-on-field-soft);
+  }
+  .dot { inline-size: 0.5rem; block-size: 0.5rem; background-color: var(--color-accent); border-radius: 50%; flex-shrink: 0; }
+
+  .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-s); }
+  .card {
+    display: grid;
+    color: var(--color-text);
+    background-color: var(--paper-0);
+    text-decoration: none;
+  }
+  .card-img { inline-size: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+  .card-title {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+    padding: var(--space-xs) var(--space-s);
+    font-size: var(--step-small);
+    line-height: var(--leading-small);
+    font-weight: var(--weight-semibold);
+    color: var(--ink-900);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .card-img { transition: transform var(--duration-ui) var(--ease-out); }
+    .card { overflow: hidden; }
+    .card:hover .card-title { text-decoration: underline; text-underline-offset: 0.2em; }
+  }
+
+  @media (min-width: 64em) {
+    .hero { min-block-size: calc(100svh - var(--header-height)); }
+    .media { position: absolute; inset: 0; aspect-ratio: auto; }
+    .media::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, var(--scrim-strong) 0%, var(--scrim-soft) 38%, transparent 62%);
+    }
+    .photo { object-position: 70% 35%; }
+
+    .inner {
+      position: relative;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      grid-template-rows: 1fr auto;
+      column-gap: var(--gutter);
+      padding-block: var(--space-2xl) calc(var(--button-height) + var(--space-l) * 2);
+    }
+    .text { grid-column: 1 / span 6; align-self: center; }
+    .action { display: none; }
+    .cards {
+      grid-column: 8 / -1;
+      grid-row: 2;
+      justify-self: end;
+      inline-size: min(100%, 28rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .photo { animation: drift 24s var(--ease-soft) both; }
+    @keyframes drift { from { transform: scale(1.08); } to { transform: scale(1); } }
+  }
+</style>

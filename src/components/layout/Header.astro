@@ -74,7 +74,7 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
     display: flex;
     align-items: center;
     gap: var(--space-l);
-    min-block-size: 4.5rem;
+    min-block-size: var(--header-height);
   }
 
   .brand { display: block; flex-shrink: 0; }
@@ -103,7 +103,7 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
 
   .panel {
     inset: auto 0 auto 0;
-    inset-block-start: calc(4.5rem + env(safe-area-inset-top, 0px));
+    inset-block-start: calc(var(--header-height) + env(safe-area-inset-top, 0px));
     inline-size: 100%;
     margin: 0;
     padding: var(--space-l) 0;

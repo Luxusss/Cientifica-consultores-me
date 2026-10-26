@@ -1,0 +1,44 @@
+---
+import type { Testimonial } from '@/data/proof';
+
+interface Props {
+  testimonial: Testimonial;
+}
+
+const { testimonial } = Astro.props;
+---
+
+<section class="quote theme-field" aria-label="Testimonio">
+  <div class="page grid">
+    <figure>
+      <blockquote>
+        <p>“{testimonial.highlight ?? testimonial.quote}”</p>
+      </blockquote>
+      <figcaption>
+        <strong>{testimonial.name}</strong>
+        <span>{testimonial.university}, {testimonial.country}</span>
+      </figcaption>
+    </figure>
+    <a class="more" href="/testimonios.html">Ver más testimonios</a>
+  </div>
+</section>
+
+<style>
+  .quote { padding-block: var(--section-gap); }
+  figure { grid-column: 1 / -1; display: grid; gap: var(--space-l); }
+  blockquote p {
+    max-inline-size: none;
+    font-size: var(--step-lead);
+    line-height: var(--leading-lead);
+    letter-spacing: var(--tracking-head);
+  }
+  figcaption { display: grid; gap: var(--space-3xs); }
+  figcaption span { color: var(--color-text-soft); font-size: var(--step-small); }
+  .more { grid-column: 1 / -1; margin-block-start: var(--space-l); }
+
+  @media (min-width: 64em) {
+    blockquote p { max-inline-size: 38ch; font-size: min(var(--step-head), 2.25rem); line-height: var(--leading-head); }
+    figure { grid-column: 2 / span 9; }
+    .more { grid-column: 2 / span 9; }
+  }
+</style>

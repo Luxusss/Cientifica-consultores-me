@@ -1,0 +1,142 @@
+---
+import { stageTracks } from '@/data/stages';
+import { whatsappUrl } from '@/config/site';
+import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+
+interface Props {
+  initial?: string;
+  headingLevel?: 2 | 3;
+}
+
+const { initial = 'pregrado', headingLevel = 2 } = Astro.props;
+const Heading = `h${headingLevel}` as const;
+const message = (degree: string) => `Hola, quiero asesoría para mi tesis de ${degree}.`;
+const start = stageTracks.find((t) => t.id === initial) ?? stageTracks[0];
+---
+
+<section class="section page stages" aria-labelledby="etapas" data-stages>
+  <div class="top">
+    <Heading id="etapas">Tu tesis por etapas</Heading>
+    <WhatsAppButton message={message(start.degree)} data-stages-cta />
+  </div>
+  <p class="intro">Elige tu grado y mira el camino completo hasta la sustentación.</p>
+
+  <div class="tabs" role="tablist" aria-label="Grado académico" hidden data-stages-tabs>
+    {stageTracks.map((t) => (
+      <button
+        type="button"
+        role="tab"
+        id={`tab-${t.id}`}
+        aria-controls={`panel-${t.id}`}
+        aria-selected={t.id === start.id ? 'true' : 'false'}
+        tabindex={t.id === start.id ? 0 : -1}
+        data-href={whatsappUrl(message(t.degree))}
+      >
+        {t.label}
+      </button>
+    ))}
+  </div>
+
+  {stageTracks.map((t) => (
+    <div class="panel" id={`panel-${t.id}`} role="tabpanel" aria-labelledby={`tab-${t.id}`} data-panel={t.id}>
+      <p class="panel-title">{t.label}</p>
+      <ol class="bands" role="list">
+        {t.stages.map((s) => (
+          <li>
+            <strong>{s.name}</strong>
+            <span>{s.detail}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  ))}
+</section>
+
+<script>
+  for (const root of document.querySelectorAll<HTMLElement>('[data-stages]')) {
+    const tablist = root.querySelector<HTMLElement>('[data-stages-tabs]')!;
+    const tabs = [...tablist.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const panels = [...root.querySelectorAll<HTMLElement>('[data-panel]')];
+    const cta = root.querySelector<HTMLAnchorElement>('[data-stages-cta]')!;
+
+    const select = (tab: HTMLButtonElement, focus = false) => {
+      for (const t of tabs) {
+        const on = t === tab;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+      }
+      for (const p of panels) p.hidden = p.id !== tab.getAttribute('aria-controls');
+      cta.href = tab.dataset.href ?? cta.href;
+      if (focus) tab.focus();
+    };
+
+    tablist.hidden = false;
+    root.classList.add('is-tabs');
+    select(tabs.find((t) => t.getAttribute('aria-selected') === 'true') ?? tabs[0]);
+
+    tablist.addEventListener('click', (e) => {
+      const tab = (e.target as HTMLElement).closest<HTMLButtonElement>('[role="tab"]');
+      if (tab) select(tab);
+    });
+    tablist.addEventListener('keydown', (e) => {
+      const i = tabs.indexOf(document.activeElement as HTMLButtonElement);
+      if (i < 0) return;
+      const next = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : null;
+      if (next === null) return;
+      e.preventDefault();
+      select(tabs[(next + tabs.length) % tabs.length], true);
+    });
+  }
+</script>
+
+<style>
+  .stages { display: grid; gap: var(--space-m); }
+  .top { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--space-m); }
+  .intro { font-size: var(--step-lead); line-height: var(--leading-lead); }
+
+  .tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3xs);
+    margin-block-start: var(--space-s);
+  }
+  @media (min-width: 48em) {
+    .tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  .tabs[hidden] { display: none; }
+  .tabs button {
+    min-block-size: var(--hit-min);
+    padding: var(--space-xs) var(--space-m);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-weight: var(--weight-semibold);
+    user-select: none;
+    -webkit-user-select: none;
+    transition: background-color var(--duration-hover) ease;
+  }
+  .tabs button[aria-selected='true'] { background-color: var(--color-field); color: var(--color-on-field); }
+
+  .panel { display: grid; gap: var(--space-s); margin-block-start: var(--space-m); }
+  .panel[hidden] { display: none; }
+  .is-tabs .panel-title { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
+  .panel-title { font-weight: var(--weight-semibold); }
+
+  .bands { display: grid; gap: var(--space-3xs); }
+  .bands li {
+    max-inline-size: none;
+    display: grid;
+    gap: var(--space-3xs);
+    padding: var(--space-s) var(--space-m);
+    background-color: var(--color-surface);
+  }
+  .bands li:nth-child(even) { background-color: var(--color-surface-strong); }
+  .bands span { color: var(--color-text-soft); font-size: var(--step-body); line-height: var(--leading-small); }
+
+  @media (min-width: 48em) {
+    .bands li { grid-template-columns: minmax(12rem, 2fr) 5fr; align-items: baseline; column-gap: var(--gutter); }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .tabs button[aria-selected='false']:hover { background-color: var(--color-surface-strong); }
+  }
+</style>

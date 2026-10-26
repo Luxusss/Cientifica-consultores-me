@@ -1,0 +1,126 @@
+---
+import { Image, getImage } from 'astro:assets';
+import { site } from '@/config/site';
+import { tools } from '@/data/proof';
+import office from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg';
+import team from '@/assets/images/banner/nuestro-equipo-de-asesores-de-tesis.jpg';
+import session from '@/assets/images/otros/equipo-de-asesores-en-reunion.jpg';
+
+const slides = [
+  { src: office, alt: 'Reunión del equipo de Científica Consultores en su oficina' },
+  { src: team, alt: 'Equipo de asesores de tesis de Científica Consultores' },
+];
+const poster = await getImage({ src: session, width: 960, format: 'webp' });
+const listFormat = new Intl.ListFormat('es', { style: 'long', type: 'conjunction' });
+
+const facts = [
+  { label: 'Experiencia', value: 'Más de 10 años' },
+  { label: 'Oficina', value: `${site.address.district}, ${site.address.city}` },
+  { label: 'Herramientas', value: listFormat.format(tools) },
+  { label: 'Modalidad', value: 'Online y presencial' },
+];
+---
+
+<section class="section page about" aria-labelledby="nosotros">
+  <header class="head">
+    <h2 id="nosotros">Más de 10 años investigando</h2>
+    <p class="lead">Somos un equipo multidisciplinario de asesores en Lima. Desde hace más de 10 años acompañamos a estudiantes de pregrado, maestría y doctorado de habla hispana, con asesoría académica para tesis, tesinas y trabajos de grado, online o en nuestra oficina.</p>
+  </header>
+
+  <div class="mosaic">
+    <figure class="photo-tile">
+      <div class="slides">
+        {slides.map((s, i) => (
+          <Image src={s.src} alt={i === 0 ? s.alt : ''} widths={[640, 960, 1280]} sizes="(min-width: 64em) 62vw, 100vw" class="slide" />
+        ))}
+      </div>
+      <p class="note">Tu proyecto es confidencial por contrato. Revisamos la originalidad con Turnitin en cada entrega y trabajamos en horarios flexibles, por videollamada o en persona.</p>
+    </figure>
+
+    <div class="color-tile theme-field">
+      <ul class="countries" role="list" aria-label="Países donde atendemos">
+        {site.countries.map((c) => <li>{c}</li>)}
+      </ul>
+      <p class="tile-note">Atendemos online en estos seis países y en persona en Lima.</p>
+    </div>
+
+    <dl class="facts">
+      {facts.map((f) => (
+        <div>
+          <dt>{f.label}</dt>
+          <dd>{f.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+
+  <figure class="video">
+    <video controls preload="none" playsinline poster={poster.src} width="1280" height="720">
+      <source src="/videos/Asi-son-nuestras-asesorias.mp4" type="video/mp4" />
+    </video>
+    <figcaption>Así son nuestras asesorías</figcaption>
+  </figure>
+</section>
+
+<style>
+  .about { display: grid; gap: var(--space-xl); }
+  .head { display: grid; gap: var(--space-m); }
+  .lead { font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 44ch; }
+
+  .mosaic { display: grid; gap: var(--space-s); }
+
+  .photo-tile { position: relative; display: grid; }
+  .slides { display: grid; aspect-ratio: 4 / 3; overflow: hidden; }
+  .slide { grid-area: 1 / 1; inline-size: 100%; block-size: 100%; object-fit: cover; }
+  .slide:not(:first-child) { opacity: 0; }
+
+  .note {
+    padding: var(--space-s);
+    background-color: var(--color-bg);
+    font-size: var(--step-body);
+    line-height: var(--leading-small);
+  }
+
+  .color-tile { display: grid; align-content: space-between; gap: var(--space-m); padding: var(--space-m); }
+  .tile-note { color: var(--color-text-soft); font-size: var(--step-small); line-height: var(--leading-small); }
+  .countries { display: grid; gap: var(--space-3xs); font-size: var(--step-head); line-height: var(--leading-head); letter-spacing: var(--tracking-head); }
+
+  .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-m) var(--gutter); }
+  .facts dt { color: var(--color-text-soft); font-size: var(--step-small); }
+  .facts dd { font-size: var(--step-body); line-height: var(--leading-small); font-weight: var(--weight-medium); }
+
+  .video { display: grid; gap: var(--space-2xs); }
+  .video video { inline-size: 100%; block-size: auto; aspect-ratio: 16 / 9; background-color: var(--ink-900); }
+  .video figcaption { font-size: var(--step-small); color: var(--color-text-soft); }
+
+  @media (min-width: 64em) {
+    .head { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
+    .head h2 { grid-column: 1 / span var(--axis); }
+    .lead { grid-column: calc(var(--axis) + 1) / -1; }
+
+    .mosaic { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: var(--space-l); }
+    .photo-tile { grid-column: 1 / span 8; }
+    .slides { aspect-ratio: 16 / 10; }
+    .note {
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline-end: 0;
+      inline-size: 20rem;
+      padding: var(--space-m);
+    }
+    .color-tile { grid-column: 9 / -1; align-self: start; aspect-ratio: 4 / 5; }
+    .facts { grid-column: 9 / -1; }
+
+    .video { inline-size: min(100%, 56rem); justify-self: end; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .slide { animation: crossfade 15s ease-in-out infinite both; }
+    .slide:nth-child(2) { animation-delay: -7.5s; }
+    @keyframes crossfade {
+      0%, 40% { opacity: 1; }
+      50%, 90% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+  }
+</style>

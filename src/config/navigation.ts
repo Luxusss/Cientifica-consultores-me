@@ -1,11 +1,9 @@
+import { services as serviceData } from '@/data/services';
+
 export type NavLink = { label: string; href: string };
 
 export const services: NavLink[] = [
-  { label: 'Tesis de pregrado', href: '/tesis.html' },
-  { label: 'Tesis de maestría', href: '/tesis-maestria.html' },
-  { label: 'Tesis doctoral', href: '/tesis-doctoral.html' },
-  { label: 'Trabajo de suficiencia profesional', href: '/trabajo-de-suficiencia-profesional.html' },
-  { label: 'Artículos científicos', href: '/articulos_cientificos.html' },
+  ...serviceData.filter((s) => s.id !== 'proyecto').map((s) => ({ label: s.navLabel, href: s.href })),
   { label: 'Otros servicios', href: '/otros_servicios.html' },
 ];
 

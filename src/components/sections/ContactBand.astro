@@ -1,0 +1,38 @@
+---
+import { Image } from 'astro:assets';
+import { site, whatsappUrl } from '@/config/site';
+import portrait from '@/assets/images/otros/asesor-de-tesis-de-maestria-cientifica-consultores.jpg';
+---
+
+<section class="section page contact" aria-labelledby="contacto">
+  <p class="statement" id="contacto">Cuéntanos tu universidad, tu grado y tu fecha de entrega, y te decimos cómo podemos ayudarte.</p>
+  <Image src={portrait} alt="Asesor de Científica Consultores en la biblioteca" widths={[200, 340]} sizes="10rem" class="portrait" />
+  <div class="reach">
+    <p class="ask">¿Empezamos?</p>
+    <a href={whatsappUrl()} target="_blank" rel="noopener">WhatsApp {site.phone.display}</a>
+    <a href={`mailto:${site.email}`}>{site.email}</a>
+    <p class="meta">{site.address.district}, {site.address.city}. Respondemos en {site.replyTime}.</p>
+  </div>
+</section>
+
+<style>
+  .contact { display: grid; gap: var(--space-l); align-items: start; }
+  .statement { font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 30ch; }
+  .portrait { inline-size: 8rem; aspect-ratio: 1; object-fit: cover; object-position: 50% 25%; }
+  .reach { display: grid; gap: var(--space-2xs); justify-items: start; }
+  .ask { font-weight: var(--weight-semibold); }
+  .reach a { font-size: var(--step-body); overflow-wrap: anywhere; }
+  .meta { color: var(--color-text-soft); font-size: var(--step-small); margin-block-start: var(--space-2xs); }
+
+  @media (min-width: 48em) {
+    .contact { grid-template-columns: auto 1fr; }
+    .statement { grid-column: 1 / -1; }
+  }
+
+  @media (min-width: 64em) {
+    .contact { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
+    .statement { grid-column: 1 / span 5; }
+    .portrait { grid-column: 8 / span 2; inline-size: 100%; max-inline-size: 10rem; }
+    .reach { grid-column: 10 / -1; }
+  }
+</style>

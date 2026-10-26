@@ -84,6 +84,9 @@
   --axis: 5;
 
   --radius: 0;
+  --header-height: 4.5rem;
+  --scrim-strong: color-mix(in srgb, var(--ink-900) 82%, transparent);
+  --scrim-soft: color-mix(in srgb, var(--ink-900) 55%, transparent);
   --hit-min: 2.75rem;
   --focus-ring: 3px solid var(--color-focus);
   --focus-offset: 3px;

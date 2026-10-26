@@ -1,0 +1,42 @@
+---
+const guides = [
+  { title: 'Cómo hacer tu proyecto de tesis', text: 'Tema, objetivos, problema, marco teórico y metodología, paso a paso.', href: '/blog/como-hacer-tu-proyecto-de-tesis.html' },
+  { title: 'Tesis o trabajo de suficiencia profesional', text: 'En qué se diferencian y cuál te conviene.', href: '/blog/tesis-vs-trabajo-suficiencia-profesional.html' },
+  { title: 'Estructura de una tesis', text: 'Qué lleva cada capítulo, de la introducción a las conclusiones.' },
+  { title: 'Tesis, tesina, TFG y TFM', text: 'Cómo se llama tu trabajo según tu país y tu universidad.' },
+  { title: 'Avanzar sin bloquearte', text: 'Consejos para organizar tu tiempo y tu redacción.' },
+];
+---
+
+<section class="section page guides" aria-labelledby="guias">
+  <header class="head">
+    <h2 id="guias">Guías para tu tesis</h2>
+    <p>Recursos académicos para tu proyecto y desarrollo de tesis, gratis, para estudiantes de pregrado, maestría y doctorado.</p>
+    <a href="/blog.html">Ver el blog</a>
+  </header>
+
+  <ul class="list" role="list">
+    {guides.map((g) => (
+      <li>
+        <h3>{g.href ? <a href={g.href}>{g.title}</a> : g.title}</h3>
+        <p>{g.text}</p>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .guides { display: grid; gap: var(--space-xl); }
+  .head { display: grid; gap: var(--space-s); align-content: start; justify-items: start; }
+
+  .list { display: grid; gap: var(--space-l); }
+  .list h3 { font-size: var(--step-lead); line-height: var(--leading-lead); font-weight: var(--weight-medium); }
+  .list h3 a { color: var(--color-text); }
+  .list p { color: var(--color-text-soft); margin-block-start: var(--space-3xs); }
+
+  @media (min-width: 64em) {
+    .guides { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
+    .head { grid-column: 1 / span var(--axis); position: sticky; inset-block-start: calc(var(--header-height) + var(--space-l)); align-self: start; }
+    .list { grid-column: calc(var(--axis) + 1) / -1; }
+  }
+</style>

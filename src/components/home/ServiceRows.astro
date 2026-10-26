@@ -1,0 +1,61 @@
+---
+import { Image } from 'astro:assets';
+import { services } from '@/data/services';
+---
+
+<section class="services theme-surface" aria-labelledby="servicios">
+  <div class="page grid">
+    <header class="head">
+      <h2 id="servicios">Asesoría para cada grado</h2>
+      <p class="intro">Nuestros servicios de asesoría para tesis y trabajos académicos te acompañan desde cero: definir el tema, ordenar la literatura, diseñar la metodología, procesar los datos y preparar la versión final. Nos adaptamos al formato de tu universidad, se llame tesis, tesina, trabajo de grado, TFG o TFM.</p>
+    </header>
+
+    <ol class="rows" role="list">
+      {services.map((s, i) => (
+        <li class:list={['row', { flip: i % 2 === 1 }]}>
+          <h3>{s.name}</h3>
+          <div class="pair">
+            <Image src={s.image} alt={s.imageAlt} widths={[240, 360, 480]} sizes="(min-width: 64em) 13rem, 40vw" class="portrait" />
+            <div class="detail">
+              <ul class="includes" role="list">
+                {s.includes.map((item) => <li>{item}</li>)}
+              </ul>
+              <a href={s.href}>Ver asesoría de {s.name.toLowerCase()}</a>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .services { padding-block: var(--section-gap); }
+
+  .head { grid-column: 1 / -1; display: grid; gap: var(--space-m); align-content: start; }
+  .head h2 { max-inline-size: 12ch; }
+  .intro { max-inline-size: 38ch; }
+
+  .rows { grid-column: 1 / -1; display: grid; gap: var(--space-2xl); margin-block-start: var(--space-xl); }
+
+  .row { display: grid; gap: var(--space-s); }
+  .row h3 { font-weight: var(--weight-semibold); }
+
+  .pair { display: grid; grid-template-columns: minmax(7rem, 2fr) 3fr; gap: var(--space-m); align-items: start; }
+  .flip .pair { grid-template-columns: 3fr minmax(7rem, 2fr); }
+  .flip .portrait { order: 2; }
+
+  .portrait { inline-size: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 20%; }
+
+  .detail { display: grid; gap: var(--space-m); }
+  .includes { display: grid; gap: var(--space-2xs); }
+  .includes li { font-size: var(--step-body); line-height: var(--leading-small); }
+  .detail a { font-weight: var(--weight-semibold); }
+
+  @media (min-width: 64em) {
+    .head { grid-column: 1 / span var(--axis); position: sticky; inset-block-start: calc(var(--header-height) + var(--space-l)); align-self: start; }
+    .rows { grid-column: calc(var(--axis) + 2) / -1; margin-block-start: 0; gap: var(--space-3xl); }
+    .pair { grid-template-columns: 13rem 1fr; }
+    .flip .pair { grid-template-columns: 1fr 13rem; }
+  }
+</style>
