@@ -3,11 +3,11 @@ import { universities } from '@/data/proof';
 
 export const stats = {
   years: 10,
-  clients: 1791,
+  clients: 4000,
   projects: 967,
   events: 132,
   certificates: 676,
-  tsp: 500,
+  tsp: 1000,
   tspApproval: 98,
   tspMonths: '1 a 2 meses',
   universities: universities.reduce((n, g) => n + g.names.length, 0),

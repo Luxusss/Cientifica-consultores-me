@@ -8,8 +8,8 @@ Todas las cifras se cambian en un solo archivo: `src/data/stats.ts`. Basta con p
 
 | # | Dato | Dónde aparece hoy | Qué necesito |
 |---|---|---|---|
-| 1 | **1791 clientes, 967 proyectos, 132 eventos, 676 certificados** | Portada, Nosotros, Artículos | Hoy la portada muestra +1791 clientes (dato de producción, de hace años). Pasar el total real a la fecha: contratos firmados o clientes en el CRM desde el inicio |
-| 2 | **"+500 casos exitosos"** / **"Más de 500 TSP exitosos"** | TSP (description y página) | Se muestra "Más de 500 TSP". Pasar el total real de TSP asesorados |
+| 1 | **1791 clientes, 967 proyectos, 132 eventos, 676 certificados** | Portada, Nosotros, Artículos | **RESUELTO (27/10/2026):** +4000 clientes. Estimado con el dato de la empresa (≈1000 leads y 50 ventas cerradas al mes hoy), con crecimiento más lento en los primeros años y redondeado hacia abajo |
+| 2 | **"+500 casos exitosos"** / **"Más de 500 TSP exitosos"** | TSP (description y página) | **RESUELTO (27/10/2026):** +1000 TSP (28 % de los clientes, la misma proporción que tenía la web de producción) |
 | 3 | **"98 % de aprobación en primera sustentación"** | TSP | Se mantiene el texto de producción. Si hay registro, actualizar la cifra; si no lo hay, quitarla |
 | 4 | **"Título en solo 1 mes"** vs **"1–2 meses promedio"** | TSP | Unificado: "desde 1 mes, 1 a 2 meses en promedio" (el h2 de producción con "1 mes" se conserva por SEO) |
 | 5 | **Maestría: 2–6 meses** | FAQ de Maestría | ¿Se mantiene? |
