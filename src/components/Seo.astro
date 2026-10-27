@@ -20,6 +20,7 @@ const imageUrl = new URL(image, site.url).href;
 <meta name="author" content={site.name} />
 <meta name="keywords" content="Asesoría de tesis, tesis pregrado, tesis maestría, asesor de tesis, talleres de investigación, capacitación académica" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
 <link rel="canonical" href={canonical} />
 <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
 
@@ -30,8 +31,12 @@ const imageUrl = new URL(image, site.url).href;
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:image" content={imageUrl} />
+<meta property="og:image:alt" content={title} />
+{image.startsWith('/og/') && <meta property="og:image:width" content="1200" />}
+{image.startsWith('/og/') && <meta property="og:image:height" content="630" />}
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={imageUrl} />
+<meta name="twitter:image:alt" content={title} />

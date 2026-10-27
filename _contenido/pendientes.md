@@ -10,7 +10,7 @@ Todas las cifras se cambian en un solo archivo: `src/data/stats.ts`. Basta con p
 |---|---|---|---|
 | 1 | **1791 clientes, 967 proyectos, 132 eventos, 676 certificados** | Portada, Nosotros, Artículos | **RESUELTO (27/10/2026):** +4000 clientes. Estimado con el dato de la empresa (≈1000 leads y 50 ventas cerradas al mes hoy), con crecimiento más lento en los primeros años y redondeado hacia abajo |
 | 2 | **"+500 casos exitosos"** / **"Más de 500 TSP exitosos"** | TSP (description y página) | **RESUELTO (27/10/2026):** +1000 TSP (28 % de los clientes, la misma proporción que tenía la web de producción) |
-| 3 | **"98 % de aprobación en primera sustentación"** | TSP | Se mantiene el texto de producción. Si hay registro, actualizar la cifra; si no lo hay, quitarla |
+| 3 | **"98 % de aprobación en primera sustentación"** | TSP | **RESUELTO (27/10/2026):** se mantiene el 98 % y se acompaña con el levantamiento de observaciones sin costo |
 | 4 | **"Título en solo 1 mes"** vs **"1–2 meses promedio"** | TSP | Unificado: "desde 1 mes, 1 a 2 meses en promedio" (el h2 de producción con "1 mes" se conserva por SEO) |
 | 5 | **Maestría: 2–6 meses** | FAQ de Maestría | ¿Se mantiene? |
 | 6 | **Duración aproximada de cada etapa** por grado | Nueva pieza "Tu tesis por etapas" | Semanas aproximadas por etapa (ver `servicios.md` › Etapas) |
@@ -45,3 +45,13 @@ Todas las cifras se cambian en un solo archivo: `src/data/stats.ts`. Basta con p
 
 - Los Términos describen un "carrito de compra" y una "pasarela de pago" que el sitio no tiene. Conviene que el área legal los actualice; el texto no se tocó.
 - El punto 1 de "Condiciones de contratación" describe diplomados, seminarios y cursos, pero no menciona la asesoría de tesis, que es el servicio principal.
+
+## Después de publicar
+
+1. Google Search Console: verificar la propiedad `cientificaconsultores.com` y enviar `https://cientificaconsultores.com/sitemap-index.xml`.
+2. Inspeccionar en Search Console la portada y las 4 páginas de servicio y pedir la indexación.
+3. Probar el envío real de un formulario de servicio, el de Contacto y el Libro de reclamaciones, y confirmar que llegan al correo y al CRM.
+4. Revisar en GTM (modo vista previa) que el evento `lead_form_submit` y las etiquetas de Meta, TikTok y Google Ads se disparan. GTM ahora carga al primer scroll, toque o movimiento del mouse, o a los 5 segundos.
+5. Compartir un enlace de cada servicio en WhatsApp para ver la tarjeta con foto (imágenes en `public/og`).
+6. A las 3–4 semanas, revisar en PageSpeed Insights los datos reales de usuarios (Core Web Vitals).
+

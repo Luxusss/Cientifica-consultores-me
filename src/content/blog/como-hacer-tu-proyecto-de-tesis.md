@@ -46,4 +46,4 @@ Una tesis es una manera de defender una hipótesis para solucionar un problema y
 
 Gracias a la elaboración de una tesis universitaria se pueden generar nuevos conocimientos en las diferentes áreas de estudios.
 
-Además, si tienes alguna duda, siempre estaremos [aquí](/tesis.html) para ayudarte a tener un mejor camino hacia tu éxito.
+Además, si tienes alguna duda, nuestro equipo de [asesoría de tesis de pregrado](/tesis.html) siempre estará para ayudarte a tener un mejor camino hacia tu éxito.

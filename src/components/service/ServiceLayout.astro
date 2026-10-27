@@ -45,7 +45,7 @@ const schema = [
 ];
 ---
 
-<Base title={page.title} description={page.description} schema={schema}>
+<Base title={page.title} description={page.description} image={`/og/${page.id}.jpg`} schema={schema}>
   <PageHero title={page.h1} crumb={page.crumb} lede={page.lede} balance="photo">
     <FormCard title="¡Obtén tu primera asesoría gratis!" subject={page.formSubject} variant="short" submitLabel="Quiero asesoría" />
     <ul class="trust" role="list">

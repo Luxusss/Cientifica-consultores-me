@@ -6,7 +6,7 @@ export const site = {
   url: 'https://cientificaconsultores.com',
   locale: 'es_PE',
   lang: 'es',
-  themeColor: '#f7f7f5',
+  themeColor: '#1d2d8c',
   phone: {
     display: '990 448 338',
     e164: '+51990448338',
