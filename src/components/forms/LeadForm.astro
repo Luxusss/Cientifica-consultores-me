@@ -16,7 +16,7 @@ const options = countries.map((c) => ({ value: c.name, label: `${c.name} (${c.co
 ---
 
 <form
-  class="lead-form"
+  class:list={['lead-form', { compact: variant === 'short' }]}
   method="POST"
   action={formsubmit(endpoints.leads)}
   data-lead-form
@@ -41,12 +41,13 @@ const options = countries.map((c) => ({ value: c.name, label: `${c.name} (${c.co
   <div class="phone">
     <Field id={`${uid}-pais`} label="País" name="pais" type="select" options={options} autocomplete="country-name" />
     <Field id={`${uid}-telefono`} label="Teléfono" name="telefono" type="tel" autocomplete="tel-national" inputmode="tel" required pattern="[0-9 +()-]{7,20}" error="Escribe un teléfono válido (7 a 15 dígitos)." />
+    {variant === 'short' && <Button type="submit">{submitLabel}</Button>}
   </div>
   {variant === 'full' && (
     <Field id={`${uid}-mensaje`} label="Cuéntanos qué necesitas" name="mensaje" type="textarea" required error="Cuéntanos brevemente tu caso." />
   )}
 
-  <Button type="submit">{submitLabel}</Button>
+  {variant === 'full' && <Button type="submit">{submitLabel}</Button>}
   <p class="status" role="status" aria-live="polite" data-status></p>
 </form>
 
@@ -130,6 +131,11 @@ const options = countries.map((c) => ({ value: c.name, label: `${c.name} (${c.co
     .phone { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
   }
   .lead-form :global(.button) { justify-self: start; }
+  .compact, .compact .phone { gap: var(--space-s); }
+  @container (min-width: 30rem) {
+    .compact .phone { grid-template-columns: minmax(0, 2fr) minmax(0, 2.4fr) auto; align-items: end; }
+    .compact .phone :global(.button) { min-block-size: var(--input-height); }
+  }
 
   .status { font-size: var(--step-small); line-height: var(--leading-small); font-weight: var(--weight-semibold); }
   .status:empty { display: none; }
