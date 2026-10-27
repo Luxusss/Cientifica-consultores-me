@@ -1,5 +1,4 @@
 ---
-import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
 import { processSection } from '@/data/home';
 
 const { title, text, steps } = processSection;
@@ -11,7 +10,6 @@ const { title, text, steps } = processSection;
       <header class="head stack stack-l" data-reveal>
         <h2 id="como-trabajamos">{title}</h2>
         <p class="text-lead">{text}</p>
-        <WhatsAppButton label="Empezar ahora por WhatsApp" />
       </header>
 
       <div class="track" aria-hidden="true"><span class="fill on-scene"></span></div>

@@ -67,7 +67,7 @@ const wide = block.title.length > 40;
   .cards { display: grid; gap: var(--space-l) var(--gutter); grid-template-columns: repeat(auto-fill, minmax(min(17rem, 100%), 1fr)); }
   .card { display: grid; gap: var(--space-xs); align-content: start; }
   .frame { overflow: hidden; border-radius: var(--radius-card); margin-block-end: var(--space-2xs); }
-  .photo { inline-size: 100%; aspect-ratio: 3 / 2; object-fit: cover; transition: transform var(--duration-reveal) var(--ease-out); }
+  .frame :global(.photo) { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 3 / 2; object-fit: cover; transition: transform var(--duration-reveal) var(--ease-out); }
   .card h3 { font-size: var(--step-title); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
   .card p { color: var(--color-text-soft); }
 
@@ -78,6 +78,6 @@ const wide = block.title.length > 40;
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .card:hover .photo { transform: scale(1.05); }
+    .card:hover :global(.photo) { transform: scale(1.05); }
   }
 </style>

@@ -1,18 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 import AdvisoryVideo from '@/components/sections/AdvisoryVideo.astro';
-import { site } from '@/config/site';
-import { tools } from '@/data/proof';
-import { listEs } from '@/lib/format';
 import { quality } from '@/data/home';
 import team from '@/assets/images/banner/nuestro-equipo-de-asesores-de-tesis.jpg';
-
-const facts = [
-  { label: 'Experiencia', value: 'Más de 10 años' },
-  { label: 'Oficina', value: `${site.address.district}, ${site.address.city}` },
-  { label: 'Modalidad', value: 'Online y presencial' },
-  { label: 'Herramientas', value: listEs(tools) },
-];
 ---
 
 <section class="scene grow" aria-labelledby="nosotros">
@@ -40,14 +30,6 @@ const facts = [
   <div class="video-wrap stack stack-m">
     <h2 class="minor" id="asesorias-video">Así son nuestras asesorías</h2>
     <AdvisoryVideo />
-    <dl class="facts accent-mark">
-      {facts.map((f) => (
-        <div>
-          <dt>{f.label}</dt>
-          <dd>{f.value}</dd>
-        </div>
-      ))}
-    </dl>
   </div>
 </section>
 
@@ -60,9 +42,6 @@ const facts = [
   .statement { padding-inline: var(--page-margin); font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 34ch; }
 
   .about { display: grid; gap: var(--space-xl) var(--gutter); align-items: start; }
-  .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-m) var(--gutter); }
-  .facts dt { color: var(--color-text-soft); font-size: var(--step-small); }
-  .facts dd { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
   .minor { max-inline-size: none; font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
 
   @media (min-width: 64em) {
