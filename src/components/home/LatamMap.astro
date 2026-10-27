@@ -11,6 +11,8 @@ import mexico from '@/assets/images/paises/mexico.jpg';
 import bolivia from '@/assets/images/paises/bolivia.jpg';
 import ecuador from '@/assets/images/paises/ecuador.jpg';
 import venezuela from '@/assets/images/paises/venezuela.jpg';
+import chile from '@/assets/images/paises/chile.jpg';
+import espana from '@/assets/images/paises/espana.jpg';
 
 const region = ['032', '152', '332', '214', '044', '238', '484', '858', '076', '068', '604', '170', '591', '188', '558', '340', '222', '320', '084', '862', '328', '740', '218', '630', '388', '192', '600', '780'];
 
@@ -21,7 +23,10 @@ const served = [
   { id: '068', name: 'Bolivia', flag: bolivia },
   { id: '218', name: 'Ecuador', flag: ecuador },
   { id: '862', name: 'Venezuela', flag: venezuela },
+  { id: '152', name: 'Chile', flag: chile },
 ];
+
+const spainInfo = { id: '724', name: 'España', flag: espana };
 
 const count = (name: string) => universities.find((g) => g.country === name)?.names.length ?? 0;
 
@@ -33,20 +38,36 @@ const projection = geoMercator().fitExtent([[8, 8], [width - 8, height - 8]], { 
 const path = geoPath(projection);
 
 const servedIds = served.map((s) => s.id);
-const shapes = latam.map((f: Feature<Geometry, { name: string }>) => ({ id: String(f.id), d: path(f) ?? '', on: servedIds.includes(String(f.id)), client: String(f.id) === '152' }));
+const shapes = latam.map((f: Feature<Geometry, { name: string }>) => ({ id: String(f.id), d: path(f) ?? '', on: servedIds.includes(String(f.id)) }));
 const pins = served.map((s, i) => {
   const f = latam.find((x) => String(x.id) === s.id)!;
   const [x, y] = path.centroid(f);
   return { ...s, x: Math.round(x), y: Math.round(y), n: count(s.name), i };
 });
+
+const inset = { x: 16, y: height - 150, w: 150, h: 120 };
+const spainRaw = world.features.find((f) => String(f.id) === spainInfo.id)!;
+const spainGeo = spainRaw.geometry.type === 'MultiPolygon'
+  ? { ...spainRaw, geometry: { ...spainRaw.geometry, coordinates: spainRaw.geometry.coordinates.filter((poly) => poly[0].some(([lon]) => lon > -10)) } }
+  : spainRaw;
+const spainProjection = geoMercator().fitExtent([[inset.x + 18, inset.y + 30], [inset.x + inset.w - 18, inset.y + inset.h - 14]], spainGeo as Feature<Geometry>);
+const spainPath = geoPath(spainProjection);
+const [sx, sy] = spainPath.centroid(spainGeo as Feature<Geometry>);
+const spain = { ...spainInfo, d: spainPath(spainGeo as Feature<Geometry>) ?? '', x: Math.round(sx), y: Math.round(sy), n: count(spainInfo.name) };
+const legend = [...pins, spain];
 ---
 
 <div class="map-block" data-map>
   <div class="map" data-reveal>
     <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-labelledby="mapa-titulo">
-      <title id="mapa-titulo">Mapa de Latinoamérica con los seis países donde atiende Científica Consultores</title>
+      <title id="mapa-titulo">Mapa de Latinoamérica y España con los ocho países donde atiende Científica Consultores</title>
       <g class="land">
-        {shapes.map((s) => <path d={s.d} class:list={{ on: s.on, client: s.client }} data-country={s.on ? s.id : undefined} />)}
+        {shapes.map((s) => <path d={s.d} class:list={{ on: s.on }} data-country={s.on ? s.id : undefined} />)}
+      </g>
+      <g class="inset">
+        <rect x={inset.x} y={inset.y} width={inset.w} height={inset.h} rx="14" />
+        <text x={inset.x + 14} y={inset.y + 22}>España</text>
+        <path d={spain.d} class="on" data-country={spain.id} />
       </g>
       <g class="pins">
         {pins.map((p) => (
@@ -55,22 +76,22 @@ const pins = served.map((s, i) => {
             <circle class="dot" r="6" />
           </g>
         ))}
+        <g class="pin" data-country={spain.id} transform={`translate(${spain.x} ${spain.y})`}>
+          <circle class="ring" r="6" />
+          <circle class="dot" r="6" />
+        </g>
       </g>
     </svg>
   </div>
 
   <ul class="legend" role="list" data-reveal="stagger">
-    {pins.map((p) => (
+    {legend.map((p) => (
       <li class="item" data-country={p.id} tabindex="0">
         <Image src={p.flag} alt="" width={36} height={24} class="flag" />
         <span class="name">{p.name}</span>
         <span class="meta">{p.n > 0 ? `${p.n} ${p.n === 1 ? 'universidad' : 'universidades'}` : 'Atención online'}</span>
       </li>
     ))}
-    <li class="item extra">
-      <span class="name">Chile y España</span>
-      <span class="meta">También tenemos clientes de {count('Chile') + count('España')} universidades</span>
-    </li>
   </ul>
 </div>
 
@@ -98,13 +119,16 @@ const pins = served.map((s, i) => {
   .map svg { display: block; inline-size: 100%; block-size: auto; max-block-size: 36rem; margin-inline: auto; overflow: visible; }
   .land path { fill: color-mix(in srgb, var(--navy-600) 14%, var(--paper-1)); stroke: var(--paper-0); stroke-width: 0.8; transition: fill var(--duration-ui) var(--ease-out); }
   .land path.on { fill: var(--navy-600); cursor: pointer; }
-  .land path.client { fill: color-mix(in srgb, var(--navy-600) 45%, var(--paper-1)); }
   .land path.on.is-active { fill: var(--orange-500); }
   .dot { fill: var(--orange-500); stroke: var(--paper-0); stroke-width: 2; }
   .ring { fill: var(--orange-500); opacity: 0; transform-box: fill-box; transform-origin: center; }
   .pin.is-active .dot { fill: var(--paper-0); stroke: var(--orange-500); stroke-width: 3; }
 
   .legend { display: grid; gap: var(--space-2xs); }
+  .inset rect { fill: var(--paper-0); stroke: color-mix(in srgb, var(--navy-600) 18%, transparent); }
+  .inset text { font-size: 13px; font-weight: 600; fill: var(--ink-600); }
+  .inset path { fill: var(--navy-600); }
+  .inset path.is-active { fill: var(--orange-500); }
   .item { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-s); padding: var(--space-s) var(--space-m); background-color: var(--paper-0); border-radius: var(--radius-card); cursor: default; transition: background-color var(--duration-hover) ease, transform var(--duration-hover) var(--ease-out); }
   .item:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
   .flag { inline-size: 2.25rem; block-size: 1.5rem; object-fit: cover; border-radius: 4px; box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink-900) 12%, transparent); }
@@ -128,6 +152,8 @@ const pins = served.map((s, i) => {
     .pin:nth-child(4) .ring { animation-delay: 1.2s; }
     .pin:nth-child(5) .ring { animation-delay: 1.6s; }
     .pin:nth-child(6) .ring { animation-delay: 2s; }
+    .pin:nth-child(7) .ring { animation-delay: 2.4s; }
+    .pin:nth-child(8) .ring { animation-delay: 2.8s; }
     @keyframes ping { 0% { opacity: 0.55; transform: scale(1); } 100% { opacity: 0; transform: scale(4); } }
     :global(.js) .map .land path.on { fill: color-mix(in srgb, var(--navy-600) 14%, var(--paper-1)); }
     :global(.js) .map.is-in .land path.on { fill: var(--navy-600); transition: fill 900ms var(--ease-out); }

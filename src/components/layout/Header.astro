@@ -7,6 +7,8 @@ import mexico from '@/assets/images/paises/mexico.jpg';
 import bolivia from '@/assets/images/paises/bolivia.jpg';
 import ecuador from '@/assets/images/paises/ecuador.jpg';
 import venezuela from '@/assets/images/paises/venezuela.jpg';
+import chile from '@/assets/images/paises/chile.jpg';
+import espana from '@/assets/images/paises/espana.jpg';
 import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
 import { mainNav, services } from '@/config/navigation';
 
@@ -23,6 +25,8 @@ const flags = [
   { src: bolivia, name: 'Bolivia' },
   { src: ecuador, name: 'Ecuador' },
   { src: venezuela, name: 'Venezuela' },
+  { src: chile, name: 'Chile' },
+  { src: espana, name: 'España' },
 ];
 const isCurrent = (href: string) => current === href || (href === '/index.html' && current === '/');
 ---

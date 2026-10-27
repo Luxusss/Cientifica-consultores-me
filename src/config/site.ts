@@ -25,7 +25,7 @@ export const site = {
     { days: 'Sábado', opens: '09:00', closes: '13:00', label: '9:00 a. m. – 1:00 p. m.' },
   ],
   replyTime: 'menos de 24 horas',
-  countries: ['Perú', 'Colombia', 'México', 'Bolivia', 'Ecuador', 'Venezuela'],
+  countries: ['Perú', 'Colombia', 'México', 'Bolivia', 'Ecuador', 'Venezuela', 'Chile', 'España'],
   gtmId: 'GTM-5TNL7PM2',
 } as const;
 
