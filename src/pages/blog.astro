@@ -25,7 +25,7 @@ const schema = [
   description="Encuentra en nuestro blog guías, consejos y recursos para hacer tu tesis de pregrado, maestría o doctorado. Asesoramiento académico experto de Científica Consultores."
   schema={schema}
 >
-  <PageHero title="Guías para tu tesis" crumb="Blog" lede="Guías prácticas y recursos para tu tesis de pregrado, maestría o doctorado, escritas por nuestro equipo de asesores." />
+  <PageHero tone="field" title="Guías para tu tesis" crumb="Blog" lede="Guías prácticas y recursos para tu tesis de pregrado, maestría o doctorado, escritas por nuestro equipo de asesores." />
 
   <section class="section page stack stack-l" aria-labelledby="articulos">
     <h2 id="articulos" class="posts-title" data-reveal>Todos los artículos</h2>
@@ -34,9 +34,11 @@ const schema = [
         <li class:list={['post', { lead: i === 0 }]}>
           <a href={`/blog/${post.id}.html`} class="post-link">
             <Image src={post.data.cover} alt="" widths={[480, 720, 960]} sizes={i === 0 ? '(min-width: 64em) 58vw, 100vw' : '(min-width: 64em) 30vw, 100vw'} class="cover" />
-            <h3 class="post-title">{post.data.heading}</h3>
-            <p class="excerpt">{post.data.description}</p>
-            <span class="meta"><time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time></span>
+            <span class="post-text">
+              <h3 class="post-title">{post.data.heading}</h3>
+              <span class="excerpt">{post.data.description}</span>
+              <span class="meta"><time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time></span>
+            </span>
           </a>
         </li>
       ))}
@@ -53,6 +55,7 @@ const schema = [
   .cover { inline-size: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
   .meta { color: var(--color-text-soft); font-size: var(--step-small); }
   .post-title { font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 30ch; }
+  .post-text { display: grid; gap: var(--space-xs); align-content: start; }
   .excerpt { color: var(--color-text-soft); }
 
   @media (hover: hover) and (pointer: fine) {
@@ -62,7 +65,9 @@ const schema = [
   @media (min-width: 64em) {
     ul { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--gutter); }
     .lead { grid-column: 1 / -1; }
-    .lead .post-link { grid-template-columns: 7fr 5fr; column-gap: var(--gutter); align-items: end; }
-    .lead .cover { grid-row: 1 / span 3; }
+    .lead .post-link { grid-template-columns: 1fr 1fr; column-gap: var(--gutter); align-items: center; }
+    .lead .post-text { gap: var(--space-m); }
+    .lead .post-title { font-size: min(var(--step-head), 2.25rem); line-height: var(--leading-head); letter-spacing: var(--tracking-head); max-inline-size: none; }
+    .lead .excerpt { font-size: var(--step-lead); line-height: var(--leading-lead); }
   }
 </style>

@@ -19,7 +19,7 @@ const schema = [
   description="Revisiones sistemáticas, metaanálisis, planes de negocio, trabajo de campo, análisis estadístico y corrección de estilo para tu investigación."
   schema={schema}
 >
-  <PageHero title="Otros servicios" lede="Más allá de la tesis: apoyo en cada parte de tu investigación." balance="media">
+  <PageHero tone="field" title="Otros servicios" lede="Más allá de la tesis: apoyo en cada parte de tu investigación." balance="media">
     <nav slot="media" class="index" aria-label="Grupos de servicios">
       <ol role="list">
         {otherServices.map((g) => <li><a href={`#${g.id}`}>{g.name}</a></li>)}

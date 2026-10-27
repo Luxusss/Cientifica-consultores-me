@@ -9,13 +9,14 @@ interface Props {
   subtitle?: string;
   lede?: string;
   balance?: 'text' | 'media' | 'photo';
+  tone?: 'plain' | 'field';
 }
 
-const { title, crumb = title, trail, subtitle, lede, balance = 'text' } = Astro.props;
+const { title, crumb = title, trail, subtitle, lede, balance = 'text', tone = 'plain' } = Astro.props;
 const hasMedia = Astro.slots.has('media');
 ---
 
-<section class:list={['page-hero', balance === 'photo' && hasMedia ? 'photo-hero theme-field' : 'section page', hasMedia && balance !== 'photo' && `with-media favor-${balance}`]} aria-labelledby="titulo">
+<section class:list={['page-hero', balance === 'photo' && hasMedia ? 'photo-hero theme-field' : 'section page', hasMedia && balance !== 'photo' && `with-media favor-${balance}`, tone === 'field' && balance !== 'photo' && 'theme-field field-hero']} aria-labelledby="titulo">
   <div class="stack stack-m text">
     <Breadcrumbs current={crumb} trail={trail} />
     <h1 id="titulo"><slot name="title">{title}</slot></h1>
@@ -31,6 +32,22 @@ const hasMedia = Astro.slots.has('media');
   .with-media .media:has(> img) { grid-row: 1; }
   .media :global(img) { inline-size: 100%; block-size: auto; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 25%; }
 
+  .field-hero {
+    position: relative;
+    isolation: isolate;
+    padding-block: var(--space-2xl);
+    align-items: center;
+    background-color: transparent;
+  }
+  .field-hero::before {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    inset-inline: calc(50% - 50vw);
+    z-index: -1;
+    background-color: var(--color-bg);
+  }
+
   .photo-hero { gap: 0; overflow: hidden; }
   .photo-hero .text { align-content: center; padding: var(--space-xl) var(--page-margin) var(--space-2xl); }
   .photo-hero .media { aspect-ratio: 4 / 3; overflow: hidden; }
@@ -44,6 +61,9 @@ const hasMedia = Astro.slots.has('media');
     .page-hero.photo-hero :global(h1) { font-size: var(--step-head); }
     .page-hero :global(h1) { font-size: min(var(--step-display), 5vw); }
     .favor-media :global(h1) { font-size: min(var(--step-display), 4vw); }
+    .field-hero:not(.with-media) .text { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: end; }
+    .field-hero:not(.with-media) .text > :global(*) { grid-column: 1 / span 7; }
+    .field-hero:not(.with-media) .text > p { grid-column: 9 / -1; grid-row: 2; }
     .page-hero.with-media { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
     .favor-text .text { grid-column: 1 / span 7; }
     .favor-text .media { grid-column: 8 / -1; }

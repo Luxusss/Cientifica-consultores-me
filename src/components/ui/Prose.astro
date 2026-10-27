@@ -2,8 +2,8 @@
 
 <style>
   .prose { display: grid; gap: var(--space-s); inline-size: 100%; max-inline-size: 42rem; min-inline-size: 0; overflow-wrap: anywhere; }
-  .prose :global(h2) { font-size: var(--step-lead); line-height: var(--leading-lead); font-weight: var(--weight-semibold); margin-block-start: var(--space-l); max-inline-size: none; }
-  .prose :global(h3) { font-size: var(--step-body); font-weight: var(--weight-semibold); margin-block-start: var(--space-s); }
+  .prose :global(h2) { font-size: min(var(--step-lead), 2rem); line-height: var(--leading-head); letter-spacing: var(--tracking-head); font-weight: var(--weight-medium); margin-block-start: var(--space-xl); max-inline-size: none; }
+  .prose :global(h3) { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); margin-block-start: var(--space-s); }
   .prose :global(ul), .prose :global(ol) { padding-inline-start: 1.25em; display: grid; gap: var(--space-3xs); }
   .prose :global(img) { inline-size: 100%; block-size: auto; margin-block: var(--space-s); }
   .prose :global(table) { inline-size: 100%; border-collapse: collapse; font-size: var(--step-small); line-height: var(--leading-small); margin-block: var(--space-s); display: block; overflow-x: auto; }

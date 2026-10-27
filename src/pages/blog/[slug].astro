@@ -39,13 +39,17 @@ const schema = [
 ---
 
 <Base title={post.data.title} description={post.data.description} type="article" image={post.data.cover.src} schema={schema}>
+  <header class="theme-field article-head">
+    <div class="page head-grid">
+      <div class="head">
+        <Breadcrumbs trail={[{ label: 'Blog', href: '/blog.html' }]} />
+        <h1>{post.data.heading}</h1>
+        <p class="meta"><time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time></p>
+      </div>
+      <Picture src={post.data.cover} formats={['avif', 'webp']} quality={70} alt="" widths={[640, 960, 1280]} sizes="(min-width: 64em) 58vw, 100vw" loading="eager" fetchpriority="high" class="cover" />
+    </div>
+  </header>
   <article class="section page article">
-    <Picture src={post.data.cover} formats={['avif', 'webp']} quality={70} alt="" widths={[640, 960, 1280]} sizes="(min-width: 90rem) 88rem, 100vw" loading="eager" fetchpriority="high" class="cover" />
-    <header class="head">
-      <Breadcrumbs trail={[{ label: 'Blog', href: '/blog.html' }]} />
-      <h1>{post.data.heading}</h1>
-      <p class="meta"><time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time></p>
-    </header>
     <Prose><Content /></Prose>
     <aside class="cta theme-surface" aria-label="Asesoría" data-reveal>
       <p class="text-lead">¿Necesitas ayuda con tu tesis? Un asesor especialista te acompaña desde el proyecto hasta la sustentación.</p>
@@ -69,19 +73,18 @@ const schema = [
 </Base>
 
 <style>
-  .article { display: grid; gap: var(--space-l); justify-items: center; }
-  .head { inline-size: 100%; max-inline-size: 60rem; }
-  .cta { inline-size: 100%; max-inline-size: 42rem; }
-  .head { display: grid; gap: var(--space-s); }
-  .head h1 { max-inline-size: none; font-size: var(--step-lead); line-height: var(--leading-head); letter-spacing: var(--tracking-head); }
-  @media (min-width: 48em) {
-    .head h1 { font-size: min(var(--step-head), 2.5rem); }
-  }
+  .article-head { padding-block: var(--space-xl) var(--space-2xl); }
+  .head-grid { display: grid; gap: var(--space-xl) var(--gutter); align-items: center; }
+  .head { display: grid; gap: var(--space-m); }
+  .head h1 { max-inline-size: 20ch; font-size: min(var(--step-head), 2.25rem); line-height: var(--leading-head); letter-spacing: var(--tracking-head); }
   .meta { color: var(--color-text-soft); font-size: var(--step-small); }
-  .cover { inline-size: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  .cover { inline-size: 100%; block-size: auto; }
   @media (min-width: 64em) {
-    .cover { aspect-ratio: 21 / 9; }
+    .head-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+    .head h1 { font-size: min(var(--step-head), 4.25rem); }
   }
+  .article { display: grid; gap: var(--space-l); justify-items: center; }
+  .cta { inline-size: 100%; max-inline-size: 42rem; }
 
 
   .related { display: grid; gap: var(--space-l); }
