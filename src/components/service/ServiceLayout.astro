@@ -36,9 +36,9 @@ const schema = [
 ---
 
 <Base title={page.title} description={page.description} schema={schema}>
-  <PageHero title={page.h1} crumb={page.crumb} subtitle={page.subtitle} lede={page.lede}>
+  <PageHero title={page.h1} crumb={page.crumb} subtitle={page.subtitle} lede={page.lede} balance="photo">
     <FormCard title="Pide tu primera asesoría gratis" subject={page.formSubject} variant="short" submitLabel="Quiero asesoría" />
-    <Picture slot="media" formats={['avif', 'webp']} quality={70} src={page.image} alt={page.imageAlt} widths={[480, 720, 960]} sizes="(min-width: 64em) 40vw, 100vw" loading="eager" fetchpriority="high" />
+    <Picture slot="media" formats={['avif', 'webp']} quality={70} src={page.image} alt={page.imageAlt} widths={[480, 720, 960, 1280]} sizes="(min-width: 64em) 45vw, 100vw" loading="eager" fetchpriority="high" />
   </PageHero>
 
   {page.extra?.map((block) => <PointsBlock block={block} />)}

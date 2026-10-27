@@ -1,156 +1,91 @@
 ---
-import { Image, Picture } from 'astro:assets';
+import { Picture } from 'astro:assets';
 import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import { site } from '@/config/site';
 import heroImg from '@/assets/images/banner/asesores-de-tesis-cientifica-consultores.jpg';
-import blogImg from '@/assets/images/blog/asesor-como-hacer-tu-proyecto-de-tesis.jpg';
-import testimonialsImg from '@/assets/images/otros/graduados.jpg';
 
-const cards = [
-  { href: '/blog/como-hacer-tu-proyecto-de-tesis.html', title: 'Cómo hacer tu proyecto de tesis', image: blogImg },
-  { href: '/testimonios.html', title: 'Quienes ya sustentaron', image: testimonialsImg },
+const facts = [
+  { value: '+10 años', label: 'asesorando tesis' },
+  { value: `${site.countries.length} países`, label: 'con atención online' },
+  { value: 'Turnitin', label: 'en cada entrega' },
 ];
 ---
 
-<section class="hero" aria-labelledby="hero-title">
+<section class="hero theme-field" aria-labelledby="hero-title">
+  <div class="text">
+    <h1 id="hero-title"><span class="line"><span>Asesoría de</span></span> <span class="line"><span>tesis online</span></span></h1>
+    <p class="lede">Un asesor especialista te acompaña en tu tesis de pregrado, maestría, doctorado o TSP, desde el proyecto hasta la sustentación.</p>
+    <div class="action"><WhatsAppButton /></div>
+    <dl class="facts accent-mark">
+      {facts.map((f) => (
+        <div>
+          <dt>{f.value}</dt>
+          <dd>{f.label}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
   <div class="media">
     <Picture
       src={heroImg}
       formats={['avif', 'webp']}
       alt="Tres asesores de tesis de Científica Consultores en su oficina de Lima"
       widths={[480, 720, 960, 1280, 1600]}
-      sizes="100vw"
+      sizes="(min-width: 64em) 55vw, 100vw"
       quality={70}
       loading="eager"
       fetchpriority="high"
       class="photo"
     />
   </div>
-
-  <div class="page inner">
-    <div class="text">
-      <h1 id="hero-title"><span class="line"><span>Asesoría de</span></span> <span class="line"><span>tesis online</span></span></h1>
-      <p class="lede">Un asesor especialista te acompaña en tu tesis de pregrado, maestría, doctorado o TSP, desde el proyecto hasta la sustentación.</p>
-      <div class="action"><WhatsAppButton /></div>
-      <p class="pin"><span class="dot" aria-hidden="true"></span>Asesores en Lima, atención en toda Latinoamérica</p>
-    </div>
-
-    <ul class="cards" role="list">
-      {cards.map((card) => (
-        <li>
-          <a class="card" href={card.href}>
-            <Image src={card.image} alt="" widths={[240, 420]} sizes="14rem" class="card-img" />
-            <span class="card-title">{card.title}<span aria-hidden="true">→</span></span>
-          </a>
-        </li>
-      ))}
-    </ul>
-  </div>
 </section>
 
 <style>
-  .hero {
-    position: relative;
+  .hero { display: grid; overflow: hidden; }
+
+  .text {
     display: grid;
-    background-color: var(--color-field);
-    color: var(--color-on-field);
-    overflow: hidden;
+    align-content: center;
+    gap: var(--space-l);
+    padding: var(--space-xl) var(--page-margin) var(--space-2xl);
   }
+  h1 { color: var(--color-text); max-inline-size: none; }
+  .line { display: block; overflow: hidden; padding-block-end: 0.08em; margin-block-end: -0.08em; }
+  .line > span { display: block; }
+  .lede { font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 34ch; color: var(--color-text); }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-m);
+    max-inline-size: 36rem;
+  }
+  .facts dt { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-semibold); }
+  .facts dd { font-size: var(--step-small); line-height: var(--leading-small); color: var(--color-text-soft); }
 
   .media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
   .media > :global(picture) { block-size: 100%; }
-  .photo {
-    inline-size: 100%;
-    block-size: 100%;
-    object-fit: cover;
-    object-position: 72% 30%;
-  }
-
-  .inner {
-    display: grid;
-    gap: var(--space-l);
-    padding-block: var(--space-xl) var(--space-2xl);
-  }
-
-  .text { display: grid; gap: var(--space-m); justify-items: start; }
-  h1 { color: var(--color-on-field); max-inline-size: 11ch; }
-  .lede {
-    font-size: var(--step-lead);
-    line-height: var(--leading-lead);
-    max-inline-size: 40ch;
-    color: var(--color-on-field);
-  }
-
-  .pin {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2xs);
-    font-size: var(--step-small);
-    color: var(--color-on-field-soft);
-  }
-  .dot { inline-size: 0.5rem; block-size: 0.5rem; background-color: var(--color-accent); border-radius: 50%; flex-shrink: 0; }
-
-  .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-s); }
-  .card {
-    display: grid;
-    color: var(--color-text);
-    background-color: var(--paper-0);
-    text-decoration: none;
-  }
-  .card-img { inline-size: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
-  .card-title {
-    display: flex;
-    justify-content: space-between;
-    gap: var(--space-2xs);
-    padding: var(--space-xs) var(--space-s);
-    font-size: var(--step-small);
-    line-height: var(--leading-small);
-    font-weight: var(--weight-semibold);
-    color: var(--ink-900);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .card-img { transition: transform var(--duration-ui) var(--ease-out); }
-    .card { overflow: hidden; }
-    .card:hover .card-title { text-decoration: underline; text-underline-offset: 0.2em; }
-  }
+  .photo { inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 100% 30%; transform-origin: 100% 40%; }
 
   @media (min-width: 64em) {
-    .hero { min-block-size: calc(100svh - var(--header-height)); }
-    .media { position: absolute; inset: 0; aspect-ratio: auto; }
-    .media::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, var(--scrim-strong) 0%, var(--scrim-soft) 38%, transparent 62%);
+    .hero {
+      grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+      min-block-size: calc(100svh - var(--header-height));
     }
-    .photo { object-position: 70% 35%; }
-
-    .inner {
-      position: relative;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      grid-template-rows: 1fr auto;
-      column-gap: var(--gutter);
-      padding-block: var(--space-2xl) calc(var(--button-height) + var(--space-l) * 2);
+    .text {
+      padding-inline: max(var(--page-margin), calc((100vw - var(--page-max)) / 2)) var(--space-2xl);
+      padding-block: var(--space-2xl);
     }
-    .text { grid-column: 1 / span 6; align-self: center; }
-    .action { display: none; }
-    .cards {
-      grid-column: 8 / -1;
-      grid-row: 2;
-      justify-self: end;
-      inline-size: min(100%, 28rem);
-    }
+    h1 { font-size: min(var(--step-display), 5.6vw); }
+    .media { aspect-ratio: auto; }
   }
-
-  .line { display: block; overflow: hidden; padding-block-end: 0.08em; margin-block-end: -0.08em; }
-  .line > span { display: block; }
 
   @media (prefers-reduced-motion: no-preference) {
     .photo { animation: drift 24s var(--ease-soft) both; }
     .line > span { animation: line-up var(--duration-reveal) var(--ease-expo) 100ms both; }
     .line + .line > span { animation-delay: calc(100ms + var(--stagger)); }
-    .lede, .action, .pin { animation: rise 500ms var(--ease-out) 420ms both; }
-    .cards { animation: rise 600ms var(--ease-out) 600ms both; }
+    .lede, .action { animation: rise 500ms var(--ease-out) 420ms both; }
+    .facts { animation: rise 600ms var(--ease-out) 600ms both; }
     @keyframes drift { from { transform: scale(1.08); } to { transform: scale(1); } }
     @keyframes line-up { from { transform: translateY(105%); } }
     @keyframes rise { from { opacity: 0; transform: translateY(12px); } }

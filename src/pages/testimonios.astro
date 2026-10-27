@@ -21,7 +21,7 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios'
 >
   <PageHero title="Testimonios de nuestros clientes" crumb="Testimonios" lede="Agradecemos a quienes, por iniciativa propia, autorizan que compartamos su caso." />
 
-  <section class="section page split split-sticky" aria-labelledby="historias">
+  <section class="section page split stories" aria-labelledby="historias">
     <h2 id="historias">Historias de quienes sustentaron</h2>
     <ul class="list" role="list" data-reveal="stagger">
       {testimonials.map((t) => (
@@ -50,6 +50,7 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios'
 </Base>
 
 <style>
+  .stories { --axis: 6; }
   .list { display: grid; gap: var(--space-xl) var(--gutter); }
   figure { display: grid; gap: var(--space-s); }
   blockquote p { font-size: var(--step-lead); line-height: var(--leading-lead); }

@@ -1,20 +1,39 @@
 ---
 import { universities } from '@/data/proof';
+
+const total = universities.reduce((n, g) => n + g.names.length, 0);
 ---
 
-<section class="section page split" aria-labelledby="universidades">
-  <h2 id="universidades" data-reveal>Dónde sustentaron</h2>
-  <div class="columns" data-reveal="stagger">
-    {universities.map((group) => (
-      <ul role="list" aria-label={group.country}>
-        <li class="text-soft">{group.country}</li>
-        {group.names.map((name) => <li>{name}</li>)}
-      </ul>
-    ))}
+<section class="theme-surface section-wide" aria-labelledby="universidades">
+  <div class="page stack stack-xl">
+    <header class="split split-end" data-reveal>
+      <h2 id="universidades">Dónde sustentaron</h2>
+      <p class="text-lead">Clientes de {total} universidades en {universities.length} países.</p>
+    </header>
+    <div class="rows" data-reveal="stagger">
+      {universities.map((group) => (
+        <div class="row">
+          <p class="country"><span class="count">{group.names.length}</span> {group.country}</p>
+          <ul class="names" role="list" aria-label={group.country}>
+            {group.names.map((name) => <li>{name}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
   </div>
 </section>
 
 <style>
-  .columns { columns: 2 14rem; column-gap: var(--gutter); }
-  .columns ul { break-inside: avoid-column; display: grid; gap: var(--space-3xs); margin-block-end: var(--space-l); line-height: var(--leading-small); }
+  .rows { display: grid; gap: var(--space-l); }
+  .row { display: grid; gap: var(--space-s) var(--gutter); }
+  .country { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
+  .count { color: var(--color-accent-strong); font-weight: var(--weight-semibold); }
+  .names { display: flex; flex-wrap: wrap; gap: var(--space-3xs) 0; color: var(--color-text-soft); line-height: var(--leading-small); }
+  .names li:not(:last-child)::after { content: '·'; padding-inline: 0.6em; color: var(--color-accent-strong); }
+
+  @media (min-width: 64em) {
+    .row { grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: baseline; }
+    .country { grid-column: 1 / span 3; }
+    .names { grid-column: 4 / -1; }
+  }
 </style>

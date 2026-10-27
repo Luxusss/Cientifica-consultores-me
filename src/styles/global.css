@@ -108,6 +108,7 @@
     .split > :first-child { grid-column: 1 / span var(--axis); }
     .split > :not(:first-child) { grid-column: calc(var(--axis) + 1) / -1; }
     .split-sticky > :first-child { position: sticky; inset-block-start: calc(var(--header-height) + var(--space-l)); }
+    .split-end { align-items: end; }
   }
 
 }
@@ -117,6 +118,8 @@
   .text-small { font-size: var(--step-small); line-height: var(--leading-small); }
   .text-soft { color: var(--color-text-soft); }
   .text-strong { font-weight: var(--weight-semibold); }
+  .accent-mark { position: relative; padding-block-start: var(--space-m); }
+  .accent-mark::before { content: ''; position: absolute; inset-block-start: 0; inset-inline-start: 0; inline-size: 3rem; block-size: 4px; background-color: var(--color-accent); }
 
   .visually-hidden {
     position: absolute;

@@ -8,14 +8,14 @@ interface Props {
   trail?: NavLink[];
   subtitle?: string;
   lede?: string;
-  balance?: 'text' | 'media';
+  balance?: 'text' | 'media' | 'photo';
 }
 
 const { title, crumb = title, trail, subtitle, lede, balance = 'text' } = Astro.props;
 const hasMedia = Astro.slots.has('media');
 ---
 
-<section class:list={['section page page-hero', hasMedia && `with-media favor-${balance}`]} aria-labelledby="titulo">
+<section class:list={['page-hero', balance === 'photo' && hasMedia ? 'photo-hero theme-field' : 'section page', hasMedia && balance !== 'photo' && `with-media favor-${balance}`]} aria-labelledby="titulo">
   <div class="stack stack-m text">
     <Breadcrumbs current={crumb} trail={trail} />
     <h1 id="titulo"><slot name="title">{title}</slot></h1>
@@ -31,7 +31,19 @@ const hasMedia = Astro.slots.has('media');
   .with-media .media:has(> img) { grid-row: 1; }
   .media :global(img) { inline-size: 100%; block-size: auto; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 25%; }
 
+  .photo-hero { gap: 0; overflow: hidden; }
+  .photo-hero .text { align-content: center; padding: var(--space-xl) var(--page-margin) var(--space-2xl); }
+  .photo-hero .media { aspect-ratio: 4 / 3; overflow: hidden; }
+  .photo-hero .media :global(picture) { display: block; block-size: 100%; }
+  .photo-hero .media :global(img) { block-size: 100%; aspect-ratio: auto; object-position: 50% 25%; }
+
   @media (min-width: 64em) {
+    .photo-hero { grid-template-columns: minmax(0, 55fr) minmax(0, 45fr); min-block-size: min(calc(100svh - var(--header-height)), 52rem); }
+    .photo-hero .text { padding-inline: max(var(--page-margin), calc((100vw - var(--page-max)) / 2)) var(--space-xl); padding-block: var(--space-2xl); }
+    .photo-hero .media { aspect-ratio: auto; }
+    .page-hero.photo-hero :global(h1) { font-size: var(--step-head); }
+    .page-hero :global(h1) { font-size: min(var(--step-display), 5vw); }
+    .favor-media :global(h1) { font-size: min(var(--step-display), 4vw); }
     .page-hero.with-media { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
     .favor-text .text { grid-column: 1 / span 7; }
     .favor-text .media { grid-column: 8 / -1; }

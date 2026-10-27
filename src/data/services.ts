@@ -13,7 +13,7 @@ export type Service = {
   navLabel: string;
   image: ImageMetadata;
   imageAlt: string;
-  includes: string[];
+  summary: string;
 };
 
 export const services: Service[] = [
@@ -24,14 +24,7 @@ export const services: Service[] = [
     navLabel: 'Tesis de pregrado',
     image: pregrado,
     imageAlt: 'Asesora de tesis de pregrado de Científica Consultores',
-    includes: [
-      'Elección del tema y planteamiento del problema',
-      'Marco teórico y diseño metodológico',
-      'Acompañamiento en la redacción de cada capítulo',
-      'Análisis de datos cuantitativos o cualitativos',
-      'Control de similitud con Turnitin',
-      'Preparación para la sustentación',
-    ],
+    summary: 'Del tema a la sustentación, con un asesor de tu carrera.',
   },
   {
     id: 'maestria',
@@ -40,13 +33,7 @@ export const services: Service[] = [
     navLabel: 'Tesis de maestría',
     image: maestria,
     imageAlt: 'Asesor de tesis de maestría de Científica Consultores',
-    includes: [
-      'Marco teórico sólido y enfoque metodológico',
-      'Análisis cualitativo o cuantitativo',
-      'Revisión capítulo por capítulo',
-      'Reporte de similitud con Turnitin',
-      'Diapositivas y ensayo de la sustentación',
-    ],
+    summary: 'Marco teórico, análisis y defensa con un asesor de posgrado.',
   },
   {
     id: 'doctorado',
@@ -55,13 +42,7 @@ export const services: Service[] = [
     navLabel: 'Tesis doctoral',
     image: doctorado,
     imageAlt: 'Asesor de tesis doctoral de Científica Consultores',
-    includes: [
-      'Propuesta doctoral y diseño del estudio',
-      'Construcción teórica y antecedentes',
-      'Análisis profundo de datos',
-      'Artículos y manuscritos publicables',
-      'Preparación de la defensa',
-    ],
+    summary: 'Investigación avanzada, de la propuesta a la defensa.',
   },
   {
     id: 'tsp',
@@ -70,13 +51,7 @@ export const services: Service[] = [
     navLabel: 'Trabajo de suficiencia profesional',
     image: tsp,
     imageAlt: 'Asesora de trabajo de suficiencia profesional de Científica Consultores',
-    includes: [
-      'Estructura según el formato de tu universidad',
-      'Fundamento teórico de tu área',
-      'Cómo presentar tu experiencia y tus aportes',
-      'Corrección, formato y Turnitin',
-      'Levantamiento de observaciones del jurado',
-    ],
+    summary: 'Tu experiencia laboral convertida en tu título profesional.',
   },
   {
     id: 'articulos',
@@ -85,12 +60,7 @@ export const services: Service[] = [
     navLabel: 'Artículos científicos',
     image: articulos,
     imageAlt: 'Asesora de artículos científicos de Científica Consultores',
-    includes: [
-      'Estructura IMRyD',
-      'Revisión de literatura y metodología',
-      'Redacción según normas internacionales',
-      'Preparación para revistas indexadas y congresos',
-    ],
+    summary: 'De tu investigación a una revista indexada.',
   },
   {
     id: 'proyecto',
@@ -99,11 +69,6 @@ export const services: Service[] = [
     navLabel: 'Proyecto de tesis',
     image: proyecto,
     imageAlt: 'Asesor de proyectos de investigación de Científica Consultores',
-    includes: [
-      'Objetivos y planteamiento del problema',
-      'Justificación',
-      'Metodología y diseño de la investigación',
-      'Revisión antes de presentarlo a tu universidad',
-    ],
+    summary: 'Un proyecto sólido, listo para que tu universidad lo apruebe.',
   },
 ];

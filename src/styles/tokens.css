@@ -21,10 +21,10 @@
   --weight-semibold: 600;
 
   --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
-  --step-body: clamp(1.0625rem, 1.01rem + 0.24vw, 1.25rem);
-  --step-lead: clamp(1.25rem, 1.12rem + 0.55vw, 1.625rem);
-  --step-head: clamp(2rem, 1.42rem + 2.4vw, 4rem);
-  --step-display: clamp(2.75rem, 1.88rem + 3.6vw, 6rem);
+  --step-body: clamp(1.0625rem, 1rem + 0.26vw, 1.3125rem);
+  --step-lead: clamp(1.25rem, 1.09rem + 0.65vw, 1.875rem);
+  --step-head: clamp(2rem, 1.24rem + 3.14vw, 5rem);
+  --step-display: clamp(2.75rem, 1.41rem + 5.49vw, 8rem);
 
   --leading-display: 1.04;
   --leading-head: 1.1;
@@ -81,9 +81,9 @@
   --color-error: var(--red-700);
   --color-success: var(--green-700);
 
-  --page-max: 90rem;
-  --page-margin: clamp(1rem, 0.43rem + 2.35vw, 2rem);
-  --gutter: clamp(1rem, 0.71rem + 1.2vw, 2rem);
+  --page-max: 100rem;
+  --page-margin: clamp(1rem, 0.49rem + 2.09vw, 3rem);
+  --gutter: clamp(1rem, 0.62rem + 1.57vw, 2.5rem);
   --section-gap: var(--space-3xl);
   --axis: 5;
 
@@ -127,5 +127,13 @@
 .theme-surface {
   --color-bg: var(--paper-1);
   --color-surface: var(--paper-2);
+  --color-text: var(--ink-900);
+  --color-text-soft: var(--ink-600);
+  --color-link: var(--navy-600);
+  --color-focus: var(--navy-600);
+  --input-bg: var(--paper-2);
+  --input-border: var(--ink-600);
+  --input-border-focus: var(--navy-600);
   background-color: var(--color-bg);
+  color: var(--color-text);
 }

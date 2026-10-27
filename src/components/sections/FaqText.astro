@@ -10,18 +10,21 @@ interface Props {
 const { items, title = 'Preguntas frecuentes', id = 'preguntas' } = Astro.props;
 ---
 
-<section class="section page split" aria-labelledby={id}>
+<section class="section-wide page stack stack-xl" aria-labelledby={id}>
   <h2 id={id} data-reveal>{title}</h2>
-  <div class="answers" data-reveal>
+  <dl class="answers" data-reveal="stagger">
     {items.map((item) => (
-      <p>
-        <strong>{item.question}</strong> {item.answer}
-      </p>
+      <div>
+        <dt>{item.question}</dt>
+        <dd>{item.answer}</dd>
+      </div>
     ))}
-  </div>
+  </dl>
 </section>
 
 <style>
-  .answers { columns: 2 22rem; column-gap: var(--space-xl); }
-  .answers p { break-inside: avoid; margin-block-end: var(--space-m); }
+  .answers { columns: 3 22rem; column-gap: var(--gutter); }
+  .answers div { display: grid; gap: var(--space-xs); break-inside: avoid; margin-block-end: var(--space-xl); }
+  dt { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
+  dd { color: var(--color-text-soft); }
 </style>

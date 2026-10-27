@@ -3,59 +3,59 @@ import { Image } from 'astro:assets';
 import { services } from '@/data/services';
 ---
 
-<section class="services theme-surface" aria-labelledby="servicios">
-  <div class="page grid">
-    <header class="head" data-reveal>
+<section class="services theme-surface section-wide" aria-labelledby="servicios">
+  <div class="page stack stack-xl">
+    <header class="split split-end" data-reveal>
       <h2 id="servicios">Asesoría para cada grado</h2>
-      <p class="intro">Nuestros servicios de asesoría para tesis y trabajos académicos te acompañan desde cero: definir el tema, ordenar la literatura, diseñar la metodología, procesar los datos y preparar la versión final. Nos adaptamos al formato de tu universidad, se llame tesis, tesina, trabajo de grado, TFG o TFM.</p>
+      <p class="text-lead">Te acompañamos desde cero: tema, literatura, metodología, datos y versión final, con el formato de tu universidad, se llame tesis, tesina, trabajo de grado, TFG o TFM.</p>
     </header>
 
-    <ol class="rows" role="list">
-      {services.map((s, i) => (
-        <li class:list={['row', { flip: i % 2 === 1 }]} data-reveal="stagger">
-          <h3>{s.name}</h3>
-          <div class="pair">
-            <Image src={s.image} alt={s.imageAlt} widths={[240, 360, 480]} sizes="(min-width: 64em) 13rem, 40vw" class="portrait" />
-            <div class="detail">
-              <ul class="includes" role="list">
-                {s.includes.map((item) => <li>{item}</li>)}
-              </ul>
-              <a href={s.href}>Ver asesoría de {s.name.toLowerCase()}</a>
-            </div>
-          </div>
+    <ul class="gallery" role="list" data-reveal="stagger">
+      {services.map((s) => (
+        <li>
+          <a class="tile" href={s.href}>
+            <span class="frame">
+              <Image src={s.image} alt={s.imageAlt} widths={[360, 540, 720]} sizes="(min-width: 64em) 30vw, 50vw" class="portrait" />
+            </span>
+            <span class="name">{s.name}<span class="arrow" aria-hidden="true">→</span></span>
+            <span class="summary">{s.summary}</span>
+          </a>
         </li>
       ))}
-    </ol>
+    </ul>
   </div>
 </section>
 
 <style>
-  .services { padding-block: var(--section-gap); }
+  .gallery { display: grid; gap: var(--space-l) var(--gutter); grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-  .head { grid-column: 1 / -1; display: grid; gap: var(--space-m); align-content: start; }
-  .head h2 { max-inline-size: 12ch; }
-  .intro { max-inline-size: 38ch; }
+  .tile { display: grid; gap: var(--space-xs); color: var(--color-text); text-decoration: none; }
+  .frame { display: block; overflow: hidden; background-color: var(--navy-600); }
+  .portrait { inline-size: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; transition: transform var(--duration-reveal) var(--ease-out); }
 
-  .rows { grid-column: 1 / -1; display: grid; gap: var(--space-2xl); margin-block-start: var(--space-xl); }
-
-  .row { display: grid; gap: var(--space-s); }
-  .row h3 { font-weight: var(--weight-semibold); }
-
-  .pair { display: grid; grid-template-columns: minmax(7rem, 2fr) 3fr; gap: var(--space-m); align-items: start; }
-  .flip .pair { grid-template-columns: 3fr minmax(7rem, 2fr); }
-  .flip .portrait { order: 2; }
-
-  .portrait { inline-size: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 20%; }
-
-  .detail { display: grid; gap: var(--space-m); }
-  .includes { display: grid; gap: var(--space-2xs); }
-  .includes li { font-size: var(--step-body); line-height: var(--leading-small); }
-  .detail a { font-weight: var(--weight-semibold); }
+  .name {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-s);
+    margin-block-start: var(--space-2xs);
+    font-size: var(--step-body);
+    line-height: var(--leading-head);
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-head);
+  }
+  .arrow { color: var(--color-accent-strong); transition: transform var(--duration-hover) var(--ease-out); }
+  .summary { color: var(--color-text-soft); font-size: var(--step-small); line-height: var(--leading-small); }
 
   @media (min-width: 64em) {
-    .head { grid-column: 1 / span var(--axis); position: sticky; inset-block-start: calc(var(--header-height) + var(--space-l)); align-self: start; }
-    .rows { grid-column: calc(var(--axis) + 2) / -1; margin-block-start: 0; gap: var(--space-3xl); }
-    .pair { grid-template-columns: 13rem 1fr; }
-    .flip .pair { grid-template-columns: 1fr 13rem; }
+    .gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-xl) var(--gutter); }
+    .name { font-size: var(--step-lead); }
+    .summary { font-size: var(--step-body); line-height: var(--leading-body); }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .tile:hover .portrait { transform: scale(1.04); }
+    .tile:hover .arrow { transform: translateX(4px); }
+    .tile:hover .name { text-decoration: underline; text-decoration-thickness: 0.06em; text-underline-offset: 0.18em; }
   }
 </style>

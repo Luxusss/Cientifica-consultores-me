@@ -15,35 +15,22 @@ const slides = [
 const facts = [
   { label: 'Experiencia', value: 'Más de 10 años' },
   { label: 'Oficina', value: `${site.address.district}, ${site.address.city}` },
-  { label: 'Herramientas', value: listEs(tools) },
   { label: 'Modalidad', value: 'Online y presencial' },
+  { label: 'Herramientas', value: listEs(tools) },
 ];
 ---
 
-<section class="section page about" aria-labelledby="nosotros">
-  <header class="split" data-reveal="stagger">
+<section class="section-wide page about" aria-labelledby="nosotros">
+  <div class="slides" data-reveal="shutter">
+    {slides.map((s, i) => (
+      <Image src={s.src} alt={i === 0 ? s.alt : ''} widths={[640, 960, 1280, 1600]} sizes="(min-width: 64em) 58vw, 100vw" class="slide" />
+    ))}
+  </div>
+
+  <div class="text stack stack-l" data-reveal="stagger">
     <h2 id="nosotros">Más de 10 años investigando</h2>
-    <p class="text-lead">Somos un equipo multidisciplinario de asesores en Lima. Desde hace más de 10 años acompañamos a estudiantes de pregrado, maestría y doctorado de habla hispana, con asesoría académica para tesis, tesinas y trabajos de grado, online o en nuestra oficina.</p>
-  </header>
-
-  <div class="mosaic">
-    <figure class="photo-tile">
-      <div class="slides" data-reveal="shutter">
-        {slides.map((s, i) => (
-          <Image src={s.src} alt={i === 0 ? s.alt : ''} widths={[640, 960, 1280]} sizes="(min-width: 64em) 62vw, 100vw" class="slide" />
-        ))}
-      </div>
-      <p class="note">Tu proyecto es confidencial por contrato. Revisamos la originalidad con Turnitin en cada entrega y trabajamos en horarios flexibles, por videollamada o en persona.</p>
-    </figure>
-
-    <div class="color-tile theme-field" data-reveal>
-      <ul class="countries" role="list" aria-label="Países donde atendemos">
-        {site.countries.map((c) => <li>{c}</li>)}
-      </ul>
-      <p class="tile-note">Atendemos online en estos seis países y en persona en Lima.</p>
-    </div>
-
-    <dl class="facts" data-reveal="stagger">
+    <p class="text-lead">Somos un equipo multidisciplinario de asesores en Lima. Acompañamos a estudiantes de pregrado, maestría y doctorado de habla hispana, con asesoría para tesis, tesinas y trabajos de grado, online o en nuestra oficina.</p>
+    <dl class="facts accent-mark">
       {facts.map((f) => (
         <div>
           <dt>{f.label}</dt>
@@ -53,51 +40,29 @@ const facts = [
     </dl>
   </div>
 
+  <p class="note" data-reveal>Tu proyecto es confidencial por contrato. Revisamos la originalidad con Turnitin en cada entrega y trabajamos en horarios flexibles, por videollamada o en persona.</p>
   <div class="video-wrap"><AdvisoryVideo /></div>
 </section>
 
 <style>
-  .about { display: grid; gap: var(--space-xl); }
+  .about { display: grid; gap: var(--space-xl) var(--gutter); }
 
-  .mosaic { display: grid; gap: var(--space-s); }
-
-  .photo-tile { position: relative; display: grid; }
   .slides { display: grid; aspect-ratio: 4 / 3; overflow: hidden; }
   .slide { grid-area: 1 / 1; inline-size: 100%; block-size: 100%; object-fit: cover; }
   .slide:not(:first-child) { opacity: 0; }
 
-  .note {
-    padding: var(--space-s);
-    background-color: var(--color-bg);
-    font-size: var(--step-body);
-    line-height: var(--leading-small);
-  }
-
-  .color-tile { display: grid; align-content: space-between; gap: var(--space-m); padding: var(--space-m); }
-  .tile-note { color: var(--color-text-soft); font-size: var(--step-small); line-height: var(--leading-small); }
-  .countries { display: grid; gap: var(--space-3xs); font-size: var(--step-head); line-height: var(--leading-head); letter-spacing: var(--tracking-head); }
-
   .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-m) var(--gutter); }
   .facts dt { color: var(--color-text-soft); font-size: var(--step-small); }
-  .facts dd { font-size: var(--step-body); line-height: var(--leading-small); font-weight: var(--weight-medium); }
+  .facts dd { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
 
+  .note { font-size: var(--step-lead); line-height: var(--leading-lead); }
 
   @media (min-width: 64em) {
-
-    .mosaic { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: var(--space-l); }
-    .photo-tile { grid-column: 1 / span 8; }
-    .slides { aspect-ratio: 16 / 10; }
-    .note {
-      position: absolute;
-      inset-block-start: 0;
-      inset-inline-end: 0;
-      inline-size: 20rem;
-      padding: var(--space-m);
-    }
-    .color-tile { grid-column: 9 / -1; align-self: start; aspect-ratio: 4 / 5; }
-    .facts { grid-column: 9 / -1; }
-
-    .video-wrap { inline-size: min(100%, 56rem); justify-self: end; }
+    .about { grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: center; }
+    .slides { grid-column: 1 / span 6; aspect-ratio: 5 / 4; }
+    .text { grid-column: 7 / -1; padding-inline-start: var(--gutter); }
+    .note { grid-column: 1 / span 4; align-self: end; }
+    .video-wrap { grid-column: 6 / -1; }
   }
 
   @media (prefers-reduced-motion: no-preference) {

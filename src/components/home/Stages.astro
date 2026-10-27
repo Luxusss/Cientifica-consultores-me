@@ -14,12 +14,14 @@ const message = (degree: string) => `Hola, quiero asesoría para mi tesis de ${d
 const start = stageTracks.find((t) => t.id === initial) ?? stageTracks[0];
 ---
 
-<section class="section page stages" aria-labelledby="etapas" data-stages>
-  <div class="top" data-reveal>
+<section class="section-wide page split split-sticky stages" aria-labelledby="etapas" data-stages>
+  <header class="top stack stack-l" data-reveal>
     <Heading id="etapas">Tu tesis por etapas</Heading>
+    <p class="text-lead">Elige tu grado y mira el camino completo hasta la sustentación.</p>
     <WhatsAppButton message={message(start.degree)} data-stages-cta />
-  </div>
-  <p class="intro" data-reveal>Elige tu grado y mira el camino completo hasta la sustentación.</p>
+  </header>
+
+  <div class="body">
 
   <div class="tabs" role="tablist" aria-label="Grado académico" hidden data-stages-tabs>
     {stageTracks.map((t) => (
@@ -50,6 +52,7 @@ const start = stageTracks.find((t) => t.id === initial) ?? stageTracks[0];
       </ol>
     </div>
   ))}
+  </div>
 </section>
 
 <script>
@@ -90,15 +93,12 @@ const start = stageTracks.find((t) => t.id === initial) ?? stageTracks[0];
 </script>
 
 <style>
-  .stages { display: grid; gap: var(--space-m); }
-  .top { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--space-m); }
-  .intro { font-size: var(--step-lead); line-height: var(--leading-lead); }
+  .top { justify-items: start; }
 
   .tabs {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-3xs);
-    margin-block-start: var(--space-s);
   }
   @media (min-width: 48em) {
     .tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -130,14 +130,15 @@ const start = stageTracks.find((t) => t.id === initial) ?? stageTracks[0];
   .bands li {
     display: grid;
     gap: var(--space-3xs);
-    padding: var(--space-s) var(--space-m);
+    padding: var(--space-m) var(--space-l);
     background-color: var(--color-surface);
   }
+  .bands strong { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
   .bands li:nth-child(even) { background-color: var(--color-surface-strong); }
   .bands span { color: var(--color-text-soft); font-size: var(--step-body); line-height: var(--leading-small); }
 
   @media (min-width: 48em) {
-    .bands li { grid-template-columns: minmax(12rem, 2fr) 5fr; align-items: baseline; column-gap: var(--gutter); }
+    .bands li { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); align-items: baseline; column-gap: var(--gutter); }
   }
 
   @media (hover: hover) and (pointer: fine) {
