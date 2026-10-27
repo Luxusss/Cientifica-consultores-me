@@ -1,28 +1,16 @@
 ---
 import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import { processSection } from '@/data/home';
 
-const steps = [
-  {
-    name: 'Nos cuentas tu caso',
-    text: 'Nos escribes por WhatsApp, correo o formulario, con tu universidad, tu tipo de trabajo y tus fechas. Te ayudamos a elegir el formato correcto: tesis, tesina, TFG, TFM o TSP.',
-  },
-  {
-    name: 'Diagnóstico y presupuesto',
-    text: 'Revisamos tu tema, tus avances y el reglamento para trazar una ruta realista. Recibes una propuesta con el alcance, los entregables y la forma de pago.',
-  },
-  {
-    name: 'Contrato y asesor',
-    text: 'Firmamos un contrato digital que asegura confidencialidad y plazos. Te asignamos un asesor de tu área, que te acompaña capítulo por capítulo hasta la sustentación.',
-  },
-];
+const { title, text, steps } = processSection;
 ---
 
 <section class="scene process theme-field" aria-labelledby="como-trabajamos">
   <div class="scene-stage">
     <div class="page inner">
       <header class="head stack stack-l" data-reveal>
-        <h2 id="como-trabajamos">Cómo trabajamos</h2>
-        <p class="text-lead">Del primer mensaje a tu asesor asignado, en tres momentos claros.</p>
+        <h2 id="como-trabajamos">{title}</h2>
+        <p class="text-lead">{text}</p>
         <WhatsAppButton label="Empezar ahora por WhatsApp" />
       </header>
 
@@ -53,12 +41,15 @@ const steps = [
   .step .text { color: var(--color-text-soft); }
 
   @media (min-width: 48em) {
+    .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 64em) {
     .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
 
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) and (min-width: 64em) {
-      .process { --hold: 2; padding-block: 0; }
+      .process { --hold: 4; padding-block: 0; }
       .inner { block-size: 100%; grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: center; }
       .head { grid-column: 1 / span 5; }
       .track { display: block; grid-column: 6; justify-self: center; inline-size: 4px; block-size: 60%; background-color: var(--navy-700); }
@@ -67,13 +58,16 @@ const steps = [
       .step { grid-area: 1 / 1; gap: var(--space-m); }
       .step h3 { font-size: var(--step-head); }
       .step .text { font-size: var(--step-lead); line-height: var(--leading-lead); color: var(--color-text); max-inline-size: 30ch; }
-      .step-1 { animation-name: step-out; animation-range: contain 26% contain 34%; }
-      .step-2 { animation-name: step-through; animation-range: contain 30% contain 68%; }
-      .step-3 { animation-name: step-in; animation-range: contain 64% contain 72%; }
+      .step-1 { animation-name: step-out; animation-range: contain 13.3% contain 16.7%; }
+      .step-2 { animation-name: step-through; animation-range: contain 16.7% contain 33.3%; }
+      .step-3 { animation-name: step-through; animation-range: contain 33.3% contain 50%; }
+      .step-4 { animation-name: step-through; animation-range: contain 50% contain 66.7%; }
+      .step-5 { animation-name: step-through; animation-range: contain 66.7% contain 83.3%; }
+      .step-6 { animation-name: step-in; animation-range: contain 83.3% contain 86.7%; }
       [data-reveal='stagger'] > .step { opacity: 1; transform: none; transition: none; }
       @keyframes fill-grow { from { transform: scaleY(0.04); } to { transform: scaleY(1); } }
       @keyframes step-in { from { opacity: 0; visibility: hidden; transform: translateY(48px); } to { opacity: 1; transform: none; } }
-      @keyframes step-through { 0% { opacity: 0; visibility: hidden; transform: translateY(48px); } 21%, 79% { opacity: 1; visibility: visible; transform: none; } 100% { opacity: 0; visibility: hidden; transform: translateY(-48px); } }
+      @keyframes step-through { 0% { opacity: 0; visibility: hidden; transform: translateY(48px); } 20%, 80% { opacity: 1; visibility: visible; transform: none; } 100% { opacity: 0; visibility: hidden; transform: translateY(-48px); } }
       @keyframes step-out { from { opacity: 1; transform: none; } to { opacity: 0; visibility: hidden; transform: translateY(-48px); } }
     }
   }

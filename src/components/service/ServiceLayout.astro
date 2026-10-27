@@ -9,6 +9,9 @@ import Stages from '@/components/home/Stages.astro';
 import FaqText from '@/components/sections/FaqText.astro';
 import ContactBand from '@/components/sections/ContactBand.astro';
 import PhotoBand from '@/components/sections/PhotoBand.astro';
+import TextBlock from '@/components/sections/TextBlock.astro';
+import ListBlock from '@/components/sections/ListBlock.astro';
+import CtaBlock from '@/components/sections/CtaBlock.astro';
 import type { ServicePage } from '@/data/servicePages';
 import { breadcrumb, faqPage } from '@/lib/schema';
 import { site } from '@/config/site';
@@ -18,6 +21,7 @@ interface Props {
 }
 
 const { page } = Astro.props;
+const tone = (i: number) => i % 2 === 1;
 const schema = [
   breadcrumb([
     { name: 'Inicio', path: '/' },
@@ -36,17 +40,28 @@ const schema = [
 ---
 
 <Base title={page.title} description={page.description} schema={schema}>
-  <PageHero title={page.h1} crumb={page.crumb} subtitle={page.subtitle} lede={page.lede} balance="photo">
-    <FormCard title="Pide tu primera asesoría gratis" subject={page.formSubject} variant="short" submitLabel="Quiero asesoría" />
+  <PageHero title={page.h1} crumb={page.crumb} lede={page.lede} balance="photo">
+    <FormCard title="¡Obtén tu primera asesoría gratis!" subject={page.formSubject} variant="short" submitLabel="Quiero asesoría" />
     <Picture slot="media" formats={['avif', 'webp']} quality={70} src={page.image} alt={page.imageAlt} widths={[480, 720, 960, 1280]} sizes="(min-width: 64em) 45vw, 100vw" loading="eager" fetchpriority="high" />
   </PageHero>
 
-  {page.extra?.map((block) => <PointsBlock block={block} />)}
-  <PointsBlock block={page.includes} surface />
-  <CareerAreas />
-  <PhotoBand />
-  <Stages initial={page.id} />
-  <PointsBlock block={page.why} />
-  <FaqText items={page.faq} />
+  <section class="section page standfirst" aria-label="Presentación">
+    {page.intro.map((t) => <p class="text-lead" data-reveal>{t}</p>)}
+  </section>
+
+  {page.sections.map((sec, i) => {
+    if (sec.kind === 'points') return <PointsBlock block={sec} surface={tone(i)} />;
+    if (sec.kind === 'text') return <TextBlock id={sec.id} title={sec.title} text={sec.text} surface={tone(i)} />;
+    if (sec.kind === 'list') return <ListBlock id={sec.id} title={sec.title} intro={sec.intro} items={sec.items} surface={tone(i)} />;
+    if (sec.kind === 'careers') return <CareerAreas title={sec.title} intro={sec.intro} prefix={sec.prefix} />;
+    if (sec.kind === 'stages') return <Stages initial={page.id} title={sec.title} />;
+    if (sec.kind === 'cta') return <CtaBlock id={sec.id} title={sec.title} text={sec.text} />;
+    return <PhotoBand />;
+  })}
+  <FaqText items={page.faq} title={page.faqTitle} />
   <ContactBand />
 </Base>
+
+<style>
+  .standfirst .text-lead { max-inline-size: 62ch; }
+</style>

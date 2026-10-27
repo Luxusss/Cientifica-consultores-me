@@ -1,13 +1,14 @@
 export const planNames = ['Plan Tesis Completa', 'Plan Científica Consultores'] as const;
 
 export const planRows: { feature: string; values: [string, string] }[] = [
-  { feature: 'Acompañamiento', values: ['Proyecto e informe final', 'Proyecto e informe final'] },
-  { feature: 'Observaciones', values: ['Levantamiento por 4 meses después de la entrega final', 'Ilimitado, con garantía por 1 año desde el inicio'] },
-  { feature: 'Asesorías personalizadas', values: ['6, una en cada entrega', '10, una en cada entrega'] },
-  { feature: 'Turnitin (IA y similitud)', values: ['Del proyecto y de la tesis', 'En cada entrega'] },
-  { feature: 'Presentación de la sustentación', values: ['Incluida', 'Diseñada por especialistas en diseño'] },
-  { feature: 'Simulación de sustentación', values: ['1, virtual, de 45 minutos', '2, con especialistas en pedagogía, presencial o virtual'] },
-  { feature: 'Software de análisis', values: ['—', '1 asesoría de manejo'] },
-  { feature: 'Equipo', values: ['—', 'Metodólogo, temático y estadístico o cualitativo'] },
-  { feature: 'Extras', values: ['—', 'PDF de todas las referencias y banco de preguntas para la sustentación'] },
+  { feature: 'Acompañamiento', values: ['Elaboración del proyecto y del informe final de tesis.', 'Elaboración del proyecto y del informe final de tesis.'] },
+  { feature: 'Observaciones', values: ['Levantamiento de observaciones por 4 meses después de la entrega final.', 'Levantamiento de observaciones ilimitado, con garantía por 1 año (desde el inicio del servicio).'] },
+  { feature: 'Asesorías personalizadas', values: ['6 asesorías personalizadas durante todo el proceso (en cada entrega).', '10 asesorías personalizadas (en cada entrega).'] },
+  { feature: 'Turnitin (IA y similitud)', values: ['Reporte de Turnitin del proyecto y la tesis (IA y similitud).', 'Reporte de Turnitin por cada entrega (IA y similitud).'] },
+  { feature: 'Presentación de la sustentación', values: ['Elaboración del PPT para la sustentación.', 'Elaboración del PPT para la sustentación, elaborado por especialistas en diseño.'] },
+  { feature: 'Simulación de sustentación', values: ['1 simulación de sustentación virtual de 45 minutos.', '2 simulaciones de sustentación con especialistas en pedagogía y equipo tecnológico (presencial o virtual).'] },
+  { feature: 'Software de análisis', values: ['—', '1 asesoría en el manejo de software de análisis de datos.'] },
+  { feature: 'Equipo', values: ['—', 'Equipo de especialistas (metodólogo, temático, estadístico o cualitativo).'] },
+  { feature: 'Referencias', values: ['—', 'PDF de todas las referencias bibliográficas.'] },
+  { feature: 'Sustentación', values: ['—', 'Banco de preguntas y respuestas para la sustentación.'] },
 ];

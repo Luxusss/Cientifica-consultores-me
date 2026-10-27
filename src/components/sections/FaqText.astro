@@ -5,13 +5,17 @@ interface Props {
   items: Faq[];
   title?: string;
   id?: string;
+  intro?: string;
 }
 
-const { items, title = 'Preguntas frecuentes', id = 'preguntas' } = Astro.props;
+const { items, title = 'Preguntas frecuentes', id = 'preguntas', intro } = Astro.props;
 ---
 
 <section class="section-wide page stack stack-xl" aria-labelledby={id}>
-  <h2 id={id} data-reveal>{title}</h2>
+  <header class:list={['split split-end', { 'split-wide': title.length > 30 }]} data-reveal>
+    <h2 id={id}>{title}</h2>
+    {intro && <p class="text-lead">{intro}</p>}
+  </header>
   <dl class="answers" data-reveal="stagger">
     {items.map((item) => (
       <div>

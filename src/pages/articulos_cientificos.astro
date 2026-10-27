@@ -12,12 +12,32 @@ import bookChapter from '@/assets/images/articulos_cientificos/capitulo-de-libro
 import fromScratch from '@/assets/images/tesis/metodologica_img.jpg';
 
 const routes = [
-  { title: 'Desde cero', image: fromScratch, text: 'Tú te encargas del trabajo de campo (recolección de datos, experimentos, entrevistas) y nosotros te acompañamos en la estructura, el análisis y la redacción hasta la publicación.' },
-  { title: 'Desde una tesis', image: fromThesis, text: 'Necesitamos tu tesis aprobada para evaluar si puede convertirse en artículo.' },
-  { title: 'Capítulo de libro', image: bookChapter, text: 'Tú realizas la recolección de datos y las acciones de campo; nosotros te asesoramos en el resto.' },
+  {
+    title: 'Desde cero',
+    image: fromScratch,
+    text: 'Para colaborar de una manera efectiva, es importante que, como cliente, puedas encargarte de todas las actividades de campo, como la recopilación de datos, la realización de experimentos, las observaciones de la muestra de estudio, las entrevistas y cualquier otra acción necesaria para obtener la información requerida.',
+    points: ['Monitoreo constante: seguimiento detallado en cada paso.', 'Confidencialidad garantizada: discreción y profesionalismo.', 'Experiencia comprobada: más de 10 años en publicaciones académicas.', 'Responsabilidad y compromiso: estándares de calidad hasta la publicación.'],
+  },
+  {
+    title: 'Desde una tesis',
+    image: fromThesis,
+    text: 'Necesitamos una tesis aprobada para revisar su viabilidad como artículo.',
+    points: ['Monitoreo constante: seguimiento detallado.', 'Confidencialidad: manejo discreto del manuscrito.', 'Experiencia: 10 años en publicaciones.', 'Calidad: claridad y rigor hasta la publicación.'],
+  },
+  {
+    title: 'Capítulo de libro',
+    image: bookChapter,
+    text: 'El cliente realiza la recolección de datos y otras acciones de campo necesarias.',
+    points: ['Monitoreo constante: asesoría continua.', 'Confidencialidad: total discreción.', 'Experiencia: 10 años en el sector académico.', 'Compromiso: altos estándares de calidad.'],
+  },
 ];
 
-const commitments = ['Seguimiento detallado en cada paso', 'Manejo confidencial del manuscrito', 'Más de 10 años en publicaciones académicas', 'Claridad y rigor hasta la publicación'];
+const commitments = [
+  { title: 'Monitoreo constante', text: 'Seguimiento detallado en cada paso.' },
+  { title: 'Confidencialidad garantizada', text: 'Discreción y profesionalismo.' },
+  { title: 'Experiencia comprobada', text: 'Más de 10 años en publicaciones académicas.' },
+  { title: 'Responsabilidad y compromiso', text: 'Estándares de calidad hasta la publicación.' },
+];
 
 const schema = [
   breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Artículos científicos', path: '/articulos_cientificos.html' }]),
@@ -31,18 +51,24 @@ const schema = [
   schema={schema}
 >
   <PageHero title="Asesoría de artículos científicos" crumb="Artículos científicos" lede="Convierte tu investigación en una publicación: desde cero, desde tu tesis o como capítulo de libro." balance="photo">
-    <FormCard title="Pide tu primera asesoría gratis" subject="Nuevo lead - Artículo Científico" variant="short" submitLabel="Quiero asesoría" />
+    <FormCard title="¡Obtén tu primera asesoría gratis!" subject="Nuevo lead - Artículo Científico" variant="short" submitLabel="Quiero asesoría" />
     <Picture slot="media" formats={['avif', 'webp']} quality={70} src={heroImg} alt="Asesora de artículos científicos de Científica Consultores" widths={[480, 720, 960, 1280]} sizes="(min-width: 64em) 45vw, 100vw" loading="eager" fetchpriority="high" />
   </PageHero>
 
   <section class="section page stack stack-xl" aria-labelledby="partida">
-    <h2 id="partida">Tres puntos de partida</h2>
+    <header class="split split-wide">
+      <h2 id="partida">Artículos científicos: ¿cómo iniciamos?</h2>
+      <p class="text-lead">Elige tu punto de partida: desde cero, desde una tesis aprobada o como capítulo de libro.</p>
+    </header>
     <ul class="list" role="list" data-reveal="stagger">
       {routes.map((r) => (
         <li>
           <Image src={r.image} alt="" widths={[360, 540, 720]} sizes="(min-width: 64em) 30vw, 100vw" class="route-img" />
           <h3>{r.title}</h3>
           <p>{r.text}</p>
+          <ul class="checks" role="list">
+            {r.points.map((pt) => <li>{pt}</li>)}
+          </ul>
         </li>
       ))}
     </ul>
@@ -50,9 +76,9 @@ const schema = [
 
   <section class="theme-surface section-wide" aria-labelledby="compromiso">
     <div class="page split">
-      <h2 id="compromiso">Nuestro compromiso</h2>
+      <h2 id="compromiso">Nuestro compromiso contigo</h2>
       <ul class="stack items" role="list" data-reveal="stagger">
-        {commitments.map((c) => <li>{c}</li>)}
+        {commitments.map((c) => <li><strong>{c.title}.</strong> {c.text}</li>)}
       </ul>
     </div>
   </section>
@@ -61,6 +87,9 @@ const schema = [
 </Base>
 
 <style>
+  .checks { display: grid; gap: var(--space-2xs); margin-block-start: var(--space-xs); }
+  .checks li { display: grid; grid-template-columns: auto 1fr; gap: var(--space-xs); align-items: baseline; }
+  .checks li::before { content: ''; inline-size: 0.5em; block-size: 0.5em; background-color: var(--color-accent); }
   .list { display: grid; gap: var(--space-xl) var(--gutter); grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
   .list li { display: grid; gap: var(--space-s); align-content: start; }
   .route-img { inline-size: 100%; aspect-ratio: 3 / 2; object-fit: cover; }

@@ -1,0 +1,37 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  intro?: string;
+  items: string[];
+  surface?: boolean;
+}
+
+const { id, title, intro, items, surface = false } = Astro.props;
+const wide = title.length > 40;
+---
+
+<section class:list={['section-wide', { 'theme-surface': surface }]} aria-labelledby={id}>
+  <div class:list={['page split', { 'split-wide': wide }]}>
+    <header class="stack stack-m" data-reveal>
+      <h2 id={id}>{title}</h2>
+      {intro && <p class="text-lead">{intro}</p>}
+    </header>
+    <ul class="items" role="list" data-reveal="stagger">
+      {items.map((item) => <li>{item}</li>)}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .items { display: grid; gap: var(--space-m); }
+  .items li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-s);
+    align-items: baseline;
+    font-size: var(--step-lead);
+    line-height: var(--leading-lead);
+  }
+  .items li::before { content: ''; inline-size: 0.6em; block-size: 0.6em; background-color: var(--color-accent); transform: translateY(-0.1em); }
+</style>

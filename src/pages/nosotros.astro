@@ -10,9 +10,9 @@ import { listEs } from '@/lib/format';
 import office from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg';
 
 const ways = [
-  { title: 'Compromiso con tu éxito académico', text: 'Nos involucramos en cada etapa de tu proceso. Un equipo multidisciplinario te guía con responsabilidad y puntualidad, para que avances con seguridad y claridad hacia tu objetivo profesional.' },
-  { title: 'Experiencia que se mide en sustentaciones', text: 'Cientos de estudiantes y profesionales sustentaron su tesis con nuestro acompañamiento en investigación y redacción académica.' },
-  { title: 'Trato humano y profesional', text: 'Cada estudiante tiene su historia, sus metas y sus desafíos. Te acompañamos con orientación clara, metodología y práctica que realmente te ayudan a avanzar.' },
+  { title: 'Compromiso real con tu éxito académico', text: 'En Científica Consultores no solo brindamos asesoría de tesis: nos involucramos de manera personalizada en cada etapa de tu proceso académico. Nuestro equipo multidisciplinario te guía con responsabilidad y puntualidad, asegurando que avances con seguridad, claridad y confianza hacia tu objetivo profesional.' },
+  { title: 'Más de 10 años impulsando logros académicos reales', text: 'Nuestra experiencia no solo se mide en años, sino en resultados: cientos de estudiantes y profesionales han logrado sustentar con éxito sus tesis gracias a nuestro acompañamiento experto en investigación y redacción académica. Con nosotros no estás solo: estás respaldado por un equipo que sabe cómo ayudarte a destacar.' },
+  { title: 'Asesoría con enfoque humano y profesional', text: 'Entendemos que cada estudiante tiene una historia, metas y desafíos únicos. Por eso, ofrecemos un servicio cercano, empático y altamente profesional que se adapta a tus necesidades. Nuestra prioridad es que te sientas acompañado en todo momento, con orientación clara, metodología y práctica que realmente te ayuden a avanzar.' },
 ];
 
 const pillars = [
@@ -32,18 +32,18 @@ const schema = [
   description="Nuestro equipo experto ofrece asesoría en tesis para pregrado, maestría y doctorado. Más de 10 años ayudando a lograr investigaciones exitosas."
   schema={schema}
 >
-  <PageHero title="Quiénes somos" crumb="Nosotros" lede="Asesoría especializada en tesis, investigación y capacitación académica, desde Lima, hace más de 10 años." balance="photo">
+  <PageHero title="¿Quiénes somos en Científica Consultores?" crumb="Nosotros" lede="Sobre nosotros: asesoría especializada en tesis, investigación y capacitación académica, desde Lima, hace más de 10 años." balance="photo">
     <Picture slot="media" formats={['avif', 'webp']} quality={70} src={office} alt="Equipo de Científica Consultores reunido en su oficina de Los Olivos" widths={[640, 960, 1280]} sizes="(min-width: 64em) 45vw, 100vw" loading="eager" fetchpriority="high" />
   </PageHero>
 
   <section class="section page split" aria-labelledby="historia" data-reveal="stagger">
     <h2 id="historia">Nuestra historia</h2>
-    <p class="text-lead">Brindamos asesoría especializada en tesis, investigación y capacitación académica. Nuestro equipo lleva más de 10 años difundiendo y contribuyendo a la cultura científica, y ayudando a estudiantes y profesionales a lograr un desarrollo académico integral.</p>
+    <p class="text-lead">En Científica Consultores brindamos asesoría especializada en tesis, investigación y capacitación académica. Nuestro equipo cuenta con más de 10 años de experiencia en el mercado, difundiendo y contribuyendo a la cultura científica, y ayudando a estudiantes y profesionales a alcanzar un desarrollo académico integral.</p>
   </section>
 
   <section class="theme-surface section-wide" aria-labelledby="acompanamos">
     <div class="page split">
-      <h2 id="acompanamos">Cómo te acompañamos</h2>
+      <h2 id="acompanamos">¿Por qué elegirnos?</h2>
       <ul class="stack stack-l" role="list" data-reveal="stagger">
         {ways.map((w) => (
           <li><h3>{w.title}</h3><p>{w.text}</p></li>
@@ -53,7 +53,7 @@ const schema = [
   </section>
 
   <section class="section page split" aria-labelledby="creemos">
-    <h2 id="creemos">En qué creemos</h2>
+    <h2 id="creemos">Nuestros pilares</h2>
     <dl class="stack stack-l" data-reveal="stagger">
       {pillars.map((p) => (
         <div><dt>{p.title}</dt><dd>{p.text}</dd></div>

@@ -3,13 +3,20 @@ import { Image } from 'astro:assets';
 import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
 import { site } from '@/config/site';
 import portrait from '@/assets/images/otros/asesor-de-tesis-de-maestria-cientifica-consultores.jpg';
+
+interface Props {
+  title?: string;
+  text?: string;
+}
+
+const { title = '¿Empezamos tu tesis?', text = `Cuéntanos tu universidad, tu grado y tu fecha de entrega, y te decimos cómo podemos ayudarte. Respondemos en ${site.replyTime}.` } = Astro.props;
 ---
 
 <section class="contact theme-surface section-wide" aria-labelledby="contacto">
   <div class="page inner">
     <div class="pitch stack stack-l" data-reveal>
-      <p class="statement" id="contacto">¿Empezamos tu tesis?</p>
-      <p class="text-lead">Cuéntanos tu universidad, tu grado y tu fecha de entrega, y te decimos cómo podemos ayudarte. Respondemos en {site.replyTime}.</p>
+      <h2 class="statement" id="contacto">{title}</h2>
+      <p class="text-lead">{text}</p>
       <WhatsAppButton />
     </div>
     <div class="card" data-reveal>

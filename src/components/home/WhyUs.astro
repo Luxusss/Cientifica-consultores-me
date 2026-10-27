@@ -1,0 +1,25 @@
+---
+import { whyUs } from '@/data/home';
+---
+
+<section class="section-wide page split split-sticky why" aria-labelledby="por-que">
+  <header class="stack stack-l" data-reveal>
+    <h2 id="por-que">{whyUs.title}</h2>
+    <p class="text-lead">{whyUs.text}</p>
+  </header>
+  <ul class="items" role="list" data-reveal="stagger">
+    {whyUs.items.map((item) => (
+      <li class="accent-mark">
+        <h3>{item.name}</h3>
+        <p>{item.text}</p>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .items { display: grid; gap: var(--space-xl); }
+  .items li { display: grid; gap: var(--space-s); }
+  h3 { font-size: var(--step-head); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
+  .items p { font-size: var(--step-body); max-inline-size: 60ch; }
+</style>

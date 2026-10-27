@@ -1,6 +1,11 @@
 ---
 import Base from '@/layouts/Base.astro';
 import Hero from '@/components/home/Hero.astro';
+import Intro from '@/components/home/Intro.astro';
+import WhyUs from '@/components/home/WhyUs.astro';
+import Tools from '@/components/home/Tools.astro';
+import BlogTeaser from '@/components/home/BlogTeaser.astro';
+import { faqIntro, closing } from '@/data/home';
 import ServiceRows from '@/components/home/ServiceRows.astro';
 import Process from '@/components/home/Process.astro';
 import About from '@/components/home/About.astro';
@@ -23,13 +28,17 @@ import { faqPage } from '@/lib/schema';
   overlay
 >
   <Hero />
+  <Intro />
   <ServiceRows />
   <Process />
+  <WhyUs />
   <Universities />
   <About />
+  <Tools />
   <TestimonialQuote testimonials={testimonials.slice(0, 4)} />
   <Stages />
   <Guides />
-  <FaqText items={homeFaq} />
-  <ContactBand />
+  <FaqText items={homeFaq} intro={faqIntro} />
+  <BlogTeaser />
+  <ContactBand title={closing.title} text={closing.text} />
 </Base>

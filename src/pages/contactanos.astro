@@ -22,12 +22,12 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
   description="Escríbenos para recibir asesoría profesional en tesis de pregrado, maestría o doctoral. Te respondemos en menos de 24 horas."
   schema={schema}
 >
-  <PageHero tone="field" title="Asesoría de tesis en Lima" crumb="Contáctanos" lede={`Te guiamos en tu tesis de pregrado, maestría, doctorado o segunda especialización. Escríbenos y te respondemos en ${site.replyTime}.`}>
+  <PageHero tone="field" title="¿Necesitas una asesoría de tesis en Lima? Contáctanos" crumb="Contáctanos" lede={`Te guiamos en tu tesis de pregrado, maestría, doctorado o segunda especialización. Escríbenos y te respondemos en ${site.replyTime}.`}>
     <div class="alt">
       <WhatsAppButton />
       <a href={`mailto:${site.email}`}>{site.email}</a>
     </div>
-    <FormCard slot="media" title="Envíanos un mensaje" subject="Web Principal - Contacto" />
+    <FormCard slot="media" title="¡Logra el sueño de graduarte con éxito!" subject="Web Principal - Contacto" />
   </PageHero>
 
   <section class="section page split" aria-labelledby="planes">
@@ -55,15 +55,15 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
     </div>
   </section>
 
-  <section class="section page split" aria-labelledby="video">
-    <h2 id="video" data-reveal>Así son nuestras asesorías</h2>
+  <section class="section page split split-wide" aria-labelledby="video">
+    <h2 id="video" data-reveal>Te guiamos paso a paso en tu proyecto de tesis</h2>
     <AdvisoryVideo />
   </section>
 
   <PhotoBand omit={['office']} />
 
-  <section class="section page split" aria-labelledby="horarios">
-    <h2 id="horarios" data-reveal>Horarios y ubicación</h2>
+  <section class="section page split split-wide" aria-labelledby="horarios">
+    <h2 id="horarios" data-reveal>Horarios de atención y ubicación</h2>
     <div class="visit">
     <dl class="stack hours" data-reveal="stagger">
       {site.hours.map((h) => (

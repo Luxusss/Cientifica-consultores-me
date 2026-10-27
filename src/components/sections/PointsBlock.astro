@@ -9,10 +9,11 @@ interface Props {
 const { block, surface = false } = Astro.props;
 const titled = block.points.some((p) => p.title);
 const introOnly = block.points.length === 0;
+const wide = block.title.length > 40;
 ---
 
 <section class:list={[surface ? 'theme-surface section-wide' : 'section']} aria-labelledby={block.id}>
-  <div class="page split">
+  <div class:list={['page split', { 'split-wide': wide }]}>
     <header class="stack" data-reveal>
       <h2 id={block.id}>{block.title}</h2>
       {block.intro && !introOnly && <p class="text-lead">{block.intro}</p>}

@@ -41,7 +41,7 @@
 
   --measure: 62ch;
   --measure-lead: 44ch;
-  --measure-head: 20ch;
+  --measure-head: 32ch;
 
   --space-3xs: clamp(0.25rem, 0.23rem + 0.1vw, 0.3125rem);
   --space-2xs: clamp(0.5rem, 0.47rem + 0.12vw, 0.5625rem);

@@ -1,0 +1,35 @@
+---
+import { toolsSection } from '@/data/home';
+---
+
+<section class="theme-surface section-wide" aria-labelledby="herramientas">
+  <div class="page stack stack-xl">
+    <header class="split split-wide" data-reveal>
+      <h2 id="herramientas">{toolsSection.title}</h2>
+      <p class="text-lead">{toolsSection.text}</p>
+    </header>
+    <ul class="tools" role="list" data-reveal="stagger">
+      {toolsSection.items.map((t) => (
+        <li>
+          <p class="mark" aria-hidden="true">{t.tool}</p>
+          <h3>{t.name}</h3>
+          <p>{t.text}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .tools { display: grid; gap: var(--space-xl) var(--gutter); }
+  .tools li { display: grid; gap: var(--space-s); align-content: start; }
+  .mark { font-size: var(--step-head); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-display); color: var(--color-field); }
+  h3 { font-size: var(--step-body); font-weight: var(--weight-semibold); }
+
+  @media (min-width: 40em) {
+    .tools { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 64em) {
+    .tools { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+</style>

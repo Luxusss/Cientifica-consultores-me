@@ -1,0 +1,19 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  text: string[];
+  surface?: boolean;
+}
+
+const { id, title, text, surface = false } = Astro.props;
+---
+
+<section class:list={['section-wide', { 'theme-surface': surface }]} aria-labelledby={id}>
+  <div class="page split split-wide">
+    <h2 id={id} data-reveal>{title}</h2>
+    <div class="stack stack-m" data-reveal>
+      {text.map((t) => <p class="text-lead">{t}</p>)}
+    </div>
+  </div>
+</section>

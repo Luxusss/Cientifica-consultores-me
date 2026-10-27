@@ -27,7 +27,7 @@ const facts = [
   </div>
   <div class="page content">
     <div class="text">
-      <h1 id="hero-title"><span class="line"><span>Asesoría de</span></span> <span class="line"><span>tesis online</span></span></h1>
+      <h1 id="hero-title"><span class="line"><span>Asesoría de</span></span> <span class="line"><span>tesis online</span></span> <span class="tail">con expertos en investigación académica</span></h1>
       <p class="lede">Un asesor especialista te acompaña en tu tesis de pregrado, maestría, doctorado o TSP, desde el proyecto hasta la sustentación.</p>
       <div class="action"><WhatsAppButton /></div>
     </div>
@@ -54,6 +54,7 @@ const facts = [
   h1 { color: var(--color-text); max-inline-size: none; }
   .line { display: block; overflow: hidden; padding-block-end: 0.08em; margin-block-end: -0.08em; }
   .line > span { display: block; }
+  .tail { display: block; margin-block-start: var(--space-s); font-size: var(--step-lead); line-height: var(--leading-lead); letter-spacing: 0; font-weight: var(--weight-regular); }
   .lede { font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 30ch; color: var(--color-text); }
 
   .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-m); }
@@ -83,7 +84,7 @@ const facts = [
     .photo { animation: drift 24s var(--ease-soft) both; }
     .line > span { animation: line-up var(--duration-reveal) var(--ease-expo) 100ms both; }
     .line + .line > span { animation-delay: calc(100ms + var(--stagger)); }
-    .lede, .action { animation: rise 500ms var(--ease-out) 420ms both; }
+    .tail, .lede, .action { animation: rise 500ms var(--ease-out) 420ms both; }
     .facts { animation: rise 600ms var(--ease-out) 600ms both; }
     @keyframes drift { from { transform: scale(1.06); } to { transform: scale(1); } }
     @keyframes line-up { from { transform: translateY(105%); } }

@@ -1,25 +1,24 @@
 ---
 import { Image } from 'astro:assets';
 import { services } from '@/data/services';
+import { servicesSection } from '@/data/home';
 ---
 
 <section class="services theme-surface section-wide" aria-labelledby="servicios">
   <div class="page stack stack-xl">
-    <header class="split split-end" data-reveal>
-      <h2 id="servicios">Asesoría para cada grado</h2>
-      <p class="text-lead">Te acompañamos desde cero: tema, literatura, metodología, datos y versión final, con el formato de tu universidad, se llame tesis, tesina, trabajo de grado, TFG o TFM.</p>
+    <header class="split split-wide" data-reveal>
+      <h2 id="servicios">{servicesSection.title}</h2>
+      <p class="text-lead">{servicesSection.text}</p>
     </header>
 
     <ul class="gallery" role="list" data-reveal="stagger">
       {services.map((s) => (
-        <li>
-          <a class="tile" href={s.href}>
-            <span class="frame">
-              <Image src={s.image} alt={s.imageAlt} widths={[360, 540, 720]} sizes="(min-width: 64em) 30vw, 50vw" class="portrait" />
-            </span>
-            <span class="name">{s.name}<span class="arrow" aria-hidden="true">→</span></span>
-            <span class="summary">{s.summary}</span>
+        <li class="tile">
+          <a class="frame" href={s.href} tabindex="-1" aria-hidden="true">
+            <Image src={s.image} alt={s.imageAlt} widths={[360, 540, 720]} sizes="(min-width: 64em) 30vw, 50vw" class="portrait" />
           </a>
+          <h3 class="name"><a href={s.href}>{s.title}<span class="arrow" aria-hidden="true">→</span></a></h3>
+          <p class="summary">{s.description}</p>
         </li>
       ))}
     </ul>
@@ -27,35 +26,27 @@ import { services } from '@/data/services';
 </section>
 
 <style>
-  .gallery { display: grid; gap: var(--space-l) var(--gutter); grid-template-columns: repeat(2, minmax(0, 1fr)); }
-
-  .tile { display: grid; gap: var(--space-xs); color: var(--color-text); text-decoration: none; }
+  .gallery { display: grid; gap: var(--space-xl) var(--gutter); grid-template-columns: 1fr; }
+  .tile { display: grid; gap: var(--space-s); align-content: start; }
   .frame { display: block; overflow: hidden; background-color: var(--navy-600); }
-  .portrait { inline-size: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; transition: transform var(--duration-reveal) var(--ease-out); }
+  .portrait { inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 22%; transition: transform var(--duration-reveal) var(--ease-out); }
 
-  .name {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: var(--space-s);
-    margin-block-start: var(--space-2xs);
-    font-size: var(--step-body);
-    line-height: var(--leading-head);
-    font-weight: var(--weight-medium);
-    letter-spacing: var(--tracking-head);
-  }
+  .name { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
+  .name a { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-s); color: var(--color-text); text-decoration: none; }
   .arrow { color: var(--color-accent-strong); transition: transform var(--duration-hover) var(--ease-out); }
-  .summary { color: var(--color-text-soft); font-size: var(--step-small); line-height: var(--leading-small); }
+  .summary { color: var(--color-text); }
 
+  @media (min-width: 40em) {
+    .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
   @media (min-width: 64em) {
-    .gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-xl) var(--gutter); }
-    .name { font-size: var(--step-lead); }
-    .summary { font-size: var(--step-body); line-height: var(--leading-body); }
+    .gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .portrait { aspect-ratio: 4 / 5; }
   }
 
   @media (hover: hover) and (pointer: fine) {
     .tile:hover .portrait { transform: scale(1.04); }
     .tile:hover .arrow { transform: translateX(4px); }
-    .tile:hover .name { text-decoration: underline; text-decoration-thickness: 0.06em; text-underline-offset: 0.18em; }
+    .name a:hover { text-decoration: underline; text-decoration-thickness: 0.06em; text-underline-offset: 0.18em; }
   }
 </style>

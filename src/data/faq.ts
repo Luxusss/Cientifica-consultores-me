@@ -39,7 +39,7 @@ export const maestriaFaq: Faq[] = [
   { question: '¿Incluyen revisión con Turnitin?', answer: 'Sí, entregamos reporte de similitud como parte del servicio completo.' },
   { question: '¿Pueden ayudarme si mi proyecto de tesis está avanzado?', answer: 'Claro. Si ya has comenzado, podemos ayudarte a corregir, completar o mejorar tu tesis. También te apoyamos con la sustentación y presentación final.' },
   { question: '¿Puedo recibir asesoría para la sustentación de mi tesis?', answer: 'Sí. Ofrecemos preparación personalizada para tu defensa: estructura del PPT, exposición oral y simulación de preguntas frecuentes.' },
-  { question: '¿La asesoría es 100 % online?', answer: 'Sí. Nuestro servicio es completamente online y flexible, ideal para estudiantes en cualquier ciudad del Perú o el extranjero. También contamos con atención presencial previa cita en nuestra oficina de Los Olivos, Lima.' },
+  { question: '¿La asesoría es 100 % online?', answer: 'Sí. Nuestro servicio es completamente online y flexible, ideal para estudiantes en cualquier ciudad del Perú o el extranjero. También contamos con atención presencial previa cita en nuestra oficina ubicada en Calle Los Chasquis 7173, Los Olivos, Lima.' },
 ];
 
 export const doctoradoFaq: Faq[] = [

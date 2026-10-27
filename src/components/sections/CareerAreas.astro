@@ -1,23 +1,35 @@
 ---
 import { careerAreas } from '@/data/servicePages';
+
+interface Props {
+  title?: string;
+  intro?: string;
+  prefix?: string;
+}
+
+const { title = 'Un asesor de tu carrera', intro = 'Accede a asesoría personalizada según tu disciplina, con especialistas para cada carrera.', prefix = '' } = Astro.props;
 ---
 
-<section class="section page split" aria-labelledby="carreras">
-  <header class="stack" data-reveal>
-    <h2 id="carreras">Un asesor de tu carrera</h2>
-    <p>Accede a asesoría personalizada según tu disciplina, con especialistas para cada carrera.</p>
+<section class="section-wide page stack stack-xl" aria-labelledby="carreras">
+  <header class="split split-wide" data-reveal>
+    <h2 id="carreras">{title}</h2>
+    <p class="text-lead">{intro}</p>
   </header>
   <div class="cols" data-reveal="stagger">
     {careerAreas.map((area) => (
-      <div>
-        <h3>{area.name}</h3>
-        <p class="text-soft">{area.careers.join(', ')}</p>
+      <div class="area">
+        <h3>{prefix}{prefix ? area.name.toLowerCase() : area.name}</h3>
+        <ul role="list">
+          {area.careers.map((c) => <li>{c}</li>)}
+        </ul>
       </div>
     ))}
   </div>
 </section>
 
 <style>
-  .cols { display: grid; gap: var(--space-l) var(--gutter); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
-  .cols h3 { font-weight: var(--weight-semibold); margin-block-end: var(--space-2xs); }
+  .cols { display: grid; gap: var(--space-xl) var(--gutter); grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr)); }
+  .area { display: grid; gap: var(--space-s); align-content: start; padding-block-start: var(--space-s); border-block-start: 4px solid var(--color-accent); }
+  h3 { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
+  ul { display: grid; gap: var(--space-3xs); color: var(--color-text-soft); }
 </style>

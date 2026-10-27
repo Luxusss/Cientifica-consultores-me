@@ -1,0 +1,45 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 4);
+---
+
+<section class="theme-surface section-wide" aria-labelledby="blog-academico">
+  <div class="page stack stack-xl">
+    <header class="split split-end" data-reveal>
+      <h2 id="blog-academico">Blog académico</h2>
+      <a class="all" href="/blog.html">Ver todos los artículos</a>
+    </header>
+    <ul class="posts" role="list" data-reveal="stagger">
+      {posts.map((p) => (
+        <li>
+          <a class="post" href={`/blog/${p.id}.html`}>
+            <Image src={p.data.cover} alt="" widths={[360, 540, 720]} sizes="(min-width: 64em) 24vw, (min-width: 40em) 50vw, 100vw" class="cover" />
+            <span class="title">{p.data.heading}</span>
+            <span class="excerpt">{p.data.description}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .all { justify-self: start; font-size: var(--step-lead); }
+  .posts { display: grid; gap: var(--space-xl) var(--gutter); }
+  .post { display: grid; gap: var(--space-s); color: var(--color-text); text-decoration: none; }
+  .cover { inline-size: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+  .title { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
+  .excerpt { color: var(--color-text-soft); }
+
+  @media (min-width: 40em) {
+    .posts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 64em) {
+    .posts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .post:hover .title { text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 0.07em; }
+  }
+</style>

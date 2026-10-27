@@ -19,10 +19,13 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios'
   description="Lee los testimonios de nuestros clientes satisfechos que han obtenido excelentes resultados con la asesoría de tesis de Científica Consultores."
   schema={schema}
 >
-  <PageHero tone="field" title="Testimonios de nuestros clientes" crumb="Testimonios" lede="Agradecemos a quienes, por iniciativa propia, autorizan que compartamos su caso." />
+  <PageHero tone="field" title="Testimonios de nuestros clientes" crumb="Testimonios" lede="Cada logro de nuestros trabajos académicos nos recuerda el sentido de nuestro origen. Agradecemos a nuestros clientes que, por propia iniciativa, autorizan que compartamos sus casos de éxito." />
 
   <section class="section page split stories" aria-labelledby="historias">
-    <h2 id="historias">Historias de quienes sustentaron</h2>
+    <div class="stack stack-m">
+      <h2 id="historias">Lo que dicen nuestros clientes</h2>
+      <p class="text-lead">Historias reales de personas que lograron titularse con nuestro apoyo.</p>
+    </div>
     <ul class="list" role="list" data-reveal="stagger">
       {testimonials.map((t) => (
         <li>
