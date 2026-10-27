@@ -34,7 +34,7 @@ const loadGtm = import.meta.env.PROD;
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     {loadGtm && <link rel="preconnect" href="https://www.googletagmanager.com" />}
-    <Font cssVariable="--font-literata" preload={[{ style: 'normal' }]} />
+    <Font cssVariable="--font-literata" />
     <Seo {...seo} />
     <script type="application/ld+json" set:html={graph(schema)} />
     {loadGtm && <script is:inline set:html={gtm} />}

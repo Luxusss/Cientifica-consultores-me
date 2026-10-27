@@ -15,7 +15,7 @@ import { servicesSection } from '@/data/home';
       {services.map((s) => (
         <li class="tile">
           <a class="frame" href={s.href} tabindex="-1" aria-hidden="true">
-            <Image src={s.image} alt={s.imageAlt} widths={[360, 540, 720]} sizes="(min-width: 64em) 30vw, 50vw" class="portrait parallax-img" />
+            <Image src={s.image} alt={s.imageAlt} widths={[180, 360, 540, 720]} sizes="(min-width: 64em) 30vw, (min-width: 40em) 50vw, 6rem" class="portrait parallax-img" />
           </a>
           <h3 class="name"><a href={s.href}>{s.title}<span class="arrow" aria-hidden="true">→</span></a></h3>
           <p class="summary">{s.description}</p>
