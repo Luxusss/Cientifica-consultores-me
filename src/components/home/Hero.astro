@@ -89,4 +89,13 @@ const facts = [
     @keyframes line-up { from { transform: translateY(105%); } }
     @keyframes rise { from { opacity: 0; transform: translateY(12px); } }
   }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) and (min-width: 64em) {
+      .media > :global(picture) { animation: hero-push linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
+      .content { animation: hero-leave linear both; animation-timeline: view(); animation-range: exit 0% exit 70%; }
+      @keyframes hero-push { to { transform: scale(1.14); } }
+      @keyframes hero-leave { to { opacity: 0; transform: translateY(-80px); } }
+    }
+  }
 </style>

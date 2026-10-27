@@ -21,3 +21,14 @@ if ('IntersectionObserver' in window && targets.length) {
 }
 
 root.setAttribute('data-reveal-ready', '');
+
+const live = CSS.supports('animation-timeline: view()') && matchMedia('(prefers-reduced-motion: no-preference) and (min-width: 64em)');
+for (const scene of document.querySelectorAll<HTMLElement>('section.scene')) {
+  const sync = () => {
+    const on = !!live && live.matches;
+    scene.classList.toggle('is-live', on);
+    scene.classList.toggle('is-rest', !on);
+  };
+  sync();
+  if (live) live.addEventListener('change', sync);
+}

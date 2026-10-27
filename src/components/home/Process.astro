@@ -17,33 +17,64 @@ const steps = [
 ];
 ---
 
-<section class="theme-field section-wide" aria-labelledby="como-trabajamos">
-  <div class="page stack stack-xl">
-    <header class="split split-end" data-reveal>
-      <h2 id="como-trabajamos">Cómo trabajamos</h2>
-      <p class="text-lead">Del primer mensaje a tu asesor asignado, en tres momentos claros.</p>
-    </header>
+<section class="scene process theme-field" aria-labelledby="como-trabajamos">
+  <div class="scene-stage">
+    <div class="page inner">
+      <header class="head stack stack-l" data-reveal>
+        <h2 id="como-trabajamos">Cómo trabajamos</h2>
+        <p class="text-lead">Del primer mensaje a tu asesor asignado, en tres momentos claros.</p>
+        <WhatsAppButton label="Empezar ahora por WhatsApp" />
+      </header>
 
-    <ol class="steps" role="list" data-reveal="stagger">
-      {steps.map((step) => (
-        <li class="accent-mark">
-          <h3>{step.name}</h3>
-          <p>{step.text}</p>
-        </li>
-      ))}
-    </ol>
+      <div class="track" aria-hidden="true"><span class="fill on-scene"></span></div>
 
-    <div data-reveal><WhatsAppButton label="Empezar ahora por WhatsApp" /></div>
+      <ol class="steps" role="list" data-reveal="stagger">
+        {steps.map((step, i) => (
+          <li class:list={['step', 'on-scene', `step-${i + 1}`]}>
+            <p class="count">{i + 1} de {steps.length}</p>
+            <h3>{step.name}</h3>
+            <p class="text">{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
   </div>
 </section>
 
 <style>
+  .process { padding-block: var(--section-gap); }
+  .inner { display: grid; gap: var(--space-xl) var(--gutter); }
+  .head { justify-items: start; }
+  .track { display: none; }
   .steps { display: grid; gap: var(--space-xl) var(--gutter); }
-  .steps li { display: grid; gap: var(--space-s); align-content: start; }
-  .steps h3 { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
-  .steps p { color: var(--color-text-soft); }
+  .step { display: grid; gap: var(--space-s); align-content: start; }
+  .count { color: var(--color-accent); font-weight: var(--weight-semibold); font-size: var(--step-small); }
+  .step h3 { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
+  .step .text { color: var(--color-text-soft); }
 
   @media (min-width: 48em) {
     .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) and (min-width: 64em) {
+      .process { --hold: 2; padding-block: 0; }
+      .inner { block-size: 100%; grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: center; }
+      .head { grid-column: 1 / span 5; }
+      .track { display: block; grid-column: 6; justify-self: center; inline-size: 4px; block-size: 60%; background-color: var(--navy-700); }
+      .fill { display: block; inline-size: 100%; block-size: 100%; background-color: var(--color-accent); transform-origin: top; animation-name: fill-grow; animation-range: contain 0% contain 100%; }
+      .steps { grid-column: 7 / -1; grid-template-columns: 1fr; display: grid; }
+      .step { grid-area: 1 / 1; gap: var(--space-m); }
+      .step h3 { font-size: var(--step-head); }
+      .step .text { font-size: var(--step-lead); line-height: var(--leading-lead); color: var(--color-text); max-inline-size: 30ch; }
+      .step-1 { animation-name: step-out; animation-range: contain 26% contain 34%; }
+      .step-2 { animation-name: step-through; animation-range: contain 30% contain 68%; }
+      .step-3 { animation-name: step-in; animation-range: contain 64% contain 72%; }
+      [data-reveal='stagger'] > .step { opacity: 1; transform: none; transition: none; }
+      @keyframes fill-grow { from { transform: scaleY(0.04); } to { transform: scaleY(1); } }
+      @keyframes step-in { from { opacity: 0; visibility: hidden; transform: translateY(48px); } to { opacity: 1; transform: none; } }
+      @keyframes step-through { 0% { opacity: 0; visibility: hidden; transform: translateY(48px); } 21%, 79% { opacity: 1; visibility: visible; transform: none; } 100% { opacity: 0; visibility: hidden; transform: translateY(-48px); } }
+      @keyframes step-out { from { opacity: 1; transform: none; } to { opacity: 0; visibility: hidden; transform: translateY(-48px); } }
+    }
   }
 </style>

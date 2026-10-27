@@ -39,3 +39,24 @@
     .js [data-reveal='shutter'].is-in img { transform: none; }
   }
 }
+
+@layer motion {
+  .scene-stage { position: relative; }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) and (min-width: 64em) {
+      .scene { --hold: 2; block-size: calc((var(--hold) + 1) * (100svh - var(--header-height))); view-timeline: --scene block; }
+      .scene-stage {
+        position: sticky;
+        inset-block-start: var(--header-height);
+        block-size: calc(100svh - var(--header-height));
+        overflow: hidden;
+      }
+      .scene .on-scene {
+        animation-timeline: --scene;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+      }
+    }
+  }
+}
