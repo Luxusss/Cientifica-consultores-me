@@ -59,8 +59,8 @@ const hasMedia = Astro.slots.has('media');
     .photo-hero .media, .photo-hero .text { grid-area: stack; }
     .photo-hero .media { aspect-ratio: auto; position: relative; }
     .photo-hero .media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--scrim-strong) 0%, color-mix(in srgb, var(--navy-600) 70%, transparent) 38%, transparent 62%); }
-    .photo-hero .text { padding-inline: max(var(--page-margin), calc((100vw - var(--page-max)) / 2)); padding-block: var(--space-2xl); max-inline-size: calc(max(var(--page-margin), (100vw - var(--page-max)) / 2) + 36rem); }
-    .page-hero.photo-hero :global(h1) { font-size: min(var(--step-head), 3rem); }
+    .photo-hero .text { padding-inline: max(var(--page-margin), calc((100vw - var(--page-max)) / 2)) var(--space-l); padding-block: var(--space-2xl); max-inline-size: calc(max(var(--page-margin), (100vw - var(--page-max)) / 2) + 40rem); }
+    .page-hero.photo-hero :global(h1) { font-size: min(var(--step-display), 3.5rem); max-inline-size: 18ch; }
     .page-hero :global(h1) { font-size: min(var(--step-display), 5vw); }
     .favor-media :global(h1) { font-size: min(var(--step-display), 4vw); }
     .field-hero:not(.with-media) .text { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: end; }

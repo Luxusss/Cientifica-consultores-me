@@ -2,6 +2,8 @@
 import { Image, Picture } from 'astro:assets';
 import Base from '@/layouts/Base.astro';
 import FormCard from '@/components/forms/FormCard.astro';
+import Button from '@/components/ui/Button.astro';
+import Icon from '@/components/ui/Icon.astro';
 import PageHero from '@/components/ui/PageHero.astro';
 import PointsBlock from '@/components/sections/PointsBlock.astro';
 import CareerAreas from '@/components/sections/CareerAreas.astro';
@@ -22,6 +24,11 @@ interface Props {
 
 const { page } = Astro.props;
 const tone = (i: number) => i % 2 === 1;
+const trust = [
+  { icon: 'user', label: 'Asesor de tu carrera' },
+  { icon: 'shield', label: 'Contrato digital' },
+  { icon: 'document', label: 'Reporte Turnitin' },
+] as const;
 const schema = [
   breadcrumb([
     { name: 'Inicio', path: '/' },
@@ -41,17 +48,27 @@ const schema = [
 
 <Base title={page.title} description={page.description} schema={schema}>
   <PageHero title={page.h1} crumb={page.crumb} lede={page.lede} balance="photo">
-    <FormCard title="¡Obtén tu primera asesoría gratis!" subject={page.formSubject} variant="short" submitLabel="Quiero asesoría" />
+    <div class="hero-actions">
+      <Button href="#formulario">Quiero mi primera asesoría gratis</Button>
+      <ul class="trust" role="list">
+        {trust.map((t) => <li><Icon name={t.icon} size="1.1rem" />{t.label}</li>)}
+      </ul>
+    </div>
     <Picture slot="media" formats={['avif', 'webp']} quality={70} src={page.image} alt={page.imageAlt} widths={[480, 720, 960, 1280]} sizes="(min-width: 64em) 45vw, 100vw" loading="eager" fetchpriority="high" />
   </PageHero>
 
   <section class="section-wide page standfirst" aria-label="Presentación">
-    <div class="intro-pic" data-reveal="shutter">
-      <Image src={page.introImage} alt={page.introAlt} widths={[480, 720, 960, 1280]} sizes="(min-width: 64em) 40vw, 100vw" class="intro-img" />
+    <div class="standfirst-main stack stack-l">
+      <div class="stack stack-m" data-reveal>
+        {page.intro.map((t) => <p class="text-lead">{t}</p>)}
+      </div>
+      <div class="intro-pic" data-reveal="shutter">
+        <Image src={page.introImage} alt={page.introAlt} widths={[480, 720, 960, 1280]} sizes="(min-width: 64em) 50vw, 100vw" class="intro-img" />
+      </div>
     </div>
-    <div class="stack stack-m" data-reveal>
-      {page.intro.map((t) => <p class="text-lead">{t}</p>)}
-    </div>
+    <aside class="form-slot" aria-label="Formulario de contacto">
+      <FormCard title="¡Obtén tu primera asesoría gratis!" subject={page.formSubject} variant="short" submitLabel="Quiero asesoría" />
+    </aside>
   </section>
 
   {page.sections.map((sec, i) => {
@@ -68,12 +85,21 @@ const schema = [
 </Base>
 
 <style>
-  .standfirst { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
+  .hero-actions { display: grid; gap: var(--space-m); justify-items: start; margin-block-start: var(--space-2xs); }
+  .trust { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-m); color: var(--color-text-soft); font-size: var(--step-small); }
+  .trust li { display: inline-flex; align-items: center; gap: var(--space-3xs); }
+  .trust :global(svg) { color: var(--orange-500); }
+
+  .standfirst { display: grid; gap: var(--space-xl) var(--gutter); align-items: start; }
+  .form-slot { grid-row: 1; }
+  .form-slot :global(.form-card) { max-inline-size: none; box-shadow: 0 1px 2px color-mix(in srgb, var(--ink-900) 6%, transparent), 0 24px 60px -24px color-mix(in srgb, var(--navy-700) 35%, transparent); }
+  .standfirst-main .text-lead { max-inline-size: 62ch; }
   .intro-pic { overflow: hidden; border-radius: var(--radius-card); }
-  .intro-img { inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 25%; }
+  .intro-img { inline-size: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: 50% 25%; }
+
   @media (min-width: 64em) {
-    .standfirst { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-    .intro-pic { grid-column: 1 / span 5; }
-    .standfirst > .stack { grid-column: 7 / -1; }
+    .standfirst { grid-template-columns: repeat(12, minmax(0, 1fr)); padding-block-start: var(--space-xl); }
+    .standfirst-main { grid-column: 1 / span 7; }
+    .form-slot { grid-column: 9 / -1; grid-row: 1; position: relative; z-index: 2; margin-block-start: calc(-1 * clamp(14rem, 22vw, 20rem)); }
   }
 </style>
