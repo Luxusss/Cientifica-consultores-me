@@ -17,28 +17,28 @@ import FaqText from '@/components/sections/FaqText.astro';
 import ContactBand from '@/components/sections/ContactBand.astro';
 import { homeFaq } from '@/data/faq';
 import { testimonials } from '@/data/proof';
-import { faqPage } from '@/lib/schema';
+import { advisoryVideo, faqPage } from '@/lib/schema';
 ---
 
 <Base
   title="Asesoría de Tesis Online con Expertos | Científica Consultores"
   description="Asesoría de tesis online con expertos en investigación. Apoyo en metodología, análisis y redacción para estudiantes de Latinoamérica y España."
   image="/og/cientifica-consultores.jpg"
-  schema={[faqPage(homeFaq)]}
+  schema={[faqPage(homeFaq), advisoryVideo()]}
   overlay
 >
   <Hero />
   <Intro />
   <ServiceRows />
-  <Process />
+  <Guides />
   <WhyUs />
   <Universities />
   <About />
   <Tools />
-  <TestimonialQuote testimonials={testimonials.slice(0, 4)} />
+  <Process />
   <Stages />
-  <Guides />
+  <TestimonialQuote testimonials={testimonials.slice(0, 4)} />
   <FaqText items={homeFaq} intro={faqIntro} />
-  <BlogTeaser />
   <ContactBand title={closing.title} text={closing.text} />
+  <BlogTeaser />
 </Base>

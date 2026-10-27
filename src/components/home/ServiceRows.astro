@@ -28,7 +28,7 @@ import { servicesSection } from '@/data/home';
 <style>
   .gallery { display: grid; gap: var(--space-xl) var(--gutter); grid-template-columns: 1fr; }
   .tile { display: grid; gap: var(--space-s); align-content: start; }
-  .frame { display: block; overflow: hidden; background-color: var(--navy-600); }
+  .frame { display: block; overflow: hidden; background-color: var(--navy-600); border-radius: var(--radius-card); }
   .portrait { inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 22%; transition: transform var(--duration-reveal) var(--ease-out); }
 
   .name { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }

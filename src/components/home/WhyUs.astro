@@ -2,24 +2,36 @@
 import { whyUs } from '@/data/home';
 ---
 
-<section class="section-wide page split split-sticky why" aria-labelledby="por-que">
-  <header class="stack stack-l" data-reveal>
-    <h2 id="por-que">{whyUs.title}</h2>
-    <p class="text-lead">{whyUs.text}</p>
-  </header>
-  <ul class="items" role="list" data-reveal="stagger">
-    {whyUs.items.map((item) => (
-      <li class="accent-mark">
-        <h3>{item.name}</h3>
-        <p>{item.text}</p>
-      </li>
-    ))}
-  </ul>
+<section class="theme-surface section-wide" aria-labelledby="por-que">
+  <div class="page stack stack-xl">
+    <header class="split split-end" data-reveal>
+      <h2 id="por-que">{whyUs.title}</h2>
+      <p class="text-lead">{whyUs.text}</p>
+    </header>
+    <ul class="cards" role="list" data-reveal="stagger">
+      {whyUs.items.map((item, i) => (
+        <li class:list={['card', { wide: i < 2 }]}>
+          <h3>{item.name}</h3>
+          <p>{item.text}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
 </section>
 
 <style>
-  .items { display: grid; gap: var(--space-xl); }
-  .items li { display: grid; gap: var(--space-s); }
-  h3 { font-size: var(--step-head); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
-  .items p { font-size: var(--step-body); max-inline-size: 60ch; }
+  .cards { display: grid; gap: var(--space-s); }
+  .card { display: grid; gap: var(--space-xs); align-content: start; padding: var(--space-l); background-color: var(--paper-0); border-radius: var(--radius-card); }
+  h3 { font-size: var(--step-title); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
+  h3::before { content: ''; display: block; inline-size: 2.5rem; block-size: 4px; margin-block-end: var(--space-s); background-color: var(--color-accent); border-radius: 2px; }
+  .card p { color: var(--color-text-soft); }
+
+  @media (min-width: 48em) {
+    .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 64em) {
+    .cards { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+    .card { grid-column: span 2; }
+    .card.wide { grid-column: span 3; }
+  }
 </style>

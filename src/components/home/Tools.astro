@@ -1,8 +1,15 @@
 ---
+import { Image } from 'astro:assets';
 import { toolsSection } from '@/data/home';
+import turnitin from '@/assets/images/tools/turnitin-web.webp';
+import mendeley from '@/assets/images/tools/mendeley-web.webp';
+import atlasti from '@/assets/images/tools/atlasti-web.webp';
+import spss from '@/assets/images/tools/spss-web.webp';
+
+const logos = { Turnitin: turnitin, Mendeley: mendeley, 'Atlas.ti': atlasti, SPSS: spss } as const;
 ---
 
-<section class="theme-surface section-wide" aria-labelledby="herramientas">
+<section class="section-wide" aria-labelledby="herramientas">
   <div class="page stack stack-xl">
     <header class="split split-wide" data-reveal>
       <h2 id="herramientas">{toolsSection.title}</h2>
@@ -10,8 +17,8 @@ import { toolsSection } from '@/data/home';
     </header>
     <ul class="tools" role="list" data-reveal="stagger">
       {toolsSection.items.map((t) => (
-        <li>
-          <p class="mark" aria-hidden="true">{t.tool}</p>
+        <li class="tool">
+          <div class="logo"><Image src={logos[t.tool as keyof typeof logos]} alt={t.tool} height={80} class="logo-img" /></div>
           <h3>{t.name}</h3>
           <p>{t.text}</p>
         </li>
@@ -21,10 +28,12 @@ import { toolsSection } from '@/data/home';
 </section>
 
 <style>
-  .tools { display: grid; gap: var(--space-xl) var(--gutter); }
-  .tools li { display: grid; gap: var(--space-s); align-content: start; }
-  .mark { font-size: var(--step-head); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-display); color: var(--color-field); }
-  h3 { font-size: var(--step-body); font-weight: var(--weight-semibold); }
+  .tools { display: grid; gap: var(--space-s); }
+  .tool { display: grid; gap: var(--space-xs); align-content: start; padding: var(--space-m); background-color: var(--color-surface); border-radius: var(--radius-card); }
+  .logo { display: grid; place-items: center start; block-size: 4.5rem; margin-block-end: var(--space-2xs); }
+  .logo-img { max-block-size: 100%; inline-size: auto; max-inline-size: 70%; object-fit: contain; }
+  h3 { font-size: var(--step-title); line-height: var(--leading-head); font-weight: var(--weight-medium); }
+  .tool p { color: var(--color-text-soft); }
 
   @media (min-width: 40em) {
     .tools { grid-template-columns: repeat(2, minmax(0, 1fr)); }

@@ -63,3 +63,14 @@ export function faqPage(items: { question: string; answer: string }[]) {
 export function graph(nodes: object[]) {
   return JSON.stringify({ '@context': 'https://schema.org', '@graph': [organization, website, ...nodes] }).replace(/</g, String.fromCharCode(92) + 'u003c');
 }
+
+export const advisoryVideo = () => ({
+  '@type': 'VideoObject',
+  name: 'Así son nuestras asesorías',
+  description: 'Video informativo donde Científica Consultores muestra su metodología de asesoría personalizada para guiar a los estudiantes en cada etapa del proceso de elaboración de su proyecto de tesis.',
+  thumbnailUrl: [`${site.url}/videos/thumbnail-asesorias.jpg`],
+  uploadDate: '2025-08-04T09:26:29-05:00',
+  duration: 'PT1M28S',
+  contentUrl: `${site.url}/videos/Asi-son-nuestras-asesorias.mp4`,
+  publisher: { '@id': `${site.url}/#organizacion` },
+});

@@ -9,12 +9,12 @@ import officeImg from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg'
 import PageHero from '@/components/ui/PageHero.astro';
 import { fullAddress, site } from '@/config/site';
 import { planNames, planRows } from '@/data/plans';
-import { breadcrumb } from '@/lib/schema';
+import { advisoryVideo, breadcrumb } from '@/lib/schema';
 import { capitalize } from '@/lib/format';
 
 const address = fullAddress;
 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${address}, Perú`)}`;
-const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos', path: '/contactanos.html' }])];
+const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos', path: '/contactanos.html' }]), advisoryVideo()];
 ---
 
 <Base

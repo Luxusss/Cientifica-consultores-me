@@ -1,10 +1,10 @@
 import type { ImageMetadata } from 'astro';
 import type { Faq } from './faq';
 import { doctoradoFaq, maestriaFaq, pregradoFaq, tspFaq } from './faq';
-import pregradoImg from '@/assets/images/tesis/asesora-de-proyecto-de-tesis.jpg';
-import maestriaImg from '@/assets/images/otros/asesor-de-tesis-de-maestria-cientifica-consultores.jpg';
-import doctoradoImg from '@/assets/images/tesis/asesor-de-tesis-doctoral.jpg';
-import tspImg from '@/assets/images/tesis/asesora-de-trabajo-de-suficiencia-profesional.png';
+import pregradoImg from '@/assets/images/banner/asesoria-tesis-pregrado.jpg';
+import maestriaImg from '@/assets/images/banner/asesoria-tesis-maestria.jpg';
+import doctoradoImg from '@/assets/images/banner/asesoria-tesis-doctoral.jpg';
+import tspImg from '@/assets/images/banner/asesoria-de-trabajo-de-suficiencia-profesional.jpg';
 
 export type Point = { title?: string; text: string; id?: string };
 export type Block = { id: string; title: string; intro?: string; points: Point[] };
@@ -47,7 +47,7 @@ export const servicePages: Record<string, ServicePage> = {
     h1: 'Asesoría de tesis de pregrado',
     lede: 'El último paso para tu título, con un asesor de tu carrera a tu lado, en Lima, a nivel nacional y online.',
     image: pregradoImg,
-    imageAlt: 'Egresada con toga celebrando su graduación',
+    imageAlt: 'Asesoría de tesis de pregrado en Lima y online',
     formSubject: 'Nuevo lead - Tesis de Pregrado',
     intro: [
       'La tesis de pregrado es el último gran paso para obtener tu título universitario, pero suele ser un proceso complejo y estresante. En Científica Consultores te ofrecemos asesoría de tesis en Lima, a nivel nacional y online. Nuestro acompañamiento cubre todas las fases: desde la elección del tema de investigación y la metodología (cualitativa, cuantitativa o mixta) hasta la redacción final, la verificación anti-plagio con Turnitin y la preparación para la sustentación. Enfócate en tu futuro académico y profesional.',
@@ -104,7 +104,7 @@ export const servicePages: Record<string, ServicePage> = {
     h1: 'Asesoría de tesis de maestría',
     lede: '¿Buscas ayuda profesional para hacer tu tesis de maestría?',
     image: maestriaImg,
-    imageAlt: 'Asesor de tesis de maestría de Científica Consultores en una biblioteca',
+    imageAlt: 'Asesoría de tesis de maestría',
     formSubject: 'Nuevo lead - Tesis de Maestría',
     intro: ['En Científica Consultores ofrecemos asesoría de tesis en Lima, con un enfoque integral para cada etapa de tu proyecto. Te garantizamos un proceso transparente y eficiente, adaptado a tus necesidades académicas.'],
     sections: [
@@ -159,7 +159,7 @@ export const servicePages: Record<string, ServicePage> = {
     h1: 'Asesoría de tesis doctoral',
     lede: 'Un asesor con experiencia en investigación avanzada te acompaña desde la propuesta doctoral hasta la defensa.',
     image: doctoradoImg,
-    imageAlt: 'Asesor de tesis doctoral de Científica Consultores',
+    imageAlt: 'Asesoría de tesis doctoral',
     formSubject: 'Nuevo lead - Tesis Doctoral',
     intro: ['En Científica Consultores somos especialistas en brindar ayuda para tesis doctoral a profesionales que buscan completar su trabajo de investigación con excelencia. Sabemos que el proceso de una tesis de doctorado es exigente, por lo que nuestros asesores de tesis doctorales te acompañan en cada etapa, desde la planificación hasta la sustentación.'],
     sections: [
@@ -205,7 +205,7 @@ export const servicePages: Record<string, ServicePage> = {
     h1: 'Asesoría para tu trabajo de suficiencia profesional (TSP)',
     lede: '¿Tienes experiencia laboral de 3 años pero necesitas tu título universitario?',
     image: tspImg,
-    imageAlt: 'Asesora de trabajo de suficiencia profesional de Científica Consultores',
+    imageAlt: 'Asesoría de trabajo de suficiencia profesional',
     formSubject: 'Nuevo lead - TSP',
     intro: ['Enfrentar tu trabajo de suficiencia profesional es el último paso para obtener tu título. En Científica Consultores ofrecemos una asesoría TSP integral para guiarte en cada etapa, asegurando que tu trabajo cumpla con los más altos estándares académicos y profesionales. Nuestro equipo de expertos está listo para ayudarte a alcanzar el éxito.'],
     sections: [

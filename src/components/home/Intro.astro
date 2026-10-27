@@ -1,12 +1,12 @@
 ---
 import { Image } from 'astro:assets';
 import { intro } from '@/data/home';
-import graduates from '@/assets/images/otros/graduados.jpg';
+import team from '@/assets/images/otros/equipo-de-asesores.jpg';
 ---
 
 <section class="section page intro" aria-label="Presentación">
   <div class="picture" data-reveal="shutter">
-    <Image src={graduates} alt="Graduados asesorados por Científica Consultores el día de su titulación" widths={[480, 720, 960]} sizes="(min-width: 64em) 30vw, 100vw" class="photo" />
+    <Image src={team} alt="Equipo de asesores de Científica Consultores" widths={[480, 720, 960, 1280]} sizes="(min-width: 64em) 40vw, 100vw" class="photo" />
   </div>
   <p class="standfirst" data-reveal>{intro}</p>
 </section>
@@ -14,13 +14,12 @@ import graduates from '@/assets/images/otros/graduados.jpg';
 <style>
   .intro { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
   .picture { overflow: hidden; }
-  .photo { inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .photo { inline-size: 100%; block-size: auto; }
   .standfirst { font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: none; }
 
   @media (min-width: 64em) {
     .intro { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-    .picture { grid-column: 1 / span 4; }
-    .photo { aspect-ratio: 4 / 5; }
-    .standfirst { grid-column: 6 / -1; }
+    .picture { grid-column: 1 / span 5; }
+    .standfirst { grid-column: 7 / -1; }
   }
 </style>

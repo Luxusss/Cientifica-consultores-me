@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import logo from '@/assets/brand/logo-color.png';
 import logoWhite from '@/assets/brand/logo-white.png';
 import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
 import { mainNav, services } from '@/config/navigation';
@@ -14,11 +13,10 @@ const current = Astro.url.pathname;
 const isCurrent = (href: string) => current === href || (href === '/index.html' && current === '/');
 ---
 
-<header class:list={['header', { overlay }]} data-header>
+<header class:list={['header', 'theme-field', { overlay }]} data-header>
   <div class="page bar">
     <a class="brand" href="/" aria-label="Científica Consultores, inicio">
-      <Image src={logo} alt="" width={168} loading="eager" fetchpriority="high" class="logo-color" />
-      {overlay && <Image src={logoWhite} alt="" width={168} loading="eager" class="logo-white" />}
+      <Image src={logoWhite} alt="" width={168} loading="eager" fetchpriority="high" />
     </a>
 
     <nav class="nav" aria-label="Principal">
@@ -92,13 +90,9 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
   }
 
   .brand { display: block; flex-shrink: 0; }
-  .logo-white { display: none; }
 
   @media (min-width: 64em) {
     .overlay { margin-block-end: calc(-1 * var(--header-height)); background-color: transparent; transition: background-color var(--duration-ui) var(--ease-out); }
-    .overlay:not(.is-solid) .logo-color { display: none; }
-    .overlay:not(.is-solid) .logo-white { display: block; }
-    .overlay:not(.is-solid) .nav-link { color: var(--paper-0); }
     .overlay.is-solid { background-color: var(--color-bg); }
   }
   .brand img { inline-size: clamp(8.5rem, 7rem + 4vw, 10.5rem); block-size: auto; }
