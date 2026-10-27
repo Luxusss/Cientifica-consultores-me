@@ -13,7 +13,7 @@ Puedes responder directamente en este archivo o por el chat. Todo lo que no se c
 | 5 | **Maestría: 2–6 meses** | FAQ de Maestría | ¿Se mantiene? |
 | 6 | **Duración aproximada de cada etapa** por grado | Nueva pieza "Tu tesis por etapas" | Semanas aproximadas por etapa (ver `servicios.md` › Etapas) |
 | 7 | **"Obtén tu primera asesoría gratis"** | Formularios de servicios y Artículos | ¿La oferta sigue vigente? ¿Qué incluye? |
-| 8 | **"Devolución del dinero si no apruebas"** | Plan Científica Consultores | **URGENTE: contradice los Términos actuales** (punto 7: "no se garantiza la aprobación automática de la tesis"). Mientras no se aclare, la garantía no se publica en el sitio nuevo |
+| 8 | **"Devolución del dinero si no apruebas"** | Plan Científica Consultores | **RESUELTO (27/10/2026):** no se publica. La garantía del sitio es el levantamiento de observaciones (ilimitado por 1 año en el Plan Científica Consultores; 4 meses en el Plan Tesis Completa), coherente con el punto 7 de los Términos |
 | 9 | **Permiso de los 6 testimonios con nombre** | Portada, Testimonios | Confirmar el permiso (la página dice que lo autorizaron) |
 | 10 | **Las 12 capturas de testimonios** | Testimonios | Permiso + autorizar que se transcriban como texto |
 | 11 | **Lista de universidades** | `_inventario/universidades.md` | Revisar la limpieza de nombres y confirmar |
