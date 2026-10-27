@@ -47,10 +47,11 @@ const schema = [
 
 <Base title={page.title} description={page.description} image={`/og/${page.id}.jpg`} schema={schema}>
   <PageHero title={page.h1} crumb={page.crumb} lede={page.lede} balance="photo">
-    <FormCard title="¡Obtén tu primera asesoría gratis!" subject={page.formSubject} variant="short" submitLabel="Quiero asesoría" />
-    <ul class="trust" role="list">
-      {trust.map((t) => <li><Icon name={t.icon} size="1.1rem" />{t.label}</li>)}
-    </ul>
+    <FormCard title="¡Obtén tu primera asesoría gratis!" subject={page.formSubject} variant="short" submitLabel="Quiero asesoría">
+      <ul class="trust" role="list">
+        {trust.map((t) => <li><Icon name={t.icon} size="1rem" />{t.label}</li>)}
+      </ul>
+    </FormCard>
     <Picture slot="media" formats={['avif', 'webp']} quality={80} src={page.image} alt={page.imageAlt} widths={[960, 1280, 1570]} sizes="100vw" loading="eager" fetchpriority="high" />
   </PageHero>
 
@@ -77,7 +78,7 @@ const schema = [
 </Base>
 
 <style>
-  .trust { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-m); color: var(--color-text-soft); font-size: var(--step-small); }
+  .trust { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-m); padding-block-start: var(--space-s); border-block-start: 1px solid color-mix(in srgb, var(--ink-900) 10%, transparent); color: var(--color-text-soft); font-size: var(--step-small); }
   .trust li { display: inline-flex; align-items: center; gap: var(--space-3xs); }
   .trust :global(svg) { color: var(--orange-500); }
 

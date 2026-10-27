@@ -14,6 +14,7 @@ const { title, subject, variant = 'full', submitLabel } = Astro.props;
 <div class="form-card theme-surface stack stack-m" id="formulario" data-lead-form>
   <h2 class="text-lead text-strong">{title}</h2>
   <LeadForm subject={subject} variant={variant} submitLabel={submitLabel} />
+  <slot />
 </div>
 
 <style>
