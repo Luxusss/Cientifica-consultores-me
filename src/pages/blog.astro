@@ -33,7 +33,7 @@ const schema = [
       {posts.map((post, i) => (
         <li class:list={['post', { lead: i === 0 }]}>
           <a href={`/blog/${post.id}.html`} class="post-link">
-            <Image src={post.data.cover} alt="" widths={[480, 720, 960]} sizes={i === 0 ? '(min-width: 64em) 58vw, 100vw' : '(min-width: 64em) 30vw, 100vw'} class="cover" />
+            <Image src={post.data.cover} alt={post.data.title} widths={[480, 720, 960]} sizes={i === 0 ? '(min-width: 64em) 58vw, 100vw' : '(min-width: 64em) 30vw, 100vw'} class="cover" />
             <span class="post-text">
               <h3 class="post-title">{post.data.heading}</h3>
               <span class="excerpt">{post.data.description}</span>

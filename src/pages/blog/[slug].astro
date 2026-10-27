@@ -46,7 +46,7 @@ const schema = [
         <h1>{post.data.heading}</h1>
         <p class="meta"><time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time></p>
       </div>
-      <Picture src={post.data.cover} formats={['avif', 'webp']} quality={70} alt="" widths={[640, 960, 1280]} sizes="(min-width: 64em) 58vw, 100vw" loading="eager" fetchpriority="high" class="cover" />
+      <Picture src={post.data.cover} formats={['avif', 'webp']} quality={70} alt={post.data.heading} widths={[640, 960, 1280]} sizes="(min-width: 64em) 58vw, 100vw" loading="eager" fetchpriority="high" class="cover" />
     </div>
   </header>
   <article class="section page article">
@@ -63,7 +63,7 @@ const schema = [
       {related.map((r) => (
         <li>
           <a href={`/blog/${r.id}.html`} class="rel-link">
-            <Image src={r.data.cover} alt="" widths={[360, 540, 720]} sizes="(min-width: 64em) 30vw, 100vw" class="rel-img" />
+            <Image src={r.data.cover} alt={r.data.title} widths={[360, 540, 720]} sizes="(min-width: 64em) 30vw, 100vw" class="rel-img" />
             <h3>{r.data.heading}</h3>
           </a>
         </li>

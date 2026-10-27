@@ -51,7 +51,7 @@ const schema = [
     <ul class="trust" role="list">
       {trust.map((t) => <li><Icon name={t.icon} size="1.1rem" />{t.label}</li>)}
     </ul>
-    <Picture slot="media" formats={['avif', 'webp']} quality={80} src={page.image} alt={page.imageAlt} widths={[960, 1280, 1570]} sizes="100vw" loading="eager" fetchpriority="high" />
+    <Picture slot="media" formats={['avif', 'webp']} quality={80} src={page.image} alt={page.imageAlt} widths={[960, 1440, 1920, 2880]} sizes="100vw" loading="eager" fetchpriority="high" />
   </PageHero>
 
   <section class="section-wide page standfirst" aria-label="Presentación">

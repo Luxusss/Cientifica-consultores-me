@@ -9,7 +9,7 @@ import tspImg from '@/assets/images/banner/asesoria-de-trabajo-de-suficiencia-pr
 import pregradoIntro from '@/assets/images/otros/asesora-de-tesis-de-pregardo.jpg';
 import maestriaIntro from '@/assets/images/otros/asesor-de-tesis-de-maestria-cientifica-consultores.jpg';
 import doctoradoIntro from '@/assets/images/tesis/asesor-de-tesis-doctoral.jpg';
-import tspIntro from '@/assets/images/tesis/asesora-de-trabajo-de-suficiencia-profesional.png';
+import tspIntro from '@/assets/images/tesis/asesora-de-trabajo-de-suficiencia-profesional.jpg';
 import especialistaImg from '@/assets/images/tesis/secciones/especialista-en-tesis.jpg';
 import turnitinImg from '@/assets/images/tesis/secciones/asesor-de-tesis-especializado-en-turnitin.jpg';
 import onlineImg from '@/assets/images/tesis/secciones/analisis_de_similitud.webp';

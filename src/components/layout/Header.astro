@@ -34,8 +34,8 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
 
 <header class:list={['header', 'theme-field', { overlay }]} data-header>
   <div class="edge-frame bar">
-    <a class="brand" href="/" aria-label="Científica Consultores, inicio">
-      <Image src={logoWhite} alt="" width={168} loading="eager" fetchpriority="high" />
+    <a class="brand" href="/">
+      <Image src={logoWhite} alt="Científica Consultores" width={168} loading="eager" fetchpriority="high" />
     </a>
 
     <nav class="nav" aria-label="Principal">
@@ -70,7 +70,7 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
       {serviceData.filter((d) => d.id !== 'proyecto').map((d) => (
         <li>
           <a class="service" href={d.href} aria-current={isCurrent(d.href) ? 'page' : undefined}>
-            <Image src={d.image} alt="" width={96} height={96} class="service-img" />
+            <Image src={d.image} alt={`Asesor de ${d.navLabel.toLowerCase()} de Científica Consultores`} width={96} height={96} class="service-img" />
             <span class="service-text">
               <span class="service-name">{d.navLabel}</span>
               <span class="service-desc">{d.summary}</span>

@@ -50,15 +50,17 @@ const hasMedia = Astro.slots.has('media');
 
   .photo-hero { gap: 0; overflow: hidden; }
   .photo-hero .text { align-content: center; padding: var(--space-xl) var(--page-margin) var(--space-2xl); position: relative; z-index: 1; }
-  .photo-hero .media { aspect-ratio: 16 / 9; overflow: hidden; }
+  .photo-hero .media { aspect-ratio: 4 / 3; overflow: hidden; }
   .photo-hero .media :global(picture) { display: block; block-size: 100%; }
-  .photo-hero .media :global(img) { block-size: 100%; aspect-ratio: auto; object-position: 85% 30%; }
+  .photo-hero .media :global(img) { block-size: 100%; aspect-ratio: auto; object-position: 96% 20%; }
+  .photo-hero .media :global(img.focus-center) { object-position: 60% 30%; }
 
   @media (min-width: 64em) {
     .photo-hero { grid-template-areas: 'stack'; min-block-size: min(calc(100svh - var(--header-height)), 34rem); }
     .photo-hero .media, .photo-hero .text { grid-area: stack; }
     .photo-hero { position: relative; }
     .photo-hero .media { aspect-ratio: auto; position: absolute; inset: 0; }
+    .photo-hero .media :global(img) { object-position: 80% 20%; }
     .photo-hero .media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, var(--scrim-soft) 0%, transparent 20%), linear-gradient(0deg, color-mix(in srgb, var(--ink-900) 55%, transparent) 0%, transparent 30%), linear-gradient(90deg, var(--scrim-strong) 0%, var(--scrim-strong) 24%, transparent 60%); }
     .photo-hero .text { padding-inline: max(var(--page-margin), calc((100vw - var(--page-max)) / 2)) var(--space-l); padding-block: var(--space-l) var(--space-xl); max-inline-size: calc(max(var(--page-margin), (100vw - var(--page-max)) / 2) + 46rem); }
     .photo-hero .text :global(.form-card) { max-inline-size: 42rem; margin-block-start: var(--space-2xs); padding: var(--space-m) var(--space-m) var(--space-s); gap: var(--space-s); box-shadow: 0 24px 60px -24px color-mix(in srgb, var(--ink-900) 55%, transparent); }
