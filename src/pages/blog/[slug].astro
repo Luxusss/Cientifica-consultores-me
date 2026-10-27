@@ -78,7 +78,7 @@ const schema = [
   .head { display: grid; gap: var(--space-m); }
   .head h1 { max-inline-size: 20ch; font-size: min(var(--step-head), 2.25rem); line-height: var(--leading-head); letter-spacing: var(--tracking-head); }
   .meta { color: var(--color-text-soft); font-size: var(--step-small); }
-  .cover { inline-size: 100%; block-size: auto; }
+  .cover { inline-size: 100%; block-size: auto; border-radius: var(--radius-card); }
   @media (min-width: 64em) {
     .head-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
     .head h1 { font-size: min(var(--step-head), 4.25rem); }
@@ -91,7 +91,7 @@ const schema = [
   .related h2 { font-size: var(--step-head); }
   .related ul { display: grid; gap: var(--space-l); }
   .rel-link { display: grid; gap: var(--space-s); color: var(--color-text); text-decoration: none; }
-  .rel-img { inline-size: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+  .rel-img { inline-size: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-card); }
   .rel-link h3 { font-size: var(--step-lead); line-height: var(--leading-lead); }
   @media (hover: hover) and (pointer: fine) {
     .rel-link:hover h3 { text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 0.07em; }
@@ -99,5 +99,5 @@ const schema = [
   @media (min-width: 64em) {
     .related ul { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--gutter); }
   }
-  .cta { display: grid; gap: var(--space-m); justify-items: start; padding: var(--space-l); margin-block-start: var(--space-l); }
+  .cta { display: grid; gap: var(--space-m); justify-items: start; padding: var(--space-l); margin-block-start: var(--space-l); border-radius: var(--radius-card); }
 </style>

@@ -21,21 +21,27 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios'
 >
   <PageHero tone="field" title="Testimonios de nuestros clientes" crumb="Testimonios" lede="Cada logro de nuestros trabajos académicos nos recuerda el sentido de nuestro origen. Agradecemos a nuestros clientes que, por propia iniciativa, autorizan que compartamos sus casos de éxito." />
 
-  <section class="section page split stories" aria-labelledby="historias">
-    <div class="stack stack-m">
-      <h2 id="historias">Lo que dicen nuestros clientes</h2>
-      <p class="text-lead">Historias reales de personas que lograron titularse con nuestro apoyo.</p>
+  <section class="section-wide" aria-labelledby="historias">
+    <div class="page stack stack-xl">
+      <header class="split split-end" data-reveal>
+        <h2 id="historias">Lo que dicen nuestros clientes</h2>
+        <p class="text-lead">Historias reales de personas que lograron titularse con nuestro apoyo.</p>
+      </header>
+      <ul class="cards" role="list" data-reveal="stagger">
+        {testimonials.map((t) => (
+          <li class="card">
+            <figure>
+              <span class="mark" aria-hidden="true">“</span>
+              <blockquote><p>{t.quote}</p></blockquote>
+              <figcaption>
+                <span class="avatar" aria-hidden="true">{t.name.charAt(0)}</span>
+                <span class="who"><strong>{t.name}</strong><span>{t.university}, {t.country}</span></span>
+              </figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
     </div>
-    <ul class="list" role="list" data-reveal="stagger">
-      {testimonials.map((t) => (
-        <li>
-          <figure>
-            <blockquote><p>“{t.quote}”</p></blockquote>
-            <figcaption><strong>{t.name}</strong><span>{t.university}, {t.country}</span></figcaption>
-          </figure>
-        </li>
-      ))}
-    </ul>
   </section>
 
   <section class="theme-surface section-wide" aria-labelledby="mensajes">
@@ -53,15 +59,15 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios'
 </Base>
 
 <style>
-  .stories { --axis: 6; }
-  .list { display: grid; gap: var(--space-xl) var(--gutter); }
+  .cards { columns: 3 20rem; column-gap: var(--space-m); }
+  .card { break-inside: avoid; margin-block-end: var(--space-m); padding: var(--space-l); background-color: var(--color-surface); border-radius: var(--radius-card); }
   figure { display: grid; gap: var(--space-s); }
-  blockquote p { font-size: var(--step-lead); line-height: var(--leading-lead); }
-  figcaption { display: grid; gap: var(--space-3xs); }
-  figcaption span { color: var(--color-text-soft); }
-  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(12rem, 45%), 1fr)); gap: var(--space-s); }
-  .shot { inline-size: 100%; block-size: auto; }
-  @media (min-width: 64em) {
-    .list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
+  .mark { font-size: 3rem; line-height: 0.5; color: var(--orange-500); block-size: 1.25rem; }
+  blockquote p { font-size: var(--step-body); line-height: var(--leading-body); }
+  figcaption { display: flex; align-items: center; gap: var(--space-xs); margin-block-start: var(--space-2xs); }
+  .avatar { display: grid; place-items: center; inline-size: 2.75rem; block-size: 2.75rem; border-radius: 50%; background-color: var(--navy-600); color: var(--paper-0); font-weight: var(--weight-semibold); flex-shrink: 0; }
+  .who { display: grid; line-height: var(--leading-small); }
+  .who span { color: var(--color-text-soft); font-size: var(--step-small); }
+  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(11rem, 45%), 1fr)); gap: var(--space-s); }
+  .shot { inline-size: 100%; block-size: auto; border-radius: var(--radius-card); }
 </style>
