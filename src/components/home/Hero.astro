@@ -1,14 +1,14 @@
 ---
 import { Picture } from 'astro:assets';
 import Icon from '@/components/ui/Icon.astro';
-import { site } from '@/config/site';
-import { universities } from '@/data/proof';
+import { stats } from '@/data/stats';
 import heroImg from '@/assets/images/banner/asesores-de-tesis-cientifica-consultores.jpg';
 
 const facts = [
-  { value: '+10 años', count: 10, label: 'asesorando tesis' },
-  { value: `${site.countries.length} países`, count: site.countries.length, label: 'con atención online' },
-  { value: `+${universities.reduce((n, g) => n + g.names.length, 0)} universidades`, count: universities.reduce((n, g) => n + g.names.length, 0), label: 'de nuestros clientes' },
+  { value: `+${stats.years} años`, count: stats.years, label: 'asesorando tesis' },
+  { value: `+${stats.clients} clientes`, count: stats.clients, label: 'asesorados' },
+  { value: `+${stats.universities} universidades`, count: stats.universities, label: 'de nuestros clientes' },
+  { value: `${stats.countries} países`, count: stats.countries, label: 'con atención online' },
 ];
 
 const shortcuts = [
@@ -139,7 +139,7 @@ const badges = [
   .badge-text strong { font-size: var(--step-ui); font-weight: var(--weight-semibold); }
   .badge-text span { font-size: var(--step-small); color: var(--navy-100); }
 
-  .facts { display: flex; flex-wrap: wrap; gap: var(--space-m) var(--space-xl); }
+  .facts { display: grid; grid-template-columns: repeat(2, max-content); gap: var(--space-m) var(--space-xl); }
   .facts dt { white-space: nowrap; }
   .facts div { display: grid; gap: var(--space-3xs); }
   .facts dt { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-semibold); }
@@ -162,7 +162,7 @@ const badges = [
     .text { align-self: center; max-inline-size: min(52%, 46rem); }
     h1 { font-size: min(var(--step-display), 4vw); }
     .line { display: inline-block; }
-    .facts { max-inline-size: none; }
+    .facts { max-inline-size: min(52%, 46rem); grid-template-columns: repeat(4, max-content); column-gap: var(--space-l); }
     .badges { display: block; grid-area: stack; position: relative; z-index: 1; pointer-events: none; translate: calc(var(--px, 0) * -18px) calc(var(--py, 0) * -12px); transition: translate 600ms var(--ease-out); }
     .media .photo { translate: calc(var(--px, 0) * 14px) calc(var(--py, 0) * 10px); scale: 1.04; transition: translate 600ms var(--ease-out); }
     .badge { position: absolute; inset-block-end: 13%; translate: -50% 0; white-space: nowrap; }

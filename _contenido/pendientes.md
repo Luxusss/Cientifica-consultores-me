@@ -4,12 +4,14 @@ Puedes responder directamente en este archivo o por el chat. Todo lo que no se c
 
 ## D3: datos que tiene que confirmar la empresa
 
+Todas las cifras se cambian en un solo archivo: `src/data/stats.ts`. Basta con poner el número real actualizado y se refleja en portada, TSP y servicios.
+
 | # | Dato | Dónde aparece hoy | Qué necesito |
 |---|---|---|---|
-| 1 | **1791 clientes, 967 proyectos, 132 eventos, 676 certificados** | Portada, Nosotros, Artículos | ¿Son reales y están actualizados? |
-| 2 | **"+500 casos exitosos"** / **"Más de 500 TSP exitosos"** | TSP (description y página) | Choca con el n.º 1. ¿Cuál es el dato correcto? |
-| 3 | **"98 % de aprobación en primera sustentación"** | TSP | ¿Hay registro que lo respalde? Si no, se quita |
-| 4 | **"Título en solo 1 mes"** vs **"1–2 meses promedio"** | TSP | ¿Cuál es real? |
+| 1 | **1791 clientes, 967 proyectos, 132 eventos, 676 certificados** | Portada, Nosotros, Artículos | Hoy la portada muestra +1791 clientes (dato de producción, de hace años). Pasar el total real a la fecha: contratos firmados o clientes en el CRM desde el inicio |
+| 2 | **"+500 casos exitosos"** / **"Más de 500 TSP exitosos"** | TSP (description y página) | Se muestra "Más de 500 TSP". Pasar el total real de TSP asesorados |
+| 3 | **"98 % de aprobación en primera sustentación"** | TSP | Se mantiene el texto de producción. Si hay registro, actualizar la cifra; si no lo hay, quitarla |
+| 4 | **"Título en solo 1 mes"** vs **"1–2 meses promedio"** | TSP | Unificado: "desde 1 mes, 1 a 2 meses en promedio" (el h2 de producción con "1 mes" se conserva por SEO) |
 | 5 | **Maestría: 2–6 meses** | FAQ de Maestría | ¿Se mantiene? |
 | 6 | **Duración aproximada de cada etapa** por grado | Nueva pieza "Tu tesis por etapas" | Semanas aproximadas por etapa (ver `servicios.md` › Etapas) |
 | 7 | **"Obtén tu primera asesoría gratis"** | Formularios de servicios y Artículos | ¿La oferta sigue vigente? ¿Qué incluye? |
