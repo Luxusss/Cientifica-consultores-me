@@ -10,22 +10,27 @@ const { current, trail = [] } = Astro.props;
 const links: NavLink[] = [{ label: 'Inicio', href: '/' }, ...trail];
 ---
 
-<nav class="crumbs" aria-label="Migas de pan">
-  {links.map((link, i) => (
-    <>
-      {i > 0 && <span aria-hidden="true">/</span>}
-      <a href={link.href}>{link.label}</a>
-    </>
-  ))}
-  {current && (
-    <>
-      <span aria-hidden="true">/</span>
-      <span aria-current="page">{current}</span>
-    </>
-  )}
-</nav>
+<div class="crumb-bar">
+  <nav class="page crumbs" aria-label="Migas de pan">
+    <ol role="list">
+      {links.map((link) => (
+        <li><a href={link.href}>{link.label}</a><span class="sep" aria-hidden="true">›</span></li>
+      ))}
+      {current && <li><span aria-current="page">{current}</span></li>}
+    </ol>
+  </nav>
+</div>
 
 <style>
-  .crumbs { display: flex; flex-wrap: wrap; gap: var(--space-2xs); font-size: var(--step-small); color: var(--color-text-soft); }
-  .crumbs a { color: var(--color-text-soft); }
+  .crumb-bar { border-block-end: 1px solid color-mix(in srgb, var(--ink-900) 8%, transparent); background-color: var(--paper-0); }
+  .crumbs { padding-block: var(--space-s); }
+  ol { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2xs); font-size: var(--step-small); }
+  li { display: inline-flex; align-items: center; gap: var(--space-2xs); }
+  a { color: var(--ink-600); text-decoration: none; }
+  .sep { color: var(--ink-600); }
+  [aria-current='page'] { color: var(--navy-600); font-weight: var(--weight-semibold); }
+
+  @media (hover: hover) and (pointer: fine) {
+    a:hover { color: var(--navy-600); text-decoration: underline; text-underline-offset: 0.2em; }
+  }
 </style>

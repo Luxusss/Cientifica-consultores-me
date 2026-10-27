@@ -42,13 +42,13 @@ const schema = [
   <header class="theme-field article-head">
     <div class="page head-grid">
       <div class="head">
-        <Breadcrumbs trail={[{ label: 'Blog', href: '/blog.html' }]} />
         <h1>{post.data.heading}</h1>
         <p class="meta"><time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time></p>
       </div>
       <Picture src={post.data.cover} formats={['avif', 'webp']} quality={70} alt={post.data.heading} widths={[640, 960, 1280]} sizes="(min-width: 64em) 58vw, 100vw" loading="eager" fetchpriority="high" class="cover" />
     </div>
   </header>
+  <Breadcrumbs trail={[{ label: 'Blog', href: '/blog.html' }]} current={post.data.title} />
   <article class="section page article">
     <Prose><Content /></Prose>
     <aside class="cta theme-surface" aria-label="Asesoría" data-reveal>

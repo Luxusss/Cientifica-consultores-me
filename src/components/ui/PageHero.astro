@@ -18,7 +18,6 @@ const hasMedia = Astro.slots.has('media');
 
 <section class:list={['page-hero', balance === 'photo' && hasMedia ? 'photo-hero theme-field' : 'section page', hasMedia && balance !== 'photo' && `with-media favor-${balance}`, tone === 'field' && balance !== 'photo' && 'theme-field field-hero']} aria-labelledby="titulo">
   <div class="stack stack-m text">
-    <Breadcrumbs current={crumb} trail={trail} />
     <h1 id="titulo"><slot name="title">{title}</slot></h1>
     {subtitle && <p class="text-lead text-strong">{subtitle}</p>}
     {lede && <p class="text-lead">{lede}</p>}
@@ -26,6 +25,7 @@ const hasMedia = Astro.slots.has('media');
   </div>
   {hasMedia && <div class="media"><slot name="media" /></div>}
 </section>
+<Breadcrumbs current={crumb} trail={trail} />
 
 <style>
   .page-hero { display: grid; gap: var(--space-l); }
