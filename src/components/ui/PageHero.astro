@@ -62,9 +62,9 @@ const hasMedia = Astro.slots.has('media');
     .photo-hero .media { aspect-ratio: auto; position: absolute; inset: 0 0 0 auto; inline-size: min(100%, 1570px); mask-image: linear-gradient(90deg, transparent 0, #000 22%); }
     .photo-hero .media :global(img) { object-position: 50% 25%; }
     .photo-hero::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, var(--scrim-soft) 0%, transparent 20%), linear-gradient(0deg, color-mix(in srgb, var(--ink-900) 55%, transparent) 0%, transparent 30%), linear-gradient(90deg, var(--scrim-strong) 0%, var(--scrim-strong) 24%, transparent 60%); }
-    .photo-hero .text { padding-inline: var(--edge) var(--space-l); padding-block: var(--space-l) var(--space-xl); max-inline-size: calc(var(--edge) + 46rem); }
+    .photo-hero .text { padding-inline: var(--edge) var(--space-l); padding-block: var(--space-l) var(--space-xl); max-inline-size: calc(var(--edge) + 56rem); }
     .photo-hero .text :global(.form-card) { max-inline-size: 42rem; margin-block-start: var(--space-2xs); padding: var(--space-m) var(--space-m) var(--space-s); gap: var(--space-s); box-shadow: 0 24px 60px -24px color-mix(in srgb, var(--ink-900) 55%, transparent); }
-    .page-hero.photo-hero :global(h1) { font-size: min(var(--step-display), 3.5rem); max-inline-size: 24ch; }
+    .page-hero.photo-hero :global(h1) { font-size: min(var(--step-display), 3.5rem); max-inline-size: none; text-wrap: balance; }
     .page-hero :global(h1) { font-size: min(var(--step-display), 5vw); }
     .favor-media :global(h1) { font-size: min(var(--step-display), 4vw); }
     .field-hero:not(.with-media) .text { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: end; }
