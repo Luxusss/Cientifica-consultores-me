@@ -60,7 +60,7 @@ const hasMedia = Astro.slots.has('media');
     .photo-hero { position: relative; }
     .photo-hero .media { aspect-ratio: auto; position: absolute; inset: 0; }
     .photo-hero .media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--scrim-strong) 0%, color-mix(in srgb, var(--navy-600) 70%, transparent) 38%, transparent 62%); }
-    .photo-hero .text { padding-inline: max(var(--page-margin), calc((100vw - var(--page-max)) / 2)) var(--space-l); padding-block: var(--space-xl) var(--space-2xl); max-inline-size: calc(max(var(--page-margin), (100vw - var(--page-max)) / 2) + 46rem); }
+    .photo-hero .text { padding-inline: max(var(--page-margin), calc((100vw - var(--page-max)) / 2)) var(--space-l); padding-block: var(--space-l) var(--space-xl); max-inline-size: calc(max(var(--page-margin), (100vw - var(--page-max)) / 2) + 46rem); }
     .photo-hero .text :global(.form-card) { max-inline-size: 42rem; margin-block-start: var(--space-2xs); padding: var(--space-m) var(--space-m) var(--space-s); gap: var(--space-s); box-shadow: 0 24px 60px -24px color-mix(in srgb, var(--ink-900) 55%, transparent); }
     .page-hero.photo-hero :global(h1) { font-size: min(var(--step-display), 3.5rem); max-inline-size: 24ch; }
     .page-hero :global(h1) { font-size: min(var(--step-display), 5vw); }

@@ -34,20 +34,29 @@ const options = countries.map((c) => ({ value: c.name, label: `${c.name} (${c.co
     <input id={`${uid}-honey`} type="text" name="_honey" tabindex="-1" autocomplete="off" />
   </div>
 
-  <Field id={`${uid}-nombre`} label="Nombres y apellidos" name="nombre" autocomplete="name" required minlength="3" error="Escribe tu nombre y apellido." />
-  {variant === 'full' && (
-    <Field id={`${uid}-email`} label="Correo electrónico" name="email" type="email" autocomplete="email" inputmode="email" required error="Revisa el formato del correo." />
-  )}
-  <div class="phone">
-    <Field id={`${uid}-pais`} label="País" name="pais" type="select" options={options} autocomplete="country-name" />
-    <Field id={`${uid}-telefono`} label="Teléfono" name="telefono" type="tel" autocomplete="tel-national" inputmode="tel" required pattern="[0-9 +()-]{7,20}" error="Escribe un teléfono válido (7 a 15 dígitos)." />
-    {variant === 'short' && <Button type="submit">{submitLabel}</Button>}
+  <div class="pair">
+    <Field id={`${uid}-nombre`} label="Nombres y apellidos" name="nombre" autocomplete="name" required minlength="3" error="Escribe tu nombre y apellido." />
+    {variant === 'full' ? (
+      <Field id={`${uid}-email`} label="Correo electrónico" name="email" type="email" autocomplete="email" inputmode="email" required error="Revisa el formato del correo." />
+    ) : (
+      <Field id={`${uid}-email`} label="Correo electrónico (opcional)" name="email" type="email" autocomplete="email" inputmode="email" error="Revisa el formato del correo." />
+    )}
   </div>
-  {variant === 'full' && (
-    <Field id={`${uid}-mensaje`} label="Cuéntanos qué necesitas" name="mensaje" type="textarea" required error="Cuéntanos brevemente tu caso." />
+  <div class="phone">
+    <Field id={`${uid}-pais`} label="País" name="pais" type="select" options={options} autocomplete="country-name" required />
+    <Field id={`${uid}-telefono`} label={variant === 'full' ? 'WhatsApp (opcional)' : 'WhatsApp'} name="telefono" type="tel" autocomplete="tel-national" inputmode="tel" required={variant === 'short'} pattern="[0-9 +()-]{7,20}" error="Escribe un teléfono válido (7 a 15 dígitos)." />
+  </div>
+  {variant === 'full' ? (
+    <>
+      <Field id={`${uid}-mensaje`} label="Cuéntanos qué necesitas" name="mensaje" type="textarea" required error="Cuéntanos brevemente tu caso." />
+      <Button type="submit">{submitLabel}</Button>
+    </>
+  ) : (
+    <div class="send">
+      <Field id={`${uid}-mensaje`} label="Tu avance y el apoyo que requieres (opcional)" name="mensaje" type="textarea" rows="2" placeholder="¿En qué parte está tu proyecto de tesis? ¿Qué apoyo requieres?" />
+      <Button type="submit">{submitLabel}</Button>
+    </div>
   )}
-
-  {variant === 'full' && <Button type="submit">{submitLabel}</Button>}
   <p class="status" role="status" aria-live="polite" data-status></p>
 </form>
 
@@ -89,7 +98,7 @@ const options = countries.map((c) => ({ value: c.name, label: `${c.name} (${c.co
         name: String(data.get('nombre') ?? ''),
         email: String(data.get('email') ?? ''),
         phone,
-        notes: `${data.get('_subject')} ${isTouch() ? '(Móvil)' : '(PC)'} - ${data.get('mensaje') ?? 'Interesado en asesoría'}`,
+        notes: `${data.get('_subject')} ${isTouch() ? '(Móvil)' : '(PC)'} - ${String(data.get('mensaje') ?? '').trim() || 'Interesado en asesoría'}`,
         page: window.location.href,
       };
 
@@ -126,15 +135,18 @@ const options = countries.map((c) => ({ value: c.name, label: `${c.name} (${c.co
 
 <style>
   .lead-form { display: grid; gap: var(--space-m); container-type: inline-size; }
-  .phone { display: grid; gap: var(--space-m); }
+  .pair, .phone { display: grid; gap: var(--space-m); }
   @container (min-width: 30rem) {
+    .pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .phone { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
   }
   .lead-form :global(.button) { justify-self: start; }
-  .compact, .compact .phone { gap: var(--space-s); }
+  .compact, .compact .pair, .compact .phone { gap: var(--space-s); }
+  .compact :global(textarea) { min-block-size: 0; block-size: 4.5rem; resize: vertical; }
+  .send { display: grid; gap: var(--space-s); }
   @container (min-width: 30rem) {
-    .compact .phone { grid-template-columns: minmax(0, 2fr) minmax(0, 2.4fr) auto; align-items: end; }
-    .compact .phone :global(.button) { min-block-size: var(--input-height); }
+    .send { grid-template-columns: minmax(0, 1fr) auto; align-items: end; }
+    .send :global(.button) { min-block-size: 4.5rem; }
   }
 
   .status { font-size: var(--step-small); line-height: var(--leading-small); font-weight: var(--weight-semibold); }
