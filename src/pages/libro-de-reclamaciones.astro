@@ -14,8 +14,8 @@ const next = `${site.url}/libro-de-reclamaciones.html?enviado=1`;
   description="Registra tu reclamo o queja sobre nuestros servicios. Te respondemos en un plazo máximo de 15 días hábiles, según la normativa de INDECOPI."
   noindex
 >
-  <section class="section page claims" aria-labelledby="titulo">
-    <header class="head">
+  <section class="section page split split-sticky" aria-labelledby="titulo">
+    <header class="stack stack-m">
       <Breadcrumbs current="Libro de reclamaciones" />
       <h1 id="titulo">Libro de reclamaciones</h1>
       <p class="text-lead">Conforme a lo establecido en el Código de Protección y Defensa del Consumidor, ponemos a tu disposición nuestro Libro de Reclamaciones virtual.</p>
@@ -32,7 +32,7 @@ const next = `${site.url}/libro-de-reclamaciones.html?enviado=1`;
       <input type="hidden" name="_template" value="table" />
       <input type="hidden" name="_captcha" value="false" />
       <input type="hidden" name="_next" value={next} />
-      <div class="trap" aria-hidden="true">
+      <div class="visually-hidden" aria-hidden="true">
         <label for="lr-honey">No llenar</label>
         <input id="lr-honey" type="text" name="_honey" tabindex="-1" autocomplete="off" />
       </div>
@@ -91,8 +91,6 @@ const next = `${site.url}/libro-de-reclamaciones.html?enviado=1`;
 </script>
 
 <style>
-  .claims { display: grid; gap: var(--space-xl); }
-  .head { display: grid; gap: var(--space-m); align-content: start; }
   .provider { display: grid; gap: var(--space-2xs); }
   .provider dt { color: var(--color-text-soft); font-size: var(--step-small); }
   .provider dd { font-weight: var(--weight-medium); }
@@ -115,12 +113,6 @@ const next = `${site.url}/libro-de-reclamaciones.html?enviado=1`;
   .field-file label { font-size: var(--step-small); font-weight: var(--weight-semibold); }
   .field-file input { font-size: var(--step-small); }
 
-  .trap { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
   .form :global(.button) { justify-self: start; }
 
-  @media (min-width: 64em) {
-    .claims { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
-    .head { grid-column: 1 / span var(--axis); position: sticky; inset-block-start: calc(var(--header-height) + var(--space-l)); }
-    .form { grid-column: calc(var(--axis) + 1) / -1; }
-  }
 </style>

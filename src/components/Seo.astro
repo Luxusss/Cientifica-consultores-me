@@ -10,7 +10,8 @@ interface Props {
 }
 
 const { title, description, image = '/og/cientifica-consultores.jpg', noindex = false, type = 'website' } = Astro.props;
-const canonical = new URL(Astro.url.pathname, site.url).href;
+const path = Astro.url.pathname.replace(/index\.html$/, '');
+const canonical = new URL(path, site.url).href;
 const imageUrl = new URL(image, site.url).href;
 ---
 

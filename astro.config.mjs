@@ -10,7 +10,8 @@ export default defineConfig({
   devToolbar: { enabled: false },
   integrations: [
     sitemap({
-      filter: (page) => !/\/(sistema|404)(\.html)?$/.test(page),
+      filter: (page) => !/\/(404|libro-de-reclamaciones)(\.html)?$/.test(page),
+      serialize: (item) => ({ ...item, url: item.url === `${site}/` ? item.url : `${item.url.replace(/\/$/, '')}.html` }),
     }),
   ],
   security: {

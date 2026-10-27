@@ -8,35 +8,25 @@ const guides = [
 ];
 ---
 
-<section class="section page guides" aria-labelledby="guias">
-  <header class="head" data-reveal>
+<section class="section page split split-sticky" aria-labelledby="guias">
+  <header class="stack head" data-reveal>
     <h2 id="guias">Guías para tu tesis</h2>
     <p>Recursos académicos para tu proyecto y desarrollo de tesis, gratis, para estudiantes de pregrado, maestría y doctorado.</p>
     <a href="/blog.html">Ver el blog</a>
   </header>
 
-  <ul class="list" role="list" data-reveal="stagger">
+  <ul class="stack stack-l" role="list" data-reveal="stagger">
     {guides.map((g) => (
       <li>
         <h3>{g.href ? <a href={g.href}>{g.title}</a> : g.title}</h3>
-        <p>{g.text}</p>
+        <p class="text-soft">{g.text}</p>
       </li>
     ))}
   </ul>
 </section>
 
 <style>
-  .guides { display: grid; gap: var(--space-xl); }
-  .head { display: grid; gap: var(--space-s); align-content: start; justify-items: start; }
-
-  .list { display: grid; gap: var(--space-l); }
-  .list h3 { font-size: var(--step-lead); line-height: var(--leading-lead); font-weight: var(--weight-medium); }
-  .list h3 a { color: var(--color-text); }
-  .list p { color: var(--color-text-soft); margin-block-start: var(--space-3xs); }
-
-  @media (min-width: 64em) {
-    .guides { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
-    .head { grid-column: 1 / span var(--axis); position: sticky; inset-block-start: calc(var(--header-height) + var(--space-l)); align-self: start; }
-    .list { grid-column: calc(var(--axis) + 1) / -1; }
-  }
+  .head { justify-items: start; }
+  h3 { font-weight: var(--weight-medium); margin-block-end: var(--space-3xs); }
+  h3 a { color: var(--color-text); }
 </style>

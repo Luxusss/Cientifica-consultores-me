@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '@/layouts/Base.astro';
-import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import PageHero from '@/components/ui/PageHero.astro';
 import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
 import ContactBand from '@/components/sections/ContactBand.astro';
 import { otherServices } from '@/data/otherServices';
@@ -19,18 +19,13 @@ const schema = [
   description="Revisiones sistemáticas, metaanálisis, planes de negocio, trabajo de campo, análisis estadístico y corrección de estilo para tu investigación."
   schema={schema}
 >
-  <section class="section page hero" aria-labelledby="titulo">
-    <div class="intro">
-      <Breadcrumbs current="Otros servicios" />
-      <h1 id="titulo">Otros servicios</h1>
-      <p class="text-lead">Más allá de la tesis: apoyo en cada parte de tu investigación.</p>
-    </div>
-    <nav class="index" aria-label="Grupos de servicios">
+  <PageHero title="Otros servicios" lede="Más allá de la tesis: apoyo en cada parte de tu investigación." balance="media">
+    <nav slot="media" class="index" aria-label="Grupos de servicios">
       <ol role="list">
         {otherServices.map((g) => <li><a href={`#${g.id}`}>{g.name}</a></li>)}
       </ol>
     </nav>
-  </section>
+  </PageHero>
 
   <ol class="groups" role="list">
     {otherServices.map((g, i) => (
@@ -53,17 +48,14 @@ const schema = [
 </Base>
 
 <style>
-  .hero { display: grid; gap: var(--space-xl); }
-  .intro { display: grid; gap: var(--space-m); align-content: start; }
   .index ol { display: grid; gap: var(--space-2xs); }
   .index a { display: block; padding-block: var(--space-2xs); font-size: var(--step-head); line-height: var(--leading-head); letter-spacing: var(--tracking-head); color: var(--color-text); text-decoration-color: transparent; }
-  .body h2 { max-inline-size: none; }
   .group { padding-block: calc(var(--section-gap) / 2); }
   .group.theme-surface { padding-block: var(--section-gap); }
   .inner { align-items: center; }
   .photo { grid-column: 1 / -1; inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
   .body { grid-column: 1 / -1; display: grid; gap: var(--space-m); justify-items: start; }
-  .body h2 { font-size: min(var(--step-head), 2.75rem); }
+  .body h2 { max-inline-size: none; font-size: min(var(--step-head), 2.75rem); }
   .items { display: grid; gap: var(--space-2xs); }
   .items li { font-size: var(--step-lead); line-height: var(--leading-lead); }
 
@@ -72,9 +64,6 @@ const schema = [
   }
 
   @media (min-width: 64em) {
-    .hero { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: end; }
-    .intro { grid-column: 1 / span 5; }
-    .index { grid-column: 7 / -1; }
     .photo { grid-column: 1 / span 6; }
     .body { grid-column: 8 / -1; }
     .flip .photo { grid-column: 7 / -1; order: 2; }

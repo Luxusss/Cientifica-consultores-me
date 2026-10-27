@@ -40,12 +40,12 @@ const schema = [
 
 <Base title={post.data.title} description={post.data.description} type="article" image={post.data.cover.src} schema={schema}>
   <article class="section page article">
+    <Image src={post.data.cover} alt="" widths={[640, 960, 1280]} sizes="(min-width: 90rem) 88rem, 100vw" loading="eager" fetchpriority="high" class="cover" />
     <header class="head">
       <Breadcrumbs trail={[{ label: 'Blog', href: '/blog.html' }]} />
       <h1>{post.data.heading}</h1>
       <p class="meta"><time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time></p>
     </header>
-    <Image src={post.data.cover} alt="" widths={[640, 960, 1280]} sizes="(min-width: 64em) 60rem, 100vw" loading="eager" fetchpriority="high" class="cover" />
     <Prose><Content /></Prose>
     <aside class="cta theme-surface" aria-label="Asesoría" data-reveal>
       <p class="text-lead">¿Necesitas ayuda con tu tesis? Un asesor especialista te acompaña desde el proyecto hasta la sustentación.</p>
@@ -70,11 +70,18 @@ const schema = [
 
 <style>
   .article { display: grid; gap: var(--space-l); justify-items: center; }
-  .head, .cta { inline-size: 100%; max-inline-size: 42rem; }
+  .head { inline-size: 100%; max-inline-size: 60rem; }
+  .cta { inline-size: 100%; max-inline-size: 42rem; }
   .head { display: grid; gap: var(--space-s); }
-  .head h1 { max-inline-size: none; font-size: var(--step-head); line-height: var(--leading-head); letter-spacing: var(--tracking-head); }
+  .head h1 { max-inline-size: none; font-size: var(--step-lead); line-height: var(--leading-head); letter-spacing: var(--tracking-head); }
+  @media (min-width: 48em) {
+    .head h1 { font-size: min(var(--step-head), 2.5rem); }
+  }
   .meta { color: var(--color-text-soft); font-size: var(--step-small); }
-  .cover { inline-size: 100%; max-inline-size: 60rem; aspect-ratio: 16 / 9; object-fit: cover; }
+  .cover { inline-size: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  @media (min-width: 64em) {
+    .cover { aspect-ratio: 21 / 9; }
+  }
 
 
   .related { display: grid; gap: var(--space-l); }

@@ -20,8 +20,8 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: heading, path
 ---
 
 <Base title={title} description={description} schema={schema}>
-  <article class="section page legal">
-    <header class="head">
+  <article class="section page split">
+    <header class="stack">
       <Breadcrumbs current={heading} />
       <h1>{heading}</h1>
       <p class="text-lead">{description}</p>
@@ -29,14 +29,3 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: heading, path
     <Prose><Content /></Prose>
   </article>
 </Base>
-
-<style>
-  .legal { display: grid; gap: var(--space-xl); }
-  .head { display: grid; gap: var(--space-s); align-content: start; }
-
-  @media (min-width: 64em) {
-    .legal { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
-    .head { grid-column: 1 / span var(--axis); }
-    .legal :global(.prose) { grid-column: calc(var(--axis) + 1) / -1; }
-  }
-</style>

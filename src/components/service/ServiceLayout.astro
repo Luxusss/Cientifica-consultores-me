@@ -1,7 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '@/layouts/Base.astro';
-import LeadForm from '@/components/forms/LeadForm.astro';
+import FormCard from '@/components/forms/FormCard.astro';
+import PageHero from '@/components/ui/PageHero.astro';
 import PointsBlock from '@/components/sections/PointsBlock.astro';
 import CareerAreas from '@/components/sections/CareerAreas.astro';
 import Stages from '@/components/home/Stages.astro';
@@ -10,7 +11,6 @@ import ContactBand from '@/components/sections/ContactBand.astro';
 import PhotoBand from '@/components/sections/PhotoBand.astro';
 import type { ServicePage } from '@/data/servicePages';
 import { breadcrumb, faqPage } from '@/lib/schema';
-import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import { site } from '@/config/site';
 
 interface Props {
@@ -36,21 +36,10 @@ const schema = [
 ---
 
 <Base title={page.title} description={page.description} schema={schema}>
-  <section class="hero" aria-labelledby="titulo">
-    <div class="page grid">
-      <div class="text">
-        <Breadcrumbs current={page.crumb} />
-        <h1 id="titulo">{page.h1}</h1>
-        {page.subtitle && <p class="subtitle">{page.subtitle}</p>}
-        <p class="text-lead">{page.lede}</p>
-        <div class="form-card theme-surface">
-          <h2 class="text-lead text-strong">Pide tu primera asesoría gratis</h2>
-          <LeadForm subject={page.formSubject} variant="short" submitLabel="Quiero asesoría" />
-        </div>
-      </div>
-      <Image src={page.image} alt={page.imageAlt} widths={[480, 720, 960]} sizes="(min-width: 64em) 40vw, 100vw" loading="eager" fetchpriority="high" class="photo" />
-    </div>
-  </section>
+  <PageHero title={page.h1} crumb={page.crumb} subtitle={page.subtitle} lede={page.lede}>
+    <FormCard title="Pide tu primera asesoría gratis" subject={page.formSubject} variant="short" submitLabel="Quiero asesoría" />
+    <Image slot="media" src={page.image} alt={page.imageAlt} widths={[480, 720, 960]} sizes="(min-width: 64em) 40vw, 100vw" loading="eager" fetchpriority="high" />
+  </PageHero>
 
   {page.extra?.map((block) => <PointsBlock block={block} />)}
   <PointsBlock block={page.includes} surface />
@@ -61,20 +50,3 @@ const schema = [
   <FaqText items={page.faq} />
   <ContactBand />
 </Base>
-
-<style>
-  .hero { padding-block: var(--space-xl) var(--section-gap); }
-  .text { grid-column: 1 / -1; display: grid; gap: var(--space-m); align-content: start; }
-
-
-  .subtitle { font-size: var(--step-lead); line-height: var(--leading-lead); font-weight: var(--weight-medium); margin-block-start: calc(var(--space-s) * -1); }
-
-  .form-card { display: grid; gap: var(--space-m); padding: var(--space-m); margin-block-start: var(--space-s); max-inline-size: 34rem; }
-
-  .photo { grid-column: 1 / -1; grid-row: 1; inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 25%; }
-
-  @media (min-width: 64em) {
-    .text { grid-column: 1 / span 7; }
-    .photo { grid-column: 8 / -1; grid-row: 1; aspect-ratio: 4 / 5; position: sticky; inset-block-start: calc(var(--header-height) + var(--space-l)); }
-  }
-</style>

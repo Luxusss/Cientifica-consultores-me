@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import Base from '@/layouts/Base.astro';
-import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import PageHero from '@/components/ui/PageHero.astro';
 import ContactBand from '@/components/sections/ContactBand.astro';
 import { testimonials } from '@/data/proof';
 import { breadcrumb } from '@/lib/schema';
@@ -19,13 +19,9 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios'
   description="Lee los testimonios de nuestros clientes satisfechos que han obtenido excelentes resultados con la asesoría de tesis de Científica Consultores."
   schema={schema}
 >
-  <section class="section page hero" aria-labelledby="titulo">
-    <Breadcrumbs current="Testimonios" />
-    <h1 id="titulo">Testimonios de nuestros clientes</h1>
-    <p class="text-lead">Agradecemos a quienes, por iniciativa propia, autorizan que compartamos su caso.</p>
-  </section>
+  <PageHero title="Testimonios de nuestros clientes" crumb="Testimonios" lede="Agradecemos a quienes, por iniciativa propia, autorizan que compartamos su caso." />
 
-  <section class="section page voices" aria-labelledby="historias">
+  <section class="section page split split-sticky" aria-labelledby="historias">
     <h2 id="historias">Historias de quienes sustentaron</h2>
     <ul class="list" role="list" data-reveal="stagger">
       {testimonials.map((t) => (
@@ -39,8 +35,8 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios'
     </ul>
   </section>
 
-  <section class="captures theme-surface" aria-labelledby="mensajes">
-    <div class="page">
+  <section class="theme-surface section-wide" aria-labelledby="mensajes">
+    <div class="page stack stack-l">
       <h2 id="mensajes">Mensajes de nuestros clientes</h2>
       <ul class="gallery" role="list" data-reveal="stagger">
         {captures.map((src, i) => (
@@ -54,24 +50,14 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios'
 </Base>
 
 <style>
-  .hero { display: grid; gap: var(--space-m); }
-
-  .voices { display: grid; gap: var(--space-xl); }
-  .list { display: grid; gap: var(--space-xl); }
+  .list { display: grid; gap: var(--space-xl) var(--gutter); }
   figure { display: grid; gap: var(--space-s); }
   blockquote p { font-size: var(--step-lead); line-height: var(--leading-lead); }
   figcaption { display: grid; gap: var(--space-3xs); }
   figcaption span { color: var(--color-text-soft); }
-
-  .captures { padding-block: var(--section-gap); }
-  .gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-s); margin-block-start: var(--space-l); }
+  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(12rem, 45%), 1fr)); gap: var(--space-s); }
   .shot { inline-size: 100%; block-size: auto; }
-
-  @media (min-width: 48em) { .gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   @media (min-width: 64em) {
-    .voices { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
-    .voices h2 { grid-column: 1 / span var(--axis); position: sticky; inset-block-start: calc(var(--header-height) + var(--space-l)); }
-    .list { grid-column: calc(var(--axis) + 1) / -1; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--gutter); }
-    .gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 </style>

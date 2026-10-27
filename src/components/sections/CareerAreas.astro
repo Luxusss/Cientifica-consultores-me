@@ -2,8 +2,8 @@
 import { careerAreas } from '@/data/servicePages';
 ---
 
-<section class="section page areas" aria-labelledby="carreras">
-  <header class="head" data-reveal>
+<section class="section page split" aria-labelledby="carreras">
+  <header class="stack" data-reveal>
     <h2 id="carreras">Un asesor de tu carrera</h2>
     <p>Accede a asesoría personalizada según tu disciplina, con especialistas para cada carrera.</p>
   </header>
@@ -11,22 +11,13 @@ import { careerAreas } from '@/data/servicePages';
     {careerAreas.map((area) => (
       <div>
         <h3>{area.name}</h3>
-        <p>{area.careers.join(', ')}</p>
+        <p class="text-soft">{area.careers.join(', ')}</p>
       </div>
     ))}
   </div>
 </section>
 
 <style>
-  .areas { display: grid; gap: var(--space-xl); }
-  .head { display: grid; gap: var(--space-s); }
   .cols { display: grid; gap: var(--space-l) var(--gutter); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
   .cols h3 { font-weight: var(--weight-semibold); margin-block-end: var(--space-2xs); }
-  .cols p { color: var(--color-text-soft); }
-
-  @media (min-width: 64em) {
-    .areas { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
-    .head { grid-column: 1 / span var(--axis); align-content: start; }
-    .cols { grid-column: calc(var(--axis) + 1) / -1; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
 </style>

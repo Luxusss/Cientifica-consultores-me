@@ -1,12 +1,12 @@
 ---
 import Base from '@/layouts/Base.astro';
-import LeadForm from '@/components/forms/LeadForm.astro';
+import FormCard from '@/components/forms/FormCard.astro';
 import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
 import PhotoBand from '@/components/sections/PhotoBand.astro';
 import AdvisoryVideo from '@/components/sections/AdvisoryVideo.astro';
 import { Image } from 'astro:assets';
 import officeImg from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg';
-import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import PageHero from '@/components/ui/PageHero.astro';
 import { fullAddress, site } from '@/config/site';
 import { planNames, planRows } from '@/data/plans';
 import { breadcrumb } from '@/lib/schema';
@@ -22,24 +22,16 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
   description="Escríbenos para recibir asesoría profesional en tesis de pregrado, maestría o doctoral. Te respondemos en menos de 24 horas."
   schema={schema}
 >
-  <section class="section page hero" aria-labelledby="titulo">
-    <div class="text">
-      <Breadcrumbs current="Contáctanos" />
-      <h1 id="titulo">Asesoría de tesis en Lima</h1>
-      <p class="text-lead">Te guiamos en tu tesis de pregrado, maestría, doctorado o segunda especialización. Escríbenos y te respondemos en {site.replyTime}.</p>
-      <div class="alt">
-        <WhatsAppButton />
-        <a href={`mailto:${site.email}`}>{site.email}</a>
-      </div>
+  <PageHero title="Asesoría de tesis en Lima" crumb="Contáctanos" lede={`Te guiamos en tu tesis de pregrado, maestría, doctorado o segunda especialización. Escríbenos y te respondemos en ${site.replyTime}.`}>
+    <div class="alt">
+      <WhatsAppButton />
+      <a href={`mailto:${site.email}`}>{site.email}</a>
     </div>
-    <div class="form theme-surface">
-      <h2 class="text-lead text-strong">Envíanos un mensaje</h2>
-      <LeadForm subject="Web Principal - Contacto" />
-    </div>
-  </section>
+    <FormCard slot="media" title="Envíanos un mensaje" subject="Web Principal - Contacto" />
+  </PageHero>
 
-  <section class="section page plans" aria-labelledby="planes">
-    <header class="head" data-reveal>
+  <section class="section page split" aria-labelledby="planes">
+    <header class="stack" data-reveal>
       <h2 id="planes">Nuestros planes</h2>
       <p>Dos formas de trabajar tu tesis completa. Escríbenos y te enviamos un presupuesto según tu caso.</p>
     </header>
@@ -63,15 +55,17 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
     </div>
   </section>
 
-  <section class="section page watch" aria-label="Video de una asesoría">
+  <section class="section page split" aria-labelledby="video">
+    <h2 id="video" data-reveal>Así son nuestras asesorías</h2>
     <AdvisoryVideo />
   </section>
 
   <PhotoBand omit={['office']} />
 
-  <section class="section page visit" aria-labelledby="horarios">
+  <section class="section page split" aria-labelledby="horarios">
     <h2 id="horarios" data-reveal>Horarios y ubicación</h2>
-    <dl class="hours" data-reveal="stagger">
+    <div class="visit">
+    <dl class="stack hours" data-reveal="stagger">
       {site.hours.map((h) => (
         <div>
           <dt>{h.days}</dt>
@@ -85,52 +79,26 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
       <a href={mapUrl} target="_blank" rel="noopener">Ver en Google Maps</a>
     </address>
     <Image data-reveal src={officeImg} alt="Oficina de Científica Consultores en Los Olivos" widths={[480, 720]} sizes="(min-width: 64em) 30vw, 100vw" class="office" />
+    </div>
   </section>
 </Base>
 
 <style>
-  .hero { display: grid; gap: var(--space-xl); }
-  .text { display: grid; gap: var(--space-m); align-content: start; }
   .alt { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-m); }
-  .alt a:not(.button) { overflow-wrap: anywhere; }
-  .form { display: grid; gap: var(--space-m); padding: var(--space-m); align-content: start; }
-
-  .plans { display: grid; gap: var(--space-l); }
-  .head { display: grid; gap: var(--space-s); }
   table { inline-size: 100%; border-collapse: collapse; font-size: var(--step-body); line-height: var(--leading-small); }
   th, td { padding: var(--space-s); text-align: start; vertical-align: top; border-block-end: 1px solid var(--color-surface-strong); }
   thead th { font-size: var(--step-lead); line-height: var(--leading-lead); font-weight: var(--weight-semibold); }
   tbody th { font-weight: var(--weight-semibold); inline-size: 28%; }
+  .visit { display: grid; gap: var(--space-l) var(--gutter); grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); align-items: start; }
+  .hours dt { color: var(--color-text-soft); font-size: var(--step-small); }
+  .hours dd { font-size: var(--step-lead); }
+  address { font-style: normal; display: grid; gap: var(--space-2xs); justify-items: start; }
   .office { inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
-
   @media (max-width: 47.99em) {
     thead { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
     tr { display: grid; padding-block: var(--space-s); border-block-end: 1px solid var(--color-surface-strong); }
     th, td { display: block; padding: var(--space-3xs) 0; border: 0; inline-size: auto; }
     tbody th { inline-size: auto; }
     td::before { content: attr(data-plan); display: block; font-size: var(--step-small); color: var(--color-text-soft); }
-  }
-
-  .watch { display: grid; }
-  @media (min-width: 64em) {
-    .watch { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
-    .watch :global(.video) { grid-column: calc(var(--axis) + 1) / -1; }
-  }
-  .visit { display: grid; gap: var(--space-l); }
-  .hours { display: grid; gap: var(--space-s); }
-  .hours dt { color: var(--color-text-soft); font-size: var(--step-small); }
-  .hours dd { font-size: var(--step-lead); }
-  address { font-style: normal; display: grid; gap: var(--space-2xs); justify-items: start; }
-
-  @media (min-width: 64em) {
-    .hero { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
-    .text { grid-column: 1 / span 6; }
-    .form { grid-column: 8 / -1; }
-    .plans, .visit { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
-    .head, .visit h2 { grid-column: 1 / span 4; }
-    .table-wrap { grid-column: 5 / -1; }
-    .hours { grid-column: 5 / span 3; }
-    address { grid-column: 8 / span 2; }
-    .office { grid-column: 10 / -1; }
   }
 </style>

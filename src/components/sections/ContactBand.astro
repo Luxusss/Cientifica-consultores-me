@@ -30,9 +30,9 @@ import portrait from '@/assets/images/otros/asesor-de-tesis-de-maestria-cientifi
   }
 
   @media (min-width: 64em) {
-    .contact { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
-    .statement { grid-column: 1 / span 5; }
-    .portrait { grid-column: 7 / span 2; inline-size: 100%; max-inline-size: 10rem; }
-    .reach { grid-column: 9 / -1; }
+    .contact { grid-template-columns: 5fr 1fr 2fr 4fr; column-gap: var(--gutter); }
+    .statement { grid-column: 1; }
+    .portrait { grid-column: 3; inline-size: 100%; max-inline-size: 10rem; }
+    .reach { grid-column: 4; }
   }
 </style>

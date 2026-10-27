@@ -2,12 +2,12 @@
 import { universities } from '@/data/proof';
 ---
 
-<section class="section page universities" aria-labelledby="universidades">
+<section class="section page split" aria-labelledby="universidades">
   <h2 id="universidades" data-reveal>Dónde sustentaron</h2>
   <div class="columns" data-reveal="stagger">
     {universities.map((group) => (
       <ul role="list" aria-label={group.country}>
-        <li class="country">{group.country}</li>
+        <li class="text-soft">{group.country}</li>
         {group.names.map((name) => <li>{name}</li>)}
       </ul>
     ))}
@@ -15,17 +15,6 @@ import { universities } from '@/data/proof';
 </section>
 
 <style>
-  .universities { display: grid; gap: var(--space-l); }
-  .universities h2 { font-size: var(--step-head); }
-
   .columns { columns: 2 14rem; column-gap: var(--gutter); }
-  .columns ul { break-inside: avoid-column; display: grid; gap: var(--space-3xs); margin-block-end: var(--space-l); }
-  .columns li { font-size: var(--step-body); line-height: var(--leading-small); }
-  .country { color: var(--color-text-soft); }
-
-  @media (min-width: 64em) {
-    .universities { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
-    .universities h2 { grid-column: 1 / span 3; }
-    .columns { grid-column: 5 / -1; columns: 3; }
-  }
+  .columns ul { break-inside: avoid-column; display: grid; gap: var(--space-3xs); margin-block-end: var(--space-l); line-height: var(--leading-small); }
 </style>

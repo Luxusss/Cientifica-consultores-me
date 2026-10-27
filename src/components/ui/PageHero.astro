@@ -1,0 +1,44 @@
+---
+import Breadcrumbs from './Breadcrumbs.astro';
+import type { NavLink } from '@/config/navigation';
+
+interface Props {
+  title: string;
+  crumb?: string;
+  trail?: NavLink[];
+  subtitle?: string;
+  lede?: string;
+  balance?: 'text' | 'media';
+}
+
+const { title, crumb = title, trail, subtitle, lede, balance = 'text' } = Astro.props;
+const hasMedia = Astro.slots.has('media');
+---
+
+<section class:list={['section page page-hero', hasMedia && `with-media favor-${balance}`]} aria-labelledby="titulo">
+  <div class="stack stack-m text">
+    <Breadcrumbs current={crumb} trail={trail} />
+    <h1 id="titulo"><slot name="title">{title}</slot></h1>
+    {subtitle && <p class="text-lead text-strong">{subtitle}</p>}
+    {lede && <p class="text-lead">{lede}</p>}
+    <slot />
+  </div>
+  {hasMedia && <div class="media"><slot name="media" /></div>}
+</section>
+
+<style>
+  .page-hero { display: grid; gap: var(--space-l); }
+  .with-media .media:has(> img) { grid-row: 1; }
+  .media :global(img) { inline-size: 100%; block-size: auto; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 25%; }
+
+  @media (min-width: 64em) {
+    .page-hero.with-media { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
+    .favor-text .text { grid-column: 1 / span 7; }
+    .favor-text .media { grid-column: 8 / -1; }
+    .favor-text .media :global(img) { aspect-ratio: 4 / 5; }
+    .favor-media { align-items: end; }
+    .favor-media .text { grid-column: 1 / span 5; }
+    .favor-media .media { grid-column: 6 / -1; }
+    .favor-media .media :global(img) { aspect-ratio: 16 / 10; }
+  }
+</style>

@@ -29,7 +29,7 @@ const options = countries.map((c) => ({ value: c.name, label: `${c.name} (${c.co
   <input type="hidden" name="_subject" value={subject} />
   <input type="hidden" name="_template" value="table" />
   <input type="hidden" name="_captcha" value="false" />
-  <div class="trap" aria-hidden="true">
+  <div class="visually-hidden" aria-hidden="true">
     <label for={`${uid}-honey`}>No llenar</label>
     <input id={`${uid}-honey`} type="text" name="_honey" tabindex="-1" autocomplete="off" />
   </div>
@@ -130,8 +130,6 @@ const options = countries.map((c) => ({ value: c.name, label: `${c.name} (${c.co
     .phone { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
   }
   .lead-form :global(.button) { justify-self: start; }
-
-  .trap { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
 
   .status { font-size: var(--step-small); line-height: var(--leading-small); font-weight: var(--weight-semibold); }
   .status:empty { display: none; }

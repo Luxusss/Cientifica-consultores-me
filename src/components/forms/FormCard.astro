@@ -1,0 +1,21 @@
+---
+import LeadForm from './LeadForm.astro';
+
+interface Props {
+  title: string;
+  subject: string;
+  variant?: 'short' | 'full';
+  submitLabel?: string;
+}
+
+const { title, subject, variant = 'full', submitLabel } = Astro.props;
+---
+
+<div class="form-card theme-surface stack stack-m">
+  <h2 class="text-lead text-strong">{title}</h2>
+  <LeadForm subject={subject} variant={variant} submitLabel={submitLabel} />
+</div>
+
+<style>
+  .form-card { padding: var(--space-m); max-inline-size: 36rem; }
+</style>
