@@ -9,10 +9,10 @@ interface Props extends Omit<HTMLAttributes<'a'>, 'href'> {
   label?: string;
 }
 
-const { message, label = 'Escríbenos por WhatsApp', ...rest } = Astro.props;
+const { message, label = 'Escríbenos por WhatsApp', class: className, ...rest } = Astro.props;
 ---
 
-<Button href={whatsappUrl(message)} target="_blank" rel="noopener" {...rest}>
+<Button href={whatsappUrl(message)} target="_blank" rel="noopener" class:list={['button-whatsapp', className]} {...rest}>
   <Icon name="whatsapp" />
   {label}
 </Button>

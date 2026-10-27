@@ -62,16 +62,18 @@ const facts = [
   .facts dd { font-size: var(--step-small); line-height: var(--leading-small); color: var(--color-text-soft); }
 
   @media (min-width: 64em) {
-    .hero { grid-template-areas: 'stack'; min-block-size: min(calc(100svh - var(--header-height)), 60rem); }
+    .hero { grid-template-areas: 'stack'; min-block-size: min(100svh, 64rem); }
     .media, .content { grid-area: stack; }
     .media { aspect-ratio: auto; }
     .media::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(90deg, var(--scrim-strong) 0%, var(--scrim-strong) 22%, transparent 58%);
+      background:
+        linear-gradient(180deg, var(--scrim-soft) 0%, transparent 22%),
+        linear-gradient(90deg, var(--scrim-strong) 0%, var(--scrim-strong) 22%, transparent 58%);
     }
-    .content { position: relative; grid-template-rows: 1fr auto; padding-block: var(--space-2xl) var(--space-xl); }
+    .content { position: relative; grid-template-rows: 1fr auto; padding-block: calc(var(--header-height) + var(--space-2xl)) var(--space-xl); }
     .text { align-self: center; max-inline-size: 46%; }
     h1 { font-size: min(var(--step-display), 5.4vw); }
     .facts { max-inline-size: 46%; }

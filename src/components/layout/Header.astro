@@ -1,17 +1,24 @@
 ---
 import { Image } from 'astro:assets';
 import logo from '@/assets/brand/logo-color.png';
+import logoWhite from '@/assets/brand/logo-white.png';
 import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
 import { mainNav, services } from '@/config/navigation';
 
+interface Props {
+  overlay?: boolean;
+}
+
+const { overlay = false } = Astro.props;
 const current = Astro.url.pathname;
 const isCurrent = (href: string) => current === href || (href === '/index.html' && current === '/');
 ---
 
-<header class="header">
+<header class:list={['header', { overlay }]} data-header>
   <div class="page bar">
     <a class="brand" href="/" aria-label="Científica Consultores, inicio">
-      <Image src={logo} alt="" width={168} loading="eager" fetchpriority="high" />
+      <Image src={logo} alt="" width={168} loading="eager" fetchpriority="high" class="logo-color" />
+      {overlay && <Image src={logoWhite} alt="" width={168} loading="eager" class="logo-white" />}
     </a>
 
     <nav class="nav" aria-label="Principal">
@@ -30,8 +37,6 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
         ))}
       </ul>
     </nav>
-
-    <div class="action"><WhatsAppButton label="WhatsApp" class="compact" /></div>
 
     <button class="menu-toggle" type="button" popovertarget="menu-movil" aria-label="Abrir menú">Menú</button>
   </div>
@@ -61,6 +66,15 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
   </div>
 </header>
 
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header].overlay');
+  if (header) {
+    const update = () => header.classList.toggle('is-solid', window.scrollY > 24);
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+  }
+</script>
+
 <style>
   .header {
     position: sticky;
@@ -78,11 +92,19 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
   }
 
   .brand { display: block; flex-shrink: 0; }
+  .logo-white { display: none; }
+
+  @media (min-width: 64em) {
+    .overlay { margin-block-end: calc(-1 * var(--header-height)); background-color: transparent; transition: background-color var(--duration-ui) var(--ease-out); }
+    .overlay:not(.is-solid) .logo-color { display: none; }
+    .overlay:not(.is-solid) .logo-white { display: block; }
+    .overlay:not(.is-solid) .nav-link { color: var(--paper-0); }
+    .overlay.is-solid { background-color: var(--color-bg); }
+  }
   .brand img { inline-size: clamp(8.5rem, 7rem + 4vw, 10.5rem); block-size: auto; }
 
   .nav { margin-inline-start: auto; }
   .nav ul { display: flex; gap: var(--space-l); }
-  .action :global(.compact) { --button-height: 2.75rem; font-size: var(--step-ui); }
 
   .nav-link {
     display: inline-flex;
@@ -189,7 +211,7 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
   }
 
   @media (max-width: 63.99em) {
-    .nav, .action { display: none; }
+    .nav { display: none; }
     .menu-toggle { display: inline-flex; align-items: center; }
   }
 </style>

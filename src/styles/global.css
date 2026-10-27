@@ -115,6 +115,7 @@
 }
 
 @layer utilities {
+  .button-whatsapp { --button-bg: var(--whatsapp-500); --button-bg-hover: var(--whatsapp-600); --button-text: var(--ink-900); }
   .text-lead { font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: var(--measure-lead); }
   .text-small { font-size: var(--step-small); line-height: var(--leading-small); }
   .text-soft { color: var(--color-text-soft); }

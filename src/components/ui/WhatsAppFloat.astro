@@ -3,34 +3,53 @@ import { whatsappUrl } from '@/config/site';
 import Icon from './Icon.astro';
 ---
 
-<a class="float" data-float href={whatsappUrl()} target="_blank" rel="noopener">
-  <Icon name="whatsapp" size="1.5em" />
-  <span>Habla con un asesor</span>
-</a>
+<div class="floats" data-floats>
+  <a class="float lead" href="#formulario" data-float-lead hidden>Déjanos tus datos</a>
+  <a class="float whatsapp" href={whatsappUrl()} target="_blank" rel="noopener" data-float-wsp>
+    <Icon name="whatsapp" size="1.5em" />
+    <span>Habla con un asesor</span>
+  </a>
+</div>
 
 <script>
-  const float = document.querySelector<HTMLElement>('[data-float]');
+  const wsp = document.querySelector<HTMLElement>('[data-float-wsp]');
+  const lead = document.querySelector<HTMLAnchorElement>('[data-float-lead]');
+  const form = document.querySelector('[data-lead-form]');
   const hero = document.querySelector('[data-hero]');
-  if (float) {
-    if (!hero) float.classList.add('is-shown');
-    else new IntersectionObserver(([e]) => float.classList.toggle('is-shown', !e.isIntersecting)).observe(hero);
-  }
+  let formInView = false;
+  let heroInView = !!hero;
+
+  const update = () => {
+    const past = hero ? !heroInView : window.scrollY > 200;
+    wsp?.classList.toggle('is-shown', past || formInView);
+    lead?.classList.toggle('is-shown', !!form && past && !formInView);
+  };
+
+  if (lead && form) lead.hidden = false;
+  if (hero) new IntersectionObserver(([e]) => { heroInView = e.isIntersecting; update(); }).observe(hero);
+  if (form) new IntersectionObserver(([e]) => { formInView = e.isIntersecting; update(); }, { threshold: 0.2 }).observe(form);
+  window.addEventListener('scroll', update, { passive: true });
+  update();
 </script>
 
 <style>
-  .float {
+  .floats {
     position: fixed;
     inset-inline-end: var(--page-margin);
     inset-block-end: calc(var(--page-margin) + env(safe-area-inset-bottom, 0px));
     z-index: var(--z-float);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+  }
+
+  .float {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2xs);
     min-block-size: var(--button-height);
     padding-inline: var(--space-s);
-    background-color: var(--color-field);
-    color: var(--color-on-field);
-    font-size: var(--step-small);
+    font-size: var(--step-ui);
     font-weight: var(--weight-semibold);
     text-decoration: none;
     user-select: none;
@@ -39,19 +58,31 @@ import Icon from './Icon.astro';
       background-color var(--duration-hover) ease,
       transform var(--duration-press) var(--ease-out);
   }
+  .float[hidden] { display: none; }
+  .whatsapp { background-color: var(--whatsapp-500); color: var(--ink-900); }
+  .lead { background-color: var(--color-field); color: var(--color-on-field); }
   .float:active { transform: scale(0.96); }
-  :global(.js) .float:not(.is-shown) { opacity: 0; transform: translateY(12px); pointer-events: none; visibility: hidden; }
-  @media (prefers-reduced-motion: no-preference) {
-    .float { transition: background-color var(--duration-hover) ease, transform var(--duration-ui) var(--ease-out), opacity var(--duration-ui) var(--ease-out), visibility var(--duration-ui) allow-discrete; }
-  }
   .float:focus-visible { outline-color: var(--orange-500); }
 
+  :global(.js) .float:not(.is-shown) { opacity: 0; transform: translateY(12px); pointer-events: none; visibility: hidden; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .float {
+      transition:
+        background-color var(--duration-hover) ease,
+        transform var(--duration-ui) var(--ease-out),
+        opacity var(--duration-ui) var(--ease-out),
+        visibility var(--duration-ui) allow-discrete;
+    }
+  }
+
   @media (max-width: 47.99em) {
-    .float { padding-inline: 0; inline-size: var(--button-height); justify-content: center; }
-    .float span { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
+    .whatsapp { padding-inline: 0; inline-size: var(--button-height); justify-content: center; }
+    .whatsapp span { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .float:hover { background-color: var(--navy-700); }
+    .whatsapp:hover { background-color: var(--whatsapp-600); }
+    .lead:hover { background-color: var(--navy-700); }
   }
 </style>
