@@ -8,7 +8,7 @@ export const organization = {
   '@id': orgId,
   name: site.name,
   url: site.url,
-  logo: `${site.url}/og/cientifica-consultores.jpg`,
+  logo: `${site.url}/logo-cientifica-consultores.png`,
   image: `${site.url}/og/cientifica-consultores.jpg`,
   email: site.email,
   telephone: site.phone.e164,

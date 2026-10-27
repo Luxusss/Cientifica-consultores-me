@@ -49,7 +49,7 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios'
       <h2 id="mensajes">Mensajes de nuestros clientes</h2>
       <ul class="gallery" role="list" data-reveal="stagger">
         {captures.map((src, i) => (
-          <li><Image src={src} alt={`Captura del mensaje de un cliente, testimonio ${i + 1}`} widths={[320, 480, 640]} sizes="(min-width: 64em) 25vw, (min-width: 48em) 33vw, 50vw" class="shot" /></li>
+          <li class="phone"><Image src={src} alt={`Captura del mensaje de un cliente, testimonio ${i + 1}`} widths={[180, 270, 363]} sizes="(min-width: 64em) 15rem, (min-width: 48em) 30vw, 45vw" class="shot" /></li>
         ))}
       </ul>
     </div>
@@ -68,6 +68,11 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios'
   .avatar { display: grid; place-items: center; inline-size: 2.75rem; block-size: 2.75rem; border-radius: 50%; background-color: var(--navy-600); color: var(--paper-0); font-weight: var(--weight-semibold); flex-shrink: 0; }
   .who { display: grid; line-height: var(--leading-small); }
   .who span { color: var(--color-text-soft); font-size: var(--step-small); }
-  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(11rem, 45%), 1fr)); gap: var(--space-s); }
-  .shot { inline-size: 100%; block-size: auto; border-radius: var(--radius-card); }
+  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(12rem, 44%), 1fr)); gap: var(--space-l) var(--space-m); justify-items: center; }
+  .phone { inline-size: 100%; max-inline-size: 15rem; padding: 0.5rem; border-radius: 1.75rem; background-color: var(--ink-900); transition: transform var(--duration-hover) var(--ease-out); }
+  .shot { display: block; inline-size: 100%; block-size: auto; border-radius: 1.3rem; }
+
+  @media (hover: hover) and (pointer: fine) {
+    .phone:hover { transform: translateY(-6px) rotate(-1deg); }
+  }
 </style>

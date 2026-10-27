@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import logoWhite from '@/assets/brand/logo-white.png';
+import logoSvg from '@/assets/brand/logo.svg?raw';
 import peru from '@/assets/images/paises/peru.jpg';
 import colombia from '@/assets/images/paises/colombia.jpg';
 import mexico from '@/assets/images/paises/mexico.jpg';
@@ -35,7 +35,7 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
 <header class:list={['header', 'theme-field', { overlay }]} data-header>
   <div class="edge-frame bar">
     <a class="brand" href="/">
-      <Image src={logoWhite} alt="Científica Consultores" width={168} loading="eager" fetchpriority="high" />
+      <Fragment set:html={logoSvg} />
     </a>
 
     <nav class="nav" aria-label="Principal">
@@ -131,7 +131,7 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
     .overlay { margin-block-end: calc(-1 * var(--header-height)); background-color: transparent; transition: background-color var(--duration-ui) var(--ease-out); }
     .overlay.is-solid { background-color: var(--color-bg); }
   }
-  .brand img { inline-size: clamp(8.5rem, 7rem + 4vw, 10.5rem); block-size: auto; }
+  .brand :global(svg) { display: block; inline-size: clamp(8.5rem, 7rem + 4vw, 10.5rem); block-size: auto; color: var(--paper-0); }
 
   .nav { margin-inline-start: auto; }
   .flags { display: flex; gap: 0.375rem; align-items: center; }

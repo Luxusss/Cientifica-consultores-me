@@ -69,7 +69,7 @@ const hasMedia = Astro.slots.has('media');
     .favor-media :global(h1) { font-size: min(var(--step-display), 4vw); }
     .field-hero:not(.with-media) .text { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: end; }
     .field-hero:not(.with-media) .text > :global(*) { grid-column: 1 / span 8; }
-    .field-hero :global(h1) { font-size: min(var(--step-head), 3.5rem); max-inline-size: 24ch; }
+    .field-hero :global(h1) { font-size: min(var(--step-display), 4.25rem); max-inline-size: 22ch; }
     .field-hero:not(.with-media) .text > p { grid-column: 9 / -1; grid-row: 2; }
     .page-hero.with-media { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
     .favor-text .text { grid-column: 1 / span 7; }

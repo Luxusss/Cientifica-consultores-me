@@ -6,7 +6,7 @@ import { servicesSection } from '@/data/home';
 
 <section class="services theme-surface section-wide" aria-labelledby="servicios">
   <div class="page stack stack-xl">
-    <header class="split split-wide" data-reveal>
+    <header class="split head" data-reveal>
       <h2 id="servicios">{servicesSection.title}</h2>
       <p class="text-lead">{servicesSection.text}</p>
     </header>
@@ -26,6 +26,8 @@ import { servicesSection } from '@/data/home';
 </section>
 
 <style>
+  .head { --axis: 5; }
+  .head .text-lead { max-inline-size: 60ch; }
   .gallery { display: grid; gap: var(--space-xl) var(--gutter); grid-template-columns: 1fr; }
   .tile { display: grid; gap: var(--space-s); align-content: start; }
   .frame { display: block; overflow: hidden; background-color: var(--navy-600); border-radius: var(--radius-card); }
