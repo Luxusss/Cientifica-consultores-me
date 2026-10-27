@@ -11,6 +11,14 @@ const facts = [
   { value: 'Turnitin', label: 'en cada entrega' },
 ];
 
+const shortcuts = [
+  { label: 'Pregrado', href: '/tesis.html' },
+  { label: 'Maestría', href: '/tesis-maestria.html' },
+  { label: 'Doctorado', href: '/tesis-doctoral.html' },
+  { label: 'TSP', href: '/trabajo-de-suficiencia-profesional.html' },
+  { label: 'Artículos', href: '/articulos_cientificos.html' },
+];
+
 const badges = [
   { icon: 'user', title: 'Asesor de tu área', text: 'Te acompaña hasta la sustentación' },
   { icon: 'document', title: 'Reporte Turnitin', text: 'IA y similitud en cada entrega' },
@@ -45,6 +53,11 @@ const badges = [
       <h1 id="hero-title"><span class="line"><span>Asesoría de</span></span> <span class="line"><span>tesis online</span></span> <span class="tail">con expertos en investigación académica</span></h1>
       <p class="lede">Un asesor especialista te acompaña en tu tesis de pregrado, maestría, doctorado o TSP, desde el proyecto hasta la sustentación.</p>
       <div class="action"><WhatsAppButton /></div>
+      <nav class="shortcuts" aria-label="Asesoría por grado">
+        <ul role="list">
+          {shortcuts.map((s) => <li><a href={s.href}>{s.label}<span aria-hidden="true">→</span></a></li>)}
+        </ul>
+      </nav>
     </div>
     <dl class="facts">
       {facts.map((f) => (
@@ -90,6 +103,15 @@ const badges = [
   .tail { display: block; margin-block-start: var(--space-xs); font-size: var(--step-title); line-height: var(--leading-head); letter-spacing: -0.01em; font-weight: var(--weight-medium); color: var(--orange-500); }
   .lede { font-size: var(--step-body); line-height: var(--leading-body); max-inline-size: 38ch; color: var(--color-text-soft); }
 
+  .shortcuts ul { display: flex; flex-wrap: wrap; gap: var(--space-2xs); }
+  .shortcuts a { display: inline-flex; align-items: center; gap: 0.4em; min-block-size: 2.5rem; padding-inline: var(--space-s); border-radius: 999px; background-color: color-mix(in srgb, var(--paper-0) 12%, transparent); color: var(--paper-0); font-size: var(--step-ui); text-decoration: none; transition: background-color var(--duration-hover) ease, color var(--duration-hover) ease, transform var(--duration-press) var(--ease-out); }
+  .shortcuts a span { transition: transform var(--duration-hover) var(--ease-out); }
+  .shortcuts a:active { transform: scale(0.96); }
+  @media (hover: hover) and (pointer: fine) {
+    .shortcuts a:hover { background-color: var(--orange-500); color: var(--ink-900); }
+    .shortcuts a:hover span { transform: translateX(3px); }
+  }
+
   .badges { display: none; }
   .badge { display: flex; align-items: center; gap: var(--space-xs); padding: var(--space-xs) var(--space-s) var(--space-xs) var(--space-xs); background-color: var(--paper-0); color: var(--ink-900); border-radius: var(--radius-card); box-shadow: 0 18px 40px -12px color-mix(in srgb, var(--ink-900) 45%, transparent); }
   .badge-icon { display: grid; place-items: center; inline-size: 2.5rem; block-size: 2.5rem; border-radius: 50%; background-color: var(--orange-500); color: var(--ink-900); flex-shrink: 0; }
@@ -103,7 +125,7 @@ const badges = [
   .facts dd { font-size: var(--step-small); line-height: var(--leading-small); color: var(--color-text-soft); }
 
   @media (min-width: 64em) {
-    .hero { grid-template-areas: 'stack'; block-size: clamp(38rem, 100svh, 56rem); }
+    .hero { grid-template-areas: 'stack'; block-size: clamp(36rem, 80svh, 46rem); }
     .media, .content { grid-area: stack; }
     .media { aspect-ratio: auto; }
     .media::after {
@@ -115,14 +137,15 @@ const badges = [
         linear-gradient(90deg, var(--scrim-strong) 0%, var(--scrim-strong) 22%, transparent 58%);
     }
     .content { position: relative; grid-template-rows: 1fr auto; padding-block: calc(var(--header-height) + var(--space-l)) var(--space-l); }
-    .text { align-self: center; max-inline-size: min(40%, 34rem); }
-    h1 { font-size: var(--step-display); }
+    .text { align-self: center; max-inline-size: min(52%, 46rem); }
+    h1 { font-size: min(var(--step-display), 4vw); }
+    .line { display: inline-block; }
     .facts { max-inline-size: min(40%, 34rem); }
     .badges { display: block; grid-area: stack; position: relative; z-index: 1; pointer-events: none; }
     .badge { position: absolute; }
-    .badge-1 { inset-block-start: 14%; inset-inline-start: 46%; }
+    .badge-1 { inset-block-start: 15%; inset-inline-start: 58%; }
     .badge-2 { inset-block-start: 56%; inset-inline-end: var(--edge); }
-    .badge-3 { inset-block-end: 9%; inset-inline-start: 44%; }
+    .badge-3 { inset-block-end: 10%; inset-inline-start: 52%; }
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -130,6 +153,12 @@ const badges = [
     .line > span { animation: line-up var(--duration-reveal) var(--ease-expo) 100ms both; }
     .line + .line > span { animation-delay: calc(100ms + var(--stagger)); }
     .tail, .lede, .action { animation: rise 500ms var(--ease-out) 420ms both; }
+    .shortcuts li { animation: rise 500ms var(--ease-out) both; }
+    .shortcuts li:nth-child(1) { animation-delay: 560ms; }
+    .shortcuts li:nth-child(2) { animation-delay: 620ms; }
+    .shortcuts li:nth-child(3) { animation-delay: 680ms; }
+    .shortcuts li:nth-child(4) { animation-delay: 740ms; }
+    .shortcuts li:nth-child(5) { animation-delay: 800ms; }
     .facts { animation: rise 600ms var(--ease-out) 600ms both; }
     .badge { animation: badge-in 700ms var(--ease-expo) both, float 6s ease-in-out 1.6s infinite; }
     .badge-1 { animation-delay: 800ms, 1.6s; }
