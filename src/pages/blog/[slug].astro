@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, Picture } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
 import Base from '@/layouts/Base.astro';
 import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
@@ -40,7 +40,7 @@ const schema = [
 
 <Base title={post.data.title} description={post.data.description} type="article" image={post.data.cover.src} schema={schema}>
   <article class="section page article">
-    <Image src={post.data.cover} alt="" widths={[640, 960, 1280]} sizes="(min-width: 90rem) 88rem, 100vw" loading="eager" fetchpriority="high" class="cover" />
+    <Picture src={post.data.cover} formats={['avif', 'webp']} quality={70} alt="" widths={[640, 960, 1280]} sizes="(min-width: 90rem) 88rem, 100vw" loading="eager" fetchpriority="high" class="cover" />
     <header class="head">
       <Breadcrumbs trail={[{ label: 'Blog', href: '/blog.html' }]} />
       <h1>{post.data.heading}</h1>

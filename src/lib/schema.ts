@@ -61,5 +61,5 @@ export function faqPage(items: { question: string; answer: string }[]) {
 }
 
 export function graph(nodes: object[]) {
-  return JSON.stringify({ '@context': 'https://schema.org', '@graph': [organization, website, ...nodes] });
+  return JSON.stringify({ '@context': 'https://schema.org', '@graph': [organization, website, ...nodes] }).replace(/</g, String.fromCharCode(92) + 'u003c');
 }

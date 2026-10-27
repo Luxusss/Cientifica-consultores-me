@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, Picture } from 'astro:assets';
 import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
 import heroImg from '@/assets/images/banner/asesores-de-tesis-cientifica-consultores.jpg';
 import blogImg from '@/assets/images/blog/asesor-como-hacer-tu-proyecto-de-tesis.jpg';
@@ -13,11 +13,13 @@ const cards = [
 
 <section class="hero" aria-labelledby="hero-title">
   <div class="media">
-    <Image
+    <Picture
       src={heroImg}
+      formats={['avif', 'webp']}
       alt="Tres asesores de tesis de Científica Consultores en su oficina de Lima"
-      widths={[640, 960, 1280, 1600]}
+      widths={[480, 720, 960, 1280, 1600]}
       sizes="100vw"
+      quality={70}
       loading="eager"
       fetchpriority="high"
       class="photo"
@@ -55,6 +57,7 @@ const cards = [
   }
 
   .media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+  .media > :global(picture) { block-size: 100%; }
   .photo {
     inline-size: 100%;
     block-size: 100%;

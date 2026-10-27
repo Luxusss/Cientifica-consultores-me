@@ -6,7 +6,7 @@ const site = 'https://cientificaconsultores.com';
 
 export default defineConfig({
   site,
-  build: { format: 'file' },
+  build: { format: 'file', inlineStylesheets: 'always' },
   devToolbar: { enabled: false },
   integrations: [
     sitemap({

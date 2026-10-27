@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
 import Base from '@/layouts/Base.astro';
 import FormCard from '@/components/forms/FormCard.astro';
 import PageHero from '@/components/ui/PageHero.astro';
@@ -38,7 +38,7 @@ const schema = [
 <Base title={page.title} description={page.description} schema={schema}>
   <PageHero title={page.h1} crumb={page.crumb} subtitle={page.subtitle} lede={page.lede}>
     <FormCard title="Pide tu primera asesoría gratis" subject={page.formSubject} variant="short" submitLabel="Quiero asesoría" />
-    <Image slot="media" src={page.image} alt={page.imageAlt} widths={[480, 720, 960]} sizes="(min-width: 64em) 40vw, 100vw" loading="eager" fetchpriority="high" />
+    <Picture slot="media" formats={['avif', 'webp']} quality={70} src={page.image} alt={page.imageAlt} widths={[480, 720, 960]} sizes="(min-width: 64em) 40vw, 100vw" loading="eager" fetchpriority="high" />
   </PageHero>
 
   {page.extra?.map((block) => <PointsBlock block={block} />)}

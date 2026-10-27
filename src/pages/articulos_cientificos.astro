@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, Picture } from 'astro:assets';
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/ui/PageHero.astro';
 import FormCard from '@/components/forms/FormCard.astro';
@@ -32,7 +32,7 @@ const schema = [
 >
   <PageHero title="Asesoría de artículos científicos" crumb="Artículos científicos" lede="Convierte tu investigación en una publicación: desde cero, desde tu tesis o como capítulo de libro.">
     <FormCard title="Pide tu primera asesoría gratis" subject="Nuevo lead - Artículo Científico" variant="short" submitLabel="Quiero asesoría" />
-    <Image slot="media" src={heroImg} alt="Asesora de artículos científicos de Científica Consultores" widths={[480, 720, 960]} sizes="(min-width: 64em) 40vw, 100vw" loading="eager" fetchpriority="high" />
+    <Picture slot="media" formats={['avif', 'webp']} quality={70} src={heroImg} alt="Asesora de artículos científicos de Científica Consultores" widths={[480, 720, 960]} sizes="(min-width: 64em) 40vw, 100vw" loading="eager" fetchpriority="high" />
   </PageHero>
 
   <section class="section page stack stack-xl" aria-labelledby="partida">
