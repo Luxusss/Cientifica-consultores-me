@@ -1,0 +1,99 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import { stats } from '@/data/stats';
+
+const items = [
+  { icon: 'calendar', plus: true, value: stats.years, unit: 'años', label: 'de experiencia', text: 'Asesorando tesis desde Lima para toda Latinoamérica.' },
+  { icon: 'users', plus: true, value: stats.clients, unit: '', label: 'clientes asesorados', text: 'Estudiantes de pregrado, maestría y doctorado.' },
+  { icon: 'institution', plus: true, value: stats.universities, unit: '', label: 'universidades', text: 'Conocemos los formatos y exigencias de cada una.' },
+  { icon: 'globe', plus: false, value: stats.countries, unit: 'países', label: 'con atención online', text: 'Perú, Colombia, México, Bolivia, Ecuador, Venezuela, Chile y España.' },
+] as const;
+---
+
+<section class="stats theme-field" aria-labelledby="cifras" data-stats>
+  <div class="page">
+    <h2 id="cifras" class="visually-hidden">Científica Consultores en cifras</h2>
+    <ul class="grid-stats" role="list">
+      {items.map((s) => (
+        <li class="stat">
+          <span class="icon"><Icon name={s.icon} size="1.75rem" /></span>
+          <p class="number">
+            {s.plus && <span class="plus">+</span>}<span data-to={s.value}>{s.value}</span>{s.unit && <span class="unit"> {s.unit}</span>}
+          </p>
+          <p class="label">{s.label}</p>
+          <p class="text">{s.text}</p>
+          <span class="bar" aria-hidden="true"></span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<script>
+  for (const root of document.querySelectorAll<HTMLElement>('[data-stats]')) {
+    const numbers = root.querySelectorAll<HTMLElement>('[data-to]');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) {
+      root.classList.add('is-counted');
+      continue;
+    }
+    for (const el of numbers) el.textContent = '0';
+    const io = new IntersectionObserver((entries) => {
+      if (!entries.some((e) => e.isIntersecting)) return;
+      io.disconnect();
+      root.classList.add('is-counted');
+      const start = performance.now();
+      numbers.forEach((el, i) => {
+        const target = Number(el.dataset.to);
+        const delay = i * 120;
+        const tick = (now: number) => {
+          const t = Math.min(1, Math.max(0, (now - start - delay) / 1800));
+          el.textContent = String(Math.round(target * (1 - Math.pow(1 - t, 4))));
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.35 });
+    io.observe(root);
+  }
+</script>
+
+<style>
+  .stats {
+    position: relative;
+    overflow: hidden;
+    padding-block: var(--space-2xl);
+    background:
+      radial-gradient(60rem 30rem at 85% -20%, color-mix(in srgb, var(--orange-500) 22%, transparent), transparent 60%),
+      radial-gradient(50rem 30rem at 5% 120%, color-mix(in srgb, var(--paper-0) 10%, transparent), transparent 60%),
+      linear-gradient(160deg, var(--navy-700), var(--navy-600));
+  }
+  .grid-stats { display: grid; gap: var(--space-l) var(--gutter); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat { position: relative; display: grid; gap: var(--space-3xs); align-content: start; padding-block-end: var(--space-s); }
+  .icon { display: inline-grid; place-items: center; inline-size: 3.25rem; block-size: 3.25rem; margin-block-end: var(--space-xs); border-radius: 999px; background-color: color-mix(in srgb, var(--paper-0) 10%, transparent); color: var(--orange-500); }
+  .number { font-size: clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem); line-height: 1; font-weight: var(--weight-semibold); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .plus { color: var(--orange-500); }
+  .unit { font-size: 0.45em; font-weight: var(--weight-medium); letter-spacing: 0; }
+  .label { font-size: var(--step-lead); font-weight: var(--weight-medium); }
+  .text { display: none; color: var(--color-text-soft); font-size: var(--step-small); line-height: var(--leading-small); max-inline-size: 30ch; }
+  .bar { position: absolute; inset-inline-start: 0; inset-block-end: 0; inline-size: 3rem; block-size: 3px; border-radius: 3px; background-color: var(--orange-500); }
+
+  @media (min-width: 48em) {
+    .text { display: block; margin-block-start: var(--space-2xs); }
+  }
+
+  @media (min-width: 64em) {
+    .stats { padding-block: var(--space-3xl); }
+    .grid-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .stat { opacity: 0; transform: translateY(24px); transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out); }
+    :global(.js) .bar { transform: scaleX(0); transform-origin: left; transition: transform 1400ms var(--ease-out) 300ms; }
+    :global(.js) .is-counted .stat { opacity: 1; transform: none; }
+    :global(.js) .is-counted .bar { transform: scaleX(1); }
+    :global(.js) .is-counted .stat:nth-child(2), :global(.js) .is-counted .stat:nth-child(2) .bar { transition-delay: 120ms; }
+    :global(.js) .is-counted .stat:nth-child(3), :global(.js) .is-counted .stat:nth-child(3) .bar { transition-delay: 240ms; }
+    :global(.js) .is-counted .stat:nth-child(4), :global(.js) .is-counted .stat:nth-child(4) .bar { transition-delay: 360ms; }
+  }
+</style>
