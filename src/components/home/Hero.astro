@@ -1,6 +1,5 @@
 ---
 import { Picture } from 'astro:assets';
-import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { site } from '@/config/site';
 import heroImg from '@/assets/images/banner/asesores-de-tesis-cientifica-consultores.jpg';
@@ -52,7 +51,6 @@ const badges = [
     <div class="text">
       <h1 id="hero-title"><span class="line"><span>Asesoría de</span></span> <span class="line"><span>tesis online</span></span> <span class="tail">con expertos en investigación académica</span></h1>
       <p class="lede">Un asesor especialista te acompaña en tu tesis de pregrado, maestría, doctorado o TSP, desde el proyecto hasta la sustentación.</p>
-      <div class="action"><WhatsAppButton /></div>
       <nav class="shortcuts" aria-label="Asesoría por grado">
         <ul role="list">
           {shortcuts.map((s) => <li><a href={s.href}>{s.label}<span aria-hidden="true">→</span></a></li>)}
@@ -113,11 +111,11 @@ const badges = [
   }
 
   .badges { display: none; }
-  .badge { display: flex; align-items: center; gap: var(--space-xs); padding: var(--space-xs) var(--space-s) var(--space-xs) var(--space-xs); background-color: var(--paper-0); color: var(--ink-900); border-radius: var(--radius-card); box-shadow: 0 18px 40px -12px color-mix(in srgb, var(--ink-900) 45%, transparent); }
-  .badge-icon { display: grid; place-items: center; inline-size: 2.5rem; block-size: 2.5rem; border-radius: 50%; background-color: var(--orange-500); color: var(--ink-900); flex-shrink: 0; }
+  .badge { display: flex; align-items: center; gap: var(--space-xs); padding: 0.6rem 1.1rem 0.6rem 0.6rem; background-color: color-mix(in srgb, var(--navy-700) 55%, transparent); -webkit-backdrop-filter: blur(14px) saturate(1.3); backdrop-filter: blur(14px) saturate(1.3); color: var(--paper-0); border: 1px solid color-mix(in srgb, var(--paper-0) 22%, transparent); border-radius: 999px; }
+  .badge-icon { display: grid; place-items: center; inline-size: 2.25rem; block-size: 2.25rem; border-radius: 50%; background-color: var(--orange-500); color: var(--ink-900); flex-shrink: 0; }
   .badge-text { display: grid; line-height: 1.25; }
   .badge-text strong { font-size: var(--step-ui); font-weight: var(--weight-semibold); }
-  .badge-text span { font-size: var(--step-small); color: var(--ink-600); }
+  .badge-text span { font-size: var(--step-small); color: var(--navy-100); }
 
   .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-m); }
   .facts div { display: grid; gap: var(--space-3xs); }
@@ -152,7 +150,7 @@ const badges = [
     .photo { animation: drift 24s var(--ease-soft) both; }
     .line > span { animation: line-up var(--duration-reveal) var(--ease-expo) 100ms both; }
     .line + .line > span { animation-delay: calc(100ms + var(--stagger)); }
-    .tail, .lede, .action { animation: rise 500ms var(--ease-out) 420ms both; }
+    .tail, .lede { animation: rise 500ms var(--ease-out) 420ms both; }
     .shortcuts li { animation: rise 500ms var(--ease-out) both; }
     .shortcuts li:nth-child(1) { animation-delay: 560ms; }
     .shortcuts li:nth-child(2) { animation-delay: 620ms; }

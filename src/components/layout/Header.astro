@@ -1,6 +1,12 @@
 ---
 import { Image } from 'astro:assets';
 import logoWhite from '@/assets/brand/logo-white.png';
+import peru from '@/assets/images/paises/peru.jpg';
+import colombia from '@/assets/images/paises/colombia.jpg';
+import mexico from '@/assets/images/paises/mexico.jpg';
+import bolivia from '@/assets/images/paises/bolivia.jpg';
+import ecuador from '@/assets/images/paises/ecuador.jpg';
+import venezuela from '@/assets/images/paises/venezuela.jpg';
 import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
 import { mainNav, services } from '@/config/navigation';
 
@@ -10,6 +16,14 @@ interface Props {
 
 const { overlay = false } = Astro.props;
 const current = Astro.url.pathname;
+const flags = [
+  { src: peru, name: 'Perú' },
+  { src: colombia, name: 'Colombia' },
+  { src: mexico, name: 'México' },
+  { src: bolivia, name: 'Bolivia' },
+  { src: ecuador, name: 'Ecuador' },
+  { src: venezuela, name: 'Venezuela' },
+];
 const isCurrent = (href: string) => current === href || (href === '/index.html' && current === '/');
 ---
 
@@ -21,6 +35,7 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
 
     <nav class="nav" aria-label="Principal">
       <ul role="list">
+        <li><a class="nav-link" href="/" aria-current={current === '/' || current === '/index.html' ? 'page' : undefined}>Inicio</a></li>
         <li>
           <button class="nav-link" type="button" popovertarget="menu-servicios" aria-haspopup="true">
             Servicios
@@ -35,6 +50,12 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
         ))}
       </ul>
     </nav>
+
+    <ul class="flags" role="list" aria-label="Países donde atendemos">
+      {flags.map((f) => (
+        <li><Image src={f.src} alt={f.name} title={f.name} width={26} height={18} class="flag" /></li>
+      ))}
+    </ul>
 
     <button class="menu-toggle" type="button" popovertarget="menu-movil" aria-label="Abrir menú">Menú</button>
   </div>
@@ -56,6 +77,7 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
           {services.map((s) => <li><a href={s.href}>{s.label}</a></li>)}
         </ul>
         <ul role="list" class="drawer-main">
+          <li><a href="/">Inicio</a></li>
           {mainNav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
         </ul>
       </nav>
@@ -98,6 +120,8 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
   .brand img { inline-size: clamp(8.5rem, 7rem + 4vw, 10.5rem); block-size: auto; }
 
   .nav { margin-inline-start: auto; }
+  .flags { display: flex; gap: 0.375rem; align-items: center; }
+  .flag { inline-size: 1.625rem; block-size: 1.125rem; object-fit: cover; border-radius: 3px; box-shadow: 0 0 0 1px color-mix(in srgb, var(--paper-0) 25%, transparent); }
   .nav ul { display: flex; gap: var(--space-l); }
 
   .nav-link {
@@ -205,7 +229,7 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
   }
 
   @media (max-width: 63.99em) {
-    .nav { display: none; }
+    .nav, .flags { display: none; }
     .menu-toggle { display: inline-flex; align-items: center; }
   }
 </style>

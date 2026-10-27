@@ -21,7 +21,7 @@ import Icon from './Icon.astro';
 
   const update = () => {
     const past = hero ? !heroInView : window.scrollY > 200;
-    wsp?.classList.toggle('is-shown', past || formInView);
+    wsp?.classList.add('is-shown');
     lead?.classList.toggle('is-shown', !!form && past && !formInView);
   };
 
@@ -59,7 +59,13 @@ import Icon from './Icon.astro';
       transform var(--duration-press) var(--ease-out);
   }
   .float[hidden] { display: none; }
-  .whatsapp { background-color: var(--whatsapp-500); color: var(--ink-900); }
+  .whatsapp { position: relative; background-color: var(--whatsapp-500); color: var(--ink-900); border-radius: 999px; padding-inline: var(--space-s) var(--space-m); box-shadow: 0 10px 30px -8px color-mix(in srgb, #0b3d2e 60%, transparent); }
+  .lead { border-radius: 999px; }
+  .whatsapp::before { content: ''; position: absolute; inset: 0; border-radius: inherit; box-shadow: 0 0 0 0 color-mix(in srgb, var(--whatsapp-500) 70%, transparent); pointer-events: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    .whatsapp::before { animation: pulse 3s ease-out 2s infinite; }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--whatsapp-500) 70%, transparent); } 70%, 100% { box-shadow: 0 0 0 16px transparent; } }
+  }
   .lead { background-color: var(--color-field); color: var(--color-on-field); }
   .float:active { transform: scale(0.96); }
   .float:focus-visible { outline-color: var(--orange-500); }
