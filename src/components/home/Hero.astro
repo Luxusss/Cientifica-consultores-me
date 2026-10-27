@@ -1,14 +1,21 @@
 ---
 import { Picture } from 'astro:assets';
 import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import Icon from '@/components/ui/Icon.astro';
 import { site } from '@/config/site';
 import heroImg from '@/assets/images/banner/asesores-de-tesis-cientifica-consultores.jpg';
 
 const facts = [
-  { value: '+10 años', label: 'asesorando tesis' },
-  { value: `${site.countries.length} países`, label: 'con atención online' },
+  { value: '+10 años', count: 10, label: 'asesorando tesis' },
+  { value: `${site.countries.length} países`, count: site.countries.length, label: 'con atención online' },
   { value: 'Turnitin', label: 'en cada entrega' },
 ];
+
+const badges = [
+  { icon: 'user', title: 'Asesor de tu área', text: 'Te acompaña hasta la sustentación' },
+  { icon: 'document', title: 'Reporte Turnitin', text: 'IA y similitud en cada entrega' },
+  { icon: 'shield', title: 'Contrato digital', text: 'Confidencialidad garantizada' },
+] as const;
 ---
 
 <section class="hero theme-field" aria-labelledby="hero-title" data-hero>
@@ -25,6 +32,14 @@ const facts = [
       class="photo"
     />
   </div>
+  <ul class="badges" role="list" aria-label="Lo que incluye tu asesoría">
+    {badges.map((b, i) => (
+      <li class:list={['badge', `badge-${i + 1}`]}>
+        <span class="badge-icon"><Icon name={b.icon} size="1.25rem" /></span>
+        <span class="badge-text"><strong>{b.title}</strong><span>{b.text}</span></span>
+      </li>
+    ))}
+  </ul>
   <div class="page content">
     <div class="text">
       <h1 id="hero-title"><span class="line"><span>Asesoría de</span></span> <span class="line"><span>tesis online</span></span> <span class="tail">con expertos en investigación académica</span></h1>
@@ -34,13 +49,31 @@ const facts = [
     <dl class="facts">
       {facts.map((f) => (
         <div>
-          <dt>{f.value}</dt>
+          <dt data-count={f.count}>{f.value}</dt>
           <dd>{f.label}</dd>
         </div>
       ))}
     </dl>
   </div>
 </section>
+
+<script>
+  const counters = document.querySelectorAll<HTMLElement>('[data-count]');
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    for (const el of counters) {
+      const target = Number(el.dataset.count);
+      const text = el.textContent ?? '';
+      const start = performance.now() + 600;
+      const tick = (now: number) => {
+        const t = Math.min(1, Math.max(0, (now - start) / 1200));
+        const value = Math.round(target * (1 - Math.pow(1 - t, 3)));
+        el.textContent = text.replace(String(target), String(value));
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+  }
+</script>
 
 <style>
   .hero { display: grid; overflow: hidden; }
@@ -56,6 +89,13 @@ const facts = [
   .line > span { display: block; }
   .tail { display: block; margin-block-start: var(--space-s); font-size: var(--step-lead); line-height: var(--leading-lead); letter-spacing: 0; font-weight: var(--weight-regular); }
   .lede { font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 30ch; color: var(--color-text); }
+
+  .badges { display: none; }
+  .badge { display: flex; align-items: center; gap: var(--space-xs); padding: var(--space-xs) var(--space-s) var(--space-xs) var(--space-xs); background-color: var(--paper-0); color: var(--ink-900); border-radius: var(--radius-card); box-shadow: 0 18px 40px -12px color-mix(in srgb, var(--ink-900) 45%, transparent); }
+  .badge-icon { display: grid; place-items: center; inline-size: 2.5rem; block-size: 2.5rem; border-radius: 50%; background-color: var(--orange-500); color: var(--ink-900); flex-shrink: 0; }
+  .badge-text { display: grid; line-height: 1.25; }
+  .badge-text strong { font-size: var(--step-ui); font-weight: var(--weight-semibold); }
+  .badge-text span { font-size: var(--step-small); color: var(--ink-600); }
 
   .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-m); }
   .facts div { display: grid; gap: var(--space-3xs); }
@@ -78,6 +118,11 @@ const facts = [
     .text { align-self: center; max-inline-size: 46%; }
     h1 { font-size: min(var(--step-display), 5.4vw); }
     .facts { max-inline-size: 46%; }
+    .badges { display: block; grid-area: stack; position: relative; z-index: 1; pointer-events: none; }
+    .badge { position: absolute; }
+    .badge-1 { inset-block-start: 13%; inset-inline-start: 52%; }
+    .badge-2 { inset-block-start: 52%; inset-inline-end: max(var(--page-margin), calc((100vw - var(--page-max)) / 2)); }
+    .badge-3 { inset-block-end: 12%; inset-inline-start: 56%; }
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -86,6 +131,12 @@ const facts = [
     .line + .line > span { animation-delay: calc(100ms + var(--stagger)); }
     .tail, .lede, .action { animation: rise 500ms var(--ease-out) 420ms both; }
     .facts { animation: rise 600ms var(--ease-out) 600ms both; }
+    .badge { animation: badge-in 700ms var(--ease-expo) both, float 6s ease-in-out 1.6s infinite; }
+    .badge-1 { animation-delay: 800ms, 1.6s; }
+    .badge-2 { animation-delay: 1000ms, 2.4s; }
+    .badge-3 { animation-delay: 1200ms, 3.2s; }
+    @keyframes badge-in { from { opacity: 0; transform: translateY(24px) scale(0.96); } }
+    @keyframes float { 50% { transform: translateY(-8px); } }
     @keyframes drift { from { transform: scale(1.06); } to { transform: scale(1); } }
     @keyframes line-up { from { transform: translateY(105%); } }
     @keyframes rise { from { opacity: 0; transform: translateY(12px); } }

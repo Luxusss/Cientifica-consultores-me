@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import type { Block } from '@/data/servicePages';
 
 interface Props {
@@ -9,28 +10,51 @@ interface Props {
 const { block, surface = false } = Astro.props;
 const titled = block.points.some((p) => p.title);
 const introOnly = block.points.length === 0;
+const pictured = block.points.some((p) => p.image);
 const wide = block.title.length > 40;
 ---
 
-<section class:list={[surface ? 'theme-surface section-wide' : 'section']} aria-labelledby={block.id}>
-  <div class:list={['page split', { 'split-wide': wide }]}>
-    <header class="stack" data-reveal>
-      <h2 id={block.id}>{block.title}</h2>
-      {block.intro && !introOnly && <p class="text-lead">{block.intro}</p>}
-    </header>
-    {introOnly ? (
-      <p class="text-lead" data-reveal>{block.intro}</p>
-    ) : (
-      <ul class:list={['list', { titled }]} role="list" data-reveal="stagger">
+<section class:list={[surface ? 'theme-surface section-wide' : 'section-wide']} aria-labelledby={block.id}>
+  {pictured ? (
+    <div class="page stack stack-xl">
+      <header class:list={['split', { 'split-wide': wide, 'split-end': !wide }]} data-reveal>
+        <h2 id={block.id}>{block.title}</h2>
+        {block.intro && <p class="text-lead">{block.intro}</p>}
+      </header>
+      <ul class:list={['cards', { four: block.points.length === 4 }]} role="list" data-reveal="stagger">
         {block.points.map((p) => (
-          <li id={p.id}>
+          <li id={p.id} class="card">
+            {p.image && (
+              <div class="frame">
+                <Image src={p.image} alt={p.imageAlt ?? ''} widths={[360, 540, 720]} sizes="(min-width: 64em) 26vw, (min-width: 40em) 45vw, 100vw" class="photo" />
+              </div>
+            )}
             {p.title && <h3>{p.title}</h3>}
             <p>{p.text}</p>
           </li>
         ))}
       </ul>
-    )}
-  </div>
+    </div>
+  ) : (
+    <div class:list={['page split', { 'split-wide': wide }]}>
+      <header class="stack" data-reveal>
+        <h2 id={block.id}>{block.title}</h2>
+        {block.intro && !introOnly && <p class="text-lead">{block.intro}</p>}
+      </header>
+      {introOnly ? (
+        <p class="text-lead" data-reveal>{block.intro}</p>
+      ) : (
+        <ul class:list={['list', { titled }]} role="list" data-reveal="stagger">
+          {block.points.map((p) => (
+            <li id={p.id}>
+              {p.title && <h3>{p.title}</h3>}
+              <p>{p.text}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )}
 </section>
 
 <style>
@@ -38,9 +62,22 @@ const wide = block.title.length > 40;
   .list li { font-size: var(--step-lead); line-height: var(--leading-lead); }
   .titled { gap: var(--space-l); }
   .titled li { font-size: var(--step-body); line-height: var(--leading-body); }
-  .titled h3 { font-weight: var(--weight-semibold); margin-block-end: var(--space-3xs); }
+  .titled h3 { font-size: var(--step-title); line-height: var(--leading-head); font-weight: var(--weight-medium); margin-block-end: var(--space-2xs); }
+
+  .cards { display: grid; gap: var(--space-l) var(--gutter); grid-template-columns: repeat(auto-fill, minmax(min(17rem, 100%), 1fr)); }
+  .card { display: grid; gap: var(--space-xs); align-content: start; }
+  .frame { overflow: hidden; border-radius: var(--radius-card); margin-block-end: var(--space-2xs); }
+  .photo { inline-size: 100%; aspect-ratio: 3 / 2; object-fit: cover; transition: transform var(--duration-reveal) var(--ease-out); }
+  .card h3 { font-size: var(--step-title); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
+  .card p { color: var(--color-text-soft); }
 
   @media (min-width: 64em) {
     .titled { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--gutter); }
+    .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .cards.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .card:hover .photo { transform: scale(1.05); }
   }
 </style>

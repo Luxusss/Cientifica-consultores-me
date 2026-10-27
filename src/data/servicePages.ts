@@ -5,8 +5,20 @@ import pregradoImg from '@/assets/images/banner/asesoria-tesis-pregrado.jpg';
 import maestriaImg from '@/assets/images/banner/asesoria-tesis-maestria.jpg';
 import doctoradoImg from '@/assets/images/banner/asesoria-tesis-doctoral.jpg';
 import tspImg from '@/assets/images/banner/asesoria-de-trabajo-de-suficiencia-profesional.jpg';
+import especialistaImg from '@/assets/images/tesis/secciones/especialista-en-tesis.jpg';
+import turnitinImg from '@/assets/images/tesis/secciones/asesor-de-tesis-especializado-en-turnitin.jpg';
+import onlineImg from '@/assets/images/tesis/secciones/analisis_de_similitud.webp';
+import proyectoImg from '@/assets/images/tesis/asesora-de-proyecto-de-tesis.jpg';
+import informeImg from '@/assets/images/tesis/secciones/asesoria_img1.jpg';
+import observacionesImg from '@/assets/images/tesis/secciones/levantamiento_de_observaciones.jpg';
+import sustentacionImg from '@/assets/images/tesis/secciones/asesoria_img3.jpg';
+import normasImg from '@/assets/images/tesis/secciones/informe_final.jpg';
+import tematicaImg from '@/assets/images/tesis/secciones/tematica_img.jpg';
+import metodologicaImg from '@/assets/images/tesis/metodologica_img.jpg';
+import estadisticaImg from '@/assets/images/tesis/secciones/estadistica_img.jpg';
+import cualitativoImg from '@/assets/images/tesis/secciones/analisis_contenido_img.jpg';
 
-export type Point = { title?: string; text: string; id?: string };
+export type Point = { title?: string; text: string; id?: string; image?: ImageMetadata; imageAlt?: string };
 export type Block = { id: string; title: string; intro?: string; points: Point[] };
 
 export type Section =
@@ -66,9 +78,9 @@ export const servicePages: Record<string, ServicePage> = {
         title: '¿Por qué elegir nuestra asesoría para tu proyecto de grado en Lima?',
         intro: 'Elegirnos es optar por la seguridad y la experiencia local. Somos la empresa de ayuda de tesis en Lima con más de una década de trayectoria, dedicada a convertir tu proyecto de grado en un éxito. Nuestro equipo de asesores especialistas en diversas áreas de estudio garantiza que tu investigación no solo cumpla con los estándares de tu universidad, sino que también destaque por su calidad, originalidad y un proceso sin estrés.',
         points: [
-          { title: 'Especialista en tesis para ti', text: 'Contamos con un equipo multidisciplinario de asesores de tesis con amplia experiencia. Cada experto te guiará en tu investigación hasta la sustentación.' },
-          { title: 'Calidad académica garantizada', text: 'Garantizamos originalidad en tu tesis con control de Turnitin. Recibe un trabajo único, listo para sustentar.' },
-          { title: 'Asesoría online a tu medida', text: 'Nuestra asesoría online se adapta a tus horarios con reuniones virtuales y seguimiento constante, estés donde estés.' },
+          { image: especialistaImg, imageAlt: 'Especialista en tesis', title: 'Especialista en tesis para ti', text: 'Contamos con un equipo multidisciplinario de asesores de tesis con amplia experiencia. Cada experto te guiará en tu investigación hasta la sustentación.' },
+          { image: turnitinImg, imageAlt: 'Asesor de tesis especializado en revisión anti-plagio con Turnitin en Lima', title: 'Calidad académica garantizada', text: 'Garantizamos originalidad en tu tesis con control de Turnitin. Recibe un trabajo único, listo para sustentar.' },
+          { image: onlineImg, imageAlt: 'Asesoría online', title: 'Asesoría online a tu medida', text: 'Nuestra asesoría online se adapta a tus horarios con reuniones virtuales y seguimiento constante, estés donde estés.' },
         ],
       },
       {
@@ -76,11 +88,11 @@ export const servicePages: Record<string, ServicePage> = {
         id: 'incluye',
         title: '¿Qué incluye nuestra asesoría integral de tesis de pregrado?',
         points: [
-          { id: 'proyecto', title: 'Desarrollo de tu proyecto de tesis', text: 'Te guiamos en el desarrollo de tu proyecto de tesis, desde la elección del tema hasta su estructuración. Incluye planteamiento del problema, objetivos, justificación, marco teórico y diseño metodológico. Nuestra asesoría de tesis online ofrece una base sólida alineada a los criterios académicos para lograr la aprobación del trabajo.' },
-          { title: 'Redacción del informe final y análisis de datos', text: 'Te apoyamos en la redacción de tesis, capítulo por capítulo, desde los resultados hasta las conclusiones y recomendaciones. Además, brindamos soporte en el análisis de datos cuantitativos o cualitativos, con el uso de software especializado según los requerimientos de tu investigación.' },
-          { title: 'Levantamiento de observaciones y correcciones', text: '¿Tu tesis ya fue revisada? Te ayudamos con el levantamiento de observaciones. Nuestros especialistas identifican y corrigen cada detalle para que tu trabajo de tesis cumpla con los estándares académicos exigidos y esté listo para su aprobación.' },
-          { title: 'Asesoría para la sustentación de tesis', text: 'Prepárate con confianza para tu sustentación de tesis. Te orientamos en la estructura de la presentación, el manejo de preguntas y técnicas de exposición para lograr una defensa clara, segura y exitosa.' },
-          { title: 'Normas de redacción (APA, Vancouver, ISO 690)', text: 'Te ayudamos a aplicar correctamente las normas de redacción según el estilo requerido —APA, Vancouver, ISO 690 u otros—. Nuestros asesores se aseguran de que tu tesis cumpla con los estándares académicos en citas, referencias y formatos, mejorando su presentación y calidad formal.' },
+          { id: 'proyecto', image: proyectoImg, imageAlt: 'Desarrollo de tu proyecto de tesis', title: 'Desarrollo de tu proyecto de tesis', text: 'Te guiamos en el desarrollo de tu proyecto de tesis, desde la elección del tema hasta su estructuración. Incluye planteamiento del problema, objetivos, justificación, marco teórico y diseño metodológico. Nuestra asesoría de tesis online ofrece una base sólida alineada a los criterios académicos para lograr la aprobación del trabajo.' },
+          { image: informeImg, imageAlt: 'Redacción del informe final y análisis de datos', title: 'Redacción del informe final y análisis de datos', text: 'Te apoyamos en la redacción de tesis, capítulo por capítulo, desde los resultados hasta las conclusiones y recomendaciones. Además, brindamos soporte en el análisis de datos cuantitativos o cualitativos, con el uso de software especializado según los requerimientos de tu investigación.' },
+          { image: observacionesImg, imageAlt: 'Levantamiento de observaciones y correcciones', title: 'Levantamiento de observaciones y correcciones', text: '¿Tu tesis ya fue revisada? Te ayudamos con el levantamiento de observaciones. Nuestros especialistas identifican y corrigen cada detalle para que tu trabajo de tesis cumpla con los estándares académicos exigidos y esté listo para su aprobación.' },
+          { image: sustentacionImg, imageAlt: 'Asesoría para la sustentación de tesis', title: 'Asesoría para la sustentación de tesis', text: 'Prepárate con confianza para tu sustentación de tesis. Te orientamos en la estructura de la presentación, el manejo de preguntas y técnicas de exposición para lograr una defensa clara, segura y exitosa.' },
+          { image: normasImg, imageAlt: 'Normas de redacción con el estilo APA, Vancouver, ISO 690', title: 'Normas de redacción (APA, Vancouver, ISO 690)', text: 'Te ayudamos a aplicar correctamente las normas de redacción según el estilo requerido —APA, Vancouver, ISO 690 u otros—. Nuestros asesores se aseguran de que tu tesis cumpla con los estándares académicos en citas, referencias y formatos, mejorando su presentación y calidad formal.' },
         ],
       },
       { kind: 'photos' },
@@ -90,7 +102,18 @@ export const servicePages: Record<string, ServicePage> = {
         title: 'Expertos en la normativa de todas las universidades de pregrado en Lima y a nivel nacional',
         text: ['El éxito de una tesis de pregrado depende de cumplir al detalle la normativa interna de tu facultad. Nuestros asesores especialistas cuentan con la experiencia para adaptar tu investigación a los estándares metodológicos de cualquier institución, desde las principales universidades en Lima hasta las casas de estudio más prestigiosas a nivel nacional. Gracias a nuestra metodología 100% online, garantizamos un soporte de tesis eficiente, sin importar tu ubicación, asegurando que tu proyecto final cumpla con todos los requisitos para la sustentación y la obtención de tu título.'],
       },
-      { kind: 'stages', title: 'Tipos de asesorías' },
+      {
+        kind: 'points',
+        id: 'tipos',
+        title: 'Tipos de asesorías',
+        points: [
+          { image: tematicaImg, imageAlt: 'Asesoría temática', title: 'Temática', text: 'Un especialista de tu carrera te orienta en el contenido de tu investigación: el tema, los antecedentes y el marco teórico.' },
+          { image: metodologicaImg, imageAlt: 'Asesoría metodológica', title: 'Metodológica', text: 'Definimos el enfoque, el diseño, la población, la muestra y los instrumentos de tu investigación.' },
+          { image: estadisticaImg, imageAlt: 'Asesoría estadística', title: 'Estadística', text: 'Procesamos y analizamos tus datos cuantitativos con software especializado e interpretamos los resultados.' },
+          { image: cualitativoImg, imageAlt: 'Asesoría análisis de datos cualitativos', title: 'Análisis de datos cualitativos', text: 'Codificamos y analizamos entrevistas y grupos focales con Atlas.ti para construir tus categorías y hallazgos.' },
+        ],
+      },
+      { kind: 'stages', title: 'Tu tesis de pregrado por etapas' },
     ],
     faqTitle: 'Preguntas frecuentes sobre tesis de pregrado',
     faq: pregradoFaq,
