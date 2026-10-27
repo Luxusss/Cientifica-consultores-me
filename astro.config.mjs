@@ -1,7 +1,7 @@
 import { defineConfig, fontProviders } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-const literata = './node_modules/@fontsource-variable/literata/files/literata-latin-opsz';
+const literata = './src/assets/fonts/literata';
 const site = 'https://cientificaconsultores.com';
 
 export default defineConfig({
@@ -10,7 +10,7 @@ export default defineConfig({
   devToolbar: { enabled: false },
   integrations: [
     sitemap({
-      filter: (page) => !/\/(404|libro-de-reclamaciones)(\.html)?$/.test(page),
+      filter: (page) => !/\/404(\.html)?$/.test(page),
       serialize: (item) => ({ ...item, url: item.url === `${site}/` ? item.url : `${item.url.replace(/\/$/, '')}.html` }),
     }),
   ],
@@ -45,8 +45,8 @@ export default defineConfig({
       display: 'swap',
       options: {
         variants: [
-          { src: [`${literata}-normal.woff2`], weight: '200 900', style: 'normal' },
-          { src: [`${literata}-italic.woff2`], weight: '200 900', style: 'italic' },
+          { src: [`${literata}-normal.woff2`], weight: '400 600', style: 'normal' },
+          { src: [`${literata}-italic.woff2`], weight: '400 600', style: 'italic' },
         ],
       },
     },

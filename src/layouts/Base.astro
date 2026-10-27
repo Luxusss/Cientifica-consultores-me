@@ -16,9 +16,10 @@ interface Props {
   type?: 'website' | 'article';
   schema?: object[];
   overlay?: boolean;
+  preloadFont?: boolean;
 }
 
-const { schema = [], overlay = false, ...seo } = Astro.props;
+const { schema = [], overlay = false, preloadFont = false, ...seo } = Astro.props;
 const gtm = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${site.gtmId}');`;
 const loadGtm = import.meta.env.PROD;
 ---
@@ -34,7 +35,7 @@ const loadGtm = import.meta.env.PROD;
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     {loadGtm && <link rel="preconnect" href="https://www.googletagmanager.com" />}
-    <Font cssVariable="--font-literata" />
+    {preloadFont ? <Font cssVariable="--font-literata" preload={[{ style: 'normal' }]} /> : <Font cssVariable="--font-literata" />}
     <Seo {...seo} />
     <script type="application/ld+json" set:html={graph(schema)} />
     {loadGtm && <script is:inline set:html={gtm} />}
