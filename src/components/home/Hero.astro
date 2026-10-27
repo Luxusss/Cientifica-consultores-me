@@ -11,12 +11,27 @@ const facts = [
 ];
 ---
 
-<section class="hero theme-field" aria-labelledby="hero-title">
-  <div class="text">
-    <h1 id="hero-title"><span class="line"><span>Asesoría de</span></span> <span class="line"><span>tesis online</span></span></h1>
-    <p class="lede">Un asesor especialista te acompaña en tu tesis de pregrado, maestría, doctorado o TSP, desde el proyecto hasta la sustentación.</p>
-    <div class="action"><WhatsAppButton /></div>
-    <dl class="facts accent-mark">
+<section class="hero theme-field" aria-labelledby="hero-title" data-hero>
+  <div class="media">
+    <Picture
+      src={heroImg}
+      formats={['avif', 'webp']}
+      alt="Tres asesores de tesis de Científica Consultores en su oficina de Lima"
+      widths={[480, 720, 960, 1280, 1600]}
+      sizes="100vw"
+      quality={72}
+      loading="eager"
+      fetchpriority="high"
+      class="photo"
+    />
+  </div>
+  <div class="page content">
+    <div class="text">
+      <h1 id="hero-title"><span class="line"><span>Asesoría de</span></span> <span class="line"><span>tesis online</span></span></h1>
+      <p class="lede">Un asesor especialista te acompaña en tu tesis de pregrado, maestría, doctorado o TSP, desde el proyecto hasta la sustentación.</p>
+      <div class="action"><WhatsAppButton /></div>
+    </div>
+    <dl class="facts">
       {facts.map((f) => (
         <div>
           <dt>{f.value}</dt>
@@ -25,59 +40,41 @@ const facts = [
       ))}
     </dl>
   </div>
-  <div class="media">
-    <Picture
-      src={heroImg}
-      formats={['avif', 'webp']}
-      alt="Tres asesores de tesis de Científica Consultores en su oficina de Lima"
-      widths={[480, 720, 960, 1280, 1600]}
-      sizes="(min-width: 64em) 55vw, 100vw"
-      quality={70}
-      loading="eager"
-      fetchpriority="high"
-      class="photo"
-    />
-  </div>
 </section>
 
 <style>
   .hero { display: grid; overflow: hidden; }
 
-  .text {
-    display: grid;
-    align-content: center;
-    gap: var(--space-l);
-    padding: var(--space-xl) var(--page-margin) var(--space-2xl);
-  }
+  .media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; }
+  .media > :global(picture) { display: block; block-size: 100%; }
+  .photo { inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 100% 30%; transform-origin: 100% 40%; }
+
+  .content { display: grid; gap: var(--space-xl); padding-block: var(--space-xl) var(--space-2xl); }
+  .text { display: grid; gap: var(--space-l); justify-items: start; }
   h1 { color: var(--color-text); max-inline-size: none; }
   .line { display: block; overflow: hidden; padding-block-end: 0.08em; margin-block-end: -0.08em; }
   .line > span { display: block; }
-  .lede { font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 34ch; color: var(--color-text); }
+  .lede { font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 30ch; color: var(--color-text); }
 
-  .facts {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-m);
-    max-inline-size: 36rem;
-  }
+  .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-m); }
+  .facts div { display: grid; gap: var(--space-3xs); }
   .facts dt { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-semibold); }
   .facts dd { font-size: var(--step-small); line-height: var(--leading-small); color: var(--color-text-soft); }
 
-  .media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
-  .media > :global(picture) { block-size: 100%; }
-  .photo { inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 100% 30%; transform-origin: 100% 40%; }
-
   @media (min-width: 64em) {
-    .hero {
-      grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
-      min-block-size: calc(100svh - var(--header-height));
-    }
-    .text {
-      padding-inline: max(var(--page-margin), calc((100vw - var(--page-max)) / 2)) var(--space-2xl);
-      padding-block: var(--space-2xl);
-    }
-    h1 { font-size: min(var(--step-display), 5.6vw); }
+    .hero { grid-template-areas: 'stack'; min-block-size: min(calc(100svh - var(--header-height)), 60rem); }
+    .media, .content { grid-area: stack; }
     .media { aspect-ratio: auto; }
+    .media::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, var(--scrim-strong) 0%, var(--scrim-strong) 22%, transparent 58%);
+    }
+    .content { position: relative; grid-template-rows: 1fr auto; padding-block: var(--space-2xl) var(--space-xl); }
+    .text { align-self: center; max-inline-size: 46%; }
+    h1 { font-size: min(var(--step-display), 5.4vw); }
+    .facts { max-inline-size: 46%; }
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -86,7 +83,7 @@ const facts = [
     .line + .line > span { animation-delay: calc(100ms + var(--stagger)); }
     .lede, .action { animation: rise 500ms var(--ease-out) 420ms both; }
     .facts { animation: rise 600ms var(--ease-out) 600ms both; }
-    @keyframes drift { from { transform: scale(1.08); } to { transform: scale(1); } }
+    @keyframes drift { from { transform: scale(1.06); } to { transform: scale(1); } }
     @keyframes line-up { from { transform: translateY(105%); } }
     @keyframes rise { from { opacity: 0; transform: translateY(12px); } }
   }

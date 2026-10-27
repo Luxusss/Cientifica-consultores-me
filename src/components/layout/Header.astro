@@ -31,7 +31,7 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
       </ul>
     </nav>
 
-    <div class="action"><WhatsAppButton /></div>
+    <div class="action"><WhatsAppButton label="WhatsApp" class="compact" /></div>
 
     <button class="menu-toggle" type="button" popovertarget="menu-movil" aria-label="Abrir menú">Menú</button>
   </div>
@@ -81,14 +81,15 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
   .brand img { inline-size: clamp(8.5rem, 7rem + 4vw, 10.5rem); block-size: auto; }
 
   .nav { margin-inline-start: auto; }
-  .nav ul { display: flex; gap: var(--space-m); }
+  .nav ul { display: flex; gap: var(--space-l); }
+  .action :global(.compact) { --button-height: 2.75rem; font-size: var(--step-ui); }
 
   .nav-link {
     display: inline-flex;
     align-items: center;
     min-block-size: var(--hit-min);
     color: var(--color-text);
-    font-size: var(--step-body);
+    font-size: var(--step-ui);
     font-weight: var(--weight-medium);
     text-decoration-line: underline;
     text-decoration-color: transparent;

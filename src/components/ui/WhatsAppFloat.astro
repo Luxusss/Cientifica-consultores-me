@@ -3,10 +3,19 @@ import { whatsappUrl } from '@/config/site';
 import Icon from './Icon.astro';
 ---
 
-<a class="float" href={whatsappUrl()} target="_blank" rel="noopener">
+<a class="float" data-float href={whatsappUrl()} target="_blank" rel="noopener">
   <Icon name="whatsapp" size="1.5em" />
   <span>Habla con un asesor</span>
 </a>
+
+<script>
+  const float = document.querySelector<HTMLElement>('[data-float]');
+  const hero = document.querySelector('[data-hero]');
+  if (float) {
+    if (!hero) float.classList.add('is-shown');
+    else new IntersectionObserver(([e]) => float.classList.toggle('is-shown', !e.isIntersecting)).observe(hero);
+  }
+</script>
 
 <style>
   .float {
@@ -31,6 +40,10 @@ import Icon from './Icon.astro';
       transform var(--duration-press) var(--ease-out);
   }
   .float:active { transform: scale(0.96); }
+  :global(.js) .float:not(.is-shown) { opacity: 0; transform: translateY(12px); pointer-events: none; visibility: hidden; }
+  @media (prefers-reduced-motion: no-preference) {
+    .float { transition: background-color var(--duration-hover) ease, transform var(--duration-ui) var(--ease-out), opacity var(--duration-ui) var(--ease-out), visibility var(--duration-ui) allow-discrete; }
+  }
   .float:focus-visible { outline-color: var(--orange-500); }
 
   @media (max-width: 47.99em) {

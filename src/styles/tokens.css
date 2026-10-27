@@ -21,6 +21,7 @@
   --weight-semibold: 600;
 
   --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  --step-ui: clamp(0.9375rem, 0.9rem + 0.1vw, 1.0625rem);
   --step-body: clamp(1.0625rem, 1rem + 0.26vw, 1.3125rem);
   --step-lead: clamp(1.25rem, 1.09rem + 0.65vw, 1.875rem);
   --step-head: clamp(2rem, 1.24rem + 3.14vw, 5rem);
