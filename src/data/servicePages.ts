@@ -285,7 +285,7 @@ export const servicePages: Record<string, ServicePage> = {
         id: 'por-que',
         title: '¿Por qué elegir nuestro servicio de asesoría TSP?',
         points: [
-          { title: 'Resultados comprobados', text: `${stats.tspApproval}% de aprobación en primera sustentación. Más de ${stats.tsp} TSP exitosos desarrollados. Tiempo récord: desde 1 mes, ${stats.tspMonths} en promedio. Asesoría personalizada según tu universidad.` },
+          { title: 'Resultados comprobados', text: `${stats.tspApproval}% de aprobación en primera sustentación. Y si el jurado te observa, levantamos las observaciones sin costo adicional. Más de ${stats.tsp} TSP exitosos desarrollados. Tiempo récord: desde 1 mes, ${stats.tspMonths} en promedio. Asesoría personalizada según tu universidad.` },
           { title: 'Expertos por universidad', text: 'Conocemos los requisitos específicos de la UPN (Universidad Privada del Norte), la UCV (César Vallejo), la USIL (Universidad San Ignacio de Loyola), la UTP (Universidad Tecnológica del Perú) y más universidades.' },
         ],
       },
