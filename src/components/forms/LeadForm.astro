@@ -53,7 +53,7 @@ const options = countries.map((c) => ({ value: c.name, label: `${c.name} (${c.co
     </>
   ) : (
     <div class="send">
-      <Field id={`${uid}-mensaje`} label="Tu avance y el apoyo que requieres (opcional)" name="mensaje" type="textarea" rows="2" placeholder="¿En qué parte está tu proyecto de tesis? ¿Qué apoyo requieres?" />
+      <Field id={`${uid}-mensaje`} label="Tu avance y el apoyo que requieres (opcional)" name="mensaje" type="textarea" placeholder="¿En qué parte está tu proyecto de tesis? ¿Qué apoyo requieres?" />
       <Button type="submit">{submitLabel}</Button>
     </div>
   )}
