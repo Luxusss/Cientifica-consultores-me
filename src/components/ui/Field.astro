@@ -12,7 +12,7 @@ interface Props extends Omit<HTMLAttributes<'input'>, 'type'> {
   options?: Option[];
 }
 
-const { label, name, type = 'text', hint, error, options = [], id = name, required, ...rest } = Astro.props;
+const { label, name, type = 'text', hint, error, options = [], id = name, required, placeholder = ' ', ...rest } = Astro.props;
 const hintId = hint ? `${id}-hint` : undefined;
 const errorId = error ? `${id}-error` : undefined;
 const describedBy = [hintId, errorId].filter(Boolean).join(' ') || undefined;
@@ -25,21 +25,28 @@ const describedBy = [hintId, errorId].filter(Boolean).join(' ') || undefined;
   </label>
 
   {type === 'textarea' ? (
-    <textarea id={id} name={name} required={required} aria-describedby={describedBy} rows="5" {...rest} />
+    <textarea id={id} name={name} required={required} aria-describedby={describedBy} rows="5" placeholder={placeholder} {...rest} />
   ) : type === 'select' ? (
     <select id={id} name={name} required={required} aria-describedby={describedBy} {...rest}>
       {options.map((o) => <option value={o.value}>{o.label}</option>)}
     </select>
   ) : (
-    <input id={id} name={name} type={type} required={required} aria-describedby={describedBy} {...rest} />
+    <input id={id} name={name} type={type} required={required} aria-describedby={describedBy} placeholder={placeholder} {...rest} />
   )}
 
   {hint && <p class="hint" id={hintId}>{hint}</p>}
   {error && <p class="error" id={errorId}>{error}</p>}
 </div>
 
+<script>
+  document.addEventListener('invalid', (event) => {
+    const form = (event.target as HTMLElement).closest('form');
+    if (form) form.dataset.tried = 'true';
+  }, true);
+</script>
+
 <style>
-  .field { display: grid; gap: var(--space-2xs); }
+  .field { display: grid; gap: var(--space-2xs); align-content: start; }
 
   label {
     font-size: var(--step-small);
@@ -75,6 +82,8 @@ const describedBy = [hintId, errorId].filter(Boolean).join(' ') || undefined;
   .hint { color: var(--color-text-soft); }
 
   .error { display: none; color: var(--color-error); font-weight: var(--weight-semibold); }
-  .field:has(:user-invalid) .error { display: block; }
-  .field:has(:user-invalid) :is(input, select, textarea) { border-block-end-color: var(--color-error); }
+  .field:has(:user-invalid:not(:placeholder-shown)) .error,
+  :global(form[data-tried]) .field:has(:invalid) .error { display: block; }
+  .field:has(:user-invalid:not(:placeholder-shown)) :is(input, select, textarea),
+  :global(form[data-tried]) .field:has(:invalid) :is(input, select, textarea) { border-block-end-color: var(--color-error); }
 </style>

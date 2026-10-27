@@ -85,6 +85,7 @@ const options = countries.map((c) => ({ value: c.name, label: `${c.name} (${c.co
       if (String(data.get('_honey') ?? '') !== '' || Date.now() - openedAt < 2000) {
         setStatus('Gracias. Te contactaremos pronto.', 'ok');
         form.reset();
+        delete form.dataset.tried;
         return;
       }
 
@@ -121,6 +122,7 @@ const options = countries.map((c) => ({ value: c.name, label: `${c.name} (${c.co
         if (!mail.ok) throw new Error(String(mail.status));
 
         form.reset();
+        delete form.dataset.tried;
         setStatus(`Gracias, recibimos tu mensaje. Te escribimos en ${form.dataset.reply}.`, 'ok');
         window.dataLayer?.push({ event: 'lead_form_submit', form_subject: data.get('_subject') });
       } catch {
