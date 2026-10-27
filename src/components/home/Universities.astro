@@ -5,6 +5,7 @@ import Icon from '@/components/ui/Icon.astro';
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { universityLogos } from '@/data/logos';
+import LatamMap from './LatamMap.astro';
 
 const files = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/clients/*', { eager: true });
 const logos = universityLogos.map((l) => ({ ...l, src: files[`/src/assets/images/clients/${l.file}`]?.default })).filter((l) => l.src);
@@ -13,12 +14,14 @@ const total = universities.reduce((n, g) => n + g.names.length, 0);
 const index = universities.flatMap((g) => g.names.map((name) => ({ name, country: g.country })));
 ---
 
-<section class="section-wide universities" aria-labelledby="universidades">
+<section class="theme-surface section-wide universities" aria-labelledby="universidades">
   <div class="page stack stack-xl">
     <header class="split split-end" data-reveal>
       <h2 id="universidades">Dónde sustentaron</h2>
       <p class="text-lead">Clientes de {total} universidades en {universities.length} países.</p>
     </header>
+
+    <LatamMap />
 
     <div class="marquee" aria-label="Universidades de nuestros clientes">
       <ul class="track" role="list">

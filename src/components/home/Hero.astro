@@ -19,9 +19,9 @@ const shortcuts = [
 ];
 
 const badges = [
-  { icon: 'user', title: 'Asesor de tu área', text: 'Te acompaña hasta la sustentación' },
-  { icon: 'document', title: 'Reporte Turnitin', text: 'IA y similitud en cada entrega' },
+  { icon: 'user', title: 'Asesor de tu área', text: 'Contigo hasta la sustentación' },
   { icon: 'shield', title: 'Contrato digital', text: 'Confidencialidad garantizada' },
+  { icon: 'document', title: 'Reporte Turnitin', text: 'IA y similitud en cada entrega' },
 ] as const;
 ---
 
@@ -111,9 +111,10 @@ const badges = [
   }
 
   .badges { display: none; }
-  .badge { display: flex; align-items: center; gap: var(--space-xs); padding: 0.6rem 1.1rem 0.6rem 0.6rem; background-color: color-mix(in srgb, var(--navy-700) 55%, transparent); -webkit-backdrop-filter: blur(14px) saturate(1.3); backdrop-filter: blur(14px) saturate(1.3); color: var(--paper-0); border: 1px solid color-mix(in srgb, var(--paper-0) 22%, transparent); border-radius: 999px; }
+  .badge { display: flex; flex-direction: column; align-items: center; gap: var(--space-2xs); text-align: center; color: var(--paper-0); text-shadow: 0 1px 12px color-mix(in srgb, var(--ink-900) 90%, transparent), 0 1px 2px var(--ink-900); }
   .badge-icon { display: grid; place-items: center; inline-size: 2.25rem; block-size: 2.25rem; border-radius: 50%; background-color: var(--orange-500); color: var(--ink-900); flex-shrink: 0; }
-  .badge-text { display: grid; line-height: 1.25; }
+  .badge-text { display: grid; gap: 0.15rem; line-height: 1.25; }
+  .badge-icon { box-shadow: 0 0 0 6px color-mix(in srgb, var(--orange-500) 25%, transparent); }
   .badge-text strong { font-size: var(--step-ui); font-weight: var(--weight-semibold); }
   .badge-text span { font-size: var(--step-small); color: var(--navy-100); }
 
@@ -132,6 +133,7 @@ const badges = [
       inset: 0;
       background:
         linear-gradient(180deg, var(--scrim-soft) 0%, transparent 22%),
+        linear-gradient(0deg, color-mix(in srgb, var(--ink-900) 70%, transparent) 0%, transparent 34%),
         linear-gradient(90deg, var(--scrim-strong) 0%, var(--scrim-strong) 22%, transparent 58%);
     }
     .content { position: relative; grid-template-rows: 1fr auto; padding-block: calc(var(--header-height) + var(--space-l)) var(--space-l); }
@@ -140,10 +142,10 @@ const badges = [
     .line { display: inline-block; }
     .facts { max-inline-size: min(40%, 34rem); }
     .badges { display: block; grid-area: stack; position: relative; z-index: 1; pointer-events: none; }
-    .badge { position: absolute; }
-    .badge-1 { inset-block-start: 15%; inset-inline-start: 58%; }
-    .badge-2 { inset-block-start: 56%; inset-inline-end: var(--edge); }
-    .badge-3 { inset-block-end: 10%; inset-inline-start: 52%; }
+    .badge { position: absolute; inset-block-end: 13%; translate: -50% 0; white-space: nowrap; }
+    .badge-1 { inset-inline-start: 54%; }
+    .badge-2 { inset-inline-start: 71.5%; }
+    .badge-3 { inset-inline-start: 88.5%; }
   }
 
   @media (prefers-reduced-motion: no-preference) {

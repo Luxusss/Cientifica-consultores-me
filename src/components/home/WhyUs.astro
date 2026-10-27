@@ -2,7 +2,7 @@
 import { whyUs } from '@/data/home';
 ---
 
-<section class="theme-surface section-wide" aria-labelledby="por-que">
+<section class="section-wide" aria-labelledby="por-que">
   <div class="page stack stack-xl">
     <header class="split split-end" data-reveal>
       <h2 id="por-que">{whyUs.title}</h2>
@@ -21,7 +21,7 @@ import { whyUs } from '@/data/home';
 
 <style>
   .cards { display: grid; gap: var(--space-s); }
-  .card { display: grid; gap: var(--space-xs); align-content: start; padding: var(--space-l); background-color: var(--paper-0); border-radius: var(--radius-card); }
+  .card { display: grid; gap: var(--space-xs); align-content: start; padding: var(--space-l); background-color: var(--color-surface); border-radius: var(--radius-card); }
   h3 { font-size: var(--step-title); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
   h3::before { content: ''; display: block; inline-size: 2.5rem; block-size: 4px; margin-block-end: var(--space-s); background-color: var(--color-accent); border-radius: 2px; }
   .card p { color: var(--color-text-soft); }

@@ -122,7 +122,7 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
   .nav { margin-inline-start: auto; }
   .flags { display: flex; gap: 0.375rem; align-items: center; }
   .flag { inline-size: 1.625rem; block-size: 1.125rem; object-fit: cover; border-radius: 3px; box-shadow: 0 0 0 1px color-mix(in srgb, var(--paper-0) 25%, transparent); }
-  .nav ul { display: flex; gap: var(--space-l); }
+  .nav ul { display: flex; gap: var(--space-3xs); }
 
   .nav-link {
     display: inline-flex;
@@ -131,15 +131,15 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
     color: var(--color-text);
     font-size: var(--step-ui);
     font-weight: var(--weight-medium);
-    text-decoration-line: underline;
-    text-decoration-color: transparent;
-    text-underline-offset: 0.35em;
-    text-decoration-thickness: 2px;
+    text-decoration: none;
+    border-radius: 999px;
+    padding-inline: var(--space-s);
+    transition: background-color var(--duration-hover) ease, color var(--duration-hover) ease;
   }
-  .nav-link[aria-current='page'] { text-decoration-color: var(--color-accent); }
+  .nav-link[aria-current='page'] { color: var(--orange-500); }
 
   @media (hover: hover) and (pointer: fine) {
-    .nav-link:hover { text-decoration-color: currentColor; }
+    .nav-link:hover { background-color: color-mix(in srgb, var(--paper-0) 12%, transparent); }
   }
 
   .panel {
