@@ -87,6 +87,7 @@
     inline-size: min(100% - 2 * var(--page-margin), var(--page-max));
     margin-inline: auto;
   }
+  .frame { inline-size: 100%; padding-inline: var(--edge); }
 
   .grid {
     display: grid;

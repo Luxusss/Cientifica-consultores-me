@@ -5,6 +5,10 @@ import pregradoImg from '@/assets/images/banner/asesoria-tesis-pregrado.jpg';
 import maestriaImg from '@/assets/images/banner/asesoria-tesis-maestria.jpg';
 import doctoradoImg from '@/assets/images/banner/asesoria-tesis-doctoral.jpg';
 import tspImg from '@/assets/images/banner/asesoria-de-trabajo-de-suficiencia-profesional.jpg';
+import pregradoIntro from '@/assets/images/otros/asesora-de-tesis-de-pregardo.jpg';
+import maestriaIntro from '@/assets/images/otros/asesor-de-tesis-de-maestria-cientifica-consultores.jpg';
+import doctoradoIntro from '@/assets/images/tesis/asesor-de-tesis-doctoral.jpg';
+import tspIntro from '@/assets/images/tesis/asesora-de-trabajo-de-suficiencia-profesional.png';
 import especialistaImg from '@/assets/images/tesis/secciones/especialista-en-tesis.jpg';
 import turnitinImg from '@/assets/images/tesis/secciones/asesor-de-tesis-especializado-en-turnitin.jpg';
 import onlineImg from '@/assets/images/tesis/secciones/analisis_de_similitud.webp';
@@ -42,6 +46,8 @@ export type ServicePage = {
   imageAlt: string;
   formSubject: string;
   intro: string[];
+  introImage: ImageMetadata;
+  introAlt: string;
   sections: Section[];
   faqTitle: string;
   faq: Faq[];
@@ -61,6 +67,8 @@ export const servicePages: Record<string, ServicePage> = {
     image: pregradoImg,
     imageAlt: 'Asesoría de tesis de pregrado en Lima y online',
     formSubject: 'Nuevo lead - Tesis de Pregrado',
+    introImage: pregradoIntro,
+    introAlt: 'Asesoría de tesis de pregrado, licenciatura y grado',
     intro: [
       'La tesis de pregrado es el último gran paso para obtener tu título universitario, pero suele ser un proceso complejo y estresante. En Científica Consultores te ofrecemos asesoría de tesis en Lima, a nivel nacional y online. Nuestro acompañamiento cubre todas las fases: desde la elección del tema de investigación y la metodología (cualitativa, cuantitativa o mixta) hasta la redacción final, la verificación anti-plagio con Turnitin y la preparación para la sustentación. Enfócate en tu futuro académico y profesional.',
     ],
@@ -129,6 +137,8 @@ export const servicePages: Record<string, ServicePage> = {
     image: maestriaImg,
     imageAlt: 'Asesoría de tesis de maestría',
     formSubject: 'Nuevo lead - Tesis de Maestría',
+    introImage: maestriaIntro,
+    introAlt: 'Asesor de tesis de maestría de Científica Consultores',
     intro: ['En Científica Consultores ofrecemos asesoría de tesis en Lima, con un enfoque integral para cada etapa de tu proyecto. Te garantizamos un proceso transparente y eficiente, adaptado a tus necesidades académicas.'],
     sections: [
       { kind: 'careers', title: 'Áreas de especialización en asesoría de tesis', intro: careersIntro },
@@ -184,6 +194,8 @@ export const servicePages: Record<string, ServicePage> = {
     image: doctoradoImg,
     imageAlt: 'Asesoría de tesis doctoral',
     formSubject: 'Nuevo lead - Tesis Doctoral',
+    introImage: doctoradoIntro,
+    introAlt: 'Asesor de tesis doctoral de Científica Consultores',
     intro: ['En Científica Consultores somos especialistas en brindar ayuda para tesis doctoral a profesionales que buscan completar su trabajo de investigación con excelencia. Sabemos que el proceso de una tesis de doctorado es exigente, por lo que nuestros asesores de tesis doctorales te acompañan en cada etapa, desde la planificación hasta la sustentación.'],
     sections: [
       { kind: 'careers', title: 'Áreas de especialización en asesoría de tesis', intro: careersIntro },
@@ -230,6 +242,8 @@ export const servicePages: Record<string, ServicePage> = {
     image: tspImg,
     imageAlt: 'Asesoría de trabajo de suficiencia profesional',
     formSubject: 'Nuevo lead - TSP',
+    introImage: tspIntro,
+    introAlt: 'Asesora de trabajo de suficiencia profesional de Científica Consultores',
     intro: ['Enfrentar tu trabajo de suficiencia profesional es el último paso para obtener tu título. En Científica Consultores ofrecemos una asesoría TSP integral para guiarte en cada etapa, asegurando que tu trabajo cumpla con los más altos estándares académicos y profesionales. Nuestro equipo de expertos está listo para ayudarte a alcanzar el éxito.'],
     sections: [
       { kind: 'cta', id: 'titulo', title: '¡Obtén tu título profesional en solo 1 mes con apoyo de expertos!' },

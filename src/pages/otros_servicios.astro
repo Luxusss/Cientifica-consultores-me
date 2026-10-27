@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, Picture } from 'astro:assets';
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/ui/PageHero.astro';
 import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
@@ -7,10 +7,11 @@ import ContactBand from '@/components/sections/ContactBand.astro';
 import { otherServices } from '@/data/otherServices';
 import { breadcrumb } from '@/lib/schema';
 import { site } from '@/config/site';
+import heroImg from '@/assets/images/banner/asesora-de-tesis-Cientifica-Consultores.jpg';
 
 const schema = [
   breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Otros servicios', path: '/otros_servicios.html' }]),
-  ...otherServices.map((g) => ({ '@type': 'Service', name: g.name, description: g.items.join('. '), provider: { '@id': `${site.url}/#organizacion` } })),
+  ...otherServices.map((g) => ({ '@type': 'Service', name: g.name, description: g.items.map((i) => i.name).join('. '), provider: { '@id': `${site.url}/#organizacion` } })),
 ];
 ---
 
@@ -19,54 +20,57 @@ const schema = [
   description="Revisiones sistemáticas, metaanálisis, planes de negocio, trabajo de campo, análisis estadístico y corrección de estilo para tu investigación."
   schema={schema}
 >
-  <PageHero tone="field" title="Otros servicios" lede="Más allá de la tesis: apoyo en cada parte de tu investigación." balance="media">
-    <nav slot="media" class="index" aria-label="Grupos de servicios">
-      <ol role="list">
+  <PageHero title="Otros servicios" crumb="Otros servicios" lede="Más allá de la tesis: apoyo en cada parte de tu investigación." balance="photo">
+    <nav class="index" aria-label="Grupos de servicios">
+      <ul role="list">
         {otherServices.map((g) => <li><a href={`#${g.id}`}>{g.name}</a></li>)}
-      </ol>
+      </ul>
     </nav>
+    <Picture slot="media" formats={['avif', 'webp']} quality={70} src={heroImg} alt="Asesora de tesis de Científica Consultores" widths={[640, 960, 1280, 1600]} sizes="100vw" loading="eager" fetchpriority="high" />
   </PageHero>
 
-  <ol class="groups" role="list">
-    {otherServices.map((g, i) => (
-      <li class:list={['group', { flip: i % 2 === 1, 'theme-surface': i % 2 === 1 }]}>
-        <section class="page grid inner" aria-labelledby={g.id}>
-          <Image src={g.image} alt="" widths={[480, 720, 960]} sizes="(min-width: 64em) 40vw, 100vw" class="photo" />
-          <div class="body" data-reveal="stagger">
-            <h2 id={g.id}>{g.name}</h2>
-            <ul class="items" role="list">
-              {g.items.map((item) => <li>{item}</li>)}
-            </ul>
-            <WhatsAppButton message={`Hola, quiero cotizar un servicio de ${g.name.toLowerCase()}.`} label="Cotizar por WhatsApp" />
-          </div>
-        </section>
-      </li>
-    ))}
-  </ol>
+  {otherServices.map((g, i) => (
+    <section class:list={['section-wide', { 'theme-surface': i % 2 === 1 }]} aria-labelledby={g.id}>
+      <div class="page stack stack-xl">
+        <header class="group-head" data-reveal>
+          <h2 id={g.id}>{g.name}</h2>
+          <WhatsAppButton message={`Hola, quiero cotizar un servicio de ${g.name.toLowerCase()}.`} label="Cotizar por WhatsApp" />
+        </header>
+        <ul class="cards" role="list" data-reveal="stagger">
+          {g.items.map((item) => (
+            <li class="card">
+              <div class="frame">
+                <Image src={item.image} alt={item.alt} widths={[360, 540, 720]} sizes="(min-width: 64em) 24vw, (min-width: 40em) 45vw, 100vw" class="photo" />
+              </div>
+              <h3>{item.name}</h3>
+              {item.details && (
+                <ul class="details" role="list">
+                  {item.details.map((d) => <li>{d}</li>)}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ))}
 
   <ContactBand />
 </Base>
 
 <style>
-  .index ol { display: grid; gap: var(--space-2xs); }
-  .index a { display: block; padding-block: var(--space-2xs); font-size: var(--step-head); line-height: var(--leading-head); letter-spacing: var(--tracking-head); color: var(--color-text); text-decoration-color: transparent; }
-  .group { padding-block: calc(var(--section-gap) / 2); }
-  .group.theme-surface { padding-block: var(--section-gap); }
-  .inner { align-items: center; }
-  .photo { grid-column: 1 / -1; inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
-  .body { grid-column: 1 / -1; display: grid; gap: var(--space-m); justify-items: start; }
-  .body h2 { max-inline-size: none; font-size: min(var(--step-head), 2.75rem); }
-  .items { display: grid; gap: var(--space-2xs); }
-  .items li { font-size: var(--step-lead); line-height: var(--leading-lead); }
+  .index ul { display: flex; flex-wrap: wrap; gap: var(--space-2xs); }
+  .index a { display: inline-flex; align-items: center; min-block-size: var(--hit-min); padding-inline: var(--space-s); border-radius: 999px; background-color: color-mix(in srgb, var(--paper-0) 14%, transparent); color: var(--paper-0); font-size: var(--step-ui); text-decoration: none; transition: background-color var(--duration-hover) ease, color var(--duration-hover) ease; }
+  .group-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--space-m); }
+  .cards { display: grid; gap: var(--space-l) var(--gutter); grid-template-columns: repeat(auto-fill, minmax(min(15rem, 100%), 1fr)); }
+  .card { display: grid; gap: var(--space-xs); align-content: start; }
+  .frame { overflow: hidden; border-radius: var(--radius-card); }
+  .photo { inline-size: 100%; aspect-ratio: 3 / 2; object-fit: cover; transition: transform var(--duration-reveal) var(--ease-out); }
+  .card h3 { font-size: var(--step-title); line-height: var(--leading-head); font-weight: var(--weight-medium); }
+  .details { display: grid; gap: var(--space-3xs); color: var(--color-text-soft); }
 
   @media (hover: hover) and (pointer: fine) {
-    .index a:hover { text-decoration-color: var(--color-accent); }
-  }
-
-  @media (min-width: 64em) {
-    .photo { grid-column: 1 / span 6; }
-    .body { grid-column: 8 / -1; }
-    .flip .photo { grid-column: 7 / -1; order: 2; }
-    .flip .body { grid-column: 1 / span 5; }
+    .index a:hover { background-color: var(--orange-500); color: var(--ink-900); }
+    .card:hover .photo { transform: scale(1.05); }
   }
 </style>

@@ -9,7 +9,7 @@ import { site } from '@/config/site';
 import heroImg from '@/assets/images/banner/asesor-de-articulo-cientifico.jpg';
 import fromThesis from '@/assets/images/articulos_cientificos/articulo-desde-una-tesis.jpg';
 import bookChapter from '@/assets/images/articulos_cientificos/capitulo-de-libro.jpg';
-import fromScratch from '@/assets/images/tesis/metodologica_img.jpg';
+import fromScratch from '@/assets/images/articulos_cientificos/empezando-desde-cero-un-articulo.jpg';
 
 const routes = [
   {
@@ -63,7 +63,7 @@ const schema = [
     <ul class="list" role="list" data-reveal="stagger">
       {routes.map((r) => (
         <li>
-          <Image src={r.image} alt="" widths={[360, 540, 720]} sizes="(min-width: 64em) 30vw, 100vw" class="route-img" />
+          <Image src={r.image} alt={`Artículo científico: ${r.title.toLowerCase()}`} widths={[360, 540, 720]} sizes="(min-width: 64em) 30vw, 100vw" class="route-img" />
           <h3>{r.title}</h3>
           <p>{r.text}</p>
           <ul class="checks" role="list">
@@ -92,7 +92,7 @@ const schema = [
   .checks li::before { content: ''; inline-size: 0.5em; block-size: 0.5em; background-color: var(--color-accent); }
   .list { display: grid; gap: var(--space-xl) var(--gutter); grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
   .list li { display: grid; gap: var(--space-s); align-content: start; }
-  .route-img { inline-size: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+  .route-img { inline-size: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-card); }
   .list h3 { font-weight: var(--weight-semibold); }
   .items li { font-size: var(--step-lead); line-height: var(--leading-lead); }
   @media (max-width: 47.99em) {

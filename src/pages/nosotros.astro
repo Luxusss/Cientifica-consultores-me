@@ -7,7 +7,9 @@ import ContactBand from '@/components/sections/ContactBand.astro';
 import { fullAddress, site } from '@/config/site';
 import { breadcrumb } from '@/lib/schema';
 import { listEs } from '@/lib/format';
-import office from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg';
+import office from '@/assets/images/banner/nuestro-equipo-de-asesores-de-tesis.jpg';
+import team from '@/assets/images/otros/equipo-de-asesores.jpg';
+import { Image } from 'astro:assets';
 
 const ways = [
   { title: 'Compromiso real con tu éxito académico', text: 'En Científica Consultores no solo brindamos asesoría de tesis: nos involucramos de manera personalizada en cada etapa de tu proceso académico. Nuestro equipo multidisciplinario te guía con responsabilidad y puntualidad, asegurando que avances con seguridad, claridad y confianza hacia tu objetivo profesional.' },
@@ -33,12 +35,15 @@ const schema = [
   schema={schema}
 >
   <PageHero title="¿Quiénes somos en Científica Consultores?" crumb="Nosotros" lede="Sobre nosotros: asesoría especializada en tesis, investigación y capacitación académica, desde Lima, hace más de 10 años." balance="photo">
-    <Picture slot="media" formats={['avif', 'webp']} quality={70} src={office} alt="Equipo de Científica Consultores reunido en su oficina de Los Olivos" widths={[640, 960, 1280]} sizes="(min-width: 64em) 45vw, 100vw" loading="eager" fetchpriority="high" />
+    <Picture slot="media" formats={['avif', 'webp']} quality={70} src={office} alt="Nuestro equipo de asesores de tesis" widths={[640, 960, 1280, 1600]} sizes="100vw" loading="eager" fetchpriority="high" />
   </PageHero>
 
-  <section class="section page split" aria-labelledby="historia" data-reveal="stagger">
-    <h2 id="historia">Nuestra historia</h2>
+  <section class="section-wide page story" aria-labelledby="historia">
+    <div class="story-pic" data-reveal="shutter"><Image src={team} alt="Equipo de asesores" widths={[480, 720, 960, 1280]} sizes="(min-width: 64em) 42vw, 100vw" class="story-img" /></div>
+    <div class="stack stack-m" data-reveal="stagger">
+      <h2 id="historia">Nuestra historia</h2>
     <p class="text-lead">En Científica Consultores brindamos asesoría especializada en tesis, investigación y capacitación académica. Nuestro equipo cuenta con más de 10 años de experiencia en el mercado, difundiendo y contribuyendo a la cultura científica, y ayudando a estudiantes y profesionales a alcanzar un desarrollo académico integral.</p>
+    </div>
   </section>
 
   <section class="theme-surface section-wide" aria-labelledby="acompanamos">
@@ -81,6 +86,13 @@ const schema = [
 </Base>
 
 <style>
+  .story { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
+  .story-img { inline-size: 100%; block-size: auto; }
+  @media (min-width: 64em) {
+    .story { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    .story-pic { grid-column: 1 / span 5; }
+    .story > .stack { grid-column: 7 / -1; }
+  }
   h3, dt { font-weight: var(--weight-semibold); margin-block-end: var(--space-2xs); }
   dt { font-size: var(--step-lead); }
   .where-cols { display: grid; gap: var(--space-l) var(--gutter); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
