@@ -17,7 +17,7 @@ const logos = { Turnitin: turnitin, Mendeley: mendeley, 'Atlas.ti': atlasti, SPS
     </header>
     <ul class="tools" role="list" data-reveal="stagger">
       {toolsSection.items.map((t) => (
-        <li class="tool">
+        <li class="tool lift">
           <div class="logo"><Image src={logos[t.tool as keyof typeof logos]} alt={t.tool} height={80} class="logo-img" /></div>
           <h3>{t.name}</h3>
           <p>{t.text}</p>

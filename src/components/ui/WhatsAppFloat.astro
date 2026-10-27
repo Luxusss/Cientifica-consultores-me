@@ -4,7 +4,7 @@ import Icon from './Icon.astro';
 ---
 
 <div class="floats" data-floats>
-  <a class="float lead" href="#formulario" data-float-lead hidden>Déjanos tus datos</a>
+  <a class="float lead" data-float-lead hidden>Déjanos tus datos</a>
   <a class="float whatsapp" href={whatsappUrl()} target="_blank" rel="noopener" data-float-wsp>
     <Icon name="whatsapp" size="1.5em" />
     <span>Habla con un asesor</span>
@@ -25,7 +25,10 @@ import Icon from './Icon.astro';
     lead?.classList.toggle('is-shown', !!form && past && !formInView);
   };
 
-  if (lead && form) lead.hidden = false;
+  if (lead && form) {
+    lead.href = '#formulario';
+    lead.hidden = false;
+  }
   if (hero) new IntersectionObserver(([e]) => { heroInView = e.isIntersecting; update(); }).observe(hero);
   if (form) new IntersectionObserver(([e]) => { formInView = e.isIntersecting; update(); }, { threshold: 0.2 }).observe(form);
   window.addEventListener('scroll', update, { passive: true });
@@ -83,6 +86,7 @@ import Icon from './Icon.astro';
   }
 
   @media (max-width: 47.99em) {
+    .lead { display: none; }
     .whatsapp { padding-inline: 0; inline-size: var(--button-height); justify-content: center; }
     .whatsapp span { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
   }

@@ -26,7 +26,7 @@ const wide = block.title.length > 40;
           <li id={p.id} class="card">
             {p.image && (
               <div class="frame">
-                <Image src={p.image} alt={p.imageAlt ?? ''} widths={[360, 540, 720]} sizes="(min-width: 64em) 26vw, (min-width: 40em) 45vw, 100vw" class="photo" />
+                <Image src={p.image} alt={p.imageAlt ?? ''} widths={[360, 540, 720]} sizes="(min-width: 64em) 26vw, (min-width: 40em) 45vw, 100vw" class="photo parallax-img" />
               </div>
             )}
             {p.title && <h3>{p.title}</h3>}

@@ -10,7 +10,7 @@ import { whyUs } from '@/data/home';
     </header>
     <ul class="cards" role="list" data-reveal="stagger">
       {whyUs.items.map((item, i) => (
-        <li class:list={['card', { wide: i < 2 }]}>
+        <li class:list={['card', 'lift', { wide: i < 2 }]}>
           <h3>{item.name}</h3>
           <p>{item.text}</p>
         </li>

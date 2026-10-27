@@ -71,8 +71,8 @@ const next = `${site.url}/libro-de-reclamaciones.html?enviado=1`;
         <Field label="Pedido del consumidor" name="pedido" type="textarea" required error="Indica qué solución solicitas." />
         <div class="field-file">
           <label for="lr-adjuntos">Adjuntar archivos (opcional)</label>
-          <input id="lr-adjuntos" type="file" name="attachment" multiple accept=".pdf,.jpg,.jpeg,.png" aria-describedby="lr-adjuntos-ayuda" />
-          <p id="lr-adjuntos-ayuda" class="text-small text-soft">Vouchers, estados de cuenta o imágenes. Máximo 5 MB por archivo.</p>
+          <input id="lr-adjuntos" type="file" name="attachment" multiple accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,video/*" aria-describedby="lr-adjuntos-ayuda" />
+          <p id="lr-adjuntos-ayuda" class="text-small text-soft">Puedes adjuntar vouchers, estados de cuenta, imágenes u otros documentos para sustentar tu reclamo. Máx. 5 MB por archivo (10 MB total).</p>
         </div>
       </fieldset>
 

@@ -14,7 +14,7 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
     <ul class="posts" role="list" data-reveal="stagger">
       {posts.map((p) => (
         <li>
-          <a class="post" href={`/blog/${p.id}.html`}>
+          <a class="post lift" href={`/blog/${p.id}.html`}>
             <Image src={p.data.cover} alt="" widths={[360, 540, 720]} sizes="(min-width: 64em) 24vw, (min-width: 40em) 50vw, 100vw" class="cover" />
             <span class="title">{p.data.heading}</span>
             <span class="excerpt">{p.data.description}</span>

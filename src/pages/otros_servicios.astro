@@ -40,7 +40,7 @@ const schema = [
           {g.items.map((item) => (
             <li class="card">
               <div class="frame">
-                <Image src={item.image} alt={item.alt} widths={[360, 540, 720]} sizes="(min-width: 64em) 24vw, (min-width: 40em) 45vw, 100vw" class="photo" />
+                <Image src={item.image} alt={item.alt} widths={[360, 540, 720]} sizes="(min-width: 64em) 24vw, (min-width: 40em) 45vw, 100vw" class="photo parallax-img" />
               </div>
               <h3>{item.name}</h3>
               {item.details && (
