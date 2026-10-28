@@ -70,7 +70,6 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
       {serviceData.filter((d) => d.id !== 'proyecto').map((d) => (
         <li>
           <a class="service" href={d.href} aria-current={isCurrent(d.href) ? 'page' : undefined}>
-            <Image src={d.image} alt={`Asesor de ${d.navLabel.toLowerCase()} de Científica Consultores`} width={96} height={96} class="service-img" />
             <span class="service-text">
               <span class="service-name">{d.navLabel}</span>
               <span class="service-desc">{d.summary}</span>
@@ -178,16 +177,15 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
     .panel { inset-block-start: calc(var(--header-height) + 0.5rem); inset-inline-start: 50%; }
   }
   .services { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3xs); }
-  .service { display: grid; grid-template-columns: 3.5rem 1fr; gap: var(--space-s); align-items: center; padding: var(--space-xs); border-radius: calc(var(--radius-card) - 6px); color: var(--ink-900); text-decoration: none; transition: background-color var(--duration-hover) ease; }
-  .service-img { inline-size: 3.5rem; block-size: 3.5rem; object-fit: cover; object-position: 50% 20%; border-radius: 12px; }
+  .service { display: grid; gap: var(--space-s); align-items: center; padding: var(--space-xs) var(--space-s); border-inline-start: 3px solid transparent; border-radius: calc(var(--radius-card) - 6px); color: var(--ink-900); text-decoration: none; transition: background-color var(--duration-hover) ease; }
   .service-text { display: grid; gap: 0.15rem; }
   .service-name { font-size: var(--step-ui); font-weight: var(--weight-semibold); line-height: 1.25; }
   .service-desc { font-size: var(--step-small); line-height: var(--leading-small); color: var(--ink-600); }
-  .service[aria-current='page'] { background-color: var(--paper-1); }
+  .service[aria-current='page'] { background-color: var(--paper-1); border-inline-start-color: var(--orange-500); }
   .panel-more { display: flex; justify-content: space-between; align-items: center; gap: var(--space-s); margin-block-start: var(--space-2xs); padding: var(--space-s) var(--space-m); border-radius: calc(var(--radius-card) - 6px); background-color: var(--navy-600); color: var(--paper-0); font-size: var(--step-ui); font-weight: var(--weight-medium); text-decoration: none; transition: background-color var(--duration-hover) ease; }
   .panel-more span { color: var(--orange-500); transition: transform var(--duration-hover) var(--ease-out); }
   @media (hover: hover) and (pointer: fine) {
-    .service:hover { background-color: var(--paper-1); }
+    .service:hover { background-color: var(--paper-1); border-inline-start-color: var(--orange-500); }
     .panel-more:hover { background-color: var(--navy-700); }
     .panel-more:hover span { transform: translateX(4px); }
   }
