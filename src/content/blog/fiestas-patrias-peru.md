@@ -8,7 +8,6 @@ cover: "../../assets/images/blog/fiestas-patrias.jpg"
 
 Las Fiestas Patrias del Perú son más que un feriado: representan el orgullo, la historia y la identidad de todos los peruanos. Cada **28 y 29 de julio**, el país entero se viste de rojo y blanco para conmemorar su independencia, reflexionar sobre su historia y celebrar lo que nos une como nación.
 
-![Fiestas Patrias del Perú](../../assets/images/blog/fiestas-patrias.jpg)
 
 ## ¿Cuándo y qué se celebra en las Fiestas Patrias del Perú?
 

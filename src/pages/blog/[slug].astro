@@ -63,7 +63,6 @@ const schema = [
       {related.map((r) => (
         <li>
           <a href={`/blog/${r.id}.html`} class="rel-link">
-            <Image src={r.data.cover} alt={r.data.title} widths={[360, 540, 720]} sizes="(min-width: 64em) 30vw, 100vw" class="rel-img" />
             <h3>{r.data.heading}</h3>
           </a>
         </li>

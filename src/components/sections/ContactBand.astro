@@ -1,8 +1,6 @@
 ---
-import { Image } from 'astro:assets';
 import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
 import { site } from '@/config/site';
-import portrait from '@/assets/images/otros/asesor-de-tesis-de-maestria-cientifica-consultores.jpg';
 
 interface Props {
   title?: string;
@@ -20,7 +18,6 @@ const { title = '¿Empezamos tu tesis?', text = `Cuéntanos tu universidad, tu g
       <WhatsAppButton />
     </div>
     <div class="card" data-reveal>
-      <Image src={portrait} alt="Asesor de Científica Consultores en la biblioteca" widths={[360, 540, 720]} sizes="(min-width: 64em) 28vw, 100vw" class="portrait" />
       <div class="reach">
         <a href={`mailto:${site.email}`}>{site.email}</a>
         <p class="meta">WhatsApp {site.phone.display} · {site.address.district}, {site.address.city}</p>
@@ -39,10 +36,9 @@ const { title = '¿Empezamos tu tesis?', text = `Cuéntanos tu universidad, tu g
     letter-spacing: var(--tracking-head);
     font-weight: var(--weight-medium);
   }
-  .card { display: grid; gap: var(--space-s); }
-  .portrait { inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 25%; }
+  .card { display: grid; gap: var(--space-s); padding: var(--space-l); border-inline-start: 3px solid var(--orange-500); background-color: var(--color-surface); border-radius: var(--radius); }
   .reach { display: grid; gap: var(--space-3xs); }
-  .reach a { font-size: var(--step-body); overflow-wrap: anywhere; }
+  .reach a { font-size: var(--step-lead); overflow-wrap: anywhere; }
   .meta { color: var(--color-text-soft); font-size: var(--step-small); }
 
   @media (min-width: 64em) {

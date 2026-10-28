@@ -1,25 +1,16 @@
 ---
-import { Image } from 'astro:assets';
 import { intro } from '@/data/home';
-import team from '@/assets/images/otros/equipo-de-asesores.jpg';
 ---
 
 <section class="section page intro" aria-label="Presentación">
-  <div class="picture" data-reveal="shutter">
-    <Image src={team} alt="Equipo de asesores de Científica Consultores" widths={[480, 720, 960, 1280]} sizes="(min-width: 64em) 40vw, 100vw" class="photo" />
-  </div>
   <p class="standfirst" data-reveal>{intro}</p>
 </section>
 
 <style>
-  .intro { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
-  .picture { overflow: hidden; }
-  .photo { inline-size: 100%; block-size: auto; mix-blend-mode: multiply; }
-  .standfirst { font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: none; }
+  .intro { padding-block: var(--space-xl); }
+  .standfirst { max-inline-size: none; padding-inline-start: var(--space-m); border-inline-start: 3px solid var(--orange-500); font-size: var(--step-lead); line-height: var(--leading-lead); }
 
   @media (min-width: 64em) {
-    .intro { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-    .picture { grid-column: 1 / span 5; }
-    .standfirst { grid-column: 7 / -1; }
+    .standfirst { columns: 2; column-gap: var(--space-2xl); }
   }
 </style>

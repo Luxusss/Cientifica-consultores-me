@@ -6,7 +6,6 @@ import pregradoImg from '@/assets/images/banner/asesoria-tesis-pregrado.jpg';
 import maestriaImg from '@/assets/images/banner/asesoria-tesis-maestria.jpg';
 import doctoradoImg from '@/assets/images/banner/asesoria-tesis-doctoral.jpg';
 import tspImg from '@/assets/images/banner/asesoria-de-trabajo-de-suficiencia-profesional.jpg';
-import pregradoIntro from '@/assets/images/otros/asesora-de-tesis-de-pregardo.jpg';
 import maestriaIntro from '@/assets/images/otros/asesor-de-tesis-de-maestria-cientifica-consultores.jpg';
 import doctoradoIntro from '@/assets/images/tesis/asesor-de-tesis-doctoral.jpg';
 import tspIntro from '@/assets/images/tesis/asesora-de-trabajo-de-suficiencia-profesional.jpg';
@@ -47,7 +46,7 @@ export type ServicePage = {
   imageAlt: string;
   formSubject: string;
   intro: string[];
-  introImage: ImageMetadata;
+  introImage?: ImageMetadata;
   introAlt: string;
   sections: Section[];
   faqTitle: string;
@@ -68,7 +67,6 @@ export const servicePages: Record<string, ServicePage> = {
     image: pregradoImg,
     imageAlt: 'Asesoría de tesis de pregrado en Lima y online',
     formSubject: 'Nuevo lead - Tesis de Pregrado',
-    introImage: pregradoIntro,
     introAlt: 'Asesoría de tesis de pregrado, licenciatura y grado',
     intro: [
       'La tesis de pregrado es el último gran paso para obtener tu título universitario, pero suele ser un proceso complejo y estresante. En Científica Consultores te ofrecemos asesoría de tesis en Lima, a nivel nacional y online. Nuestro acompañamiento cubre todas las fases: desde la elección del tema de investigación y la metodología (cualitativa, cuantitativa o mixta) hasta la redacción final, la verificación anti-plagio con Turnitin y la preparación para la sustentación. Enfócate en tu futuro académico y profesional.',

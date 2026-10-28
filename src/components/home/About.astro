@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import AdvisoryVideo from '@/components/sections/AdvisoryVideo.astro';
 import { quality } from '@/data/home';
-import team from '@/assets/images/banner/nuestro-equipo-de-asesores-de-tesis.jpg';
+import team from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg';
 ---
 
 <section class="scene grow" aria-labelledby="nosotros">
@@ -12,7 +12,7 @@ import team from '@/assets/images/banner/nuestro-equipo-de-asesores-de-tesis.jpg
       <p class="text-lead">Un equipo real de asesores en Lima, de pregrado a doctorado.</p>
     </div>
     <div class="window on-scene">
-      <Image src={team} alt="Equipo de asesores de tesis de Científica Consultores en su oficina de Lima" widths={[640, 960, 1280, 1600, 1920]} sizes="100vw" class="team on-scene" />
+      <Image src={team} alt="Equipo de asesores de tesis de Científica Consultores reunido en su oficina de Lima" widths={[640, 960, 1103]} sizes="100vw" class="team on-scene" />
     </div>
     <p class="statement on-scene">Cada asesor viene de tu área: ingeniería, salud, ciencias sociales o letras. Trabajamos contigo, no por ti.</p>
   </div>
@@ -38,7 +38,7 @@ import team from '@/assets/images/banner/nuestro-equipo-de-asesores-de-tesis.jpg
   .scene-stage { display: grid; gap: var(--space-l); }
   .opening { display: grid; gap: var(--space-m); padding-inline: var(--page-margin); }
   .window { overflow: hidden; aspect-ratio: 4 / 3; }
-  .team { inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 50% 22%; transform-origin: 50% 22%; }
+  .team { inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 50% 40%; transform-origin: 50% 40%; }
   .statement { padding-inline: var(--page-margin); font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 34ch; }
 
   .about { display: grid; gap: var(--space-xl) var(--gutter); align-items: start; }

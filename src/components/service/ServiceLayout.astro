@@ -8,7 +8,6 @@ import CareerAreas from '@/components/sections/CareerAreas.astro';
 import Stages from '@/components/home/Stages.astro';
 import FaqText from '@/components/sections/FaqText.astro';
 import ContactBand from '@/components/sections/ContactBand.astro';
-import PhotoBand from '@/components/sections/PhotoBand.astro';
 import TextBlock from '@/components/sections/TextBlock.astro';
 import ListBlock from '@/components/sections/ListBlock.astro';
 import CtaBlock from '@/components/sections/CtaBlock.astro';
@@ -45,10 +44,12 @@ const schema = [
     <Picture slot="media" formats={['avif', 'webp']} quality={80} src={page.image} alt={page.imageAlt} widths={[960, 1280, 1570]} sizes="100vw" loading="eager" fetchpriority="high" />
   </PageHero>
 
-  <section class="section-wide page standfirst" aria-label="Presentación">
-    <div class="intro-pic" data-reveal="shutter">
-      <Image src={page.introImage} alt={page.introAlt} widths={[480, 720, 960, 1280]} sizes="(min-width: 64em) 40vw, 100vw" class="intro-img" />
-    </div>
+  <section class:list={['section-wide page standfirst', { solo: !page.introImage }]} aria-label="Presentación">
+    {page.introImage && (
+      <div class="intro-pic" data-reveal="shutter">
+        <Image src={page.introImage} alt={page.introAlt} widths={[480, 720, 960, 1280]} sizes="(min-width: 64em) 40vw, 100vw" class="intro-img" />
+      </div>
+    )}
     <div class="stack stack-m" data-reveal>
       {page.intro.map((t) => <p class="text-lead">{t}</p>)}
     </div>
@@ -61,7 +62,7 @@ const schema = [
     if (sec.kind === 'careers') return <CareerAreas title={sec.title} intro={sec.intro} prefix={sec.prefix} />;
     if (sec.kind === 'stages') return <Stages initial={page.id} title={sec.title} />;
     if (sec.kind === 'cta') return <CtaBlock id={sec.id} title={sec.title} text={sec.text} />;
-    return <PhotoBand />;
+    return null;
   })}
   <FaqText items={page.faq} title={page.faqTitle} />
   <ContactBand />
@@ -76,5 +77,6 @@ const schema = [
     .standfirst { grid-template-columns: repeat(12, minmax(0, 1fr)); }
     .intro-pic { grid-column: 1 / span 5; }
     .standfirst > .stack { grid-column: 7 / -1; }
+    .solo > .stack { grid-column: 1 / -1; display: block; columns: 2; column-gap: var(--space-2xl); padding-inline-start: var(--space-m); border-inline-start: 3px solid var(--orange-500); }
   }
 </style>

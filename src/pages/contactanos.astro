@@ -2,9 +2,9 @@
 import Base from '@/layouts/Base.astro';
 import FormCard from '@/components/forms/FormCard.astro';
 import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
-import AdvisoryVideo from '@/components/sections/AdvisoryVideo.astro';
 import { Image } from 'astro:assets';
-import officeImg from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg';
+import sessionImg from '@/assets/images/otros/equipo-de-asesores-en-reunion.jpg';
+import graduatesImg from '@/assets/images/otros/graduados.jpg';
 import PageHero from '@/components/ui/PageHero.astro';
 import { fullAddress, site } from '@/config/site';
 import { planNames, planRows } from '@/data/plans';
@@ -52,10 +52,12 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
     </div>
   </section>
 
-  <section class="theme-surface section-wide" aria-labelledby="video">
-    <div class="page stack stack-xl">
-      <h2 id="video" data-reveal>Te guiamos paso a paso en tu proyecto de tesis</h2>
-      <div class="video-frame"><AdvisoryVideo /></div>
+  <section class="theme-surface section-wide" aria-labelledby="guia">
+    <div class="page guide">
+      <h2 id="guia" data-reveal>Te guiamos paso a paso en tu proyecto de <a href="/tesis.html">tesis</a></h2>
+      <div class="guide-pic" data-reveal="shutter">
+        <Image src={sessionImg} alt="Sesión de asesoría de tesis con el equipo de Científica Consultores" widths={[480, 720, 1101]} sizes="(min-width: 64em) 55vw, 100vw" class="guide-img" />
+      </div>
     </div>
   </section>
 
@@ -80,7 +82,7 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
           <p class="text-soft">{capitalize(site.address.reference)}. Atención presencial previa cita.</p>
           <a href={mapUrl} target="_blank" rel="noopener">Ver en Google Maps</a>
         </address>
-        <Image src={officeImg} alt="Oficina de Científica Consultores en Los Olivos" widths={[480, 720, 960]} sizes="(min-width: 64em) 34vw, 100vw" class="office" />
+        <Image src={graduatesImg} alt="Graduados Científica Consultores" widths={[387]} sizes="(min-width: 64em) 24rem, 100vw" class="office" />
       </div>
     </div>
   </section>
@@ -97,7 +99,16 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
   .features li::before { content: ''; position: absolute; inset-inline-start: 0; inset-block-start: 0.35em; inline-size: 1rem; block-size: 1rem; border-radius: 50%; background-color: var(--orange-500); }
   .feature-name { font-size: var(--step-small); font-weight: var(--weight-semibold); color: var(--color-text-soft); }
   .featured .feature-name { color: var(--navy-100); }
-  .video-frame { max-inline-size: 60rem; }
+  .guide { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
+  .guide h2 { font-size: var(--step-head); }
+  .guide h2 a { color: var(--orange-600); text-underline-offset: 0.15em; }
+  .guide-pic { overflow: hidden; border-radius: var(--radius-card); }
+  .guide-img { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+  @media (min-width: 64em) {
+    .guide { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    .guide h2 { grid-column: 1 / span 5; }
+    .guide-pic { grid-column: 6 / -1; }
+  }
   .visit { display: grid; gap: var(--space-m); }
   .visit-card { display: grid; gap: var(--space-s); align-content: start; justify-items: start; padding: var(--space-l); background-color: var(--color-surface); border-radius: var(--radius-card); font-style: normal; }
   .visit-card h3 { font-size: var(--step-title); font-weight: var(--weight-medium); }
