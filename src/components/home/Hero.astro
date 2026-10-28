@@ -47,7 +47,6 @@ const badges = [
       <p class="lede">Un asesor especialista te acompaña en tu tesis de pregrado, maestría, doctorado o TSP, desde el proyecto hasta la sustentación.</p>
       <div class="actions">
         <Button href="/contactanos.html#formulario">Quiero mi primera asesoría gratis</Button>
-        <a class="more" href="#servicios">Ver servicios <span aria-hidden="true">↓</span></a>
       </div>
     </div>
   </div>
@@ -96,12 +95,6 @@ const badges = [
   .lede { font-size: var(--step-body); line-height: var(--leading-body); max-inline-size: 38ch; color: var(--color-text-soft); }
 
   .actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-s) var(--space-l); }
-  .more { display: inline-flex; align-items: center; gap: 0.4em; min-block-size: var(--hit-min); color: var(--paper-0); font-size: var(--step-ui); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--paper-0) 40%, transparent); text-underline-offset: 0.3em; transition: text-decoration-color var(--duration-hover) ease; }
-  .more span { transition: transform var(--duration-hover) var(--ease-out); }
-  @media (hover: hover) and (pointer: fine) {
-    .more:hover { text-decoration-color: var(--orange-500); }
-    .more:hover span { transform: translateY(3px); }
-  }
 
   .spot, .sheen { display: none; }
   .badges { display: none; }
