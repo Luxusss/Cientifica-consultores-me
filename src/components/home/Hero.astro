@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Icon from '@/components/ui/Icon.astro';
+import oficina from '@/assets/images/banner/hero/oficina-asesores.jpg';
 import original from '@/assets/images/banner/asesores-de-tesis-cientifica-consultores.jpg';
 import izquierda from '@/assets/images/banner/hero/asesora-izquierda.png';
 import centro from '@/assets/images/banner/hero/asesor-centro.png';
@@ -30,6 +31,7 @@ const badges = [
 <section class="hero theme-field" aria-labelledby="hero-title" data-hero data-parallax>
   <div class="media">
     <div class="frame">
+      <Image src={oficina} alt="" widths={[640, 960, 1280, 1570]} sizes="100vw" format="webp" quality={72} loading="eager" class="oficina" />
       {people.map((person) => (
         <Image src={person.src} alt="" widths={[200, 320, 480]} sizes="(min-width: 64em) 22vw, 30vw" format="webp" quality={82} loading="eager" fetchpriority="high" class:list={['person', person.cls]} />
       ))}
@@ -86,7 +88,7 @@ const badges = [
 
   .media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; container-type: size; }
   .frame { position: absolute; inset-inline-end: 0; inset-block-start: calc((100cqh - max(100cqh, 100cqw * 883 / 1570)) * 0.22); inline-size: max(100cqw, 100cqh * 1570 / 883); aspect-ratio: 1570 / 883; }
-  .frame :global(.final) { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; }
+  .frame :global(.oficina), .frame :global(.final) { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; }
   .frame :global(.final) { z-index: 2; }
   .frame :global(.person) { position: absolute; block-size: auto; }
   .frame :global(.p1) { inset-inline-start: 41.6561%; inset-block-start: 21.1778%; inline-size: 20%; }
@@ -155,7 +157,9 @@ const badges = [
     .frame :global(.p1) { animation-delay: 250ms; }
     .frame :global(.p2) { animation-delay: 520ms; }
     .frame :global(.p3) { animation-delay: 790ms; }
-    .frame :global(.final) { animation: reveal-final 900ms var(--ease-out) 1500ms both; }
+    .frame :global(.oficina) { animation: settle 1800ms var(--ease-expo) both; }
+    @keyframes settle { from { opacity: 0; transform: scale(1.06); } }
+    .frame :global(.final) { animation: reveal-final 400ms ease 1900ms both; }
     @keyframes reveal-final { from { opacity: 0; } }
     @keyframes descend { from { opacity: 0; transform: translateY(-16%); filter: blur(12px); } 60% { opacity: 1; } to { transform: translateY(0); filter: blur(0); } }
     .sheen { animation: sheen 1600ms var(--ease-out) 1700ms both; }
