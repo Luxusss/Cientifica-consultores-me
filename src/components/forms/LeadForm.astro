@@ -14,7 +14,7 @@ const { subject, variant = 'full', submitLabel = 'Enviar mensaje' } = Astro.prop
 const telRequired: boolean = variant === 'short';
 const telLabel = telRequired ? 'WhatsApp' : 'WhatsApp (opcional)';
 const uid = `f${Math.random().toString(36).slice(2, 8)}`;
-const options = countries.map((c) => ({ value: c.name, label: `${c.name} (${c.code})` }));
+const options = countries.map((c) => ({ value: c.name, name: c.name, code: c.code }));
 ---
 
 <form
@@ -48,7 +48,10 @@ const options = countries.map((c) => ({ value: c.name, label: `${c.name} (${c.co
         <div class="cc">
           <span class="cc-code" aria-hidden="true" data-cc>{countries[0].code}</span>
           <select id={`${uid}-pais`} name="pais" aria-label="País" autocomplete="country-name" required data-cc-select>
-            {options.map((o) => <option value={o.value}>{o.label}</option>)}
+            <button type="button" class="cc-button"><selectedcontent></selectedcontent></button>
+            {options.map((o) => (
+              <option value={o.value}><span class="cc-name">{o.name}</span> <span class="cc-num"><span class="cc-p">(</span>{o.code}<span class="cc-p">)</span></span></option>
+            ))}
           </select>
         </div>
         <input id={`${uid}-telefono`} type="tel" name="telefono" autocomplete="tel-national" inputmode="tel" placeholder=" " required={telRequired} pattern="[0-9 +()-]{7,20}" aria-describedby={`${uid}-telefono-error`} />
@@ -67,7 +70,10 @@ const options = countries.map((c) => ({ value: c.name, label: `${c.name} (${c.co
         <div class="cc">
           <span class="cc-code" aria-hidden="true" data-cc>{countries[0].code}</span>
           <select id={`${uid}-pais`} name="pais" aria-label="País" autocomplete="country-name" required data-cc-select>
-            {options.map((o) => <option value={o.value}>{o.label}</option>)}
+            <button type="button" class="cc-button"><selectedcontent></selectedcontent></button>
+            {options.map((o) => (
+              <option value={o.value}><span class="cc-name">{o.name}</span> <span class="cc-num"><span class="cc-p">(</span>{o.code}<span class="cc-p">)</span></span></option>
+            ))}
           </select>
         </div>
         <input id={`${uid}-telefono`} type="tel" name="telefono" autocomplete="tel-national" inputmode="tel" placeholder=" " required={telRequired} pattern="[0-9 +()-]{7,20}" aria-describedby={`${uid}-telefono-error`} />
@@ -203,6 +209,25 @@ const options = countries.map((c) => ({ value: c.name, label: `${c.name} (${c.co
   .cc { position: relative; display: flex; align-items: center; gap: 0.5rem; padding-inline: var(--space-s) var(--space-xs); border-inline-end: 1px solid color-mix(in srgb, var(--ink-900) 14%, transparent); font-weight: var(--weight-semibold); }
   .cc::after { content: ''; inline-size: 0.4rem; block-size: 0.4rem; border-inline-end: 2px solid currentColor; border-block-end: 2px solid currentColor; transform: translateY(-2px) rotate(45deg); opacity: 0.6; }
   .cc select { position: absolute; inset: 0; inline-size: 100%; opacity: 0; cursor: pointer; font-size: 16px; }
+  @supports (appearance: base-select) {
+    .cc { padding: 0; }
+    .cc-code, .cc::after { display: none; }
+    .cc select { position: static; opacity: 1; appearance: base-select; inline-size: auto; block-size: 100%; padding: 0 var(--space-xs) 0 var(--space-s); background: transparent; border: 0; color: inherit; font: inherit; font-weight: var(--weight-semibold); }
+    .cc select:focus-visible { outline: none; }
+    .cc-button { display: flex; align-items: center; block-size: 100%; }
+    .cc select::picker-icon { content: ''; inline-size: 0.4rem; block-size: 0.4rem; margin-inline-start: 0.5rem; border-inline-end: 2px solid currentColor; border-block-end: 2px solid currentColor; transform: translateY(-2px) rotate(45deg); opacity: 0.6; transition: transform var(--duration-ui) var(--ease-out); }
+    .cc select:open::picker-icon { transform: translateY(2px) rotate(225deg); }
+    .cc selectedcontent .cc-name, .cc selectedcontent .cc-p { display: none; }
+    .cc select::picker(select) { appearance: base-select; position-area: block-end span-inline-end; position-try-fallbacks: flip-block; position-try-order: normal; inline-size: 17rem; max-block-size: min(16rem, 40vh); margin-block-start: 0.5rem; padding: 0.375rem; overflow-y: auto; border: 1px solid color-mix(in srgb, var(--ink-900) 10%, transparent); border-radius: var(--radius-card); background-color: var(--paper-0); color: var(--ink-900); box-shadow: 0 24px 48px -16px color-mix(in srgb, var(--navy-700) 35%, transparent); opacity: 1; translate: 0 0; transition: opacity 160ms var(--ease-out), translate 160ms var(--ease-out), display 160ms allow-discrete, overlay 160ms allow-discrete; }
+    @starting-style { .cc select:open::picker(select) { opacity: 0; translate: 0 -6px; } }
+    .cc option { display: flex; align-items: center; justify-content: space-between; gap: var(--space-s); padding: 0.6rem 0.75rem; border-radius: var(--radius); font-weight: var(--weight-regular); cursor: pointer; }
+    .cc option::checkmark { display: none; }
+    .cc option .cc-p { display: none; }
+    .cc option .cc-num { color: var(--ink-600); font-variant-numeric: tabular-nums; }
+    .cc option:is(:hover, :focus-visible) { background-color: color-mix(in srgb, var(--navy-600) 8%, transparent); outline: none; }
+    .cc option:checked { background-color: color-mix(in srgb, var(--navy-600) 12%, transparent); color: var(--navy-600); font-weight: var(--weight-semibold); }
+    .cc option:checked .cc-num { color: var(--navy-600); }
+  }
   .tel input { inline-size: 100%; min-inline-size: 0; padding: var(--space-xs) var(--space-s); background: transparent; border: 0; color: var(--color-text); font-size: max(16px, 1em); }
   .tel input:focus-visible { outline: none; }
   .tel-field .error { display: none; font-size: var(--step-small); line-height: var(--leading-small); color: var(--color-error); font-weight: var(--weight-semibold); }
