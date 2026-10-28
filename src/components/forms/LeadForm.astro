@@ -196,9 +196,13 @@ const options = countries.map((c) => ({ value: c.name, name: c.name, code: c.cod
     .pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   .lead-form > :global(.button) { justify-self: start; }
-  .compact, .compact .pair { gap: var(--space-s); }
+  .compact { --input-height: 2.875rem; }
+  .compact, .compact .pair { gap: var(--space-xs); }
+  .compact :global(.field), .compact .tel-field { gap: 0.3rem; }
+  .compact :global(input:not([type='hidden'])), .compact .tel input { padding-block: 0.45rem; }
+  .compact :global(textarea) { padding-block: 0.6rem; }
   .compact > :global(.button) { justify-self: stretch; }
-  .compact :global(textarea) { field-sizing: content; min-block-size: 6.25rem; block-size: 6.25rem; max-block-size: 14rem; resize: none; overflow-y: auto; }
+  .compact :global(textarea) { field-sizing: content; min-block-size: 4.75rem; block-size: 4.75rem; max-block-size: 14rem; resize: none; overflow-y: auto; }
   @supports (field-sizing: content) {
     .compact :global(textarea) { block-size: auto; }
   }
