@@ -125,7 +125,7 @@ const badges = [
     .line { display: inline-block; }
     .badges { display: block; grid-area: stack; position: relative; z-index: 1; pointer-events: none; translate: calc(var(--px, 0) * -18px) calc(var(--py, 0) * -12px); transition: translate 600ms var(--ease-out); }
     .frame { translate: calc(var(--px, 0) * 14px) calc(var(--py, 0) * 8px); transition: translate 700ms var(--ease-out); }
-    .badge { position: absolute; inset-block-end: 13%; translate: -50% 0; white-space: nowrap; }
+    .badge { position: absolute; inset-block-end: 13%; translate: -50% 0; inline-size: max-content; max-inline-size: 15vw; text-wrap: balance; }
     .badge-1 { inset-inline-start: 54%; }
     .badge-2 { inset-inline-start: 71.5%; }
     .badge-3 { inset-inline-start: 88.5%; }
