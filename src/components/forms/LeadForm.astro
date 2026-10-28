@@ -11,6 +11,8 @@ interface Props {
 }
 
 const { subject, variant = 'full', submitLabel = 'Enviar mensaje' } = Astro.props;
+const telRequired: boolean = variant === 'short';
+const telLabel = telRequired ? 'WhatsApp' : 'WhatsApp (opcional)';
 const uid = `f${Math.random().toString(36).slice(2, 8)}`;
 const options = countries.map((c) => ({ value: c.name, label: `${c.name} (${c.code})` }));
 ---
@@ -34,41 +36,89 @@ const options = countries.map((c) => ({ value: c.name, label: `${c.name} (${c.co
     <input id={`${uid}-honey`} type="text" name="_honey" tabindex="-1" autocomplete="off" />
   </div>
 
-  <div class="pair">
-    <Field id={`${uid}-nombre`} label="Nombres y apellidos" name="nombre" autocomplete="name" required minlength="3" error="Escribe tu nombre y apellido." />
-    {variant === 'full' ? (
-      <Field id={`${uid}-email`} label="Correo electrónico" name="email" type="email" autocomplete="email" inputmode="email" required error="Revisa el formato del correo." />
-    ) : (
-      <Field id={`${uid}-email`} label="Correo electrónico (opcional)" name="email" type="email" autocomplete="email" inputmode="email" error="Revisa el formato del correo." />
-    )}
-  </div>
-  <div class="phone">
-    <Field id={`${uid}-pais`} label="País" name="pais" type="select" options={options} autocomplete="country-name" required />
-    <Field id={`${uid}-telefono`} label={variant === 'full' ? 'WhatsApp (opcional)' : 'WhatsApp'} name="telefono" type="tel" autocomplete="tel-national" inputmode="tel" required={variant === 'short'} pattern="[0-9 +()-]{7,20}" error="Escribe un teléfono válido (7 a 15 dígitos)." />
-  </div>
   {variant === 'full' ? (
     <>
+      <div class="pair">
+        <Field id={`${uid}-nombre`} label="Nombres y apellidos" name="nombre" autocomplete="name" required minlength="3" error="Escribe tu nombre y apellido." />
+        <Field id={`${uid}-email`} label="Correo electrónico" name="email" type="email" autocomplete="email" inputmode="email" required error="Revisa el formato del correo." />
+      </div>
+      <div class="field tel-field">
+      <label for={`${uid}-telefono`}>{telLabel}{telRequired && <span class="required" aria-hidden="true">*</span>}</label>
+      <div class="tel">
+        <div class="cc">
+          <span class="cc-code" aria-hidden="true" data-cc>{countries[0].code}</span>
+          <select id={`${uid}-pais`} name="pais" aria-label="País" autocomplete="country-name" required data-cc-select>
+            {options.map((o) => <option value={o.value}>{o.label}</option>)}
+          </select>
+        </div>
+        <input id={`${uid}-telefono`} type="tel" name="telefono" autocomplete="tel-national" inputmode="tel" placeholder=" " required={telRequired} pattern="[0-9 +()-]{7,20}" aria-describedby={`${uid}-telefono-error`} />
+      </div>
+      <p class="error" id={`${uid}-telefono-error`}>Escribe un teléfono válido (7 a 15 dígitos).</p>
+    </div>
       <Field id={`${uid}-mensaje`} label="Cuéntanos qué necesitas" name="mensaje" type="textarea" required error="Cuéntanos brevemente tu caso." />
-      <Button type="submit">{submitLabel}</Button>
     </>
   ) : (
-    <div class="send">
-      <Field id={`${uid}-mensaje`} label="Tu avance y el apoyo que requieres (opcional)" name="mensaje" type="textarea" placeholder="¿En qué parte está tu proyecto de tesis? ¿Qué apoyo requieres?" />
-      <Button type="submit">{submitLabel}</Button>
+    <>
+      <div class="pair">
+        <Field id={`${uid}-nombre`} label="Nombres y apellidos" name="nombre" autocomplete="name" required minlength="3" error="Escribe tu nombre y apellido." />
+        <div class="field tel-field">
+      <label for={`${uid}-telefono`}>{telLabel}{telRequired && <span class="required" aria-hidden="true">*</span>}</label>
+      <div class="tel">
+        <div class="cc">
+          <span class="cc-code" aria-hidden="true" data-cc>{countries[0].code}</span>
+          <select id={`${uid}-pais`} name="pais" aria-label="País" autocomplete="country-name" required data-cc-select>
+            {options.map((o) => <option value={o.value}>{o.label}</option>)}
+          </select>
+        </div>
+        <input id={`${uid}-telefono`} type="tel" name="telefono" autocomplete="tel-national" inputmode="tel" placeholder=" " required={telRequired} pattern="[0-9 +()-]{7,20}" aria-describedby={`${uid}-telefono-error`} />
+      </div>
+      <p class="error" id={`${uid}-telefono-error`}>Escribe un teléfono válido (7 a 15 dígitos).</p>
     </div>
+      </div>
+      <div class="pair">
+        <Field id={`${uid}-email`} label="Correo electrónico (opcional)" name="email" type="email" autocomplete="email" inputmode="email" error="Revisa el formato del correo." />
+        <Field id={`${uid}-mensaje`} label="Tu avance (opcional)" name="mensaje" placeholder="Ej.: marco teórico" />
+      </div>
+    </>
   )}
+  <Button type="submit">{submitLabel}</Button>
   <p class="status" role="status" aria-live="polite" data-status></p>
+  <div class="sent" data-sent tabindex="-1">
+    <svg class="check" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24" /><path d="M15 27l7 7 15-16" /></svg>
+    <p class="sent-title">¡Listo, recibimos tus datos!</p>
+    <p class="sent-text">Un asesor se comunicará contigo en {site.replyTime}.</p>
+    <button type="button" class="sent-again" data-again>Enviar otra consulta</button>
+  </div>
 </form>
 
 <script>
   const isTouch = () => window.matchMedia('(pointer: coarse)').matches;
 
   for (const form of document.querySelectorAll<HTMLFormElement>('[data-lead-form]')) {
+    form.noValidate = true;
     const openedAt = Date.now();
     const status = form.querySelector<HTMLElement>('[data-status]')!;
     const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
     const codes: Record<string, string> = JSON.parse(form.dataset.codes ?? '{}');
     const label = button.textContent;
+    const cc = form.querySelector<HTMLElement>('[data-cc]');
+    const ccSelect = form.querySelector<HTMLSelectElement>('[data-cc-select]');
+    const sent = form.querySelector<HTMLElement>('[data-sent]')!;
+    const syncCode = () => {
+      if (cc && ccSelect) cc.textContent = codes[ccSelect.value] ?? '';
+    };
+    ccSelect?.addEventListener('change', syncCode);
+    const done = () => {
+      form.reset();
+      syncCode();
+      delete form.dataset.tried;
+      form.dataset.state = 'sent';
+      sent.focus();
+    };
+    form.querySelector('[data-again]')?.addEventListener('click', () => {
+      delete form.dataset.state;
+      form.querySelector<HTMLInputElement>('input[name="nombre"]')?.focus();
+    });
 
     const setStatus = (text: string, tone: 'ok' | 'error' | '') => {
       status.textContent = text;
@@ -79,13 +129,15 @@ const options = countries.map((c) => ({ value: c.name, label: `${c.name} (${c.co
       event.preventDefault();
       setStatus('', '');
 
-      if (!form.reportValidity()) return;
+      if (!form.checkValidity()) {
+        form.dataset.tried = 'true';
+        form.querySelector<HTMLElement>(':invalid:not(fieldset)')?.focus();
+        return;
+      }
 
       const data = new FormData(form);
       if (String(data.get('_honey') ?? '') !== '' || Date.now() - openedAt < 2000) {
-        setStatus('Gracias. Te contactaremos pronto.', 'ok');
-        form.reset();
-        delete form.dataset.tried;
+        done();
         return;
       }
 
@@ -121,12 +173,10 @@ const options = countries.map((c) => ({ value: c.name, label: `${c.name} (${c.co
         });
         if (!mail.ok) throw new Error(String(mail.status));
 
-        form.reset();
-        delete form.dataset.tried;
-        setStatus(`Gracias, recibimos tu mensaje. Te escribimos en ${form.dataset.reply}.`, 'ok');
+        done();
         window.dataLayer?.push({ event: 'lead_form_submit', form_subject: data.get('_subject') });
       } catch {
-        setStatus(`No pudimos enviar el formulario. Escríbenos por WhatsApp al ${form.dataset.phone}.`, 'error');
+        setStatus(`No pudimos enviar el formulario. Inténtalo de nuevo o llámanos al ${form.dataset.phone}.`, 'error');
       } finally {
         button.disabled = false;
         button.textContent = label;
@@ -137,22 +187,51 @@ const options = countries.map((c) => ({ value: c.name, label: `${c.name} (${c.co
 
 <style>
   .lead-form { display: grid; gap: var(--space-m); container-type: inline-size; }
-  .pair, .phone { display: grid; gap: var(--space-m); }
+  .pair { display: grid; gap: var(--space-m); align-items: start; }
   @container (min-width: 30rem) {
     .pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .phone { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
   }
-  .lead-form :global(.button) { justify-self: start; }
-  .compact, .compact .pair, .compact .phone { gap: var(--space-s); }
-  .compact :global(textarea) { min-block-size: 0; block-size: 4.5rem; resize: vertical; }
-  .send { display: grid; gap: var(--space-s); }
-  @container (min-width: 30rem) {
-    .send { grid-template-columns: minmax(0, 1fr) auto; align-items: end; }
-    .send :global(.button) { min-block-size: 4.5rem; }
-  }
+  .lead-form > :global(.button) { justify-self: start; }
+  .compact, .compact .pair { gap: var(--space-s); }
+  .compact > :global(.button) { justify-self: stretch; }
+
+  .tel-field { display: grid; gap: var(--space-2xs); align-content: start; }
+  .tel-field label { font-size: var(--step-small); line-height: var(--leading-small); font-weight: var(--weight-semibold); }
+  .required { color: var(--color-error); margin-inline-start: 0.15em; }
+  .tel { display: grid; grid-template-columns: auto minmax(0, 1fr); min-block-size: var(--input-height); background-color: var(--input-bg); border-block-end: 2px solid var(--input-border); border-radius: var(--radius); transition: border-color var(--duration-hover) ease; }
+  .tel:has(:focus-visible) { outline: var(--focus-ring); outline-offset: 0; border-block-end-color: var(--input-border-focus); }
+  .cc { position: relative; display: flex; align-items: center; gap: 0.5rem; padding-inline: var(--space-s) var(--space-xs); border-inline-end: 1px solid color-mix(in srgb, var(--ink-900) 14%, transparent); font-weight: var(--weight-semibold); }
+  .cc::after { content: ''; inline-size: 0.4rem; block-size: 0.4rem; border-inline-end: 2px solid currentColor; border-block-end: 2px solid currentColor; transform: translateY(-2px) rotate(45deg); opacity: 0.6; }
+  .cc select { position: absolute; inset: 0; inline-size: 100%; opacity: 0; cursor: pointer; font-size: 16px; }
+  .tel input { inline-size: 100%; min-inline-size: 0; padding: var(--space-xs) var(--space-s); background: transparent; border: 0; color: var(--color-text); font-size: max(16px, 1em); }
+  .tel input:focus-visible { outline: none; }
+  .tel-field .error { display: none; font-size: var(--step-small); line-height: var(--leading-small); color: var(--color-error); font-weight: var(--weight-semibold); }
+  .tel-field:has(input:user-invalid:not(:placeholder-shown)) .error,
+  :global(form[data-tried]) .tel-field:has(input:invalid) .error { display: block; }
+  .tel-field:has(input:user-invalid:not(:placeholder-shown)) .tel,
+  :global(form[data-tried]) .tel-field:has(input:invalid) .tel { border-block-end-color: var(--color-error); }
 
   .status { font-size: var(--step-small); line-height: var(--leading-small); font-weight: var(--weight-semibold); }
   .status:empty { display: none; }
-  .status[data-tone='ok'] { color: var(--color-success); }
   .status[data-tone='error'] { color: var(--color-error); }
+
+  .sent { display: none; justify-items: center; gap: var(--space-2xs); padding-block: var(--space-m); text-align: center; }
+  .sent:focus { outline: none; }
+  .lead-form[data-state='sent'] > :not(.sent) { display: none; }
+  .lead-form[data-state='sent'] > .sent { display: grid; }
+  .check { inline-size: 3.5rem; block-size: 3.5rem; margin-block-end: var(--space-2xs); fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  .check circle { stroke: color-mix(in srgb, var(--color-success) 35%, transparent); }
+  .check path { stroke: var(--color-success); }
+  .sent-title { font-size: var(--step-title); line-height: var(--leading-head); font-weight: var(--weight-semibold); }
+  .sent-text { color: var(--color-text-soft); }
+  .sent-again { margin-block-start: var(--space-xs); padding: var(--space-2xs) var(--space-s); background: none; border: 0; border-radius: var(--radius); color: var(--color-link); font: inherit; font-size: var(--step-small); text-decoration: underline; text-underline-offset: 0.2em; cursor: pointer; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .lead-form[data-state='sent'] .check circle { stroke-dasharray: 151; animation: draw-ring 600ms var(--ease-out) both; }
+    .lead-form[data-state='sent'] .check path { stroke-dasharray: 36; animation: draw-tick 400ms var(--ease-out) 450ms both; }
+    .lead-form[data-state='sent'] :is(.sent-title, .sent-text) { animation: sent-in 500ms var(--ease-out) 300ms both; }
+    @keyframes draw-ring { from { stroke-dashoffset: 151; } to { stroke-dashoffset: 0; } }
+    @keyframes draw-tick { from { stroke-dashoffset: 36; } to { stroke-dashoffset: 0; } }
+    @keyframes sent-in { from { opacity: 0; transform: translateY(8px); } }
+  }
 </style>
