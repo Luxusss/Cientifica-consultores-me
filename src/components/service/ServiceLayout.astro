@@ -2,7 +2,6 @@
 import { Image, Picture } from 'astro:assets';
 import Base from '@/layouts/Base.astro';
 import FormCard from '@/components/forms/FormCard.astro';
-import Icon from '@/components/ui/Icon.astro';
 import PageHero from '@/components/ui/PageHero.astro';
 import PointsBlock from '@/components/sections/PointsBlock.astro';
 import CareerAreas from '@/components/sections/CareerAreas.astro';
@@ -23,11 +22,6 @@ interface Props {
 
 const { page } = Astro.props;
 const tone = (i: number) => i % 2 === 1;
-const trust = [
-  { icon: 'user', label: 'Asesor de tu carrera' },
-  { icon: 'shield', label: 'Contrato digital' },
-  { icon: 'document', label: 'Reporte Turnitin' },
-] as const;
 const schema = [
   breadcrumb([
     { name: 'Inicio', path: '/' },
@@ -47,11 +41,7 @@ const schema = [
 
 <Base title={page.title} description={page.description} image={`/og/${page.id}.jpg`} schema={schema}>
   <PageHero title={page.h1} crumb={page.crumb} lede={page.lede} balance="photo">
-    <FormCard title="¡Obtén tu primera asesoría gratis!" subject={page.formSubject} variant="short" submitLabel="Quiero asesoría">
-      <ul class="trust" role="list">
-        {trust.map((t) => <li><Icon name={t.icon} size="1rem" />{t.label}</li>)}
-      </ul>
-    </FormCard>
+    <FormCard title="¡Obtén tu primera asesoría gratis!" subject={page.formSubject} variant="short" submitLabel="Quiero asesoría" />
     <Picture slot="media" formats={['avif', 'webp']} quality={80} src={page.image} alt={page.imageAlt} widths={[960, 1280, 1570]} sizes="100vw" loading="eager" fetchpriority="high" />
   </PageHero>
 
@@ -78,9 +68,6 @@ const schema = [
 </Base>
 
 <style>
-  .trust { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-m); padding-block-start: var(--space-s); border-block-start: 1px solid color-mix(in srgb, var(--ink-900) 10%, transparent); color: var(--color-text-soft); font-size: var(--step-small); }
-  .trust li { display: inline-flex; align-items: center; gap: var(--space-3xs); }
-  .trust :global(svg) { color: var(--orange-500); }
 
   .standfirst { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
   .intro-pic { overflow: hidden; border-radius: var(--radius-card); }
