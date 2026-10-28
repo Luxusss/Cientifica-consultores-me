@@ -81,10 +81,8 @@ const options = countries.map((c) => ({ value: c.name, name: c.name, code: c.cod
       <p class="error" id={`${uid}-telefono-error`}>Escribe un teléfono válido (7 a 15 dígitos).</p>
     </div>
       </div>
-      <div class="pair">
-        <Field id={`${uid}-email`} label="Correo electrónico (opcional)" name="email" type="email" autocomplete="email" inputmode="email" error="Revisa el formato del correo." />
-        <Field id={`${uid}-mensaje`} label="Cuéntanos tu caso (opcional)" name="mensaje" type="textarea" placeholder="Ej.: empiezo desde cero, tengo observaciones del jurado…" />
-      </div>
+      <Field id={`${uid}-email`} label="Correo electrónico (opcional)" name="email" type="email" autocomplete="email" inputmode="email" error="Revisa el formato del correo." />
+      <Field id={`${uid}-mensaje`} label="Cuéntanos tu caso (opcional)" name="mensaje" type="textarea" placeholder="Ej.: empiezo desde cero, tengo observaciones del jurado…" />
     </>
   )}
   <Button type="submit">{submitLabel}</Button>
@@ -200,7 +198,7 @@ const options = countries.map((c) => ({ value: c.name, name: c.name, code: c.cod
   .lead-form > :global(.button) { justify-self: start; }
   .compact, .compact .pair { gap: var(--space-s); }
   .compact > :global(.button) { justify-self: stretch; }
-  .compact :global(textarea) { field-sizing: content; min-block-size: var(--input-height); block-size: var(--input-height); max-block-size: 12rem; resize: none; overflow-y: auto; }
+  .compact :global(textarea) { field-sizing: content; min-block-size: 6.25rem; block-size: 6.25rem; max-block-size: 14rem; resize: none; overflow-y: auto; }
   @supports (field-sizing: content) {
     .compact :global(textarea) { block-size: auto; }
   }
