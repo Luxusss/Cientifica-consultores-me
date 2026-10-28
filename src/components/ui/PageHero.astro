@@ -59,7 +59,7 @@ const hasMedia = Astro.slots.has('media');
     .photo-hero { grid-template-areas: 'stack'; min-block-size: min(calc(100svh - var(--header-height)), 40rem); }
     .photo-hero .media, .photo-hero .text { grid-area: stack; }
     .photo-hero { position: relative; }
-    .photo-hero .media { position: absolute; inset: 0 0 0 auto; block-size: 100%; inline-size: auto; aspect-ratio: 1570 / 883; max-inline-size: 100%; mask-image: linear-gradient(90deg, transparent 0, #000 22%); }
+    .photo-hero .media { position: absolute; inset: auto 0 0 auto; block-size: min(100%, 46rem); inline-size: auto; aspect-ratio: 1570 / 883; max-inline-size: 100%; mask-image: linear-gradient(90deg, transparent 0, #000 22%), linear-gradient(180deg, transparent 0, #000 12%); mask-composite: intersect; }
     .photo-hero .media :global(img) { object-position: 100% 50%; }
     .photo-hero::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, var(--scrim-soft) 0%, transparent 20%), linear-gradient(0deg, color-mix(in srgb, var(--ink-900) 55%, transparent) 0%, transparent 30%), linear-gradient(90deg, var(--scrim-strong) 0%, var(--scrim-strong) 24%, transparent 60%); }
     .photo-hero .text { padding-inline: var(--edge) var(--space-l); padding-block: var(--space-s) var(--space-xl); max-inline-size: calc(var(--edge) + 56rem); }
