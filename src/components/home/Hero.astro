@@ -1,7 +1,11 @@
 ---
-import { Picture } from 'astro:assets';
+import { Image } from 'astro:assets';
 import Icon from '@/components/ui/Icon.astro';
-import heroImg from '@/assets/images/banner/asesores-de-tesis-cientifica-consultores.jpg';
+import fondo from '@/assets/images/banner/hero/asesores-fondo.jpg';
+import original from '@/assets/images/banner/asesores-de-tesis-cientifica-consultores.jpg';
+import izquierda from '@/assets/images/banner/hero/asesora-izquierda.png';
+import centro from '@/assets/images/banner/hero/asesor-centro.png';
+import derecha from '@/assets/images/banner/hero/asesora-derecha.png';
 
 const shortcuts = [
   { label: 'Pregrado', href: '/tesis.html' },
@@ -9,6 +13,12 @@ const shortcuts = [
   { label: 'Doctorado', href: '/tesis-doctoral.html' },
   { label: 'TSP', href: '/trabajo-de-suficiencia-profesional.html' },
   { label: 'Artículos', href: '/articulos_cientificos.html' },
+];
+
+const people = [
+  { src: izquierda, alt: 'Asesora de tesis de Científica Consultores', cls: 'p1' },
+  { src: centro, alt: 'Asesor de tesis de Científica Consultores', cls: 'p2' },
+  { src: derecha, alt: 'Asesora de tesis de Científica Consultores', cls: 'p3' },
 ];
 
 const badges = [
@@ -20,17 +30,15 @@ const badges = [
 
 <section class="hero theme-field" aria-labelledby="hero-title" data-hero data-parallax>
   <div class="media">
-    <Picture
-      src={heroImg}
-      formats={['avif', 'webp']}
-      alt="Tres asesores de tesis de Científica Consultores en su oficina de Lima"
-      widths={[480, 720, 960, 1280, 1600]}
-      sizes="100vw"
-      quality={72}
-      loading="eager"
-      fetchpriority="high"
-      class="photo"
-    />
+    <div class="frame">
+      <Image src={fondo} alt="" widths={[640, 960, 1280, 1570]} sizes="100vw" format="webp" quality={70} loading="eager" class="fondo" />
+      {people.map((person) => (
+        <Image src={person.src} alt="" widths={[200, 320, 480]} sizes="(min-width: 64em) 22vw, 30vw" format="webp" quality={82} loading="eager" fetchpriority="high" class:list={['person', person.cls]} />
+      ))}
+      <Image src={original} alt="Tres asesores de tesis de Científica Consultores en su oficina de Lima" widths={[640, 960, 1280, 1570]} sizes="100vw" format="webp" quality={72} loading="eager" class="final" />
+    </div>
+    <span class="spot" aria-hidden="true"></span>
+    <span class="sheen" aria-hidden="true"></span>
   </div>
   <ul class="badges" role="list" aria-label="Lo que incluye tu asesoría">
     {badges.map((b, i) => (
@@ -78,9 +86,14 @@ const badges = [
 <style>
   .hero { display: grid; overflow: hidden; }
 
-  .media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; }
-  .media > :global(picture) { display: block; block-size: 100%; }
-  .photo { inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 100% 22%; transform-origin: 100% 40%; }
+  .media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; container-type: size; }
+  .frame { position: absolute; inset-inline-end: 0; inset-block-start: calc((100cqh - max(100cqh, 100cqw * 883 / 1570)) * 0.22); inline-size: max(100cqw, 100cqh * 1570 / 883); aspect-ratio: 1570 / 883; }
+  .frame :global(.fondo), .frame :global(.final) { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; }
+  .frame :global(.final) { z-index: 2; }
+  .frame :global(.person) { position: absolute; block-size: auto; }
+  .frame :global(.p1) { inset-inline-start: 41.6561%; inset-block-start: 21.1778%; inline-size: 20%; }
+  .frame :global(.p2) { inset-inline-start: 60.8917%; inset-block-start: 20.2718%; inline-size: 21.2102%; z-index: 1; }
+  .frame :global(.p3) { inset-inline-start: 81.3376%; inset-block-start: 19.8188%; inline-size: 18.6624%; }
 
   .content { display: grid; gap: var(--space-xl); padding-block: var(--space-xl) var(--space-2xl); }
   .text { display: grid; gap: var(--space-m); justify-items: start; }
@@ -99,6 +112,7 @@ const badges = [
     .shortcuts a:hover span { transform: translateX(3px); }
   }
 
+  .spot, .sheen { display: none; }
   .badges { display: none; }
   .badge { display: flex; flex-direction: column; align-items: center; gap: var(--space-2xs); text-align: center; color: var(--paper-0); text-shadow: 0 1px 12px color-mix(in srgb, var(--ink-900) 90%, transparent), 0 1px 2px var(--ink-900); }
   .badge-icon { display: grid; place-items: center; inline-size: 2.25rem; block-size: 2.25rem; border-radius: 50%; background-color: var(--orange-500); color: var(--ink-900); flex-shrink: 0; }
@@ -126,15 +140,32 @@ const badges = [
     h1 { font-size: min(var(--step-display), 4vw); }
     .line { display: inline-block; }
     .badges { display: block; grid-area: stack; position: relative; z-index: 1; pointer-events: none; translate: calc(var(--px, 0) * -18px) calc(var(--py, 0) * -12px); transition: translate 600ms var(--ease-out); }
-    .media .photo { translate: calc(var(--px, 0) * 14px) calc(var(--py, 0) * 10px); scale: 1.04; transition: translate 600ms var(--ease-out); }
+    .frame { translate: calc(var(--px, 0) * 14px) calc(var(--py, 0) * 8px); transition: translate 700ms var(--ease-out); }
     .badge { position: absolute; inset-block-end: 13%; translate: -50% 0; white-space: nowrap; }
     .badge-1 { inset-inline-start: 54%; }
     .badge-2 { inset-inline-start: 71.5%; }
     .badge-3 { inset-inline-start: 88.5%; }
+    .spot { display: block; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(circle 26rem at calc((var(--px, 0.3) + 0.5) * 100%) calc((var(--py, -0.1) + 0.5) * 100%), color-mix(in srgb, var(--paper-0) 16%, transparent), transparent 70%); mix-blend-mode: soft-light; opacity: 0; transition: opacity 600ms var(--ease-out); }
+    .hero:hover .spot { opacity: 1; }
+    .sheen { display: block; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(105deg, transparent 35%, color-mix(in srgb, var(--paper-0) 22%, transparent) 50%, transparent 65%); transform: translateX(-120%); }
+    .tail { position: relative; inline-size: fit-content; padding-block-end: 0.35rem; }
+    .tail::after { content: ''; position: absolute; inset-inline-start: 0; inset-block-end: 0; inline-size: 100%; block-size: 3px; border-radius: 3px; background-color: var(--orange-500); transform-origin: left; }
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .photo { animation: drift 24s var(--ease-soft) both; }
+    .frame :global(.fondo) { animation: settle 2200ms var(--ease-expo) both; }
+    .frame :global(.person) { animation: descend 1200ms var(--ease-expo) both; }
+    .frame :global(.p1) { animation-delay: 250ms; }
+    .frame :global(.p2) { animation-delay: 520ms; }
+    .frame :global(.p3) { animation-delay: 790ms; }
+    .frame :global(.final) { animation: reveal-final 300ms ease 1750ms both; }
+    @keyframes reveal-final { from { opacity: 0; } }
+    @keyframes settle { from { opacity: 0; transform: scale(1.12); } }
+    @keyframes descend { from { opacity: 0; transform: translateY(-16%); filter: blur(12px); } 60% { opacity: 1; } to { transform: translateY(0); filter: blur(0); } }
+    .sheen { animation: sheen 1600ms var(--ease-out) 1700ms both; }
+    .tail::after { animation: draw 900ms var(--ease-expo) 700ms both; }
+    @keyframes sheen { from { transform: translateX(-120%); } to { transform: translateX(120%); } }
+    @keyframes draw { from { transform: scaleX(0); } }
     .line > span { animation: line-up var(--duration-reveal) var(--ease-expo) 100ms both; }
     .line + .line > span { animation-delay: calc(100ms + var(--stagger)); }
     .tail, .lede { animation: rise 500ms var(--ease-out) 420ms both; }
@@ -150,14 +181,13 @@ const badges = [
     .badge-3 { animation-delay: 1200ms, 3.2s; }
     @keyframes badge-in { from { opacity: 0; transform: translateY(24px) scale(0.96); } }
     @keyframes float { 50% { transform: translateY(-8px); } }
-    @keyframes drift { from { transform: scale(1.06); } to { transform: scale(1); } }
     @keyframes line-up { from { transform: translateY(105%); } }
     @keyframes rise { from { opacity: 0; transform: translateY(12px); } }
   }
 
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) and (min-width: 64em) {
-      .media > :global(picture) { animation: hero-push linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
+      .frame { animation: hero-push linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
       .content { animation: hero-leave linear both; animation-timeline: view(); animation-range: exit 0% exit 70%; }
       @keyframes hero-push { to { transform: scale(1.14); } }
       @keyframes hero-leave { to { opacity: 0; transform: translateY(-80px); } }
