@@ -23,10 +23,11 @@ const links: NavLink[] = [{ label: 'Inicio', href: '/' }, ...trail];
 
 <style>
   .crumb-bar { border-block-end: 1px solid color-mix(in srgb, var(--ink-900) 8%, transparent); background-color: var(--paper-0); }
-  .crumbs { padding-block: var(--space-s); }
+  .crumbs { padding-block: var(--space-2xs); }
   ol { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2xs); font-size: var(--step-small); }
   li { display: inline-flex; align-items: center; gap: var(--space-2xs); }
-  a { color: var(--ink-600); text-decoration: none; }
+  a { display: inline-flex; align-items: center; min-block-size: 2.75rem; color: var(--ink-600); text-decoration: none; }
+  [aria-current='page'] { display: inline-flex; align-items: center; min-block-size: 2.75rem; }
   .sep { color: var(--ink-600); }
   [aria-current='page'] { color: var(--navy-600); font-weight: var(--weight-semibold); }
 

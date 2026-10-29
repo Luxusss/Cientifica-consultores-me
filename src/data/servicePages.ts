@@ -245,7 +245,7 @@ export const servicePages: Record<string, ServicePage> = {
     introAlt: 'Asesora de trabajo de suficiencia profesional de Científica Consultores',
     intro: ['Enfrentar tu trabajo de suficiencia profesional es el último paso para obtener tu título. En Científica Consultores ofrecemos una asesoría TSP integral para guiarte en cada etapa, asegurando que tu trabajo cumpla con los más altos estándares académicos y profesionales. Nuestro equipo de expertos está listo para ayudarte a alcanzar el éxito.'],
     sections: [
-      { kind: 'cta', id: 'titulo', title: '¡Obtén tu título profesional en solo 1 mes con apoyo de expertos!' },
+      { kind: 'cta', id: 'titulo-profesional', title: '¡Obtén tu título profesional en solo 1 mes con apoyo de expertos!' },
       {
         kind: 'text',
         id: 'que-es',

@@ -4,8 +4,8 @@ import Icon from './Icon.astro';
 ---
 
 <div class="floats" data-floats>
-  <a class="float lead" data-float-lead hidden>Déjanos tus datos</a>
-  <a class="float whatsapp" href={whatsappUrl()} target="_blank" rel="noopener" data-float-wsp>
+  <a class="float lead" data-float-lead data-analytics="lead_formulario_flotante" hidden>Déjanos tus datos</a>
+  <a class="float whatsapp" href={whatsappUrl()} target="_blank" rel="noopener" data-float-wsp data-analytics="lead_whatsapp_flotante">
     <Icon name="whatsapp" size="1.5em" />
     <span>Habla con un asesor</span>
   </a>

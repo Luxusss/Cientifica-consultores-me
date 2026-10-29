@@ -17,6 +17,7 @@ const { title, text, steps } = processSection;
       <ol class="steps" role="list" data-reveal="stagger">
         {steps.map((step, i) => (
           <li class:list={['step', 'on-scene', `step-${i + 1}`]}>
+            <span class="num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
             <p class="count">{i + 1} de {steps.length}</p>
             <h3>{step.name}</h3>
             <p class="text">{step.text}</p>
@@ -33,7 +34,8 @@ const { title, text, steps } = processSection;
   .head { justify-items: start; }
   .track { display: none; }
   .steps { display: grid; gap: var(--space-xl) var(--gutter); }
-  .step { display: grid; gap: var(--space-s); align-content: start; }
+  .step { position: relative; display: grid; gap: var(--space-s); align-content: start; }
+  .num { display: none; }
   .count { color: var(--color-accent); font-weight: var(--weight-semibold); font-size: var(--step-small); }
   .step h3 { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
   .step .text { color: var(--color-text-soft); }
@@ -53,7 +55,8 @@ const { title, text, steps } = processSection;
       .track { display: block; grid-column: 6; justify-self: center; inline-size: 4px; block-size: 60%; background-color: var(--navy-700); }
       .fill { display: block; inline-size: 100%; block-size: 100%; background-color: var(--color-accent); transform-origin: top; animation-name: fill-grow; animation-range: contain 0% contain 100%; }
       .steps { grid-column: 7 / -1; grid-template-columns: 1fr; display: grid; }
-      .step { grid-area: 1 / 1; gap: var(--space-m); }
+      .step { grid-area: 1 / 1; gap: var(--space-m); isolation: isolate; }
+      .num { display: none; position: absolute; z-index: -1; inset-block-start: 50%; inset-inline-end: 0; translate: 0 -50%; font-size: clamp(9rem, 14vw, 15rem); line-height: 1; font-weight: var(--weight-semibold); letter-spacing: -0.04em; color: transparent; -webkit-text-stroke: 2px color-mix(in srgb, var(--paper-0) 22%, transparent); pointer-events: none; user-select: none; }
       .step h3 { font-size: var(--step-head); }
       .step .text { font-size: var(--step-lead); line-height: var(--leading-lead); color: var(--color-text); max-inline-size: 30ch; }
       .step-1 { animation-name: step-out; animation-range: contain 13.3% contain 16.7%; }
@@ -62,6 +65,7 @@ const { title, text, steps } = processSection;
       .step-4 { animation-name: step-through; animation-range: contain 50% contain 66.7%; }
       .step-5 { animation-name: step-through; animation-range: contain 66.7% contain 83.3%; }
       .step-6 { animation-name: step-in; animation-range: contain 83.3% contain 86.7%; }
+      @media (min-width: 80em) { .num { display: block; } }
       [data-reveal='stagger'] > .step { opacity: 1; transform: none; transition: none; }
       @keyframes fill-grow { from { transform: scaleY(0.04); } to { transform: scaleY(1); } }
       @keyframes step-in { from { opacity: 0; visibility: hidden; transform: translateY(48px); } to { opacity: 1; transform: none; } }
