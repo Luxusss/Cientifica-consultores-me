@@ -1,6 +1,6 @@
 ---
 import Base from '@/layouts/Base.astro';
-import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import FormButton from '@/components/ui/FormButton.astro';
 import { services } from '@/config/navigation';
 ---
 
@@ -12,7 +12,7 @@ import { services } from '@/config/navigation';
       <ul class="list" role="list">
         {services.map((s) => <li><a href={s.href}>{s.label}</a></li>)}
       </ul>
-      <WhatsAppButton />
+      <FormButton />
     </div>
   </section>
 </Base>

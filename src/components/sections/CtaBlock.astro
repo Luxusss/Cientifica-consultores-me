@@ -1,5 +1,5 @@
 ---
-import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import FormButton from '@/components/ui/FormButton.astro';
 
 interface Props {
   id: string;
@@ -15,7 +15,7 @@ const { id, title, text } = Astro.props;
     <h2 id={id}>{title}</h2>
     <div class="side stack stack-m">
       {text && <p class="text-lead">{text}</p>}
-      <WhatsAppButton label="Solicitar presupuesto gratuito" />
+      <FormButton label="Solicitar presupuesto gratuito" />
     </div>
   </div>
 </section>

@@ -2,6 +2,7 @@
 import Base from '@/layouts/Base.astro';
 import FormCard from '@/components/forms/FormCard.astro';
 import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import FormButton from '@/components/ui/FormButton.astro';
 import { Image } from 'astro:assets';
 import sessionImg from '@/assets/images/otros/equipo-de-asesores-en-reunion.jpg';
 import graduatesImg from '@/assets/images/otros/graduados.jpg';
@@ -45,7 +46,7 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
                 <li><span class="feature-name">{r.feature}</span>{r.values[i]}</li>
               ))}
             </ul>
-            <WhatsAppButton message={`Hola, quiero información sobre el ${name}.`} label="Quiero este plan" />
+            <FormButton label="Quiero este plan" />
           </li>
         ))}
       </ul>

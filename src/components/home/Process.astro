@@ -4,73 +4,42 @@ import { processSection } from '@/data/home';
 const { title, text, steps } = processSection;
 ---
 
-<section class="scene process theme-field" aria-labelledby="como-trabajamos">
-  <div class="scene-stage">
-    <div class="page inner">
-      <header class="head stack stack-l" data-reveal>
-        <h2 id="como-trabajamos">{title}</h2>
-        <p class="text-lead">{text}</p>
-      </header>
+<section class="process theme-field section-wide" aria-labelledby="como-trabajamos">
+  <div class="page stack stack-xl">
+    <header class="split split-wide head" data-reveal>
+      <h2 id="como-trabajamos">{title}</h2>
+      <p class="text-lead">{text}</p>
+    </header>
 
-      <div class="track" aria-hidden="true"><span class="fill on-scene"></span></div>
-
-      <ol class="steps" role="list" data-reveal="stagger">
-        {steps.map((step, i) => (
-          <li class:list={['step', 'on-scene', `step-${i + 1}`]}>
-            <span class="num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-            <p class="count">{i + 1} de {steps.length}</p>
-            <h3>{step.name}</h3>
-            <p class="text">{step.text}</p>
-          </li>
-        ))}
-      </ol>
-    </div>
+    <ol class="steps" role="list" data-reveal="stagger">
+      {steps.map((step, i) => (
+        <li class="step">
+          <span class="num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <h3>{step.name}</h3>
+          <p class="text">{step.text}</p>
+        </li>
+      ))}
+    </ol>
   </div>
 </section>
 
 <style>
-  .process { padding-block: var(--section-gap); }
-  .inner { display: grid; gap: var(--space-xl) var(--gutter); }
-  .head { justify-items: start; }
-  .track { display: none; }
   .steps { display: grid; gap: var(--space-xl) var(--gutter); }
-  .step { position: relative; display: grid; gap: var(--space-s); align-content: start; }
-  .num { display: none; }
-  .count { color: var(--color-accent); font-weight: var(--weight-semibold); font-size: var(--step-small); }
-  .step h3 { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
-  .step .text { color: var(--color-text-soft); }
+  .step { position: relative; display: grid; gap: var(--space-s); align-content: start; padding-block-start: var(--space-m); border-block-start: 1px solid color-mix(in srgb, var(--paper-0) 22%, transparent); }
+  .step::before { content: ''; position: absolute; inset-block-start: -1px; inset-inline-start: 0; inline-size: 3rem; block-size: 3px; background-color: var(--orange-500); }
+  .num { font-size: clamp(2.75rem, 2rem + 2.4vw, 4rem); line-height: 1; font-weight: var(--weight-semibold); letter-spacing: -0.03em; color: var(--orange-500); font-variant-numeric: lining-nums tabular-nums; }
+  .step h3 { font-size: var(--step-title); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); text-wrap: balance; }
+  .step .text { color: var(--navy-100); }
 
-  @media (min-width: 48em) {
+  @media (min-width: 40em) {
     .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (min-width: 64em) {
-    .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: var(--space-2xl); }
   }
 
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) and (min-width: 64em) {
-      .process { --hold: 4; padding-block: 0; }
-      .inner { block-size: 100%; grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: center; }
-      .head { grid-column: 1 / span 5; }
-      .track { display: block; grid-column: 6; justify-self: center; inline-size: 4px; block-size: 60%; background-color: var(--navy-700); }
-      .fill { display: block; inline-size: 100%; block-size: 100%; background-color: var(--color-accent); transform-origin: top; animation-name: fill-grow; animation-range: contain 0% contain 100%; }
-      .steps { grid-column: 7 / -1; grid-template-columns: 1fr; display: grid; }
-      .step { grid-area: 1 / 1; gap: var(--space-m); isolation: isolate; }
-      .num { display: none; position: absolute; z-index: -1; inset-block-start: 50%; inset-inline-end: 0; translate: 0 -50%; font-size: clamp(9rem, 14vw, 15rem); line-height: 1; font-weight: var(--weight-semibold); letter-spacing: -0.04em; color: transparent; -webkit-text-stroke: 2px color-mix(in srgb, var(--paper-0) 22%, transparent); pointer-events: none; user-select: none; }
-      .step h3 { font-size: var(--step-head); }
-      .step .text { font-size: var(--step-lead); line-height: var(--leading-lead); color: var(--color-text); max-inline-size: 30ch; }
-      .step-1 { animation-name: step-out; animation-range: contain 13.3% contain 16.7%; }
-      .step-2 { animation-name: step-through; animation-range: contain 16.7% contain 33.3%; }
-      .step-3 { animation-name: step-through; animation-range: contain 33.3% contain 50%; }
-      .step-4 { animation-name: step-through; animation-range: contain 50% contain 66.7%; }
-      .step-5 { animation-name: step-through; animation-range: contain 66.7% contain 83.3%; }
-      .step-6 { animation-name: step-in; animation-range: contain 83.3% contain 86.7%; }
-      @media (min-width: 80em) { .num { display: block; } }
-      [data-reveal='stagger'] > .step { opacity: 1; transform: none; transition: none; }
-      @keyframes fill-grow { from { transform: scaleY(0.04); } to { transform: scaleY(1); } }
-      @keyframes step-in { from { opacity: 0; visibility: hidden; transform: translateY(48px); } to { opacity: 1; transform: none; } }
-      @keyframes step-through { 0% { opacity: 0; visibility: hidden; transform: translateY(48px); } 20%, 80% { opacity: 1; visibility: visible; transform: none; } 100% { opacity: 0; visibility: hidden; transform: translateY(-48px); } }
-      @keyframes step-out { from { opacity: 1; transform: none; } to { opacity: 0; visibility: hidden; transform: translateY(-48px); } }
-    }
+  @media (prefers-reduced-motion: no-preference) {
+    .step::before { transform-origin: left; transition: transform 700ms var(--ease-out) 200ms; }
+    :global(.js) [data-reveal='stagger']:not(.is-in) .step::before { transform: scaleX(0); }
   }
 </style>

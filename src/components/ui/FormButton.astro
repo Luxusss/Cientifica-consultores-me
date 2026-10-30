@@ -1,0 +1,13 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import Button from './Button.astro';
+
+interface Props extends Omit<HTMLAttributes<'a'>, 'href'> {
+  label?: string;
+}
+
+const { label = 'Quiero mi asesoría gratis', ...rest } = Astro.props;
+const withForm = /^\/(tesis|tesis-maestria|tesis-doctoral|trabajo-de-suficiencia-profesional|articulos_cientificos|contactanos)(\.html)?\/?$/.test(Astro.url.pathname);
+---
+
+<Button href={withForm ? '#formulario' : '/contactanos.html#formulario'} {...rest}>{label}</Button>

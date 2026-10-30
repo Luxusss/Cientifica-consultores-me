@@ -9,7 +9,7 @@ import ecuador from '@/assets/images/paises/ecuador.jpg';
 import venezuela from '@/assets/images/paises/venezuela.jpg';
 import chile from '@/assets/images/paises/chile.jpg';
 import espana from '@/assets/images/paises/espana.jpg';
-import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import FormButton from '@/components/ui/FormButton.astro';
 import { mainNav, services } from '@/config/navigation';
 import { services as serviceData } from '@/data/services';
 
@@ -94,7 +94,7 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
           {mainNav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
         </ul>
       </nav>
-      <WhatsAppButton />
+      <FormButton class="drawer-cta" />
     </div>
   </div>
 </header>

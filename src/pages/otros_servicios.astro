@@ -2,7 +2,7 @@
 import { Image, Picture } from 'astro:assets';
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/ui/PageHero.astro';
-import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import FormButton from '@/components/ui/FormButton.astro';
 import ContactBand from '@/components/sections/ContactBand.astro';
 import { otherServices } from '@/data/otherServices';
 import { breadcrumb } from '@/lib/schema';
@@ -34,7 +34,7 @@ const schema = [
       <div class="page stack stack-xl">
         <header class="group-head" data-reveal>
           <h2 id={g.id}>{g.name}</h2>
-          <WhatsAppButton message={`Hola, quiero cotizar un servicio de ${g.name.toLowerCase()}.`} label="Cotizar por WhatsApp" />
+          <FormButton label="Cotizar este servicio" />
         </header>
         <ul class="cards" role="list" data-reveal="stagger">
           {g.items.map((item) => (

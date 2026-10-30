@@ -1,7 +1,6 @@
 ---
 import { stageTracks } from '@/data/stages';
-import { whatsappUrl } from '@/config/site';
-import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import FormButton from '@/components/ui/FormButton.astro';
 
 interface Props {
   initial?: string;
@@ -11,7 +10,6 @@ interface Props {
 
 const { initial = 'pregrado', headingLevel = 2, title = 'Tu tesis por etapas' } = Astro.props;
 const Heading = `h${headingLevel}` as const;
-const message = (degree: string) => `Hola, quiero asesoría para mi tesis de ${degree}.`;
 const start = stageTracks.find((t) => t.id === initial) ?? stageTracks[0];
 ---
 
@@ -19,7 +17,7 @@ const start = stageTracks.find((t) => t.id === initial) ?? stageTracks[0];
   <header class="top stack stack-l" data-reveal>
     <Heading id="etapas">{title}</Heading>
     <p class="text-lead">Elige tu grado y mira el camino completo hasta la sustentación.</p>
-    <WhatsAppButton message={message(start.degree)} data-stages-cta />
+    <FormButton />
   </header>
 
   <div class="body">
@@ -33,7 +31,6 @@ const start = stageTracks.find((t) => t.id === initial) ?? stageTracks[0];
         aria-controls={`panel-${t.id}`}
         aria-selected={t.id === start.id ? 'true' : 'false'}
         tabindex={t.id === start.id ? 0 : -1}
-        data-href={whatsappUrl(message(t.degree))}
       >
         {t.label}
       </button>
@@ -61,7 +58,6 @@ const start = stageTracks.find((t) => t.id === initial) ?? stageTracks[0];
     const tablist = root.querySelector<HTMLElement>('[data-stages-tabs]')!;
     const tabs = [...tablist.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
     const panels = [...root.querySelectorAll<HTMLElement>('[data-panel]')];
-    const cta = root.querySelector<HTMLAnchorElement>('[data-stages-cta]')!;
 
     const select = (tab: HTMLButtonElement, focus = false) => {
       for (const t of tabs) {
@@ -70,7 +66,6 @@ const start = stageTracks.find((t) => t.id === initial) ?? stageTracks[0];
         t.tabIndex = on ? 0 : -1;
       }
       for (const p of panels) p.hidden = p.id !== tab.getAttribute('aria-controls');
-      cta.href = tab.dataset.href ?? cta.href;
       if (focus) tab.focus();
     };
 

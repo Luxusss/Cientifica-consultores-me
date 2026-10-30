@@ -2,7 +2,7 @@
 import { Image, Picture } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
 import Base from '@/layouts/Base.astro';
-import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import FormButton from '@/components/ui/FormButton.astro';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import Prose from '@/components/ui/Prose.astro';
 import { breadcrumb } from '@/lib/schema';
@@ -53,7 +53,7 @@ const schema = [
     <Prose><Content /></Prose>
     <aside class="cta theme-surface" aria-label="Asesoría" data-reveal>
       <p class="text-lead">¿Necesitas ayuda con tu tesis? Un asesor especialista te acompaña desde el proyecto hasta la sustentación.</p>
-      <WhatsAppButton />
+      <FormButton />
     </aside>
   </article>
 

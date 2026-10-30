@@ -1,5 +1,5 @@
 ---
-import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import FormButton from '@/components/ui/FormButton.astro';
 import { site } from '@/config/site';
 
 interface Props {
@@ -15,7 +15,7 @@ const { title = '¿Empezamos tu tesis?', text = `Cuéntanos tu universidad, tu g
     <div class="pitch stack stack-l" data-reveal>
       <h2 class="statement" id="contacto">{title}</h2>
       <p class="text-lead">{text}</p>
-      <WhatsAppButton />
+      <FormButton />
     </div>
     <div class="card" data-reveal>
       <div class="reach">
