@@ -12,7 +12,7 @@ const words = intro.split(' ');
 
 <style>
   .intro { padding-block: var(--space-2xl); }
-  .statement { max-inline-size: 46ch; margin-inline: auto; font-size: clamp(1.375rem, 1.1rem + 1.1vw, 2.125rem); line-height: 1.35; letter-spacing: -0.01em; font-weight: var(--weight-medium); text-align: center; text-wrap: pretty; }
+  .statement { max-inline-size: 46ch; margin-inline: auto; font-size: var(--step-statement); line-height: 1.35; letter-spacing: -0.01em; font-weight: var(--weight-medium); text-align: center; text-wrap: pretty; }
 
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {

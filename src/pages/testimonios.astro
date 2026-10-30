@@ -62,7 +62,7 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios'
   .cards { columns: 3 20rem; column-gap: var(--space-m); }
   .card { break-inside: avoid; margin-block-end: var(--space-m); padding: var(--space-l); background-color: var(--color-surface); border-radius: var(--radius-card); }
   figure { display: grid; gap: var(--space-s); }
-  .mark { font-size: 3rem; line-height: 0.5; color: var(--orange-500); block-size: 1.25rem; }
+  .mark { font-size: var(--step-display); line-height: 0.5; color: var(--orange-500); block-size: 1.25rem; }
   blockquote p { font-size: var(--step-body); line-height: var(--leading-body); }
   figcaption { display: flex; align-items: center; gap: var(--space-xs); margin-block-start: var(--space-2xs); }
   .avatar { display: grid; place-items: center; inline-size: 2.75rem; block-size: 2.75rem; border-radius: 50%; background-color: var(--navy-600); color: var(--paper-0); font-weight: var(--weight-semibold); flex-shrink: 0; }
@@ -70,7 +70,7 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios'
   .who span { color: var(--color-text-soft); font-size: var(--step-small); }
   .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(12rem, 44%), 1fr)); gap: var(--space-l) var(--space-m); justify-items: center; }
   .phone { inline-size: 100%; max-inline-size: 15rem; padding: 0.5rem; border-radius: 1.75rem; background-color: var(--ink-900); transition: transform var(--duration-hover) var(--ease-out); }
-  .shot { display: block; inline-size: 100%; block-size: auto; border-radius: 1.3rem; }
+  .shot { display: block; inline-size: 100%; block-size: auto; border-radius: var(--radius-card); }
 
   @media (hover: hover) and (pointer: fine) {
     .phone:hover { transform: translateY(-6px) rotate(-1deg); }

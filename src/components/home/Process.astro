@@ -27,7 +27,7 @@ const { title, text, steps } = processSection;
   .steps { display: grid; gap: var(--space-xl) var(--gutter); }
   .step { position: relative; display: grid; gap: var(--space-s); align-content: start; padding-block-start: var(--space-m); border-block-start: 1px solid color-mix(in srgb, var(--paper-0) 22%, transparent); }
   .step::before { content: ''; position: absolute; inset-block-start: -1px; inset-inline-start: 0; inline-size: 3rem; block-size: 3px; background-color: var(--orange-500); }
-  .num { font-size: clamp(2.75rem, 2rem + 2.4vw, 4rem); line-height: 1; font-weight: var(--weight-semibold); letter-spacing: -0.03em; color: var(--orange-500); font-variant-numeric: lining-nums tabular-nums; }
+  .num { font-size: var(--step-display); line-height: 1; font-weight: var(--weight-semibold); letter-spacing: -0.03em; color: var(--orange-500); font-variant-numeric: lining-nums tabular-nums; }
   .step h3 { font-size: var(--step-title); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); text-wrap: balance; }
   .step .text { color: var(--navy-100); }
 
@@ -39,7 +39,7 @@ const { title, text, steps } = processSection;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .step::before { transform-origin: left; transition: transform 700ms var(--ease-out) 200ms; }
+    .step::before { transform-origin: left; transition: transform var(--duration-reveal) var(--ease-out) var(--duration-ui); }
     :global(.js) [data-reveal='stagger']:not(.is-in) .step::before { transform: scaleX(0); }
   }
 </style>

@@ -29,6 +29,8 @@
   --step-title: clamp(1.25rem, 1.12rem + 0.55vw, 1.625rem);
   --step-head: clamp(1.75rem, 1.35rem + 1.6vw, 2.75rem);
   --step-display: clamp(2.25rem, 1.6rem + 2.8vw, 4rem);
+  --step-statement: clamp(1.375rem, 1.1rem + 1.1vw, 2.125rem);
+  --step-numeral: clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem);
 
   --leading-display: 1.04;
   --leading-head: 1.1;
@@ -94,6 +96,7 @@
 
   --radius: 0.625rem;
   --radius-card: 1.25rem;
+  --radius-pill: 999px;
   --header-height: 4.5rem;
   --scrim-strong: color-mix(in srgb, var(--ink-900) 82%, transparent);
   --scrim-soft: color-mix(in srgb, var(--ink-900) 55%, transparent);

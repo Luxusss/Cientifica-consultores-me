@@ -70,8 +70,8 @@ const items = [
   }
   .grid-stats { display: grid; gap: var(--space-l) var(--gutter); grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .stat { position: relative; display: grid; gap: var(--space-3xs); align-content: start; padding-block-end: var(--space-s); }
-  .icon { display: inline-grid; place-items: center; inline-size: 3.25rem; block-size: 3.25rem; margin-block-end: var(--space-xs); border-radius: 999px; background-color: color-mix(in srgb, var(--paper-0) 10%, transparent); color: var(--orange-500); }
-  .number { font-size: clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem); line-height: 1; font-weight: var(--weight-semibold); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .icon { display: inline-grid; place-items: center; inline-size: 3.25rem; block-size: 3.25rem; margin-block-end: var(--space-xs); border-radius: var(--radius-pill); background-color: color-mix(in srgb, var(--paper-0) 10%, transparent); color: var(--orange-500); }
+  .number { font-size: var(--step-numeral); line-height: 1; font-weight: var(--weight-semibold); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; white-space: nowrap; }
   .plus { color: var(--orange-500); }
   .unit { font-size: 0.45em; font-weight: var(--weight-medium); letter-spacing: 0; }
   .label { font-size: var(--step-lead); font-weight: var(--weight-medium); }
