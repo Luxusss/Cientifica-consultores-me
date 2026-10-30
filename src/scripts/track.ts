@@ -1,5 +1,3 @@
-import { pageKey } from './page';
-
 const slug = (value: string) =>
   value
     .normalize('NFD')
@@ -39,7 +37,7 @@ document.addEventListener(
     const kind = kindOf(el);
     if (!kind && !el.dataset.analytics) return;
     if (el.matches('button[type="submit"]')) return;
-    const page = pageKey();
+    const page = document.documentElement.dataset.page ?? 'pagina';
     (window.dataLayer ??= []).push({
       event: 'cta_click',
       cta_id: el.dataset.analytics ?? `lead_${kind}_${page}`,

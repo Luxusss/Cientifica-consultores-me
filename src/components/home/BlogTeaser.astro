@@ -3,43 +3,69 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 4);
+const [lead, ...rest] = posts;
+const fmt = new Intl.DateTimeFormat('es-PE', { day: 'numeric', month: 'long', year: 'numeric' });
 ---
 
 <section class="section-wide" aria-labelledby="blog-academico">
   <div class="page stack stack-xl">
     <header class="split split-end" data-reveal>
       <h2 id="blog-academico">Blog académico</h2>
-      <a class="all" href="/blog.html">Ver todos los artículos</a>
+      <a class="all" href="/blog.html">Ver todos los artículos<span aria-hidden="true"> →</span></a>
     </header>
-    <ul class="posts" role="list" data-reveal="stagger">
-      {posts.map((p) => (
-        <li>
-          <a class="post lift" href={`/blog/${p.id}.html`}>
-            <Image src={p.data.cover} alt={p.data.title} widths={[360, 540, 720]} sizes="(min-width: 64em) 24vw, (min-width: 40em) 50vw, 100vw" class="cover" />
-            <span class="title">{p.data.heading}</span>
-            <span class="excerpt">{p.data.description}</span>
-          </a>
-        </li>
-      ))}
-    </ul>
+    <div class="layout" data-reveal="stagger">
+      {lead && (
+        <a class="lead-post" href={`/blog/${lead.id}.html`}>
+          <span class="lead-media"><Image src={lead.data.cover} alt={lead.data.title} widths={[480, 720, 960, 1200]} sizes="(min-width: 64em) 56vw, 100vw" class="cover" /></span>
+          <time class="date" datetime={lead.data.date.toISOString()}>{fmt.format(lead.data.date)}</time>
+          <span class="lead-title">{lead.data.heading}</span>
+          <span class="excerpt">{lead.data.description}</span>
+        </a>
+      )}
+      <ul class="list" role="list">
+        {rest.map((p) => (
+          <li>
+            <a class="row" href={`/blog/${p.id}.html`}>
+              <span class="thumb-media"><Image src={p.data.cover} alt={p.data.title} widths={[160, 240, 320]} sizes="(min-width: 64em) 10rem, 7rem" class="thumb" /></span>
+              <span class="row-text">
+                <time class="date" datetime={p.data.date.toISOString()}>{fmt.format(p.data.date)}</time>
+                <span class="title">{p.data.heading}</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   </div>
 </section>
 
 <style>
   .all { justify-self: start; font-size: var(--step-lead); }
-  .posts { display: grid; gap: var(--space-xl) var(--gutter); }
-  .post { display: grid; gap: var(--space-s); color: var(--color-text); text-decoration: none; }
-  .cover { inline-size: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-card); }
-  .title { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
-  .excerpt { color: var(--color-text-soft); }
+  .layout { display: grid; gap: var(--space-xl) var(--gutter); }
+  .lead-post, .row { color: var(--color-text); text-decoration: none; }
+  .lead-post { display: grid; gap: var(--space-s); align-content: start; }
+  .lead-media, .thumb-media { display: block; overflow: hidden; border-radius: var(--radius-card); background-color: var(--color-surface); }
+  .cover { inline-size: 100%; aspect-ratio: 16 / 10; object-fit: cover; transition: transform var(--duration-reveal) var(--ease-out); }
+  .date { font-size: var(--step-small); color: var(--color-text-soft); }
+  .lead-post .date { margin-block-start: var(--space-2xs); }
+  .lead-title { font-size: var(--step-title); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); text-wrap: balance; }
+  .excerpt { color: var(--color-text-soft); max-inline-size: 60ch; }
+  .list { display: grid; align-content: start; }
+  .list li + li { border-block-start: 1px solid color-mix(in srgb, var(--ink-900) 10%, transparent); }
+  .row { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: var(--space-s); align-items: center; padding-block: var(--space-s); }
+  .list li:first-child .row { padding-block-start: 0; }
+  .thumb { inline-size: 100%; aspect-ratio: 1; object-fit: cover; transition: transform var(--duration-reveal) var(--ease-out); }
+  .row-text { display: grid; gap: var(--space-3xs); }
+  .title { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); text-wrap: balance; }
 
-  @media (min-width: 40em) {
-    .posts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
   @media (min-width: 64em) {
-    .posts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .layout { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: start; }
+    .row { grid-template-columns: 10rem minmax(0, 1fr); gap: var(--space-m); padding-block: var(--space-m); }
+    .thumb { aspect-ratio: 4 / 3; }
   }
+
   @media (hover: hover) and (pointer: fine) {
-    .post:hover .title { text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 0.07em; }
+    .lead-post:hover .cover, .row:hover .thumb { transform: scale(1.04); }
+    .lead-post:hover .lead-title, .row:hover .title { text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 0.07em; }
   }
 </style>

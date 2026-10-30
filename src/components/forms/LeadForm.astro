@@ -96,7 +96,6 @@ const options = countries.map((c) => ({ value: c.name, name: c.name, code: c.cod
 </form>
 
 <script>
-  import { pageKey } from '@/scripts/page';
   const isTouch = () => window.matchMedia('(pointer: coarse)').matches;
 
   for (const form of document.querySelectorAll<HTMLFormElement>('[data-lead-form]')) {
@@ -179,7 +178,7 @@ const options = countries.map((c) => ({ value: c.name, name: c.name, code: c.cod
         if (!mail.ok) throw new Error(String(mail.status));
 
         done();
-        window.dataLayer?.push({ event: 'lead_form_submit', form_subject: data.get('_subject'), form_id: `lead_formulario_${pageKey()}`, cta_page: pageKey() });
+        window.dataLayer?.push({ event: 'lead_form_submit', form_subject: data.get('_subject'), form_id: `lead_formulario_${document.documentElement.dataset.page}`, cta_page: document.documentElement.dataset.page });
       } catch {
         setStatus(`No pudimos enviar el formulario. Inténtalo de nuevo o llámanos al ${form.dataset.phone}.`, 'error');
       } finally {

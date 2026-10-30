@@ -18,6 +18,7 @@ import { servicesSection } from '@/data/home';
             <Image src={s.image} alt={s.imageAlt} widths={[180, 360, 540, 720]} sizes="(min-width: 64em) 30vw, (min-width: 40em) 50vw, 6rem" class="portrait parallax-img" />
           </a>
           <h3 class="name"><a href={s.href}>{s.title}<span class="arrow" aria-hidden="true">→</span></a></h3>
+          <p class="hook">{s.summary}</p>
           <p class="summary">{s.description}</p>
         </li>
       ))}
@@ -36,12 +37,14 @@ import { servicesSection } from '@/data/home';
   .name { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
   .name a { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-s); color: var(--color-text); text-decoration: none; }
   .arrow { color: var(--color-accent-strong); transition: transform var(--duration-hover) var(--ease-out); }
-  .summary { color: var(--color-text); }
+  .hook { color: var(--navy-600); font-weight: var(--weight-semibold); line-height: var(--leading-lead); }
+  .summary { color: var(--color-text-soft); font-size: var(--step-small); line-height: var(--leading-body); }
 
   @media (max-width: 39.99em) {
     .tile { grid-template-columns: 5.5rem minmax(0, 1fr); column-gap: var(--space-s); row-gap: var(--space-2xs); }
     .frame { grid-row: 1 / span 2; align-self: start; }
     .portrait { aspect-ratio: 1; }
+    .hook { grid-column: 2; font-size: var(--step-small); }
     .summary { grid-column: 1 / -1; }
   }
   @media (min-width: 40em) {
@@ -49,7 +52,8 @@ import { servicesSection } from '@/data/home';
   }
   @media (min-width: 64em) {
     .gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .portrait { aspect-ratio: 4 / 5; }
+    .gallery { row-gap: var(--space-2xl); }
+    .portrait { aspect-ratio: 3 / 2; object-position: 50% 18%; }
   }
 
   @media (hover: hover) and (pointer: fine) {
