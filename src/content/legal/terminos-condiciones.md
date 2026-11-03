@@ -32,6 +32,8 @@ Esta sección detalla los acuerdos específicos relacionados con la adquisición
 
 **7. Garantías:** CIENTIFICA CONSULTORES garantiza la calidad y profesionalismo de la asesoría brindada. Sin embargo, no se garantiza la obtención de una calificación específica ni la aprobación automática de la tesis, ya que el resultado final depende de múltiples factores, incluyendo el desempeño del estudiante y la evaluación de su institución académica.
 
-**8. Comunicaciones:** Todas las comunicaciones relacionadas con la prestación del servicio se realizarán preferentemente a través de los canales establecidos (ej. correo electrónico, plataformas de comunicación interna).
+**8. Integridad académica:** CIENTIFICA CONSULTORES brinda asesoría, orientación metodológica y revisión académica. El estudiante es el autor de su investigación y responsable de su contenido. No elaboramos trabajos académicos para ser presentados como propios ni ofrecemos servicios orientados a evadir las normas de integridad académica de las instituciones.
 
-**9. Legislación Aplicable y Jurisdicción:** Los presentes Términos y Condiciones se regirán e interpretarán de acuerdo con las leyes de la República del Perú. Cualquier controversia que pudiera derivarse de la interpretación o ejecución de los presentes Términos y Condiciones se someterá a la jurisdicción de los tribunales competentes en el distrito y provincia de Lima, renunciando expresamente a cualquier otro fuero que pudiera corresponder.
+**9. Comunicaciones:** Todas las comunicaciones relacionadas con la prestación del servicio se realizarán preferentemente a través de los canales establecidos (ej. correo electrónico, plataformas de comunicación interna).
+
+**10. Legislación Aplicable y Jurisdicción:** Los presentes Términos y Condiciones se regirán e interpretarán de acuerdo con las leyes de la República del Perú. Cualquier controversia que pudiera derivarse de la interpretación o ejecución de los presentes Términos y Condiciones se someterá a la jurisdicción de los tribunales competentes en el distrito y provincia de Lima, renunciando expresamente a cualquier otro fuero que pudiera corresponder.

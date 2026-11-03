@@ -35,7 +35,7 @@ export const stageTracks: StageTrack[] = [
       { name: 'Marco teórico', detail: 'La base teórica y los antecedentes.' },
       { name: 'Metodología', detail: 'El enfoque, la recolección y el análisis de datos.' },
       { name: 'Redacción', detail: 'Te acompañamos en el estilo académico y el formato institucional.' },
-      { name: 'Revisión y entrega', detail: 'Control de calidad y correcciones finales.' },
+      { name: 'Revisión final', detail: 'Revisión integral y orientación en las últimas correcciones.' },
       { name: 'Defensa', detail: 'Preparación de la sustentación ante el tribunal.' },
     ],
   },

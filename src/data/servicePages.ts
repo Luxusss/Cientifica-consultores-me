@@ -61,7 +61,7 @@ export const servicePages: Record<string, ServicePage> = {
     path: '/tesis.html',
     crumb: 'Tesis de pregrado',
     title: 'Asesoría de Tesis de Pregrado en Lima | Científica Consultores',
-    description: 'Asesoría profesional para tesis de pregrado en Lima y online: proyecto, informe final, observaciones, anti-plagio y sustentación. ¡Consulta gratuita!',
+    description: 'Asesoría profesional para tesis de pregrado en Lima y online: proyecto, informe final, observaciones, originalidad y sustentación. ¡Consulta gratuita!',
     h1: 'Asesoría de tesis de pregrado',
     lede: 'El último paso para tu título, con un asesor de tu carrera a tu lado, en Lima, a nivel nacional y online.',
     image: pregradoImg,
@@ -69,24 +69,24 @@ export const servicePages: Record<string, ServicePage> = {
     formSubject: 'Nuevo lead - Tesis de Pregrado',
     introAlt: 'Asesoría de tesis de pregrado, licenciatura y grado',
     intro: [
-      'La tesis de pregrado es el último gran paso para obtener tu título universitario, pero suele ser un proceso complejo y estresante. En Científica Consultores te ofrecemos asesoría de tesis en Lima, a nivel nacional y online. Nuestro acompañamiento cubre todas las fases: desde la elección del tema de investigación y la metodología (cualitativa, cuantitativa o mixta) hasta la redacción final, la verificación anti-plagio con Turnitin y la preparación para la sustentación. Enfócate en tu futuro académico y profesional.',
+      'La tesis de pregrado es el último gran paso para obtener tu título universitario, pero suele ser un proceso complejo y estresante. En Científica Consultores te ofrecemos asesoría de tesis en Lima, a nivel nacional y online. Nuestro acompañamiento cubre todas las fases: desde la elección del tema de investigación y la metodología (cualitativa, cuantitativa o mixta) hasta la revisión de tu redacción, el análisis de originalidad con Turnitin y la preparación para la sustentación. Enfócate en tu futuro académico y profesional.',
     ],
     sections: [
       {
         kind: 'text',
         id: 'metodo',
         title: 'Nuestra asesoría de tesis de pregrado: supera el desafío con expertos',
-        text: ['Nuestro método de trabajo se basa en la experiencia de más de 10 años y un equipo de asesores especialistas en tu área. Te ofrecemos una solución integral, 100% personalizada y garantizada para que cada fase de tu proyecto de tesis sea exitosa, liberándote del estrés y asegurando la máxima calidad y originalidad de tu investigación.'],
+        text: ['Nuestro método de trabajo se basa en la experiencia de más de 10 años y un equipo de asesores especialistas en tu área. Te ofrecemos un acompañamiento integral y 100% personalizado en cada fase de tu proyecto de tesis, para que avances con menos estrés y desarrolles una investigación propia, original y de calidad.'],
       },
       { kind: 'careers', title: 'Áreas de especialización: asesoría de tesis por carrera', intro: careersIntro, prefix: 'Asesoría de tesis para ' },
       {
         kind: 'points',
         id: 'por-que',
         title: '¿Por qué elegir nuestra asesoría para tu proyecto de grado en Lima?',
-        intro: 'Elegirnos es optar por la seguridad y la experiencia local. Somos la empresa de ayuda de tesis en Lima con más de una década de trayectoria, dedicada a convertir tu proyecto de grado en un éxito. Nuestro equipo de asesores especialistas en diversas áreas de estudio garantiza que tu investigación no solo cumpla con los estándares de tu universidad, sino que también destaque por su calidad, originalidad y un proceso sin estrés.',
+        intro: 'Elegirnos es optar por la seguridad y la experiencia local. Somos la empresa de ayuda de tesis en Lima con más de una década de trayectoria, dedicada a acompañarte en tu proyecto de grado. Nuestro equipo de asesores especialistas en diversas áreas de estudio te orienta para que tu investigación cumpla con los estándares de tu universidad y destaque por su calidad, su originalidad y un proceso ordenado.',
         points: [
           { image: especialistaImg, imageAlt: 'Especialista en tesis', title: 'Especialista en tesis para ti', text: 'Contamos con un equipo multidisciplinario de asesores de tesis con amplia experiencia. Cada experto te guiará en tu investigación hasta la sustentación.' },
-          { image: turnitinImg, imageAlt: 'Asesor de tesis especializado en revisión anti-plagio con Turnitin en Lima', title: 'Calidad académica garantizada', text: 'Garantizamos originalidad en tu tesis con control de Turnitin. Recibe un trabajo único, listo para sustentar.' },
+          { image: turnitinImg, imageAlt: 'Asesor de tesis revisando el reporte de originalidad de Turnitin en Lima', title: 'Originalidad y buenas prácticas de citación', text: 'Revisamos la originalidad de tu tesis con Turnitin y te enseñamos a citar y parafrasear correctamente para que tu investigación sea tuya.' },
           { image: onlineImg, imageAlt: 'Asesoría online', title: 'Asesoría online a tu medida', text: 'Nuestra asesoría online se adapta a tus horarios con reuniones virtuales y seguimiento constante, estés donde estés.' },
         ],
       },
@@ -95,9 +95,9 @@ export const servicePages: Record<string, ServicePage> = {
         id: 'incluye',
         title: '¿Qué incluye nuestra asesoría integral de tesis de pregrado?',
         points: [
-          { id: 'proyecto', image: proyectoImg, imageAlt: 'Desarrollo de tu proyecto de tesis', title: 'Desarrollo de tu proyecto de tesis', text: 'Te guiamos en el desarrollo de tu proyecto de tesis, desde la elección del tema hasta su estructuración. Incluye planteamiento del problema, objetivos, justificación, marco teórico y diseño metodológico. Nuestra asesoría de tesis online ofrece una base sólida alineada a los criterios académicos para lograr la aprobación del trabajo.' },
+          { id: 'proyecto', image: proyectoImg, imageAlt: 'Desarrollo de tu proyecto de tesis', title: 'Desarrollo de tu proyecto de tesis', text: 'Te guiamos en el desarrollo de tu proyecto de tesis, desde la elección del tema hasta su estructuración. Incluye planteamiento del problema, objetivos, justificación, marco teórico y diseño metodológico. Nuestra asesoría de tesis online te ayuda a construir una base sólida, alineada a los criterios académicos de tu universidad.' },
           { image: informeImg, imageAlt: 'Redacción del informe final y análisis de datos', title: 'Redacción del informe final y análisis de datos', text: 'Te apoyamos en la redacción de tesis, capítulo por capítulo, desde los resultados hasta las conclusiones y recomendaciones. Además, brindamos soporte en el análisis de datos cuantitativos o cualitativos, con el uso de software especializado según los requerimientos de tu investigación.' },
-          { image: observacionesImg, imageAlt: 'Levantamiento de observaciones y correcciones', title: 'Levantamiento de observaciones y correcciones', text: '¿Tu tesis ya fue revisada? Te ayudamos con el levantamiento de observaciones. Nuestros especialistas identifican y corrigen cada detalle para que tu trabajo de tesis cumpla con los estándares académicos exigidos y esté listo para su aprobación.' },
+          { image: observacionesImg, imageAlt: 'Levantamiento de observaciones y correcciones', title: 'Levantamiento de observaciones y correcciones', text: '¿Tu tesis ya fue revisada? Te ayudamos con el levantamiento de observaciones. Nuestros especialistas te explican cada observación y te guían en las correcciones para que tu trabajo de tesis cumpla con los estándares académicos exigidos.' },
           { image: sustentacionImg, imageAlt: 'Asesoría para la sustentación de tesis', title: 'Asesoría para la sustentación de tesis', text: 'Prepárate con confianza para tu sustentación de tesis. Te orientamos en la estructura de la presentación, el manejo de preguntas y técnicas de exposición para lograr una defensa clara, segura y exitosa.' },
           { image: normasImg, imageAlt: 'Normas de redacción con el estilo APA, Vancouver, ISO 690', title: 'Normas de redacción (APA, Vancouver, ISO 690)', text: 'Te ayudamos a aplicar correctamente las normas de redacción según el estilo requerido —APA, Vancouver, ISO 690 u otros—. Nuestros asesores se aseguran de que tu tesis cumpla con los estándares académicos en citas, referencias y formatos, mejorando su presentación y calidad formal.' },
         ],
@@ -107,7 +107,7 @@ export const servicePages: Record<string, ServicePage> = {
         kind: 'text',
         id: 'normativa',
         title: 'Expertos en la normativa de todas las universidades de pregrado en Lima y a nivel nacional',
-        text: ['El éxito de una tesis de pregrado depende de cumplir al detalle la normativa interna de tu facultad. Nuestros asesores especialistas cuentan con la experiencia para adaptar tu investigación a los estándares metodológicos de cualquier institución, desde las principales universidades en Lima hasta las casas de estudio más prestigiosas a nivel nacional. Gracias a nuestra metodología 100% online, garantizamos un soporte de tesis eficiente, sin importar tu ubicación, asegurando que tu proyecto final cumpla con todos los requisitos para la sustentación y la obtención de tu título.'],
+        text: ['El éxito de una tesis de pregrado depende de cumplir al detalle la normativa interna de tu facultad. Nuestros asesores especialistas cuentan con la experiencia para adaptar tu investigación a los estándares metodológicos de cualquier institución, desde las principales universidades en Lima hasta las casas de estudio más prestigiosas a nivel nacional. Gracias a nuestra metodología 100% online, te brindamos un soporte de tesis eficiente, sin importar tu ubicación, para que tu proyecto cumpla con los requisitos de tu universidad rumbo a la sustentación.'],
       },
       {
         kind: 'points',
@@ -138,7 +138,7 @@ export const servicePages: Record<string, ServicePage> = {
     formSubject: 'Nuevo lead - Tesis de Maestría',
     introImage: maestriaIntro,
     introAlt: 'Asesor de tesis de maestría de Científica Consultores',
-    intro: ['En Científica Consultores ofrecemos asesoría de tesis en Lima, con un enfoque integral para cada etapa de tu proyecto. Te garantizamos un proceso transparente y eficiente, adaptado a tus necesidades académicas.'],
+    intro: ['En Científica Consultores ofrecemos asesoría de tesis en Lima, con un enfoque integral para cada etapa de tu proyecto. Te ofrecemos un proceso transparente y eficiente, adaptado a tus necesidades académicas.'],
     sections: [
       { kind: 'careers', title: 'Áreas de especialización en asesoría de tesis', intro: careersIntro },
       {
@@ -154,7 +154,7 @@ export const servicePages: Record<string, ServicePage> = {
         items: [
           'Elaboración de tesis completas o por capítulo.',
           'Redacción con marco teórico, metodología y conclusiones.',
-          'Revisión y control antiplagio con Turnitin.',
+          'Análisis de originalidad con Turnitin y orientación en citación.',
           'Preparación para la sustentación y diapositivas en PPT.',
           'Asesoría continua, online y personalizada.',
         ],
@@ -205,23 +205,23 @@ export const servicePages: Record<string, ServicePage> = {
         title: 'Ventajas de nuestro servicio',
         points: [
           { title: 'Metodología rigurosa', text: 'Aplicamos marcos teóricos sólidos y métodos de investigación apropiados.' },
-          { title: 'Originalidad garantizada', text: 'Cada trabajo doctoral es único y libre de plagio.' },
+          { title: 'Integridad académica', text: 'Tu investigación doctoral es tuya: te orientamos en citación y revisamos su originalidad.' },
           { title: 'Asesoramiento continuo', text: 'Acompañamiento personalizado durante todo el proceso.' },
-          { title: 'Cumplimiento de plazos', text: 'Entregas puntuales según el cronograma acordado.' },
+          { title: 'Cumplimiento de plazos', text: 'Revisiones puntuales según el cronograma acordado.' },
         ],
       },
       {
         kind: 'points',
         id: 'metodologia',
         title: 'Metodología de trabajo',
-        intro: 'Nuestro proceso de elaboración de trabajos doctorales sigue una metodología estructurada que garantiza la calidad y el rigor académico en cada etapa:',
+        intro: 'Nuestra asesoría de trabajos doctorales sigue una metodología estructurada que cuida la calidad y el rigor académico en cada etapa:',
         points: [
           { title: 'Elección del título', text: 'Identifica el tema clave de la investigación y su principal punto de interés.' },
           { title: 'Planteamiento del problema', text: 'Describe el problema que justifica la investigación, demostrando su relevancia y necesidad.' },
           { title: 'Marco teórico', text: 'Presenta la base teórica y los antecedentes para contextualizar el problema y definir los pilares de la investigación.' },
           { title: 'Metodología', text: 'El enfoque y los procedimientos del estudio, junto a la recolección y el análisis de datos, aseguran el rigor científico.' },
-          { title: 'Redacción especializada', text: 'Elaboración del documento final con estilo académico y formato institucional.' },
-          { title: 'Revisión y entrega', text: 'Control de calidad, correcciones finales y entrega del trabajo completo.' },
+          { title: 'Revisión de redacción', text: 'Revisamos tu redacción para que tenga estilo académico y cumpla el formato institucional.' },
+          { title: 'Revisión final', text: 'Revisión integral de tu trabajo y orientación en las últimas correcciones antes de presentarlo.' },
         ],
       },
       { kind: 'photos' },
@@ -243,9 +243,9 @@ export const servicePages: Record<string, ServicePage> = {
     formSubject: 'Nuevo lead - TSP',
     introImage: tspIntro,
     introAlt: 'Asesora de trabajo de suficiencia profesional de Científica Consultores',
-    intro: ['Enfrentar tu trabajo de suficiencia profesional es el último paso para obtener tu título. En Científica Consultores ofrecemos una asesoría TSP integral para guiarte en cada etapa, asegurando que tu trabajo cumpla con los más altos estándares académicos y profesionales. Nuestro equipo de expertos está listo para ayudarte a alcanzar el éxito.'],
+    intro: ['Enfrentar tu trabajo de suficiencia profesional es el último paso para obtener tu título. En Científica Consultores ofrecemos una asesoría TSP integral para guiarte en cada etapa, asegurando que tu trabajo cumpla con los más altos estándares académicos y profesionales. Nuestro equipo de expertos te acompaña hasta tu sustentación.'],
     sections: [
-      { kind: 'cta', id: 'titulo-profesional', title: '¡Obtén tu título profesional en solo 1 mes con apoyo de expertos!' },
+      { kind: 'cta', id: 'titulo-profesional', title: '¡Avanza hacia tu título profesional con el acompañamiento de expertos!' },
       {
         kind: 'text',
         id: 'que-es',
@@ -256,7 +256,7 @@ export const servicePages: Record<string, ServicePage> = {
         kind: 'points',
         id: 'estructura',
         title: 'Estructura clave de un TSP',
-        intro: 'Para garantizar la aprobación de tu trabajo de suficiencia profesional, es vital seguir una estructura rigurosa. Nuestros asesores se especializan en guiarte a través de cada uno de los siguientes elementos:',
+        intro: 'Un trabajo de suficiencia profesional bien planteado sigue una estructura rigurosa. Nuestros asesores se especializan en guiarte a través de cada uno de los siguientes elementos:',
         points: [
           { title: 'Aspectos generales', text: 'Descripción detallada del área en la que te desempeñas, incluyendo el RUC, la misión, la visión y la actividad económica de la empresa.' },
           { title: 'Fundamento del área elegida', text: 'Desarrollo del marco conceptual y teórico que sustenta tu trabajo, alineado con tu carrera profesional y las actividades del área de estudio.' },
@@ -272,9 +272,9 @@ export const servicePages: Record<string, ServicePage> = {
         title: 'Nuestros servicios de asesoría TSP incluyen',
         points: [
           { title: 'Asesoría TSP', text: 'Desde la elección del tema hasta el informe final.' },
-          { title: 'Corrección y formato', text: 'Garantizamos la calidad y el cumplimiento de las normas de tu universidad.' },
+          { title: 'Corrección y formato', text: 'Revisamos que tu trabajo cumpla las normas de formato de tu universidad.' },
           { title: 'Levantamiento de observaciones', text: 'Te ayudamos a corregir cualquier detalle señalado por tu jurado.' },
-          { title: 'Similitud con Turnitin', text: 'Nos aseguramos de que tu trabajo sea 100% original y esté listo para su revisión.' },
+          { title: 'Originalidad con Turnitin', text: 'Revisamos la originalidad de tu trabajo y te orientamos para citar correctamente tus fuentes.' },
         ],
       },
       { kind: 'photos' },
@@ -283,7 +283,7 @@ export const servicePages: Record<string, ServicePage> = {
         id: 'por-que',
         title: '¿Por qué elegir nuestro servicio de asesoría TSP?',
         points: [
-          { title: 'Resultados comprobados', text: `${stats.tspApproval}% de aprobación en primera sustentación. Y si el jurado te observa, levantamos las observaciones sin costo adicional. Más de ${stats.tsp} TSP exitosos desarrollados. Tiempo récord: desde 1 mes, ${stats.tspMonths} en promedio. Asesoría personalizada según tu universidad.` },
+          { title: 'Resultados comprobados', text: `Más de ${stats.tsp} profesionales acompañados en su TSP. Si el jurado te observa, te guiamos para levantar las observaciones sin costo adicional. Asesoría personalizada según tu universidad.` },
           { title: 'Expertos por universidad', text: 'Conocemos los requisitos específicos de la UPN (Universidad Privada del Norte), la UCV (César Vallejo), la USIL (Universidad San Ignacio de Loyola), la UTP (Universidad Tecnológica del Perú) y más universidades.' },
         ],
       },

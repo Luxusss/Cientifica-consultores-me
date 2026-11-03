@@ -48,5 +48,5 @@ En [Científica Consultores](/), celebramos el espíritu de perseverancia que se
 
 - Asesoramiento integral en la preparación de tu proyecto de tesis, desde el inicio hasta la sustentación.
 - Análisis estadístico y levantamiento de observaciones.
-- Reporte de Turnitin para garantizar la originalidad de tu trabajo.
+- Revisión de originalidad con Turnitin y orientación en citación.
 - Apoyo en la elaboración del PPT para la sustentación.

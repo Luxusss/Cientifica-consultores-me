@@ -28,7 +28,7 @@ export const services: Service[] = [
     imageAlt: 'Asesora de tesis de pregrado de Científica Consultores',
     summary: 'Del tema a la sustentación, con un asesor de tu carrera.',
     title: 'Asesoría de pregrado y licenciatura',
-    description: 'Recibe acompañamiento personalizado de un asesor de tesis con experiencia en proyectos de pregrado, licenciatura y grado. Te guiamos en la elección del tema, la elaboración del marco teórico, la definición del enfoque metodológico y la redacción del documento final. Nos adaptamos a los lineamientos de tu universidad y a las distintas denominaciones académicas —tesis, tesina o trabajo de grado— para que avances con claridad y presentes un estudio sólido y bien estructurado.',
+    description: 'Recibe acompañamiento personalizado de un asesor de tesis con experiencia en proyectos de pregrado, licenciatura y grado. Te guiamos en la elección del tema, la elaboración del marco teórico, la definición del enfoque metodológico y la revisión de tu redacción. Nos adaptamos a los lineamientos de tu universidad y a las distintas denominaciones académicas —tesis, tesina o trabajo de grado— para que avances con claridad y presentes un estudio sólido y bien estructurado.',
   },
   {
     id: 'maestria',
@@ -39,7 +39,7 @@ export const services: Service[] = [
     imageAlt: 'Asesor de tesis de maestría de Científica Consultores',
     summary: 'Marco teórico, análisis y defensa con un asesor de posgrado.',
     title: 'Asesoría de tesis de maestría o máster',
-    description: 'Un asesor de tesis con experiencia en investigación de posgrado te acompaña en todas las etapas de tu tesis de maestría. Te ayudamos a elaborar un marco teórico sólido, definir el enfoque metodológico, realizar análisis cualitativos o cuantitativos y redactar cada capítulo con claridad académica. Esta asesoría está adaptada para programas de maestría en Latinoamérica, España y la comunidad hispana en Estados Unidos.',
+    description: 'Un asesor de tesis con experiencia en investigación de posgrado te acompaña en todas las etapas de tu tesis de maestría. Te ayudamos a elaborar un marco teórico sólido, definir el enfoque metodológico, orientarte en los análisis cualitativos o cuantitativos y revisar cada capítulo para que tenga claridad académica. Esta asesoría está adaptada para programas de maestría en Latinoamérica, España y la comunidad hispana en Estados Unidos.',
   },
   {
     id: 'doctorado',
@@ -81,8 +81,8 @@ export const services: Service[] = [
     navLabel: 'Proyecto de tesis',
     image: proyecto,
     imageAlt: 'Asesor de proyectos de investigación de Científica Consultores',
-    summary: 'Un proyecto sólido, listo para que tu universidad lo apruebe.',
+    summary: 'Un proyecto sólido, alineado a lo que pide tu universidad.',
     title: 'Asesoría de proyecto de tesis',
-    description: 'Te apoyamos en la elaboración de tu proyecto de tesis, definiendo objetivos claros, el planteamiento del problema, la justificación, la metodología y el diseño de la investigación. Todo el proceso se desarrolla con acompañamiento personalizado para que presentes un proyecto sólido y aprobado sin observaciones.',
+    description: 'Te guiamos en el desarrollo de tu proyecto de tesis, definiendo objetivos claros, el planteamiento del problema, la justificación, la metodología y el diseño de la investigación. Todo el proceso se desarrolla con acompañamiento personalizado para que presentes un proyecto sólido y bien fundamentado.',
   },
 ];

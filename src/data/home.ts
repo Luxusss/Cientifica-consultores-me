@@ -8,25 +8,25 @@ export const servicesSection = {
 
 export const processSection = {
   title: '¿Cómo trabajamos?',
-  text: 'Te explicamos paso a paso cómo trabajamos para que tu asesoría de tesis o proyecto de grado sea clara, organizada y eficiente. Nuestro proceso está diseñado para brindar apoyo integral, garantizar calidad académica y adaptarse a tus necesidades, desde la planificación hasta la entrega final.',
+  text: 'Te explicamos paso a paso cómo trabajamos para que tu asesoría de tesis o proyecto de grado sea clara, organizada y eficiente. Nuestro proceso está diseñado para brindar apoyo integral, cuidar la calidad académica y adaptarse a tus necesidades, desde la planificación hasta la sustentación.',
   steps: [
     { name: 'Te contactas con nosotros', text: 'Nos escribes por WhatsApp, correo o formulario web. Nos comentas tu universidad, tipo de trabajo académico y fechas de entrega para entender tu caso desde el inicio.' },
     { name: 'Selección del tipo de trabajo', text: 'Escoges si deseas trabajar tesis, proyecto de grado, tesina, TFG, TFM o trabajo de suficiencia profesional. Te ayudamos a elegir la opción adecuada según tu nivel académico.' },
     { name: 'Diagnóstico del proyecto', text: 'Analizamos tu tema, avances y requisitos del reglamento. Detectamos fortalezas, riesgos y ajustes necesarios para planificar una ruta de trabajo realista.' },
-    { name: 'Presupuesto personalizado', text: 'Te enviamos una propuesta económica alineada a la complejidad de tu tesis o proyecto de grado, indicando alcances, entregables y forma de pago.' },
-    { name: 'Contrato y formalización', text: 'Formalizamos el servicio con un contrato digital que asegura confidencialidad, cumplimiento de plazos y la calidad del trabajo académico contratado.' },
-    { name: 'Asignación de asesor especializado', text: 'Te asignamos un asesor experto en tu área. Coordinarás entregas, revisiones y observaciones de cada capítulo, con acompañamiento personalizado hasta la defensa.' },
+    { name: 'Presupuesto personalizado', text: 'Te enviamos una propuesta económica alineada a la complejidad de tu tesis o proyecto de grado, indicando alcances, número de asesorías y forma de pago.' },
+    { name: 'Contrato y formalización', text: 'Formalizamos el servicio con un contrato digital que protege tus datos y fija los plazos y alcances de la asesoría contratada.' },
+    { name: 'Asignación de asesor especializado', text: 'Te asignamos un asesor experto en tu área. Coordinarás tus avances, revisiones y observaciones de cada capítulo, con acompañamiento personalizado hasta la defensa.' },
   ],
 };
 
 export const whyUs = {
   title: '¿Por qué elegirnos?',
-  text: 'Contamos con un equipo multidisciplinario de profesionales especializados y más de 10 años de experiencia, garantizando tu satisfacción en cada servicio de asesoría. Somos tu socio en la investigación.',
+  text: 'Contamos con un equipo multidisciplinario de profesionales especializados y más de 10 años de experiencia, comprometidos con tu avance en cada servicio de asesoría. Somos tu socio en la investigación.',
   items: [
-    { name: '100% confidencialidad', text: 'Garantizamos la máxima confidencialidad en todos nuestros servicios de asesoría de tesis. Toda la información de tu proyecto académico se maneja de manera privada y segura, asegurando que tus ideas, datos y documentos estén protegidos durante todo el proceso.' },
-    { name: 'Anti plagio', text: 'Todos los trabajos que apoyamos son originales y libres de plagio. Nuestros asesores utilizan metodologías rigurosas y herramientas académicas para garantizar que cada tesis, tesina o trabajo de suficiencia profesional sea auténtico, cumpliendo con los estándares internacionales de investigación.' },
+    { name: 'Protección de tus datos', text: 'Cuidamos la privacidad en todos nuestros servicios de asesoría de tesis. Toda la información de tu proyecto académico se maneja de manera privada y segura, asegurando que tus ideas, datos y documentos estén protegidos durante todo el proceso.' },
+    { name: 'Integridad académica', text: 'Tú eres el autor de tu investigación. Nuestros asesores te enseñan a citar, parafrasear y aplicar metodologías rigurosas, y revisamos la originalidad con herramientas académicas para que cada tesis, tesina o trabajo de suficiencia profesional cumpla con los estándares internacionales de investigación.' },
     { name: 'Flexibilidad', text: 'Accede a asesoría online con horarios flexibles, adaptados a tus necesidades, desde cualquier lugar.' },
-    { name: 'Velocidad de entrega', text: 'Entendemos la importancia de los plazos académicos. Por eso, nos comprometemos a entregar avances y revisiones de manera rápida y eficiente, sin comprometer la calidad ni el rigor académico de tu proyecto.' },
+    { name: 'Respuesta ágil', text: 'Entendemos la importancia de los plazos académicos. Por eso, revisamos tus avances y respondemos tus consultas de manera rápida y eficiente, sin comprometer la calidad ni el rigor académico de tu proyecto.' },
     { name: 'Equipo integral', text: 'Equipo multidisciplinario de profesionales expertos en diversas áreas científicas, comprometidos con tu éxito.' },
   ],
 };
@@ -38,15 +38,15 @@ export const quality = [
   },
   {
     title: 'Acompañamiento especializado para tesis en todos los niveles académicos',
-    text: 'Ofrecemos acompañamiento especializado para estudiantes de pregrado, maestría y doctorado que buscan avanzar con seguridad en el desarrollo de su tesis. Nuestro equipo de asesores te brinda orientación metodológica, revisión académica y apoyo en cada etapa del proceso, con atención personalizada y soporte online para estudiantes de habla hispana en todo el mundo, garantizando un servicio accesible, claro y de alta calidad académica.',
+    text: 'Ofrecemos acompañamiento especializado para estudiantes de pregrado, maestría y doctorado que buscan avanzar con seguridad en el desarrollo de su tesis. Nuestro equipo de asesores te brinda orientación metodológica, revisión académica y apoyo en cada etapa del proceso, con atención personalizada y soporte online para estudiantes de habla hispana en todo el mundo, con un servicio accesible, claro y de alta calidad académica.',
   },
 ];
 
 export const toolsSection = {
   title: 'Herramientas profesionales que respaldan tu asesoría de tesis y proyecto de grado',
-  text: 'En Científica Consultores utilizamos herramientas profesionales como Turnitin, Mendeley, Atlas.ti y SPSS para respaldar tu asesoría de tesis y proyecto de grado. Nuestro objetivo es garantizar la originalidad, el rigor metodológico y la calidad académica en cada etapa, apoyando a estudiantes de habla hispana en todo el mundo en el desarrollo de tesis, tesinas y trabajos académicos de manera ética y confiable.',
+  text: 'En Científica Consultores utilizamos herramientas profesionales como Turnitin, Mendeley, Atlas.ti y SPSS para respaldar tu asesoría de tesis y proyecto de grado. Nuestro objetivo es cuidar la originalidad, el rigor metodológico y la calidad académica en cada etapa, apoyando a estudiantes de habla hispana en todo el mundo en el desarrollo de tesis, tesinas y trabajos académicos de manera ética y confiable.',
   items: [
-    { tool: 'Turnitin', name: 'Detección de plagio con Turnitin', text: 'Turnitin garantiza la originalidad de tu tesis o proyecto de grado, detectando plagio y asegurando una investigación auténtica y confiable.' },
+    { tool: 'Turnitin', name: 'Originalidad con Turnitin', text: 'Con Turnitin revisamos la originalidad de tu tesis o proyecto de grado y te orientamos para citar correctamente cada fuente.' },
     { tool: 'Mendeley', name: 'Gestión bibliográfica con Mendeley', text: 'Mendeley organiza referencias y bibliografía, facilitando la recolección de ideas, tesis y trabajos académicos con citas precisas.' },
     { tool: 'Atlas.ti', name: 'Análisis cualitativo con Atlas.ti', text: 'Atlas.ti permite analizar datos cualitativos de forma rigurosa, apoyando la elaboración de tesis y proyectos académicos complejos.' },
     { tool: 'SPSS', name: 'Análisis cuantitativo con SPSS', text: 'SPSS realiza análisis estadísticos precisos, asegurando resultados cuantitativos confiables en tu proyecto de grado o asesoría de tesis.' },

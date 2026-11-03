@@ -8,8 +8,6 @@ export const stats = {
   events: 132,
   certificates: 676,
   tsp: 1000,
-  tspApproval: 98,
-  tspMonths: '1 a 2 meses',
   universities: universities.reduce((n, g) => n + g.names.length, 0),
   countries: site.countries.length,
 };

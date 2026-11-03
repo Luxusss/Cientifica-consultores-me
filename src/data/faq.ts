@@ -9,7 +9,7 @@ export const homeFaq: Faq[] = [
   {
     question: '¿Cuánto cuesta la asesoría de tesis o artículo científico?',
     answer:
-      'El precio de la asesoría de tesis o artículo científico varía según la complejidad del trabajo, el nivel académico y los servicios requeridos. Nuestro objetivo es ofrecer un presupuesto transparente y adaptado a tus necesidades, garantizando calidad y apoyo personalizado en cada etapa de tu investigación.',
+      'El precio de la asesoría de tesis o artículo científico varía según la complejidad del trabajo, el nivel académico y los servicios requeridos. Nuestro objetivo es ofrecer un presupuesto transparente y adaptado a tus necesidades, con calidad y apoyo personalizado en cada etapa de tu investigación.',
   },
   {
     question: '¿La asesoría o tutoría de tesis es online o presencial?',
@@ -24,7 +24,7 @@ export const homeFaq: Faq[] = [
   {
     question: '¿Qué incluye la asesoría profesional para tesis o proyecto de investigación?',
     answer:
-      'Nuestra asesoría profesional incluye orientación en la elección del tema, revisión de literatura, diseño metodológico, análisis de datos, redacción académica y preparación de entregables finales. También brindamos apoyo para cumplir con los estándares de tu universidad y requisitos de publicaciones científicas internacionales.',
+      'Nuestra asesoría profesional incluye orientación en la elección del tema, revisión de literatura, diseño metodológico, orientación en el análisis de datos, revisión de redacción académica y preparación para la sustentación. También brindamos apoyo para cumplir con los estándares de tu universidad y requisitos de publicaciones científicas internacionales.',
   },
   {
     question: '¿Pueden ayudar a levantar o corregir observaciones de mi tesis?',
@@ -36,7 +36,7 @@ export const homeFaq: Faq[] = [
 export const maestriaFaq: Faq[] = [
   { question: '¿Cuánto tiempo toma hacer una tesis de maestría?', answer: 'Depende del nivel de avance, pero generalmente entre 2 y 6 meses según tu disponibilidad.' },
   { question: '¿Puedo contratar asesoría solo para una parte de mi tesis?', answer: 'Sí, puedes contratar por capítulos o etapas específicas.' },
-  { question: '¿Incluyen revisión con Turnitin?', answer: 'Sí, entregamos reporte de similitud como parte del servicio completo.' },
+  { question: '¿Incluyen revisión con Turnitin?', answer: 'Sí, revisamos la originalidad con Turnitin como parte del servicio completo.' },
   { question: '¿Pueden ayudarme si mi proyecto de tesis está avanzado?', answer: 'Claro. Si ya has comenzado, podemos ayudarte a corregir, completar o mejorar tu tesis. También te apoyamos con la sustentación y presentación final.' },
   { question: '¿Puedo recibir asesoría para la sustentación de mi tesis?', answer: 'Sí. Ofrecemos preparación personalizada para tu defensa: estructura del PPT, exposición oral y simulación de preguntas frecuentes.' },
   { question: '¿La asesoría es 100 % online?', answer: 'Sí. Nuestro servicio es completamente online y flexible, ideal para estudiantes en cualquier ciudad del Perú o el extranjero. También contamos con atención presencial previa cita en nuestra oficina ubicada en Calle Los Chasquis 7173, Los Olivos, Lima.' },
@@ -51,7 +51,7 @@ export const doctoradoFaq: Faq[] = [
 export const pregradoFaq: Faq[] = [
   { question: '¿Pueden ayudarme si todavía no tengo tema de tesis?', answer: 'Sí. Te orientamos para elegir un tema viable, relevante para tu carrera y que puedas investigar con los datos y el tiempo que tienes.' },
   { question: '¿Se adaptan al formato de mi universidad?', answer: 'Sí. Trabajamos con el reglamento y la guía de tu universidad, y con la norma de redacción que te pidan: APA, Vancouver o ISO 690.' },
-  { question: '¿Incluyen el reporte de Turnitin?', answer: 'Sí. Revisamos la similitud con Turnitin para que presentes tu tesis con la tranquilidad de que cumple el porcentaje que exige tu universidad.' },
+  { question: '¿Incluyen el reporte de Turnitin?', answer: 'Sí. Revisamos la originalidad con Turnitin y te orientamos para citar correctamente, según los criterios de tu universidad.' },
   { question: '¿Me preparan para la sustentación?', answer: 'Sí. Te ayudamos con la estructura de tu presentación, ensayamos la exposición y simulamos las preguntas del jurado.' },
 ];
 
@@ -59,5 +59,5 @@ export const tspFaq: Faq[] = [
   { question: '¿Qué es un trabajo de suficiencia profesional?', answer: 'Es un informe en el que aplicas lo que aprendiste en tu carrera para resolver un problema real de tu trabajo. Es una de las modalidades para obtener el título profesional.' },
   { question: '¿Qué necesito para hacer mi TSP?', answer: 'Generalmente, tu universidad pide experiencia laboral en tu carrera, por lo común de 3 años. Te ayudamos a revisar los requisitos de tu universidad antes de empezar.' },
   { question: '¿Conocen el formato de mi universidad?', answer: 'Conocemos los requisitos de UPN, UCV, USIL, UTP y otras universidades, y adaptamos la estructura a la guía que te entreguen.' },
-  { question: '¿Me ayudan con las observaciones del jurado?', answer: 'Sí. Te acompañamos a levantar las observaciones hasta que tu trabajo quede aprobado.' },
+  { question: '¿Me ayudan con las observaciones del jurado?', answer: 'Sí. Te explicamos cada observación y te acompañamos mientras las levantas.' },
 ];
