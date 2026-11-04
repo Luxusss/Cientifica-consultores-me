@@ -26,6 +26,13 @@ export const site = {
   ],
   replyTime: 'menos de 24 horas',
   countries: ['Perú', 'Colombia', 'México', 'Bolivia', 'Ecuador', 'Venezuela', 'Chile', 'España'],
+  social: [
+    { name: 'Facebook', icon: 'facebook', href: 'https://www.facebook.com/tesisasyesoriacientificaconsultores' },
+    { name: 'Instagram', icon: 'instagram', href: 'https://www.instagram.com/cientificaconsultores/' },
+    { name: 'TikTok', icon: 'tiktok', href: 'https://www.tiktok.com/@cientificaconsultores' },
+    { name: 'YouTube', icon: 'youtube', href: 'https://www.youtube.com/@TesisCientificaConsultores' },
+    { name: 'LinkedIn', icon: 'linkedin', href: 'https://www.linkedin.com/company/cient%C3%ADfica-consultores/' },
+  ],
   gtmId: 'GTM-5TNL7PM2',
 } as const;
 

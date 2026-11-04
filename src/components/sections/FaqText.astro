@@ -1,5 +1,8 @@
 ---
 import type { Faq } from '@/data/faq';
+import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { site } from '@/config/site';
 
 interface Props {
   items: Faq[];
@@ -11,24 +14,83 @@ interface Props {
 const { items, title = 'Preguntas frecuentes', id = 'preguntas', intro } = Astro.props;
 ---
 
-<section class="section-wide page stack stack-xl" aria-labelledby={id}>
-  <header class:list={['split split-end', { 'split-wide': title.length > 30 }]} data-reveal>
-    <h2 id={id}>{title}</h2>
-    {intro && <p class="text-lead">{intro}</p>}
-  </header>
-  <dl class="answers" data-reveal="stagger">
-    {items.map((item) => (
-      <div>
-        <dt>{item.question}</dt>
-        <dd>{item.answer}</dd>
+<section class="faq section-wide" aria-labelledby={id}>
+  <div class="page layout">
+    <aside class="side" data-reveal>
+      <header class="section-head">
+        <span class="eyebrow">FAQ</span>
+        <h2 id={id}>{title}</h2>
+        {intro && <p>{intro}</p>}
+      </header>
+      <div class="help">
+        <span class="help-icon" aria-hidden="true"><Icon name="chat" size="1.3rem" /></span>
+        <p class="help-title">¿No encuentras tu respuesta?</p>
+        <p class="help-text">Escríbenos y un asesor te responde en {site.replyTime}.</p>
+        <WhatsAppButton label="Preguntar por WhatsApp" message="Hola, tengo una consulta sobre la asesoría de tesis." />
       </div>
-    ))}
-  </dl>
+    </aside>
+
+    <div class="answers" data-reveal="stagger">
+      {items.map((item, i) => (
+        <details class="item" name={`faq-${id}`} open={i === 0}>
+          <summary>
+            <span class="num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <span class="q">{item.question}</span>
+            <span class="sign" aria-hidden="true"></span>
+          </summary>
+          <div class="a"><p>{item.answer}</p></div>
+        </details>
+      ))}
+    </div>
+  </div>
 </section>
 
 <style>
-  .answers { columns: 3 22rem; column-gap: var(--gutter); }
-  .answers div { display: grid; gap: var(--space-xs); break-inside: avoid; margin-block-end: var(--space-xl); }
-  dt { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
-  dd { color: var(--color-text-soft); }
+  .layout { display: grid; gap: var(--space-l) var(--gutter); align-items: start; }
+  .side { display: grid; gap: var(--space-l); }
+
+  .help { position: relative; display: grid; gap: var(--space-2xs); justify-items: start; padding: var(--space-m); overflow: hidden; border-radius: var(--radius-card); background-image: var(--gradient-brand); color: var(--paper-0); box-shadow: var(--shadow-lift); }
+  .help::after { content: ''; position: absolute; inset-block-start: -3rem; inset-inline-end: -3rem; inline-size: 9rem; block-size: 9rem; border-radius: 50%; border: 1.5rem solid rgb(255 255 255 / 0.07); }
+  .help-icon { display: grid; place-items: center; inline-size: 2.6rem; block-size: 2.6rem; border-radius: 0.8rem; background-image: var(--gradient-warm); color: var(--paper-0); }
+  .help-title { font-size: var(--step-title); font-weight: var(--weight-bold); }
+  .help-text { color: var(--navy-100); font-size: var(--step-ui); margin-block-end: var(--space-2xs); }
+  .help :global(.button) { border-radius: var(--radius-pill); font-size: var(--step-ui); min-block-size: 2.75rem; }
+
+  .answers { display: grid; gap: var(--space-xs); }
+  .item {
+    border-radius: var(--radius-card);
+    background-color: var(--paper-0);
+    box-shadow: var(--shadow-card);
+    transition: box-shadow var(--duration-ui) ease, opacity var(--duration-reveal) var(--ease-expo), transform var(--duration-reveal) var(--ease-expo);
+  }
+  .item[open] { box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--orange-500) 55%, transparent), var(--shadow-lift); }
+  summary { display: flex; align-items: center; gap: var(--space-s); min-block-size: var(--hit-min); padding: var(--space-s) var(--space-m); cursor: pointer; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  .num { flex-shrink: 0; display: grid; place-items: center; inline-size: 2.2rem; block-size: 2.2rem; border-radius: 0.7rem; background-color: var(--navy-50); color: var(--navy-600); font-size: var(--step-small); font-weight: var(--weight-bold); transition: background var(--duration-ui) ease, color var(--duration-ui) ease; }
+  .item[open] .num { background-image: var(--gradient-warm); color: var(--paper-0); }
+  .q { flex: 1; font-size: var(--step-body); line-height: 1.35; font-weight: var(--weight-semibold); }
+  .item[open] .q { color: var(--navy-600); }
+  .sign { position: relative; flex-shrink: 0; inline-size: 1.8rem; block-size: 1.8rem; border-radius: 50%; background-color: var(--paper-1); transition: rotate var(--duration-ui) var(--ease-out); }
+  .sign::before, .sign::after { content: ''; position: absolute; inset: 50% auto auto 50%; inline-size: 0.7rem; block-size: 2px; border-radius: 2px; background-color: var(--navy-600); translate: -50% -50%; }
+  .sign::after { rotate: 90deg; transition: rotate var(--duration-ui) var(--ease-out); }
+  .item[open] .sign { rotate: 180deg; }
+  .item[open] .sign::after { rotate: 0deg; }
+  .a { padding: 0 var(--space-m) var(--space-m) calc(var(--space-m) + 2.2rem + var(--space-s)); }
+  .a p { color: var(--color-text-soft); font-size: var(--step-ui); max-inline-size: none; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .item[open] .a { animation: faq-open var(--duration-ui) var(--ease-out); }
+    @keyframes faq-open { from { opacity: 0; transform: translateY(-6px); } }
+  }
+  @media (max-width: 39.99em) {
+    .a { padding-inline-start: var(--space-m); }
+  }
+  @media (min-width: 64em) {
+    .layout { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); }
+    .side { position: sticky; inset-block-start: calc(var(--header-height) + var(--space-l)); }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    summary:hover .q { color: var(--navy-600); }
+    summary:hover .num { background-color: var(--orange-50); color: var(--orange-600); }
+  }
 </style>

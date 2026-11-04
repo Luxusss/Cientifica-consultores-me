@@ -2,8 +2,8 @@
 import Base from '@/layouts/Base.astro';
 import Hero from '@/components/home/Hero.astro';
 import Intro from '@/components/home/Intro.astro';
+import TopicsRibbon from '@/components/home/TopicsRibbon.astro';
 import WhyUs from '@/components/home/WhyUs.astro';
-import Tools from '@/components/home/Tools.astro';
 import BlogTeaser from '@/components/home/BlogTeaser.astro';
 import { faqIntro, closing } from '@/data/home';
 import ServiceRows from '@/components/home/ServiceRows.astro';
@@ -12,8 +12,6 @@ import About from '@/components/home/About.astro';
 import Universities from '@/components/home/Universities.astro';
 import TestimonialQuote from '@/components/home/TestimonialQuote.astro';
 import Stages from '@/components/home/Stages.astro';
-import Guides from '@/components/home/Guides.astro';
-import StatsBand from '@/components/home/StatsBand.astro';
 import FaqText from '@/components/sections/FaqText.astro';
 import ContactBand from '@/components/sections/ContactBand.astro';
 import { homeFaq } from '@/data/faq';
@@ -29,18 +27,16 @@ import { advisoryVideo, faqPage } from '@/lib/schema';
   overlay
 >
   <Hero />
+  <TopicsRibbon />
   <Intro />
   <ServiceRows />
-  <Guides />
-  <StatsBand />
   <WhyUs />
   <Universities />
   <About />
-  <Tools />
   <Process />
   <Stages />
-  <TestimonialQuote testimonials={testimonials.slice(0, 4)} />
+  <TestimonialQuote testimonials={testimonials} />
+  <BlogTeaser />
   <FaqText items={homeFaq} intro={faqIntro} />
   <ContactBand title={closing.title} text={closing.text} />
-  <BlogTeaser />
 </Base>

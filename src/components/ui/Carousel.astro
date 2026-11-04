@@ -1,0 +1,180 @@
+---
+/**
+ * Carrusel accesible y sin dependencias.
+ * Cada hijo directo del slot es una diapositiva (normalmente <li>).
+ * - Desliza con el dedo o el trackpad (scroll-snap).
+ * - Flechas anterior/siguiente y puntos de paginación.
+ * - Autoplay opcional que se pausa al pasar el mouse, al enfocar y con "reducir movimiento".
+ */
+interface Props {
+  label: string;
+  /** Diapositivas visibles en escritorio (≥64em). */
+  perView?: 1 | 2 | 3 | 4;
+  /** Milisegundos entre cambios automáticos; 0 lo desactiva. */
+  autoplay?: number;
+  /** Botones claros para fondos oscuros. */
+  dark?: boolean;
+  class?: string;
+}
+
+const { label, perView = 3, autoplay = 0, dark = false, class: className } = Astro.props;
+---
+
+<div
+  class:list={['carousel', `per-${perView}`, { dark }, className]}
+  role="region"
+  aria-roledescription="carrusel"
+  aria-label={label}
+  data-carousel
+  data-autoplay={autoplay}
+>
+  <ul class="track" role="list" data-track>
+    <slot />
+  </ul>
+  <div class="controls" data-controls hidden>
+    <button type="button" class="nav prev" data-prev aria-label="Anterior">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+    </button>
+    <div class="dots" data-dots></div>
+    <button type="button" class="nav next" data-next aria-label="Siguiente">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  for (const root of document.querySelectorAll<HTMLElement>('[data-carousel]')) {
+    const track = root.querySelector<HTMLElement>('[data-track]')!;
+    const slides = [...track.children] as HTMLElement[];
+    const controls = root.querySelector<HTMLElement>('[data-controls]')!;
+    const dotsBox = root.querySelector<HTMLElement>('[data-dots]')!;
+    const prev = root.querySelector<HTMLButtonElement>('[data-prev]')!;
+    const next = root.querySelector<HTMLButtonElement>('[data-next]')!;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+    if (slides.length < 2) continue;
+
+    controls.hidden = false;
+    slides.forEach((s, i) => {
+      s.setAttribute('role', 'group');
+      s.setAttribute('aria-roledescription', 'diapositiva');
+      s.setAttribute('aria-label', `${i + 1} de ${slides.length}`);
+    });
+
+    const step = () => (slides[1]?.offsetLeft ?? 0) - (slides[0]?.offsetLeft ?? 0) || track.clientWidth;
+    const perPage = () => Math.max(1, Math.round(track.clientWidth / step()));
+    const pages = () => Math.max(1, slides.length - perPage() + 1);
+    const current = () => Math.round(track.scrollLeft / step());
+    const behavior = (): ScrollBehavior => (reduce.matches ? 'auto' : 'smooth');
+    const goTo = (i: number) => {
+      const n = pages();
+      const target = ((i % n) + n) % n;
+      track.scrollTo({ left: target * step(), behavior: behavior() });
+    };
+
+    let dots: HTMLButtonElement[] = [];
+    const buildDots = () => {
+      dotsBox.replaceChildren();
+      dots = Array.from({ length: pages() }, (_, i) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'dot';
+        b.setAttribute('aria-label', `Ir a la diapositiva ${i + 1}`);
+        b.addEventListener('click', () => goTo(i));
+        dotsBox.append(b);
+        return b;
+      });
+      sync();
+    };
+    const sync = () => {
+      const i = current();
+      dots.forEach((d, j) => d.setAttribute('aria-current', String(j === i)));
+    };
+
+    prev.addEventListener('click', () => goTo(current() - 1));
+    next.addEventListener('click', () => goTo(current() + 1));
+    let raf = 0;
+    track.addEventListener('scroll', () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(sync);
+    }, { passive: true });
+    new ResizeObserver(buildDots).observe(track);
+
+    const delay = Number(root.dataset.autoplay);
+    if (delay > 0) {
+      let timer = 0;
+      let paused = false;
+      let visible = false;
+      const stop = () => window.clearInterval(timer);
+      const start = () => {
+        stop();
+        if (paused || !visible || reduce.matches || document.hidden) return;
+        timer = window.setInterval(() => goTo(current() + 1), delay);
+      };
+      root.addEventListener('pointerenter', () => { paused = true; stop(); });
+      root.addEventListener('pointerleave', () => { paused = false; start(); });
+      root.addEventListener('focusin', () => { paused = true; stop(); });
+      root.addEventListener('focusout', () => { paused = false; start(); });
+      document.addEventListener('visibilitychange', start);
+      new IntersectionObserver(([e]) => { visible = e.isIntersecting; start(); }, { threshold: 0.3 }).observe(root);
+    }
+  }
+</script>
+
+<style>
+  .carousel { --gap: var(--space-s); --per: 1.15; display: grid; gap: var(--space-m); }
+  .per-2 { --per-md: 2; --per-lg: 2; }
+  .per-3 { --per-md: 2; --per-lg: 3; }
+  .per-4 { --per-md: 2.2; --per-lg: 4; }
+  .per-1 { --per-md: 1; --per-lg: 1; --per: 1; }
+
+  .track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% - (var(--per) - 1) * var(--gap)) / var(--per));
+    gap: var(--gap);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    /* Aire alrededor para que la sombra y el salto al pasar el mouse no se corten */
+    padding: 0.75rem 1rem 2rem;
+    margin: -0.75rem -1rem -1.25rem;
+    scroll-padding-inline: 1rem;
+  }
+  .track::-webkit-scrollbar { display: none; }
+  .track > :global(*) { scroll-snap-align: start; min-inline-size: 0; }
+
+  @media (min-width: 40em) { .carousel { --per: var(--per-md); } }
+  @media (min-width: 64em) { .carousel { --per: var(--per-lg); --gap: var(--space-m); } }
+
+  .controls { display: flex; align-items: center; justify-content: center; gap: var(--space-s); }
+  .controls[hidden] { display: none; }
+  .nav {
+    display: grid;
+    place-items: center;
+    inline-size: var(--hit-min);
+    block-size: var(--hit-min);
+    border-radius: 50%;
+    background-color: var(--paper-0);
+    color: var(--navy-600);
+    box-shadow: var(--shadow-card);
+    transition: background-color var(--duration-hover) ease, color var(--duration-hover) ease, transform var(--duration-press) var(--ease-out);
+  }
+  .nav:active { transform: scale(0.92); }
+  .dots { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem; }
+  .dots :global(.dot) {
+    inline-size: 0.6rem;
+    block-size: 0.6rem;
+    border-radius: var(--radius-pill);
+    background-color: color-mix(in srgb, var(--navy-600) 25%, transparent);
+    transition: inline-size var(--duration-ui) var(--ease-out), background-color var(--duration-ui) ease;
+  }
+  .dots :global(.dot[aria-current='true']) { inline-size: 1.75rem; background-image: var(--gradient-warm); }
+
+  .dark .nav { background-color: rgb(255 255 255 / 0.12); color: var(--paper-0); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.2); }
+  .dark .dots :global(.dot) { background-color: rgb(255 255 255 / 0.3); }
+
+  @media (hover: hover) and (pointer: fine) {
+    .nav:hover { background-color: var(--orange-500); color: var(--ink-900); }
+  }
+</style>

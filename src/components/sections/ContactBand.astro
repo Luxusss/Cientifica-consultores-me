@@ -1,6 +1,10 @@
 ---
 import FormButton from '@/components/ui/FormButton.astro';
+import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { Image } from 'astro:assets';
 import { site } from '@/config/site';
+import estudiante from '@/assets/images/tesis/secciones/especialista-en-tesis.jpg';
 
 interface Props {
   title?: string;
@@ -10,40 +14,112 @@ interface Props {
 const { title = '¿Empezamos tu tesis?', text = `Cuéntanos tu universidad, tu grado y tu fecha de entrega, y te decimos cómo podemos ayudarte. Respondemos en ${site.replyTime}.` } = Astro.props;
 ---
 
-<section class="contact theme-surface section-wide" aria-labelledby="contacto">
-  <div class="page inner">
-    <div class="pitch stack stack-l" data-reveal>
-      <h2 class="statement" id="contacto">{title}</h2>
-      <p class="text-lead">{text}</p>
-      <FormButton />
-    </div>
-    <div class="card" data-reveal>
-      <div class="reach">
-        <a href={`mailto:${site.email}`}>{site.email}</a>
-        <p class="meta">WhatsApp {site.phone.display} · {site.address.district}, {site.address.city}</p>
+<section class="contact section-wide band-soft" aria-labelledby="contacto">
+  <div class="page">
+    <div class="panel" data-reveal>
+      <span class="ring r1" aria-hidden="true"></span>
+      <span class="ring r2" aria-hidden="true"></span>
+
+      <div class="pitch">
+        <span class="eyebrow">Primera asesoría gratis</span>
+        <h2 id="contacto">{title}</h2>
+        <p class="lede">{text}</p>
+        <div class="actions">
+          <FormButton />
+          <WhatsAppButton label="WhatsApp" />
+        </div>
+        <ul class="reach" role="list">
+          <li><span class="ico"><Icon name="mail" size="1rem" /></span><a href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li><span class="ico"><Icon name="phone" size="1rem" /></span><span>{site.phone.display}</span></li>
+          <li><span class="ico"><Icon name="map" size="1rem" /></span><span>{site.address.district}, {site.address.city}</span></li>
+          <li><span class="ico"><Icon name="clock" size="1rem" /></span><span>Respuesta en {site.replyTime}</span></li>
+        </ul>
+      </div>
+
+      <div class="chat" aria-hidden="true">
+        <div class="chat-head">
+          <img class="chat-avatar" src="/brand-mark.png" alt="" width="40" height="40" loading="lazy" />
+          <span class="chat-who"><strong>{site.name}</strong><span>en línea</span></span>
+        </div>
+        <div class="chat-body">
+          <div class="row in m1"><span class="av av-student"><Image src={estudiante} alt="" widths={[360]} sizes="360px" /></span><p class="msg">Hola, necesito ayuda con mi tesis de maestría</p></div>
+          <div class="row out m2"><p class="msg">¡Hola! Cuéntanos tu tema y tu fecha de entrega. Te asignamos un asesor de tu área.</p><img class="av av-brand" src="/brand-mark.png" alt="" width="32" height="32" loading="lazy" /></div>
+          <div class="row in m3"><span class="av av-student"><Image src={estudiante} alt="" widths={[360]} sizes="360px" /></span><p class="msg">Mi entrega es en 3 meses.</p></div>
+          <div class="row out m4"><p class="msg">Perfecto, empecemos con tu primera asesoría gratis</p><img class="av av-brand" src="/brand-mark.png" alt="" width="32" height="32" loading="lazy" /></div>
+          <div class="row out m5"><p class="msg typing"><span></span><span></span><span></span></p><img class="av av-brand" src="/brand-mark.png" alt="" width="32" height="32" loading="lazy" /></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .inner { display: grid; gap: var(--space-xl) var(--gutter); align-items: end; }
-  .pitch { justify-items: start; }
-  .statement {
-    max-inline-size: none;
-    font-size: var(--step-head);
-    line-height: var(--leading-head);
-    letter-spacing: var(--tracking-head);
-    font-weight: var(--weight-medium);
+  .panel {
+    position: relative;
+    display: grid;
+    gap: var(--space-l);
+    padding: var(--space-l);
+    overflow: hidden;
+    isolation: isolate;
+    border-radius: calc(var(--radius-card) + 0.5rem);
+    background-image: radial-gradient(30rem 20rem at 100% 100%, rgb(254 143 1 / 0.28), transparent 70%), var(--gradient-brand);
+    color: var(--paper-0);
+    box-shadow: var(--shadow-lift);
   }
-  .card { display: grid; gap: var(--space-s); padding: var(--space-l); border-inline-start: 3px solid var(--orange-500); background-color: var(--color-surface); border-radius: var(--radius); }
-  .reach { display: grid; gap: var(--space-3xs); }
-  .reach a { font-size: var(--step-lead); overflow-wrap: anywhere; }
-  .meta { color: var(--color-text-soft); font-size: var(--step-small); }
+  .ring { position: absolute; z-index: -1; border-radius: 50%; border: 2px solid rgb(255 255 255 / 0.08); }
+  .r1 { inline-size: 26rem; block-size: 26rem; inset-block-start: -10rem; inset-inline-start: -8rem; }
+  .r2 { inline-size: 40rem; block-size: 40rem; inset-block-end: -24rem; inset-inline-end: -12rem; }
 
+  .pitch { display: grid; gap: var(--space-s); justify-items: start; }
+  .pitch .eyebrow { background-color: rgb(255 255 255 / 0.12); color: var(--gold-400); }
+  h2 { font-size: var(--step-head); color: var(--paper-0); }
+  .lede { color: var(--navy-100); font-size: var(--step-lead); max-inline-size: 52ch; }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-block-start: var(--space-2xs); }
+  .actions :global(.button) { border-radius: var(--radius-pill); font-size: var(--step-ui); min-block-size: 2.9rem; }
+
+  .reach { display: grid; gap: var(--space-2xs) var(--space-m); margin-block-start: var(--space-xs); font-size: var(--step-ui); }
+  .reach li { display: flex; align-items: center; gap: 0.6em; color: var(--navy-100); }
+  .reach a { color: var(--paper-0); overflow-wrap: anywhere; }
+  .ico { display: grid; place-items: center; inline-size: 1.9rem; block-size: 1.9rem; border-radius: 50%; background-color: rgb(255 255 255 / 0.12); color: var(--gold-400); flex-shrink: 0; }
+
+
+  @media (min-width: 40em) {
+    .reach { grid-template-columns: repeat(2, minmax(0, max-content)); }
+  }
+  .chat { display: none; }
   @media (min-width: 64em) {
-    .inner { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-    .pitch { grid-column: 1 / span 7; }
-    .card { grid-column: 8 / -1; }
+    .panel { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); padding: var(--space-xl) var(--space-2xl); align-items: center; }
+    .chat { display: grid; grid-template-rows: auto 1fr; align-self: center; overflow: hidden; border-radius: 1.4rem; background-color: #efeae2; color: var(--ink-900); box-shadow: 0 30px 60px -24px rgb(0 0 0 / 0.55), 0 0 0 6px rgb(255 255 255 / 0.08); rotate: 2deg; }
+    .chat-head { display: flex; align-items: center; gap: var(--space-xs); padding: var(--space-xs) var(--space-s); background-color: #075e54; color: var(--paper-0); }
+    .chat-avatar { inline-size: 2.5rem; block-size: 2.5rem; padding: 0.12rem; border-radius: 50%; background-color: var(--paper-0); object-fit: contain; box-shadow: 0 2px 6px rgb(0 0 0 / 0.2); }
+    .av-brand { padding: 0.08rem; background-color: var(--paper-0); object-fit: contain; }
+    .chat-who { display: grid; line-height: 1.2; font-size: var(--step-ui); }
+    .chat-who span { font-size: var(--step-small); opacity: 0.8; }
+    .chat-body { display: grid; align-content: end; gap: 0.5rem; min-block-size: 17rem; padding: var(--space-s); }
+    .row { display: flex; align-items: flex-end; gap: 0.45rem; }
+    .row.out { justify-content: flex-end; }
+    .av { flex-shrink: 0; inline-size: 2rem; block-size: 2rem; border-radius: 50%; box-shadow: 0 1px 3px rgb(0 0 0 / 0.2); }
+    .av-student { position: relative; overflow: hidden; background-color: var(--paper-2); }
+    /* Recorte centrado en el rostro de la foto */
+    .av-student :global(img) { position: absolute; inline-size: 545%; max-inline-size: none; block-size: auto; inset-inline-start: -296%; inset-block-start: -82%; }
+    .msg { max-inline-size: 80%; padding: 0.55em 0.8em; border-radius: 0.9rem; font-size: var(--step-small); line-height: 1.4; box-shadow: 0 1px 1px rgb(0 0 0 / 0.08); }
+    .in .msg { background-color: var(--paper-0); border-end-start-radius: 0.2rem; }
+    .out .msg { background-color: #d9fdd3; border-end-end-radius: 0.2rem; }
+    .typing { display: inline-flex; gap: 0.25rem; padding: 0.6em 0.8em; border-radius: 0.9rem; background-color: #d9fdd3; }
+    .typing span { inline-size: 0.4rem; block-size: 0.4rem; border-radius: 50%; background-color: #4b8b5f; }
+  }
+  @media (min-width: 64em) and (prefers-reduced-motion: no-preference) {
+    .row { animation: chat-in 14s var(--ease-out) infinite both; }
+    .m1 { animation-delay: 0s; } .m2 { animation-delay: 0.1s; } .m3 { animation-delay: 0.2s; } .m4 { animation-delay: 0.3s; } .m5 { animation-delay: 0.4s; }
+    .m1 { --at: 4%; } .m2 { --at: 18%; } .m3 { --at: 32%; } .m4 { --at: 46%; } .m5 { --at: 60%; }
+    .m1 { animation-name: c1; } .m2 { animation-name: c2; } .m3 { animation-name: c3; } .m4 { animation-name: c4; } .m5 { animation-name: c5; }
+    @keyframes c1 { 0%, 2% { opacity: 0; transform: translateY(10px) scale(0.96); } 6%, 94% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+    @keyframes c2 { 0%, 16% { opacity: 0; transform: translateY(10px) scale(0.96); } 20%, 94% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+    @keyframes c3 { 0%, 30% { opacity: 0; transform: translateY(10px) scale(0.96); } 34%, 94% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+    @keyframes c4 { 0%, 44% { opacity: 0; transform: translateY(10px) scale(0.96); } 48%, 94% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+    @keyframes c5 { 0%, 58% { opacity: 0; } 62%, 94% { opacity: 1; } 100% { opacity: 0; } }
+    .typing span { animation: dot 1s ease-in-out infinite; }
+    .typing span:nth-child(2) { animation-delay: 0.15s; } .typing span:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes dot { 50% { transform: translateY(-3px); opacity: 0.5; } }
   }
 </style>

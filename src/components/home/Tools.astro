@@ -9,11 +9,12 @@ import spss from '@/assets/images/tools/spss.png';
 const logos = { Turnitin: turnitin, Mendeley: mendeley, 'Atlas.ti': atlasti, SPSS: spss } as const;
 ---
 
-<section class="section-wide" aria-labelledby="herramientas">
+<section class="section-wide band-soft" aria-labelledby="herramientas">
   <div class="page stack stack-xl">
-    <header class="split split-wide" data-reveal>
+    <header class="section-head center" data-reveal>
+      <span class="eyebrow">Herramientas</span>
       <h2 id="herramientas">{toolsSection.title}</h2>
-      <p class="text-lead">{toolsSection.text}</p>
+      <p>{toolsSection.text}</p>
     </header>
     <ul class="tools" role="list" data-reveal="stagger">
       {toolsSection.items.map((t) => (

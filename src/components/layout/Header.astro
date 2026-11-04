@@ -10,6 +10,7 @@ import venezuela from '@/assets/images/paises/venezuela.jpg';
 import chile from '@/assets/images/paises/chile.jpg';
 import espana from '@/assets/images/paises/espana.jpg';
 import FormButton from '@/components/ui/FormButton.astro';
+import Icon from '@/components/ui/Icon.astro';
 import { mainNav, services } from '@/config/navigation';
 import { services as serviceData } from '@/data/services';
 
@@ -41,9 +42,10 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
     <nav class="nav" aria-label="Principal">
       <ul role="list">
         <li><a class="nav-link" href="/" aria-current={current === '/' || current === '/index.html' ? 'page' : undefined}>Inicio</a></li>
-        <li>
-          <button class="nav-link services-toggle" type="button" popovertarget="menu-servicios" aria-haspopup="true">
+        <li data-services-hover>
+          <button class="nav-link services-toggle" type="button" popovertarget="menu-servicios" aria-haspopup="true" aria-expanded="false" data-services-toggle>
             Servicios
+            <svg class="chev" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
           </button>
         </li>
         {mainNav.map((item) => (
@@ -65,20 +67,40 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
     <button class="menu-toggle" type="button" popovertarget="menu-movil" aria-label="Abrir menú">Menú</button>
   </div>
 
-  <div id="menu-servicios" class="panel theme-surface" popover>
-    <ul class="services" role="list">
-      {serviceData.filter((d) => d.id !== 'proyecto').map((d) => (
-        <li>
-          <a class="service" href={d.href} aria-current={isCurrent(d.href) ? 'page' : undefined}>
-            <span class="service-text">
-              <span class="service-name">{d.navLabel}</span>
-              <span class="service-desc">{d.summary}</span>
-            </span>
-          </a>
-        </li>
-      ))}
-    </ul>
-    <a class="panel-more" href="/otros_servicios.html">Otros servicios: revisiones, proyectos, datos y corrección<span aria-hidden="true">→</span></a>
+  <div id="menu-servicios" class="panel" popover data-services-panel>
+    <div class="panel-grid">
+      <div class="panel-list">
+        <p class="panel-kicker">Asesoría por grado</p>
+        <ul class="services" role="list">
+          {serviceData.filter((d) => d.id !== 'proyecto').map((d) => (
+            <li>
+              <a class="service" href={d.href} aria-current={isCurrent(d.href) ? 'page' : undefined}>
+                <Image src={d.image} alt="" width={96} height={96} class="service-thumb" />
+                <span class="service-text">
+                  <span class="service-name">{d.navLabel}</span>
+                  <span class="service-desc">{d.summary}</span>
+                </span>
+              </a>
+            </li>
+          ))}
+          <li>
+            <a class="service service-other" href="/otros_servicios.html" aria-current={isCurrent('/otros_servicios.html') ? 'page' : undefined}>
+              <span class="service-thumb other-icon" aria-hidden="true"><Icon name="list" size="1.25rem" /></span>
+              <span class="service-text">
+                <span class="service-name">Otros servicios</span>
+                <span class="service-desc">Revisiones, proyectos, análisis de datos y corrección de estilo.</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <aside class="panel-promo">
+        <span class="promo-kicker">Primera asesoría gratis</span>
+        <p class="promo-title">¿No sabes cuál elegir?</p>
+        <p class="promo-text">Cuéntanos tu caso y te recomendamos el servicio y el asesor ideal para tu carrera.</p>
+        <a class="promo-cta" href="/contactanos.html#formulario">Quiero mi asesoría gratis <span aria-hidden="true">→</span></a>
+      </aside>
+    </div>
   </div>
 
   <div id="menu-movil" class="drawer" popover>
@@ -100,6 +122,20 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
 </header>
 
 <script>
+  const hoverZone = document.querySelector<HTMLElement>('[data-services-hover]');
+  const panel = document.querySelector<HTMLElement>('[data-services-panel]');
+  const toggle = document.querySelector<HTMLElement>('[data-services-toggle]');
+  if (hoverZone && panel && toggle && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    let timer = 0;
+    const open = () => { clearTimeout(timer); if (!panel.matches(':popover-open')) panel.showPopover(); };
+    const close = () => { clearTimeout(timer); timer = window.setTimeout(() => { if (panel.matches(':popover-open')) panel.hidePopover(); }, 220); };
+    hoverZone.addEventListener('pointerenter', open);
+    hoverZone.addEventListener('pointerleave', close);
+    panel.addEventListener('pointerenter', open);
+    panel.addEventListener('pointerleave', close);
+  }
+  panel?.addEventListener('toggle', (e) => toggle?.setAttribute('aria-expanded', String((e as ToggleEvent).newState === 'open')));
+
   const header = document.querySelector<HTMLElement>('[data-header].overlay');
   if (header) {
     const update = () => header.classList.toggle('is-solid', window.scrollY > 24);
@@ -158,36 +194,51 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
   .services-toggle { anchor-name: --servicios; }
   .nav-link:focus-visible { outline: 2px solid var(--orange-500); outline-offset: 2px; }
   .header:has(.panel:popover-open) .services-toggle { background-color: color-mix(in srgb, var(--paper-0) 14%, transparent); }
+  .chev { margin-inline-start: 0.3em; transition: transform var(--duration-ui) var(--ease-out); }
+  .header:has(.panel:popover-open) .chev { transform: rotate(180deg); }
   .panel {
     position-anchor: --servicios;
     inset: auto;
-    inset-block-start: calc(anchor(bottom) + 0.5rem);
+    inset-block-start: calc(anchor(bottom) + 0.6rem);
     inset-inline-start: anchor(center);
     translate: -50% 0;
-    inline-size: min(44rem, calc(100vw - 2rem));
+    inline-size: min(58rem, calc(100vw - 2rem));
     margin: 0;
     padding: var(--space-s);
     border: 0;
-    border-radius: var(--radius-card);
+    border-radius: calc(var(--radius-card) + 0.25rem);
     background-color: var(--paper-0);
     color: var(--ink-900);
-    box-shadow: 0 24px 60px -16px color-mix(in srgb, var(--ink-900) 45%, transparent);
+    box-shadow: 0 30px 70px -20px color-mix(in srgb, var(--ink-900) 50%, transparent), 0 0 0 1px rgb(0 0 0 / 0.04);
+    overflow: visible;
   }
+  /* Puente invisible para no perder el hover entre el botón y el panel */
+  .panel::before { content: ''; position: absolute; inset: -0.8rem 0 auto; block-size: 0.8rem; }
   @supports not (anchor-name: --a) {
     .panel { inset-block-start: calc(var(--header-height) + 0.5rem); inset-inline-start: 50%; }
   }
-  .services { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3xs); }
-  .service { display: grid; gap: var(--space-s); align-items: center; padding: var(--space-xs) var(--space-s); border-inline-start: 3px solid transparent; border-radius: calc(var(--radius-card) - 6px); color: var(--ink-900); text-decoration: none; transition: background-color var(--duration-hover) ease; }
-  .service-text { display: grid; gap: 0.15rem; }
-  .service-name { font-size: var(--step-ui); font-weight: var(--weight-semibold); line-height: 1.25; }
-  .service-desc { font-size: var(--step-small); line-height: var(--leading-small); color: var(--ink-600); }
-  .service[aria-current='page'] { background-color: var(--paper-1); border-inline-start-color: var(--orange-500); }
-  .panel-more { display: flex; justify-content: space-between; align-items: center; gap: var(--space-s); margin-block-start: var(--space-2xs); padding: var(--space-s) var(--space-m); border-radius: calc(var(--radius-card) - 6px); background-color: var(--navy-600); color: var(--paper-0); font-size: var(--step-ui); font-weight: var(--weight-medium); text-decoration: none; transition: background-color var(--duration-hover) ease; }
-  .panel-more span { color: var(--orange-500); transition: transform var(--duration-hover) var(--ease-out); }
+  .panel-grid { display: grid; grid-template-columns: minmax(0, 1fr) 15rem; gap: var(--space-s); }
+  .panel-list { display: grid; gap: var(--space-2xs); align-content: start; padding: var(--space-2xs); }
+  .panel-kicker { padding-inline: var(--space-2xs); color: var(--orange-600); font-size: var(--step-small); font-weight: var(--weight-bold); letter-spacing: 0.08em; text-transform: uppercase; }
+  .services { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3xs) var(--space-2xs); }
+  .service { display: flex; align-items: center; gap: var(--space-xs); padding: var(--space-2xs); border-radius: 0.9rem; color: var(--ink-900); text-decoration: none; transition: background-color var(--duration-hover) ease; }
+  .service-thumb { flex-shrink: 0; inline-size: 3rem; block-size: 3rem; border-radius: 0.8rem; object-fit: cover; object-position: 50% 20%; background-color: var(--navy-50); }
+  .other-icon { display: grid; place-items: center; background-image: var(--gradient-warm); color: var(--paper-0); }
+  .service-text { display: grid; gap: 0.1rem; min-inline-size: 0; }
+  .service-name { font-size: var(--step-ui); font-weight: var(--weight-semibold); line-height: 1.25; transition: color var(--duration-hover) ease; }
+  .service-desc { font-size: var(--step-small); line-height: 1.35; color: var(--ink-600); }
+  .service[aria-current='page'] { background-color: var(--orange-50); }
+  .service[aria-current='page'] .service-name { color: var(--orange-600); }
+
+  .panel-promo { position: relative; display: grid; align-content: end; gap: var(--space-2xs); padding: var(--space-m); overflow: hidden; border-radius: var(--radius-card); background-image: radial-gradient(14rem 10rem at 100% 0%, rgb(254 143 1 / 0.35), transparent 70%), var(--gradient-brand); color: var(--paper-0); }
+  .promo-kicker { inline-size: fit-content; padding: 0.25em 0.7em; border-radius: var(--radius-pill); background-color: rgb(255 255 255 / 0.14); color: var(--gold-400); font-size: var(--step-small); font-weight: var(--weight-bold); }
+  .promo-title { font-family: var(--font-display); font-size: var(--step-title); font-weight: var(--weight-semibold); line-height: 1.2; }
+  .promo-text { color: var(--navy-100); font-size: var(--step-small); line-height: 1.45; }
+  .promo-cta { display: inline-flex; align-items: center; justify-content: center; gap: 0.4em; margin-block-start: var(--space-2xs); padding: 0.65em 1em; border-radius: var(--radius-pill); background-color: var(--orange-500); color: var(--ink-900); font-size: var(--step-small); font-weight: var(--weight-bold); text-decoration: none; transition: transform var(--duration-hover) var(--ease-out); }
   @media (hover: hover) and (pointer: fine) {
-    .service:hover { background-color: var(--paper-1); border-inline-start-color: var(--orange-500); }
-    .panel-more:hover { background-color: var(--navy-700); }
-    .panel-more:hover span { transform: translateX(4px); }
+    .service:hover { background-color: var(--paper-1); }
+    .service:hover .service-name { color: var(--navy-600); }
+    .promo-cta:hover { transform: translateY(-2px); color: var(--ink-900); }
   }
 
   .menu-toggle, .menu-close {

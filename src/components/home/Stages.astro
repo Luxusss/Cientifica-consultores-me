@@ -1,6 +1,7 @@
 ---
 import { stageTracks } from '@/data/stages';
 import FormButton from '@/components/ui/FormButton.astro';
+import Icon from '@/components/ui/Icon.astro';
 
 interface Props {
   initial?: string;
@@ -11,45 +12,67 @@ interface Props {
 const { initial = 'pregrado', headingLevel = 2, title = 'Tu tesis por etapas' } = Astro.props;
 const Heading = `h${headingLevel}` as const;
 const start = stageTracks.find((t) => t.id === initial) ?? stageTracks[0];
+const icons = ['search', 'document', 'list', 'pen', 'badge', 'chat', 'users'] as const;
+const phase = (i: number, n: number) => (i < 2 ? 'Planificación' : i >= n - 3 ? 'Cierre' : 'Desarrollo');
 ---
 
-<section class="section-wide page split split-sticky stages" aria-labelledby="etapas" data-stages>
-  <header class="top stack stack-l" data-reveal>
-    <Heading id="etapas">{title}</Heading>
-    <p class="text-lead">Elige tu grado y mira el camino completo hasta la sustentación.</p>
-    <FormButton />
-  </header>
+<section class="section-wide stages-band" aria-labelledby="etapas" data-stages>
+  <div class="page stack stack-xl">
+    <header class="section-head center" data-reveal>
+      <span class="eyebrow">Tu camino</span>
+      <Heading id="etapas">{title}</Heading>
+      <p>Elige tu grado y recorre cada etapa: te mostramos qué hacemos contigo en cada una hasta la sustentación.</p>
+    </header>
 
-  <div class="body">
-
-  <div class="tabs" role="tablist" aria-label="Grado académico" hidden data-stages-tabs>
-    {stageTracks.map((t) => (
-      <button
-        type="button"
-        role="tab"
-        id={`tab-${t.id}`}
-        aria-controls={`panel-${t.id}`}
-        aria-selected={t.id === start.id ? 'true' : 'false'}
-        tabindex={t.id === start.id ? 0 : -1}
-      >
-        {t.label}
-      </button>
-    ))}
-  </div>
-
-  {stageTracks.map((t) => (
-    <div class="panel" id={`panel-${t.id}`} role="tabpanel" aria-labelledby={`tab-${t.id}`} data-panel={t.id}>
-      <p class="panel-title">{t.label}</p>
-      <ol class="bands" role="list">
-        {t.stages.map((s) => (
-          <li>
-            <strong>{s.name}</strong>
-            <span>{s.detail}</span>
-          </li>
+    <div class="board">
+      <div class="tabs" role="tablist" aria-label="Grado académico" hidden data-stages-tabs>
+        {stageTracks.map((t) => (
+          <button type="button" role="tab" id={`tab-${t.id}`} aria-controls={`panel-${t.id}`} aria-selected={t.id === start.id ? 'true' : 'false'} tabindex={t.id === start.id ? 0 : -1}>
+            {t.label}
+          </button>
         ))}
-      </ol>
+      </div>
+
+      {stageTracks.map((t) => (
+        <div class="panel" id={`panel-${t.id}`} role="tabpanel" aria-labelledby={`tab-${t.id}`} data-panel={t.id}>
+          <p class="panel-title">{t.label}</p>
+
+          <div class="line" hidden data-line>
+            <span class="line-track" aria-hidden="true"><span class="line-fill" data-fill></span></span>
+            {t.stages.map((s, i) => (
+              <button type="button" class="station" data-go={i} aria-label={`Etapa ${i + 1}: ${s.name}`}>
+                <span class="dot">{i + 1}</span>
+                <span class="label">{s.name}</span>
+              </button>
+            ))}
+          </div>
+
+          <ol class="details" role="list">
+            {t.stages.map((s, i) => (
+              <li class:list={['detail', `tone-${(i % 5) + 1}`]} data-step={i}>
+                <span class="d-icon" aria-hidden="true"><Icon name={icons[i % icons.length]} size="1.6rem" /></span>
+                <div class="d-body">
+                  <p class="d-meta"><span class="d-phase">{phase(i, t.stages.length)}</span> Etapa {i + 1} de {t.stages.length}</p>
+                  <h3 class="d-name">{s.name}</h3>
+                  <p class="d-text">{s.detail}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+
+          <div class="nav" hidden data-nav>
+            <span class="timer" aria-hidden="true"><span data-timer></span></span>
+            <span class="progress">Etapa <span data-count>1</span> de {t.stages.length}</span>
+            <span class="hint" aria-hidden="true">Avanza solo · toca una etapa para verla</span>
+          </div>
+        </div>
+      ))}
+
+      <div class="cta">
+        <p>¿En qué etapa estás tú? Te ayudamos desde ahí.</p>
+        <FormButton />
+      </div>
     </div>
-  ))}
   </div>
 </section>
 
@@ -58,6 +81,59 @@ const start = stageTracks.find((t) => t.id === initial) ?? stageTracks[0];
     const tablist = root.querySelector<HTMLElement>('[data-stages-tabs]')!;
     const tabs = [...tablist.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
     const panels = [...root.querySelectorAll<HTMLElement>('[data-panel]')];
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let hold = () => {};
+    const api = new Map<HTMLElement, { show: (i: number) => void; next: () => void }>();
+
+    root.classList.add('is-tabs');
+    tablist.hidden = false;
+
+    for (const panel of panels) {
+      const line = panel.querySelector<HTMLElement>('[data-line]')!;
+      const nav = panel.querySelector<HTMLElement>('[data-nav]')!;
+      const stations = [...panel.querySelectorAll<HTMLButtonElement>('[data-go]')];
+      const details = [...panel.querySelectorAll<HTMLElement>('[data-step]')];
+      const fill = panel.querySelector<HTMLElement>('[data-fill]')!;
+      const count = panel.querySelector<HTMLElement>('[data-count]')!;
+      const timer = panel.querySelector<HTMLElement>('[data-timer]')!;
+      line.hidden = false;
+      nav.hidden = false;
+      let current = 0;
+      const show = (i: number) => {
+        current = ((i % details.length) + details.length) % details.length;
+        details.forEach((d, j) => { d.hidden = j !== current; });
+        stations.forEach((s, j) => {
+          s.classList.toggle('is-done', j < current);
+          s.classList.toggle('is-current', j === current);
+          s.setAttribute('aria-pressed', String(j === current));
+        });
+        fill.style.transform = `scaleX(${details.length > 1 ? current / (details.length - 1) : 1})`;
+        count.textContent = String(current + 1);
+        timer.classList.remove('run');
+        void timer.offsetWidth;
+        timer.classList.add('run');
+      };
+      stations.forEach((s, j) => s.addEventListener('click', () => { show(j); hold(); }));
+      api.set(panel, { show, next: () => show(current + 1) });
+      show(0);
+    }
+
+    // Avance automático: cuando la barrita termina de llenarse pasa a la siguiente etapa.
+    // Se pausa al pasar el mouse, fuera de pantalla, o 12 s después de tocar una etapa.
+    let visible = false;
+    let hovering = false;
+    let held = 0;
+    const sync = () => root.classList.toggle('is-paused', reduce || hovering || !visible || held > 0 || document.hidden);
+    hold = () => { window.clearTimeout(held); held = window.setTimeout(() => { held = 0; sync(); }, 12000); sync(); };
+    const board = root.querySelector<HTMLElement>('.board')!;
+    board.addEventListener('pointerenter', () => { hovering = true; sync(); });
+    board.addEventListener('pointerleave', () => { hovering = false; sync(); });
+    document.addEventListener('visibilitychange', sync);
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; sync(); }, { threshold: 0.4 }).observe(root);
+    for (const panel of panels) {
+      panel.querySelector<HTMLElement>('[data-timer]')!.addEventListener('animationend', () => { if (!panel.hidden && !reduce) api.get(panel)?.next(); });
+    }
+    sync();
 
     const select = (tab: HTMLButtonElement, focus = false) => {
       for (const t of tabs) {
@@ -66,11 +142,10 @@ const start = stageTracks.find((t) => t.id === initial) ?? stageTracks[0];
         t.tabIndex = on ? 0 : -1;
       }
       for (const p of panels) p.hidden = p.id !== tab.getAttribute('aria-controls');
+      const p = panels.find((x) => !x.hidden);
+      if (p) api.get(p)?.show(0);
       if (focus) tab.focus();
     };
-
-    tablist.hidden = false;
-    root.classList.add('is-tabs');
     select(tabs.find((t) => t.getAttribute('aria-selected') === 'true') ?? tabs[0]);
 
     tablist.addEventListener('click', (e) => {
@@ -80,64 +155,76 @@ const start = stageTracks.find((t) => t.id === initial) ?? stageTracks[0];
     tablist.addEventListener('keydown', (e) => {
       const i = tabs.indexOf(document.activeElement as HTMLButtonElement);
       if (i < 0) return;
-      const next = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : null;
-      if (next === null) return;
+      const n = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : null;
+      if (n === null) return;
       e.preventDefault();
-      select(tabs[(next + tabs.length) % tabs.length], true);
+      select(tabs[(n + tabs.length) % tabs.length], true);
     });
   }
 </script>
 
 <style>
-  .top { justify-items: start; }
+  .board { display: grid; gap: var(--space-m); padding: var(--space-m); border-radius: calc(var(--radius-card) + 0.5rem); background-color: var(--paper-0); box-shadow: var(--shadow-lift); }
 
-  .tabs {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-3xs);
-  }
-  @media (min-width: 48em) {
-    .tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  }
+  .tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.3rem; inline-size: fit-content; max-inline-size: 100%; margin-inline: auto; padding: 0.3rem; border-radius: var(--radius-pill); background-color: var(--paper-1); }
   .tabs[hidden] { display: none; }
-  .tabs button {
-    min-block-size: var(--hit-min);
-    padding: var(--space-xs) var(--space-m);
-    background-color: var(--color-surface);
-    color: var(--color-text);
-    font-weight: var(--weight-semibold);
-    user-select: none;
-    -webkit-user-select: none;
-    transition: background-color var(--duration-hover) ease;
-  }
-  .tabs button[aria-selected='true'] { background-color: var(--color-field); color: var(--color-on-field); }
+  .tabs button { min-block-size: 2.5rem; padding: 0 var(--space-m); border-radius: var(--radius-pill); color: var(--ink-600); font-size: var(--step-ui); font-weight: var(--weight-semibold); transition: background-color var(--duration-hover) ease, color var(--duration-hover) ease; }
+  .tabs button[aria-selected='true'] { background-image: var(--gradient-brand); color: var(--paper-0); box-shadow: 0 8px 18px -10px var(--navy-600); }
 
-  .panel { display: grid; gap: var(--space-s); margin-block-start: var(--space-m); }
+  .panel { display: grid; gap: var(--space-m); }
   .panel[hidden] { display: none; }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .is-tabs .panel { transition: opacity var(--duration-hover) var(--ease-out); }
-    @starting-style { .is-tabs .panel { opacity: 0; } }
-  }
   .is-tabs .panel-title { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
   .panel-title { font-weight: var(--weight-semibold); }
 
-  .bands { display: grid; gap: var(--space-3xs); }
-  .bands li {
-    display: grid;
-    gap: var(--space-3xs);
-    padding: var(--space-m) var(--space-l);
-    background-color: var(--color-surface);
-  }
-  .bands strong { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
-  .bands li:nth-child(even) { background-color: var(--color-surface-strong); }
-  .bands span { color: var(--color-text-soft); font-size: var(--step-body); line-height: var(--leading-small); }
+  /* Línea de estaciones */
+  .line { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(4.5rem, 1fr); overflow-x: auto; scrollbar-width: none; padding-block-end: var(--space-2xs); }
+  .line[hidden] { display: none; }
+  .line-track { position: absolute; inset-block-start: 1.2rem; inset-inline: 2.25rem; block-size: 4px; border-radius: 4px; background-color: var(--paper-2); }
+  .line-fill { position: absolute; inset: 0; border-radius: inherit; background-image: linear-gradient(90deg, var(--orange-500), var(--gold-400), var(--sky-500)); transform: scaleX(0); transform-origin: left; transition: transform var(--duration-reveal) var(--ease-expo); }
+  .station { position: relative; display: grid; justify-items: center; gap: var(--space-2xs); padding-inline: 0.25rem; color: var(--ink-600); }
+  .dot { display: grid; place-items: center; inline-size: 2.4rem; block-size: 2.4rem; border-radius: 50%; background-color: var(--paper-0); box-shadow: inset 0 0 0 2px var(--paper-2); font-size: var(--step-ui); font-weight: var(--weight-bold); transition: background var(--duration-ui) ease, color var(--duration-ui) ease, box-shadow var(--duration-ui) ease, transform var(--duration-ui) var(--ease-out); }
+  .label { font-size: var(--step-small); font-weight: var(--weight-semibold); line-height: 1.25; text-align: center; }
+  .station.is-done .dot { background-color: var(--orange-50); color: var(--orange-600); box-shadow: inset 0 0 0 2px var(--orange-500); }
+  .station.is-current .dot { background-image: var(--gradient-warm); color: var(--paper-0); box-shadow: 0 0 0 5px rgb(254 143 1 / 0.2); transform: scale(1.12); }
+  .station.is-current .label { color: var(--ink-900); }
 
-  @media (min-width: 48em) {
-    .bands li { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); align-items: baseline; column-gap: var(--gutter); }
-  }
+  /* Detalle de la etapa */
+  .details { display: grid; gap: var(--space-s); }
+  .detail { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-m); align-items: center; padding: var(--space-m); border-radius: var(--radius-card); background: linear-gradient(120deg, var(--tone-soft), var(--paper-0) 75%); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tone) 20%, transparent); }
+  .detail[hidden] { display: none; }
+  .d-icon { display: grid; place-items: center; inline-size: 4rem; block-size: 4rem; border-radius: 1.1rem; background-image: var(--tone-grad); color: var(--paper-0); box-shadow: 0 14px 28px -14px var(--tone); }
+  .d-body { display: grid; gap: var(--space-3xs); }
+  .d-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6em; color: var(--ink-600); font-size: var(--step-small); font-weight: var(--weight-semibold); }
+  .d-phase { padding: 0.2em 0.7em; border-radius: var(--radius-pill); background-color: var(--paper-0); color: var(--tone); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tone) 30%, transparent); }
+  .d-name { font-family: var(--font-display); font-size: var(--step-head); line-height: 1.15; }
+  .d-text { color: var(--color-text-soft); font-size: var(--step-body); }
 
+  .nav { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--space-2xs) var(--space-s); }
+  .nav[hidden] { display: none; }
+  .timer { grid-column: 1 / -1; block-size: 4px; border-radius: 4px; background-color: var(--paper-2); overflow: hidden; }
+  .timer span { display: block; block-size: 100%; border-radius: inherit; background-image: var(--gradient-warm); transform: scaleX(0); transform-origin: left; }
+  .timer span.run { animation: timer 4500ms linear forwards; }
+  .is-paused .timer span.run { animation-play-state: paused; }
+  @keyframes timer { to { transform: scaleX(1); } }
+  .progress { color: var(--ink-900); font-size: var(--step-ui); font-weight: var(--weight-semibold); font-variant-numeric: tabular-nums; }
+  .hint { justify-self: end; color: var(--ink-600); font-size: var(--step-small); }
+  .is-paused .hint::before { content: '⏸ '; }
+
+  .cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-s); padding-block-start: var(--space-m); border-block-start: 1px solid var(--paper-2); }
+  .cta p { font-weight: var(--weight-semibold); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .detail:not([hidden]) { animation: step-in var(--duration-ui) var(--ease-out); }
+    @keyframes step-in { from { opacity: 0; transform: translateX(16px); } }
+  }
+  @media (min-width: 64em) {
+    .board { padding: var(--space-l) var(--space-xl); }
+    .line { overflow: visible; }
+    .d-icon { inline-size: 5rem; block-size: 5rem; }
+    .detail { padding: var(--space-l); }
+  }
   @media (hover: hover) and (pointer: fine) {
-    .tabs button[aria-selected='false']:hover { background-color: var(--color-surface-strong); }
+    .tabs button[aria-selected='false']:hover { background-color: var(--paper-0); color: var(--ink-900); }
+    .station:hover .dot { box-shadow: inset 0 0 0 2px var(--orange-500); }
   }
 </style>

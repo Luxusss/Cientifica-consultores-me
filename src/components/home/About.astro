@@ -1,53 +1,59 @@
 ---
-import { Image } from 'astro:assets';
 import AdvisoryVideo from '@/components/sections/AdvisoryVideo.astro';
-import { quality } from '@/data/home';
-import team from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg';
+import Icon from '@/components/ui/Icon.astro';
+import { quality, team } from '@/data/home';
+
+const highlights = [
+  { icon: 'user', text: 'Asesor de tu área' },
+  { icon: 'calendar', text: 'Sesiones programadas' },
+  { icon: 'globe', text: 'Atención online' },
+] as const;
 ---
 
-<section class="section page team-band" aria-labelledby="nosotros">
-  <figure class="photo" data-reveal>
-    <Image src={team} alt="Equipo de asesores de tesis de Científica Consultores reunido en su oficina de Lima" widths={[480, 720, 960, 1103]} sizes="(min-width: 64em) 56vw, 100vw" class="team" />
-  </figure>
-  <div class="copy stack stack-l" data-reveal>
-    <h2 id="nosotros">Más de 10 años investigando</h2>
-    <p class="text-lead">Un equipo real de asesores en Lima, de pregrado a doctorado.</p>
-    <p class="statement">Cada asesor viene de tu área: ingeniería, salud, ciencias sociales o letras. Trabajamos contigo, no por ti.</p>
-  </div>
-</section>
+<section class="section-wide video-band" aria-labelledby="asesorias-video">
+  <div class="page stack stack-xl">
+    <header class="section-head center" data-reveal>
+      <span class="eyebrow">{team.kicker}</span>
+      <h2 id="asesorias-video">{team.title}</h2>
+      <p>{team.text}</p>
+    </header>
 
-<section class="section page about" aria-label="Quiénes somos">
-  <div class="text stack stack-xl" data-reveal="stagger">
-    {quality.map((q) => (
-      <div class="stack stack-m">
-        <h2 class="minor">{q.title}</h2>
-        <p>{q.text}</p>
-      </div>
-    ))}
-  </div>
-  <div class="video-wrap stack stack-m">
-    <h2 class="minor" id="asesorias-video">Así son nuestras asesorías</h2>
-    <AdvisoryVideo />
+    <div class="video-wrap">
+      <AdvisoryVideo featured />
+      <ul class="chips" role="list">
+        {highlights.map((h, i) => (
+          <li class:list={['chip', `chip-${i + 1}`]}><Icon name={h.icon} size="1rem" />{h.text}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="quality" data-reveal="stagger">
+      {quality.map((q, i) => (
+        <article class:list={['q-card', `tone-${i + 2}`]}>
+          <h3>{q.title}</h3>
+          <p>{q.text}</p>
+        </article>
+      ))}
+    </div>
   </div>
 </section>
 
 <style>
-  .team-band { display: grid; gap: var(--space-xl) var(--gutter); align-items: center; }
-  .photo { overflow: hidden; border-radius: var(--radius-card); background-color: var(--color-surface); }
-  .team { inline-size: 100%; aspect-ratio: 3 / 2; object-fit: cover; object-position: 50% 45%; }
-  .copy { justify-items: start; }
-  .statement { padding-inline-start: var(--space-m); border-inline-start: 3px solid var(--orange-500); font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 34ch; }
+  .video-wrap { position: relative; inline-size: min(100%, 60rem); margin-inline: auto; }
+  .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2xs); margin-block-start: var(--space-m); }
+  .chip { display: inline-flex; align-items: center; gap: 0.5em; padding: 0.55em 1em; border-radius: var(--radius-pill); background-color: var(--paper-0); color: var(--navy-600); font-size: var(--step-ui); font-weight: var(--weight-semibold); box-shadow: var(--shadow-card); }
+  .chip :global(svg) { color: var(--orange-500); }
 
-  .about { display: grid; gap: var(--space-xl) var(--gutter); align-items: start; }
-  .minor { max-inline-size: none; font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
+  .quality { display: grid; gap: var(--space-s); }
+  .q-card { display: grid; gap: var(--space-2xs); align-content: start; padding: var(--space-m) var(--space-l); border-radius: var(--radius-card); background-color: var(--paper-0); box-shadow: var(--shadow-card); border-block-start: 4px solid var(--tone); }
+  .q-card h3 { font-size: var(--step-title); line-height: 1.25; }
+  .q-card p { color: var(--color-text-soft); font-size: var(--step-ui); max-inline-size: none; }
 
+  @media (min-width: 48em) {
+    .quality { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
   @media (min-width: 64em) {
-    .about { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-    .text { grid-column: 1 / span 7; }
-    .minor { font-size: min(var(--step-head), 2rem); }
-    .video-wrap { grid-column: 8 / -1; }
-    .team-band { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-    .photo { grid-column: 1 / span 7; }
-    .copy { grid-column: 9 / -1; }
+    .chips { position: absolute; inset: auto 0 -1.4rem; margin: 0; }
+    .quality { margin-block-start: var(--space-s); }
   }
 </style>

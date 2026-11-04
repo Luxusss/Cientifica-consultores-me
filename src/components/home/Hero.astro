@@ -43,10 +43,9 @@ const badges = [
   </ul>
   <div class="edge-frame content">
     <div class="text">
-      <h1 id="hero-title"><span class="line"><span>Asesoría de</span></span> <span class="line"><span>tesis online</span></span> <span class="tail">con expertos en investigación académica</span></h1>
-      <p class="lede">Un asesor especialista de tu carrera te acompaña en tu tesis de pregrado, maestría, doctorado o TSP, desde el proyecto hasta la sustentación. Más de 10 años y +4000 tesistas nos respaldan.</p>
-      <div class="actions">
-        <Button href="/contactanos.html#formulario" data-analytics="lead_formulario_inicio_hero">Quiero mi primera asesoría gratis</Button>
+      <h1 id="hero-title"><span class="line"><span>Asesoría de</span></span> <span class="line"><span>tesis online</span></span> <span class="tail">con expertos en investigación</span></h1>
+            <div class="actions">
+        <Button href="/contactanos.html#formulario" class="hero-cta" data-analytics="lead_formulario_inicio_hero"><span class="cta-label"><span class="cta-main">Quiero mi primera asesoría gratis</span><span class="cta-sub">Sin costo · Respuesta en menos de 24 h</span></span><span class="cta-arrow" aria-hidden="true">→</span></Button>
       </div>
     </div>
   </div>
@@ -88,13 +87,21 @@ const badges = [
 
   .content { display: grid; gap: var(--space-xl); padding-block: var(--space-xl) var(--space-2xl); }
   .text { display: grid; gap: var(--space-m); justify-items: start; }
-  h1 { color: var(--color-text); max-inline-size: none; }
+  h1 { color: var(--color-text); max-inline-size: none; font-size: clamp(2.5rem, 1.7rem + 4vw, 3.25rem); line-height: 1.04; font-weight: var(--weight-bold); text-shadow: 0 2px 24px rgb(0 0 0 / 0.25); }
   .line { display: block; overflow: hidden; padding-block-end: 0.08em; margin-block-end: -0.08em; }
   .line > span { display: block; }
-  .tail { display: block; margin-block-start: var(--space-xs); font-size: var(--step-title); line-height: var(--leading-head); letter-spacing: -0.01em; font-weight: var(--weight-medium); color: var(--orange-500); }
-  .lede { font-size: var(--step-body); line-height: var(--leading-body); max-inline-size: 38ch; color: var(--color-text-soft); }
+  .tail { display: block; margin-block-start: 0.2em; padding-block-end: 0.18em; margin-block-end: -0.18em; font-size: 0.5em; line-height: 1.1; letter-spacing: -0.015em; font-weight: var(--weight-semibold); background-image: linear-gradient(90deg, var(--gold-400), var(--orange-500) 55%, #ff7a59); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none; }
 
-  .actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-s) var(--space-l); }
+  .actions { display: grid; justify-items: start; margin-block-start: var(--space-s); }
+  .actions :global(.hero-cta) { min-block-size: 4rem; padding-block: 0.6rem; padding-inline: var(--space-l) 0.6rem; gap: var(--space-s); text-align: start; white-space: normal; max-inline-size: 100%; border-radius: var(--radius-pill); background-image: var(--gradient-warm); color: var(--ink-900); font-size: var(--step-body); font-weight: var(--weight-bold); box-shadow: 0 14px 34px -12px rgb(254 143 1 / 0.75), inset 0 1px 0 rgb(255 255 255 / 0.35); transition: transform var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) var(--ease-out); }
+  .cta-label { display: grid; gap: 0.1rem; line-height: 1.2; }
+  .cta-main { font-size: var(--step-lead); font-weight: var(--weight-bold); }
+  .cta-sub { font-size: var(--step-small); font-weight: var(--weight-semibold); color: rgb(19 24 61 / 0.72); }
+  .cta-arrow { display: grid; place-items: center; flex-shrink: 0; inline-size: 2.75rem; block-size: 2.75rem; border-radius: 50%; background-color: rgb(19 24 61 / 0.9); color: var(--paper-0); font-size: 1.1rem; transition: transform var(--duration-ui) var(--ease-out); }
+  @media (hover: hover) and (pointer: fine) {
+    .actions :global(.hero-cta:hover) { transform: translateY(-2px); box-shadow: 0 20px 40px -12px rgb(254 143 1 / 0.85), inset 0 1px 0 rgb(255 255 255 / 0.35); }
+    .actions :global(.hero-cta:hover) .cta-arrow { transform: translateX(4px); }
+  }
 
   .spot, .sheen { display: none; }
   .badges { display: none; }
@@ -120,9 +127,8 @@ const badges = [
         linear-gradient(90deg, var(--scrim-strong) 0%, var(--scrim-strong) 22%, transparent 58%);
     }
     .content { position: relative; grid-template-rows: 1fr auto; padding-block: calc(var(--header-height) + var(--space-l)) var(--space-l); }
-    .text { align-self: center; max-inline-size: min(52%, 46rem); }
-    h1 { font-size: min(var(--step-display), 4vw); }
-    .line { display: inline-block; }
+    .text { align-self: center; max-inline-size: min(46%, 46rem); }
+    h1 { font-size: clamp(3.5rem, 1.4rem + 4.4vw, 6rem); line-height: 1; letter-spacing: -0.035em; }
     .badges { display: block; grid-area: stack; position: relative; z-index: 1; pointer-events: none; translate: calc(var(--px, 0) * -18px) calc(var(--py, 0) * -12px); transition: translate 600ms var(--ease-out); }
     .frame { translate: calc(var(--px, 0) * 14px) calc(var(--py, 0) * 8px); transition: translate 700ms var(--ease-out); }
     .badge { position: absolute; inset-block-end: 13%; translate: -50% 0; inline-size: max-content; max-inline-size: 15vw; text-wrap: balance; }
@@ -132,8 +138,6 @@ const badges = [
     .spot { display: block; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(circle 26rem at calc((var(--px, 0.3) + 0.5) * 100%) calc((var(--py, -0.1) + 0.5) * 100%), color-mix(in srgb, var(--paper-0) 16%, transparent), transparent 70%); mix-blend-mode: soft-light; opacity: 0; transition: opacity 600ms var(--ease-out); }
     .hero:hover .spot { opacity: 1; }
     .sheen { display: block; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(105deg, transparent 35%, color-mix(in srgb, var(--paper-0) 22%, transparent) 50%, transparent 65%); transform: translateX(-120%); }
-    .tail { position: relative; inline-size: fit-content; padding-block-end: 0.35rem; }
-    .tail::after { content: ''; position: absolute; inset-inline-start: 0; inset-block-end: 0; inline-size: 100%; block-size: 3px; border-radius: 3px; background-color: var(--orange-500); transform-origin: left; }
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -147,12 +151,11 @@ const badges = [
     @keyframes reveal-final { from { opacity: 0; } }
     @keyframes descend { from { opacity: 0; transform: translateY(-16%); filter: blur(12px); } 60% { opacity: 1; } to { transform: translateY(0); filter: blur(0); } }
     .sheen { animation: sheen 1600ms var(--ease-out) 1700ms both; }
-    .tail::after { animation: draw 900ms var(--ease-expo) 700ms both; }
     @keyframes sheen { from { transform: translateX(-120%); } to { transform: translateX(120%); } }
     @keyframes draw { from { transform: scaleX(0); } }
     .line > span { animation: line-up var(--duration-reveal) var(--ease-expo) 100ms both; }
     .line + .line > span { animation-delay: calc(100ms + var(--stagger)); }
-    .tail, .lede { animation: rise 500ms var(--ease-out) 420ms both; }
+    .tail { animation: rise 500ms var(--ease-out) 420ms both; }
     .actions { animation: rise 500ms var(--ease-out) 600ms both; }
     .badge { animation: badge-in 700ms var(--ease-expo) both, float 6s ease-in-out 1.6s infinite; }
     .badge-1 { animation-delay: 800ms, 1.6s; }

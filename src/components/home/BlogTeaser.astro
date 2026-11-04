@@ -1,71 +1,80 @@
 ---
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
+import Carousel from '@/components/ui/Carousel.astro';
 
-const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 4);
-const [lead, ...rest] = posts;
+const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 8);
 const fmt = new Intl.DateTimeFormat('es-PE', { day: 'numeric', month: 'long', year: 'numeric' });
+const day = new Intl.DateTimeFormat('es-PE', { day: '2-digit' });
+const mon = new Intl.DateTimeFormat('es-PE', { month: 'short' });
+const minutes = (body = '') => Math.max(1, Math.round(body.split(/\s+/).length / 200));
 ---
 
-<section class="section-wide" aria-labelledby="blog-academico">
+<section class="section-wide blog-band band-soft" aria-labelledby="blog-academico">
   <div class="page stack stack-xl">
-    <header class="split split-end" data-reveal>
-      <h2 id="blog-academico">Blog académico</h2>
-      <a class="all" href="/blog.html">Ver todos los artículos<span aria-hidden="true"> →</span></a>
+    <header class="head" data-reveal>
+      <div class="section-head">
+        <span class="eyebrow">Blog</span>
+        <h2 id="blog-academico">Blog <span class="accent">académico</span></h2>
+        <p>Guías, consejos y novedades para avanzar con tu investigación.</p>
+      </div>
+      <a class="link-pill" href="/blog.html">Ver todos los artículos</a>
     </header>
-    <div class="layout" data-reveal="stagger">
-      {lead && (
-        <a class="lead-post" href={`/blog/${lead.id}.html`}>
-          <span class="lead-media"><Image src={lead.data.cover} alt={lead.data.title} widths={[480, 720, 960, 1200]} sizes="(min-width: 64em) 56vw, 100vw" class="cover" /></span>
-          <time class="date" datetime={lead.data.date.toISOString()}>{fmt.format(lead.data.date)}</time>
-          <span class="lead-title">{lead.data.heading}</span>
-          <span class="excerpt">{lead.data.description}</span>
-        </a>
-      )}
-      <ul class="list" role="list">
-        {rest.map((p) => (
-          <li>
-            <a class="row" href={`/blog/${p.id}.html`}>
-              <span class="thumb-media"><Image src={p.data.cover} alt={p.data.title} widths={[160, 240, 320]} sizes="(min-width: 64em) 10rem, 7rem" class="thumb" /></span>
-              <span class="row-text">
-                <time class="date" datetime={p.data.date.toISOString()}>{fmt.format(p.data.date)}</time>
-                <span class="title">{p.data.heading}</span>
-              </span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
+
+    <Carousel label="Últimos artículos del blog" perView={3}>
+      {posts.map((p, i) => (
+        <li class:list={['post', `tone-${(i % 5) + 1}`]}>
+          <a class="card" href={`/blog/${p.id}.html`}>
+            <span class="media">
+              <Image src={p.data.cover} alt={p.data.title} widths={[360, 540, 720]} sizes="(min-width: 64em) 30vw, (min-width: 40em) 50vw, 85vw" class="cover" />
+              <span class="tag">Artículo</span>
+              <span class="cal" aria-hidden="true"><strong>{day.format(p.data.date)}</strong>{mon.format(p.data.date).replace(".", "")}</span>
+            </span>
+            <span class="body">
+              <span class="meta"><time class="date" datetime={p.data.date.toISOString()}>{fmt.format(p.data.date)}</time><span class="sep" aria-hidden="true">•</span><span>{minutes(p.body)} min de lectura</span></span>
+              <span class="title">{p.data.heading}</span>
+              <span class="excerpt">{p.data.description}</span>
+              <span class="read">Leer artículo <span aria-hidden="true">→</span></span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </Carousel>
   </div>
 </section>
 
 <style>
-  .all { justify-self: start; font-size: var(--step-lead); }
-  .layout { display: grid; gap: var(--space-xl) var(--gutter); }
-  .lead-post, .row { color: var(--color-text); text-decoration: none; }
-  .lead-post { display: grid; gap: var(--space-s); align-content: start; }
-  .lead-media, .thumb-media { display: block; overflow: hidden; border-radius: var(--radius-card); background-color: var(--color-surface); }
-  .cover { inline-size: 100%; aspect-ratio: 16 / 10; object-fit: cover; transition: transform var(--duration-reveal) var(--ease-out); }
-  .date { font-size: var(--step-small); color: var(--color-text-soft); }
-  .lead-post .date { margin-block-start: var(--space-2xs); }
-  .lead-title { font-size: var(--step-title); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); text-wrap: balance; }
-  .excerpt { color: var(--color-text-soft); max-inline-size: 60ch; }
-  .list { display: grid; align-content: start; }
-  .list li + li { border-block-start: 1px solid color-mix(in srgb, var(--ink-900) 10%, transparent); }
-  .row { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: var(--space-s); align-items: center; padding-block: var(--space-s); }
-  .list li:first-child .row { padding-block-start: 0; }
-  .thumb { inline-size: 100%; aspect-ratio: 1; object-fit: cover; transition: transform var(--duration-reveal) var(--ease-out); }
-  .row-text { display: grid; gap: var(--space-3xs); }
-  .title { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); text-wrap: balance; }
+  .accent { color: var(--navy-600); }
+  .head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: var(--space-s); }
+  .cal { position: absolute; inset-block-end: var(--space-xs); inset-inline-end: var(--space-xs); display: grid; justify-items: center; min-inline-size: 3rem; padding: 0.35rem 0.5rem; border-radius: 0.75rem; background-color: var(--paper-0); color: var(--ink-600); font-size: var(--step-small); line-height: 1.1; text-transform: uppercase; box-shadow: var(--shadow-card); }
+  .cal strong { color: var(--tone); font-size: var(--step-title); }
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5em; font-size: var(--step-small); color: var(--ink-600); }
+  .sep { color: var(--tone); }
 
-  @media (min-width: 64em) {
-    .layout { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: start; }
-    .row { grid-template-columns: 10rem minmax(0, 1fr); gap: var(--space-m); padding-block: var(--space-m); }
-    .thumb { aspect-ratio: 4 / 3; }
+  .post { display: flex; }
+  .card {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    inline-size: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-card);
+    background-color: var(--paper-0);
+    color: var(--color-text);
+    text-decoration: none;
+    box-shadow: var(--shadow-card);
+    transition: translate var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) var(--ease-out);
   }
+  .media { position: relative; display: block; overflow: hidden; }
+  .cover { inline-size: 100%; aspect-ratio: 16 / 10; object-fit: cover; transition: transform var(--duration-reveal) var(--ease-out); }
+  .tag { position: absolute; inset-block-start: var(--space-xs); inset-inline-start: var(--space-xs); padding: 0.25em 0.75em; border-radius: var(--radius-pill); background-image: var(--tone-grad); color: var(--paper-0); font-size: var(--step-small); font-weight: var(--weight-bold); }
+  .body { display: flex; flex-direction: column; gap: var(--space-2xs); padding: var(--space-m); }
+  .date { color: var(--tone); font-weight: var(--weight-semibold); }
+  .title { font-family: var(--font-display); font-size: var(--step-title); line-height: 1.25; font-weight: var(--weight-semibold); text-wrap: balance; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .excerpt { color: var(--color-text-soft); font-size: var(--step-small); line-height: var(--leading-body); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .read { margin-block-start: auto; padding-block-start: var(--space-2xs); color: var(--navy-600); font-size: var(--step-ui); font-weight: var(--weight-semibold); }
 
   @media (hover: hover) and (pointer: fine) {
-    .lead-post:hover .cover, .row:hover .thumb { transform: scale(1.04); }
-    .lead-post:hover .lead-title, .row:hover .title { text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 0.07em; }
+    .card:hover { translate: 0 -6px; box-shadow: var(--shadow-lift); }
+    .card:hover .cover { transform: scale(1.06); }
   }
 </style>

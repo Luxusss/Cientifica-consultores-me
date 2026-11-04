@@ -1,30 +1,78 @@
 ---
 import { resources } from '@/data/home';
+
+const [featured, ...rest] = resources.items;
 ---
 
-<section class="section-wide page split split-sticky guides" aria-labelledby="guias">
-  <header class="stack stack-l head" data-reveal>
-    <h2 id="guias">{resources.title}</h2>
-    <p>{resources.text}</p>
-    <a href="/blog.html">Ver el blog académico</a>
-  </header>
+<section class="section-wide guides" aria-labelledby="guias">
+  <div class="page stack stack-xl">
+    <header class="section-head center" data-reveal>
+      <span class="eyebrow">Recursos</span>
+      <h2 id="guias">{resources.title}</h2>
+      <p>{resources.text}</p>
+    </header>
 
-  <ul class="stack stack-xl" role="list" data-reveal="stagger">
-    {resources.items.map((g) => (
-      <li class="guide">
-        <h3>{g.title}</h3>
-        <p>{g.text}</p>
-        {g.link && <p>Lee nuestro artículo: <a href={g.link.href}>{g.link.label}</a></p>}
+    <ul class="bento" role="list" data-reveal="stagger">
+      <li class="card featured">
+        <span class="tag">Guía destacada</span>
+        <h3>{featured.title}</h3>
+        <p>{featured.text}</p>
+        {featured.link && <a class="link-pill" href={featured.link.href}>Leer la guía</a>}
+        <span class="deco" aria-hidden="true"></span>
       </li>
-    ))}
-  </ul>
+      {rest.map((g, i) => (
+        <li class:list={['card', `tone-${i + 2}`]}>
+          <span class="idx" aria-hidden="true">{String(i + 2).padStart(2, '0')}</span>
+          <h3>{g.title}</h3>
+          <p>{g.text}</p>
+          {g.link && <a class="more" href={g.link.href}>Leer artículo <span aria-hidden="true">→</span></a>}
+        </li>
+      ))}
+    </ul>
+
+    <a class="link-pill all" href="/blog.html">Ver el blog académico</a>
+  </div>
 </section>
 
 <style>
-  .guides { --axis: 6; }
-  .head { justify-items: start; }
-  .head h2 { font-size: min(var(--step-head), 2.5rem); }
-  .guide { display: grid; gap: var(--space-2xs); }
-  .guide p { margin: 0; }
-  h3 { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
+  .bento { display: grid; gap: var(--space-s); }
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    padding: var(--space-m);
+    overflow: hidden;
+    border-radius: var(--radius-card);
+    background-color: var(--paper-0);
+    box-shadow: var(--shadow-card);
+    transition: opacity var(--duration-reveal) var(--ease-expo), transform var(--duration-reveal) var(--ease-expo), translate var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) var(--ease-out);
+  }
+  .card::before { content: ''; position: absolute; inset: 0 auto 0 0; inline-size: 4px; background-image: var(--tone-grad); }
+  .idx { display: inline-grid; place-items: center; inline-size: 1.9rem; block-size: 1.9rem; border-radius: 0.6rem; background-color: var(--tone-soft); color: var(--tone); font-size: var(--step-small); font-weight: var(--weight-bold); }
+  h3 { font-size: var(--step-title); line-height: 1.25; }
+  .card p { color: var(--color-text-soft); font-size: var(--step-ui); display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+  .more { margin-block-start: auto; padding-block-start: var(--space-2xs); color: var(--tone); font-size: var(--step-ui); }
+
+  .featured { justify-content: flex-end; gap: var(--space-s); padding: var(--space-l); background-image: var(--gradient-brand); color: var(--paper-0); }
+  .featured::before { display: none; }
+  .featured h3 { font-family: var(--font-display); font-size: var(--step-head); line-height: 1.15; max-inline-size: 20ch; }
+  .featured p { color: var(--navy-100); -webkit-line-clamp: 6; }
+  .featured .link-pill { background-color: var(--orange-500); color: var(--ink-900); }
+  .tag { inline-size: fit-content; padding: 0.3em 0.8em; border-radius: var(--radius-pill); background-color: rgb(255 255 255 / 0.14); color: var(--gold-400); font-size: var(--step-small); font-weight: var(--weight-bold); }
+  .deco { position: absolute; z-index: -1; inset-block-start: -4rem; inset-inline-end: -4rem; inline-size: 14rem; block-size: 14rem; border-radius: 50%; border: 2.5rem solid rgb(255 255 255 / 0.06); }
+  .featured { isolation: isolate; }
+  .all { justify-self: center; }
+
+  @media (min-width: 48em) {
+    .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .featured { grid-column: 1 / -1; }
+  }
+  @media (min-width: 64em) {
+    .bento { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .featured { grid-column: 1; grid-row: 1 / span 2; }
+  }
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .card:hover { translate: 0 -4px; box-shadow: var(--shadow-lift); }
+  }
 </style>

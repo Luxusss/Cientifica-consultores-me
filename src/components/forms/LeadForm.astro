@@ -255,7 +255,7 @@ const options = countries.map((c) => ({ value: c.name, name: c.name, code: c.cod
   .check path { stroke: var(--color-success); }
   .sent-title { font-size: var(--step-title); line-height: var(--leading-head); font-weight: var(--weight-semibold); }
   .sent-text { color: var(--color-text-soft); }
-  .sent-again { margin-block-start: var(--space-xs); padding: var(--space-2xs) var(--space-s); background: none; border: 0; border-radius: var(--radius); color: var(--color-link); font: inherit; font-size: var(--step-small); text-decoration: underline; text-underline-offset: 0.2em; cursor: pointer; }
+  .sent-again { margin-block-start: var(--space-xs); padding: var(--space-2xs) var(--space-s); background: none; border: 0; border-radius: var(--radius); color: var(--color-link); font: inherit; font-size: var(--step-small); font-weight: var(--weight-semibold); cursor: pointer; }
 
   @media (prefers-reduced-motion: no-preference) {
     .lead-form[data-state='sent'] .check circle { stroke-dasharray: 151; animation: draw-ring 600ms var(--ease-out) both; }

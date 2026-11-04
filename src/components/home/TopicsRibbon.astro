@@ -1,0 +1,48 @@
+---
+// Cinta animada con los servicios, justo debajo del hero.
+const topics = [
+  'Tesis de pregrado',
+  'Tesis de maestría',
+  'Tesis doctoral',
+  'Trabajo de suficiencia profesional',
+  'Artículos científicos',
+  'Revisión con Turnitin',
+  'Análisis en SPSS',
+  'Atlas.ti',
+  'Normas APA',
+  'Asesoría online',
+];
+---
+
+<div class="ribbon" aria-label="Servicios que asesoramos">
+  {[0, 1].map((copy) => (
+    <ul class="row" role="list" aria-hidden={copy === 1 ? 'true' : undefined}>
+      {topics.map((t) => (
+        <li><span class="star" aria-hidden="true">✦</span>{t}</li>
+      ))}
+    </ul>
+  ))}
+</div>
+
+<style>
+  .ribbon {
+    display: flex;
+    overflow: hidden;
+    padding-block: var(--space-xs);
+    background-image: var(--gradient-warm);
+    color: var(--ink-900);
+    font-size: var(--step-ui);
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.01em;
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+  .row { display: flex; flex-shrink: 0; gap: var(--space-l); padding-inline-end: var(--space-l); }
+  li { display: inline-flex; align-items: center; gap: var(--space-s); white-space: nowrap; }
+  .star { color: var(--paper-0); font-size: 0.9em; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .row { animation: ribbon 38s linear infinite; }
+    .ribbon:hover .row { animation-play-state: paused; }
+    @keyframes ribbon { to { transform: translateX(-100%); } }
+  }
+</style>

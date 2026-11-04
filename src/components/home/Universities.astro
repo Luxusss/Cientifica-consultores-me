@@ -14,11 +14,12 @@ const total = universities.reduce((n, g) => n + g.names.length, 0);
 const index = universities.flatMap((g) => g.names.map((name) => ({ name, country: g.country })));
 ---
 
-<section class="theme-surface section-wide universities" aria-labelledby="universidades">
+<section class="section-wide universities band-soft" aria-labelledby="universidades">
   <div class="page stack stack-xl">
-    <header class="split split-end" data-reveal>
+    <header class="section-head center" data-reveal>
+      <span class="eyebrow">Presencia internacional</span>
       <h2 id="universidades">Dónde sustentaron</h2>
-      <p class="text-lead">Clientes de {total} universidades en {universities.length} países.</p>
+      <p>Clientes de {total} universidades en {universities.length} países.</p>
     </header>
 
     <LatamMap />
@@ -37,7 +38,13 @@ const index = universities.flatMap((g) => g.names.map((name) => ({ name, country
     </div>
 
     <div class="finder" data-finder hidden>
-      <label class="finder-label" for="buscar-universidad">¿Ya asesoramos a alguien de tu universidad?</label>
+      <div class="finder-copy">
+        <span class="finder-kicker">Buscador</span>
+        <label class="finder-label" for="buscar-universidad">¿Ya asesoramos a alguien de tu universidad?</label>
+        <p class="finder-hint">Escribe el nombre y te respondemos al instante.</p>
+      </div>
+      <div class="finder-field">
+      <svg class="finder-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M10.5 3a7.5 7.5 0 0 1 5.9 12.1l4.2 4.2-1.4 1.4-4.2-4.2A7.5 7.5 0 1 1 10.5 3zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11z" fill="currentColor" /></svg>
       <input
         id="buscar-universidad"
         class="finder-input"
@@ -45,12 +52,14 @@ const index = universities.flatMap((g) => g.names.map((name) => ({ name, country
         autocomplete="off"
         enterkeyhint="search"
         placeholder="Escribe tu universidad"
-        list="universidades-lista"
+        role="combobox"
+        aria-autocomplete="list"
+        aria-expanded="false"
+        aria-controls="universidades-sugerencias"
         data-finder-input
       />
-      <datalist id="universidades-lista">
-        {index.map((u) => <option value={u.name} />)}
-      </datalist>
+      <ul class="finder-list" id="universidades-sugerencias" role="listbox" aria-label="Universidades sugeridas" hidden data-finder-list></ul>
+      </div>
       <div class="finder-result" aria-live="polite">
         <p class="finder-answer" data-finder-answer>Escribe al menos tres letras.</p>
         <a class="button-whatsapp finder-cta" href={whatsappUrl()} target="_blank" rel="noopener" data-finder-cta data-base={whatsappUrl('MSG')}>
@@ -61,19 +70,6 @@ const index = universities.flatMap((g) => g.names.map((name) => ({ name, country
       <script type="application/json" data-finder-data set:html={JSON.stringify(index).replaceAll('<', String.fromCharCode(92) + 'u003c')} />
     </div>
 
-    <details class="all">
-      <summary>Ver las {total} universidades</summary>
-    <div class="rows">
-      {universities.map((group) => (
-        <div class="row">
-          <p class="country"><span class="count">{group.names.length}</span> {group.country}</p>
-          <ul class="names" role="list" aria-label={group.country}>
-            {group.names.map((name) => <li>{name}</li>)}
-          </ul>
-        </div>
-      ))}
-    </div>
-    </details>
   </div>
 </section>
 
@@ -87,6 +83,63 @@ const index = universities.flatMap((g) => g.names.map((name) => ({ name, country
     const fold = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
     const base = cta.dataset.base ?? cta.href;
     const link = (text: string) => base.replace('MSG', encodeURIComponent(text));
+    const list = root.querySelector<HTMLUListElement>('[data-finder-list]')!;
+    let matches: { name: string; country: string }[] = [];
+    let active = -1;
+
+    const close = () => {
+      list.hidden = true;
+      input.setAttribute('aria-expanded', 'false');
+      input.removeAttribute('aria-activedescendant');
+      active = -1;
+    };
+    const highlight = (i: number) => {
+      active = i;
+      [...list.children].forEach((li, j) => li.setAttribute('aria-selected', String(j === i)));
+      if (i >= 0) {
+        input.setAttribute('aria-activedescendant', `sug-${i}`);
+        (list.children[i] as HTMLElement).scrollIntoView({ block: 'nearest' });
+      }
+    };
+    const suggest = () => {
+      const q = fold(input.value);
+      matches = q.length < 2 ? [] : data.filter((u) => fold(u.name).includes(q)).slice(0, 8);
+      list.replaceChildren(...matches.map((u, i) => {
+        const li = document.createElement('li');
+        li.id = `sug-${i}`;
+        li.setAttribute('role', 'option');
+        li.setAttribute('aria-selected', 'false');
+        const name = document.createElement('span');
+        name.className = 'sug-name';
+        name.textContent = u.name;
+        const country = document.createElement('span');
+        country.className = 'sug-country';
+        country.textContent = u.country;
+        li.append(name, country);
+        li.addEventListener('pointerdown', (e) => { e.preventDefault(); pick(i); });
+        return li;
+      }));
+      const open = matches.length > 0 && !(matches.length === 1 && fold(matches[0].name) === q);
+      list.hidden = !open;
+      input.setAttribute('aria-expanded', String(open));
+      active = -1;
+    };
+    const pick = (i: number) => {
+      const u = matches[i];
+      if (!u) return;
+      input.value = u.name;
+      close();
+      update();
+    };
+    input.addEventListener('keydown', (e) => {
+      if (list.hidden) return;
+      if (e.key === 'ArrowDown') { e.preventDefault(); highlight((active + 1) % matches.length); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); highlight((active - 1 + matches.length) % matches.length); }
+      else if (e.key === 'Enter' && active >= 0) { e.preventDefault(); pick(active); }
+      else if (e.key === 'Escape') close();
+    });
+    input.addEventListener('blur', close);
+    input.addEventListener('focus', suggest);
 
     const update = () => {
       const q = fold(input.value);
@@ -110,13 +163,13 @@ const index = universities.flatMap((g) => g.names.map((name) => ({ name, country
     };
 
     root.hidden = false;
-    input.addEventListener('input', update);
+    input.addEventListener('input', () => { update(); suggest(); });
     update();
   }
 </script>
 
 <style>
-  .universities { overflow: hidden; }
+  .universities { overflow-x: clip; }
   .marquee { display: flex; gap: var(--space-s); overflow-x: auto; scrollbar-width: none; mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
   .track { display: flex; gap: var(--space-s); flex-shrink: 0; }
   .track[aria-hidden='true'] { display: none; }
@@ -126,92 +179,76 @@ const index = universities.flatMap((g) => g.names.map((name) => ({ name, country
   @media (prefers-reduced-motion: no-preference) {
     .marquee { overflow: hidden; }
     .track[aria-hidden='true'] { display: flex; }
-    .track { animation: marquee 70s linear infinite; }
+    .track { animation: marquee 140s linear infinite; }
     .marquee:hover .track { animation-play-state: paused; }
     @keyframes marquee { to { transform: translateX(calc(-100% - var(--space-s))); } }
   }
 
   .finder {
+    position: relative;
     display: grid;
     gap: var(--space-m) var(--gutter);
-    padding: var(--space-xl) var(--space-l);
-    background-color: var(--color-field);
-    color: var(--color-on-field);
+    padding: var(--space-l);
+    border-radius: var(--radius-card);
+    background-image: radial-gradient(28rem 16rem at 100% 0%, rgb(255 255 255 / 0.12), transparent 70%), var(--gradient-brand);
+    color: var(--paper-0);
+    box-shadow: var(--shadow-lift);
   }
   .finder[hidden] { display: none; }
-  .finder-label { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
+  .finder-copy { display: grid; gap: var(--space-3xs); }
+  .finder-kicker { color: var(--gold-400); font-size: var(--step-small); font-weight: var(--weight-bold); letter-spacing: 0.06em; text-transform: uppercase; }
+  .finder-label { font-family: var(--font-display); font-size: var(--step-head); line-height: 1.15; font-weight: var(--weight-semibold); }
+  .finder-hint { color: var(--navy-100); font-size: var(--step-ui); }
+  .finder-field { position: relative; z-index: 3; }
+  .finder-list { position: absolute; inset-inline: 0; inset-block-start: calc(100% + 0.5rem); z-index: 5; display: grid; max-block-size: 17rem; overflow-y: auto; padding: 0.4rem; border-radius: 1.1rem; background-color: var(--paper-0); color: var(--ink-900); box-shadow: 0 24px 48px -18px rgb(0 0 0 / 0.45), 0 0 0 1px rgb(0 0 0 / 0.05); scrollbar-width: thin; }
+  .finder-list[hidden] { display: none; }
+  .finder-list :global(li) { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-s); padding: 0.65em 0.9em; border-radius: 0.7rem; cursor: pointer; font-size: var(--step-ui); }
+  .finder-list :global(li[aria-selected='true']), .finder-list :global(li:hover) { background-color: var(--orange-50); }
+  .finder-list :global(.sug-name) { font-weight: var(--weight-semibold); }
+  .finder-list :global(.sug-country) { flex-shrink: 0; color: var(--color-text-soft); font-size: var(--step-small); }
+  .finder-icon { position: absolute; inset-block-start: 50%; inset-inline-start: 1.1rem; translate: 0 -50%; color: var(--navy-600); pointer-events: none; }
   .finder-input {
     inline-size: 100%;
-    min-block-size: 4rem;
-    padding-inline: var(--space-s);
+    min-block-size: 3.25rem;
+    padding-inline: 3rem var(--space-s);
     border: 0;
-    border-block-end: 3px solid var(--orange-500);
-    background-color: var(--navy-700);
-    color: var(--paper-0);
+    border-radius: var(--radius-pill);
+    background-color: var(--paper-0);
+    color: var(--ink-900);
     font: inherit;
-    font-size: var(--step-lead);
+    font-size: max(1rem, var(--step-body));
+    box-shadow: 0 0 0 4px rgb(255 255 255 / 0.15);
   }
-  .finder-input::placeholder { color: var(--navy-100); }
-  .finder-input:focus-visible { outline: var(--focus-ring); outline-color: var(--orange-500); outline-offset: 2px; }
-  .finder-result { display: grid; gap: var(--space-m); justify-items: start; }
-  .finder-answer { font-size: var(--step-lead); line-height: var(--leading-lead); color: var(--navy-100); }
-  [data-state='hit'] .finder-answer, [data-state='miss'] .finder-answer { color: var(--paper-0); }
+  .finder-input::placeholder { color: var(--ink-600); }
+  .finder-input:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--orange-500); }
+  .finder-result { display: grid; gap: var(--space-s); justify-items: start; }
+  .finder-answer { display: flex; align-items: center; gap: 0.6em; max-inline-size: none; color: var(--navy-100); font-size: var(--step-ui); }
+  .finder-answer::before { content: ''; flex-shrink: 0; inline-size: 0.6rem; block-size: 0.6rem; border-radius: 50%; background-color: var(--navy-100); }
+  [data-state='hit'] .finder-answer { color: var(--paper-0); }
+  [data-state='hit'] .finder-answer::before { background-color: var(--whatsapp-500); box-shadow: 0 0 0 4px rgb(37 211 102 / 0.25); }
+  [data-state='miss'] .finder-answer { color: var(--paper-0); }
+  [data-state='miss'] .finder-answer::before { background-color: var(--gold-400); }
   .finder-cta {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2xs);
-    min-block-size: var(--button-height);
-    padding-inline: var(--button-padding-inline);
-    background-color: var(--button-bg);
-    color: var(--button-text);
-    font-weight: var(--weight-semibold);
-    text-decoration: none;
+    min-block-size: 2.9rem;
+    padding-inline: var(--space-m);
+    border-radius: var(--radius-pill);
+    background-color: var(--whatsapp-500);
+    color: var(--ink-900);
+    font-size: var(--step-ui);
+    font-weight: var(--weight-bold);
     transition: background-color var(--duration-hover) ease, transform var(--duration-press) var(--ease-out);
   }
   .finder-cta:active { transform: scale(0.97); }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .finder-answer { transition: color var(--duration-ui) var(--ease-out); }
-  }
   @media (hover: hover) and (pointer: fine) {
-    .finder-cta:hover { background-color: var(--button-bg-hover); }
+    .finder-cta:hover { background-color: var(--whatsapp-600); color: var(--ink-900); }
   }
-
   @media (min-width: 64em) {
-    .finder { grid-template-columns: repeat(12, minmax(0, 1fr)); padding: var(--space-2xl) var(--space-xl); align-items: end; }
-    .finder-label { grid-column: 1 / -1; font-size: min(var(--step-head), 2.75rem); }
-    .finder-input { grid-column: 1 / span 6; }
-    .finder-result { grid-column: 7 / -1; }
+    .finder { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); padding: var(--space-xl); align-items: center; }
+    .finder-copy { grid-row: 1 / span 2; }
+    .finder-field, .finder-result { grid-column: 2; }
   }
 
-  .all summary {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2xs);
-    min-block-size: var(--hit-min);
-    font-size: var(--step-lead);
-    font-weight: var(--weight-medium);
-    color: var(--color-link);
-    cursor: pointer;
-    list-style: none;
-    text-decoration: underline;
-    text-underline-offset: 0.25em;
-    text-decoration-thickness: 2px;
-  }
-  .all summary::-webkit-details-marker { display: none; }
-  .all summary::after { content: '+'; color: var(--color-accent-strong); font-weight: var(--weight-semibold); }
-  .all[open] summary::after { content: '−'; }
-  .all[open] summary { margin-block-end: var(--space-l); }
-  .rows { display: grid; gap: var(--space-l); }
-  .row { display: grid; gap: var(--space-s) var(--gutter); }
-  .country { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
-  .count { color: var(--color-accent-strong); font-weight: var(--weight-semibold); }
-  .names { display: flex; flex-wrap: wrap; gap: var(--space-3xs) 0; color: var(--color-text-soft); line-height: var(--leading-small); }
-  .names li:not(:last-child)::after { content: '·'; padding-inline: 0.6em; color: var(--color-accent-strong); }
-
-  @media (min-width: 64em) {
-    .row { grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: baseline; }
-    .country { grid-column: 1 / span 3; }
-    .names { grid-column: 4 / -1; }
-  }
 </style>

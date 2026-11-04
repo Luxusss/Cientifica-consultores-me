@@ -1,18 +1,35 @@
 ---
+import { Image } from 'astro:assets';
+import Icon from '@/components/ui/Icon.astro';
 import { whyUs } from '@/data/home';
+import datos from '@/assets/images/otros_servicios/proyectos/Proyectos-tecnologicos.jpg';
+import libro from '@/assets/images/articulos_cientificos/capitulo-de-libro.jpg';
+import laptop from '@/assets/images/otros_servicios/estudios_teoricos/articulo_revision.jpg';
+import analisis from '@/assets/images/otros_servicios/datos_informacion/analisis.jpg';
+import mesa from '@/assets/images/otros_servicios/estudios_teoricos/revision_sistematica.jpg';
+
+const icons = ['lock', 'badge', 'clock', 'bolt', 'users'] as const;
+const images = [datos, libro, laptop, analisis, mesa];
 ---
 
-<section class="section-wide" aria-labelledby="por-que">
+<section class="section-wide why" aria-labelledby="por-que">
   <div class="page stack stack-xl">
-    <header class="split split-end" data-reveal>
+    <header class="section-head center" data-reveal>
+      <span class="eyebrow">Nuestra diferencia</span>
       <h2 id="por-que">{whyUs.title}</h2>
-      <p class="text-lead">{whyUs.text}</p>
+      <p>{whyUs.text}</p>
     </header>
     <ul class="cards" role="list" data-reveal="stagger">
       {whyUs.items.map((item, i) => (
-        <li class:list={['card', 'lift', { wide: i < 2 }]}>
-          <h3>{item.name}</h3>
-          <p>{item.text}</p>
+        <li class:list={['card', `tone-${(i % 5) + 1}`, { wide: i < 2 }]}>
+          <span class="media">
+            <span class="clip"><Image src={images[i % images.length]} alt="" widths={[360, 540, 720]} sizes="(min-width: 64em) 33vw, (min-width: 48em) 50vw, 100vw" class="img" /></span>
+            <span class="icon"><Icon name={icons[i % icons.length]} size="1.15rem" /></span>
+          </span>
+          <div class="body">
+            <h3>{item.name}</h3>
+            <p>{item.text}</p>
+          </div>
         </li>
       ))}
     </ul>
@@ -21,10 +38,24 @@ import { whyUs } from '@/data/home';
 
 <style>
   .cards { display: grid; gap: var(--space-s); }
-  .card { display: grid; gap: var(--space-xs); align-content: start; padding: var(--space-l); background-color: var(--color-surface); border-radius: var(--radius-card); }
-  h3 { font-size: var(--step-title); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
-  h3::before { content: ''; display: block; inline-size: 2.5rem; block-size: 4px; margin-block-end: var(--space-s); background-color: var(--color-accent); border-radius: 2px; }
-  .card p { color: var(--color-text-soft); }
+  .card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: var(--radius-card);
+    background-color: var(--paper-0);
+    box-shadow: var(--shadow-card);
+    transition: opacity var(--duration-reveal) var(--ease-expo), transform var(--duration-reveal) var(--ease-expo), translate var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) var(--ease-out);
+  }
+  .media { position: relative; display: block; }
+  .clip { position: relative; }
+  .img { inline-size: 100%; aspect-ratio: 3 / 1; object-fit: cover; transition: transform var(--duration-reveal) var(--ease-out); }
+  .card:not(.wide) .img { aspect-ratio: 2 / 1; }
+  .icon { position: absolute; z-index: 1; inset-block-end: -1.25rem; inset-inline-start: var(--space-m); display: grid; place-items: center; inline-size: 2.6rem; block-size: 2.6rem; border-radius: 0.8rem; background-image: var(--tone-grad); color: var(--paper-0); box-shadow: 0 0 0 4px var(--paper-0), 0 10px 20px -10px var(--tone); }
+  .body { display: grid; gap: var(--space-2xs); align-content: start; padding: calc(var(--space-m) + 0.75rem) var(--space-m) var(--space-m); }
+  h3 { font-size: var(--step-title); line-height: 1.25; }
+  .body p { color: var(--color-text-soft); font-size: var(--step-ui); }
+  .clip { display: block; overflow: hidden; }
 
   @media (min-width: 48em) {
     .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -33,5 +64,9 @@ import { whyUs } from '@/data/home';
     .cards { grid-template-columns: repeat(6, minmax(0, 1fr)); }
     .card { grid-column: span 2; }
     .card.wide { grid-column: span 3; }
+  }
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .card:hover { translate: 0 -5px; box-shadow: var(--shadow-lift); }
+    .card:hover .img { transform: scale(1.05); }
   }
 </style>

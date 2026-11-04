@@ -1,0 +1,82 @@
+---
+// Barra de progreso de lectura (arriba) y botón "volver arriba" (abajo a la izquierda).
+---
+
+<div class="progress" aria-hidden="true"><span data-progress></span></div>
+<button type="button" class="to-top" aria-label="Volver arriba" data-to-top hidden>
+  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 15l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+</button>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-progress]');
+  const top = document.querySelector<HTMLButtonElement>('[data-to-top]');
+  if (bar && top) {
+    let raf = 0;
+    const update = () => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      const p = max > 0 ? Math.min(1, scrollY / max) : 0;
+      bar.style.transform = `scaleX(${p})`;
+      top.hidden = scrollY < innerHeight * 0.8;
+      if (!top.hidden) top.classList.toggle('on-dark', isDarkBehind());
+    };
+    // ¿El botón está sobre un fondo oscuro (azul de la marca, foto, footer)? Entonces va en naranja.
+    const isDarkBehind = () => {
+      const r = top.getBoundingClientRect();
+      const x = r.left + r.width / 2;
+      const y = r.top + r.height / 2;
+      for (const el of document.elementsFromPoint(x, y)) {
+        if (el === top || top.contains(el) || el.closest('.wa-float, [data-whatsapp-float]')) continue;
+        const cs = getComputedStyle(el);
+        if (cs.backgroundImage !== 'none' && !el.matches('img')) return true;
+        if (el.matches('img, video, iframe')) return true;
+        const m = cs.backgroundColor.match(/[\d.]+/g);
+        if (!m) continue;
+        const [rr, gg, bb, a = '1'] = m.map(Number);
+        if (Number(a) < 0.5) continue;
+        return (0.2126 * rr + 0.7152 * gg + 0.0722 * bb) / 255 < 0.5;
+      }
+      return false;
+    };
+    addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(update); }, { passive: true });
+    addEventListener('resize', update);
+    update();
+    top.addEventListener('click', () => {
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      document.querySelector<HTMLElement>('#contenido')?.focus({ preventScroll: true });
+    });
+  }
+</script>
+
+<style>
+  .progress { position: fixed; inset: 0 0 auto; z-index: calc(var(--z-header) + 1); block-size: 3px; pointer-events: none; }
+  .progress span { display: block; block-size: 100%; background-image: linear-gradient(90deg, var(--orange-500), var(--gold-400), var(--sky-500)); transform: scaleX(0); transform-origin: left; }
+
+  .to-top {
+    position: fixed;
+    inset-inline-start: var(--page-margin);
+    inset-block-end: calc(var(--page-margin) + env(safe-area-inset-bottom, 0px));
+    z-index: var(--z-float);
+    display: grid;
+    place-items: center;
+    inline-size: 3rem;
+    block-size: 3rem;
+    border-radius: 50%;
+    background-image: var(--gradient-brand);
+    color: var(--paper-0);
+    box-shadow: 0 12px 28px -10px rgb(29 45 140 / 0.6);
+    transition: transform var(--duration-press) var(--ease-out);
+  }
+  .to-top { transition: transform var(--duration-press) var(--ease-out), background-color var(--duration-ui) ease, box-shadow var(--duration-ui) ease; }
+  .to-top.on-dark { background-image: none; background-color: var(--orange-500); color: var(--ink-900); box-shadow: 0 12px 28px -10px rgb(254 143 1 / 0.7); }
+  .to-top[hidden] { display: none; }
+  .to-top:active { transform: scale(0.92); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .to-top:not([hidden]) { animation: pop var(--duration-ui) var(--ease-out); }
+    @keyframes pop { from { opacity: 0; transform: translateY(10px) scale(0.9); } }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .to-top:hover { transform: translateY(-3px); }
+  }
+</style>

@@ -4,6 +4,7 @@ import Seo from '@/components/Seo.astro';
 import Header from '@/components/layout/Header.astro';
 import Footer from '@/components/layout/Footer.astro';
 import WhatsAppFloat from '@/components/ui/WhatsAppFloat.astro';
+import ScrollWidgets from '@/components/ui/ScrollWidgets.astro';
 import { site } from '@/config/site';
 import { graph } from '@/lib/schema';
 import '@/styles/global.css';
@@ -50,11 +51,12 @@ import { pageKey } from '@/lib/page';
     )}
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
     <Header overlay={overlay} />
-    <main id="contenido">
+    <main id="contenido" tabindex="-1">
       <slot />
     </main>
     <Footer />
     <WhatsAppFloat />
+    <ScrollWidgets />
     <script>
       import '@/scripts/reveal';
       import '@/scripts/track';
@@ -74,4 +76,5 @@ import { pageKey } from '@/lib/page';
     transform: translateY(-200%);
   }
   .skip-link:focus-visible { transform: none; }
+  main:focus { outline: none; }
 </style>

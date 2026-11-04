@@ -1,73 +1,86 @@
-export const intro =
-  'En Científica Consultores ofrecemos asesoría de tesis online con especialistas en investigación para estudiantes de distintos niveles académicos: pregrado, licenciatura, grado, maestría y doctorado. Te apoyamos en metodología, análisis, estructura y redacción académica, adaptándonos a los criterios de universidades de Latinoamérica, España y la comunidad hispanohablante en Estados Unidos. Trabajamos según la terminología académica de cada país —tesis, trabajo de grado, tesina, TFG o TFM— y te guiamos paso a paso para que avances con seguridad y presentes un proyecto sólido y bien fundamentado.';
+export const intro = {
+  title: 'Tu tesis, con un experto a tu lado',
+  text: 'Te guiamos en metodología, análisis y redacción, adaptándonos a tu universidad y a la terminología de tu país.',
+  levels: ['Pregrado', 'Maestría', 'Doctorado', 'TSP', 'Artículos científicos'],
+};
 
 export const servicesSection = {
-  title: 'Nuestros servicios de asesoría para tesis y trabajos académicos',
-  text: 'Nuestros servicios están orientados a facilitar el desarrollo de tu investigación desde cero, sea un proyecto de tesis o cualquier otro trabajo académico. Te ayudamos a definir el tema, organizar la literatura, diseñar el enfoque metodológico, procesar los datos y preparar la versión final del documento. Cada asesoría se adapta al tipo de estudio que estés realizando —tesis, tesina, trabajo de grado, TFG o TFM— y a los lineamientos específicos de tu universidad, para que avances con un proceso claro y una guía académica personalizada.',
+  title: 'Nuestros servicios',
+  text: 'Elige tu grado y trabaja con un asesor especialista de tu carrera, del tema a la sustentación.',
 };
 
 export const processSection = {
   title: '¿Cómo trabajamos?',
-  text: 'Te explicamos paso a paso cómo trabajamos para que tu asesoría de tesis o proyecto de grado sea clara, organizada y eficiente. Nuestro proceso está diseñado para brindar apoyo integral, cuidar la calidad académica y adaptarse a tus necesidades, desde la planificación hasta la sustentación.',
+  text: 'Seis pasos simples, desde tu primer mensaje hasta tener a tu asesor asignado.',
   steps: [
-    { name: 'Te contactas con nosotros', text: 'Nos escribes por WhatsApp, correo o formulario web. Nos comentas tu universidad, tipo de trabajo académico y fechas de entrega para entender tu caso desde el inicio.' },
-    { name: 'Selección del tipo de trabajo', text: 'Escoges si deseas trabajar tesis, proyecto de grado, tesina, TFG, TFM o trabajo de suficiencia profesional. Te ayudamos a elegir la opción adecuada según tu nivel académico.' },
-    { name: 'Diagnóstico del proyecto', text: 'Analizamos tu tema, avances y requisitos del reglamento. Detectamos fortalezas, riesgos y ajustes necesarios para planificar una ruta de trabajo realista.' },
-    { name: 'Presupuesto personalizado', text: 'Te enviamos una propuesta económica alineada a la complejidad de tu tesis o proyecto de grado, indicando alcances, número de asesorías y forma de pago.' },
-    { name: 'Contrato y formalización', text: 'Formalizamos el servicio con un contrato digital que protege tus datos y fija los plazos y alcances de la asesoría contratada.' },
-    { name: 'Asignación de asesor especializado', text: 'Te asignamos un asesor experto en tu área. Coordinarás tus avances, revisiones y observaciones de cada capítulo, con acompañamiento personalizado hasta la defensa.' },
+    { name: 'Nos escribes', short: 'Por WhatsApp, correo o formulario, con tu universidad y fechas.', text: 'Nos escribes por WhatsApp, correo o formulario web. Nos comentas tu universidad, tipo de trabajo académico y fechas de entrega para entender tu caso desde el inicio.' },
+    { name: 'Elegimos el tipo de trabajo', short: 'Tesis, tesina, TFG, TFM o TSP, según tu nivel.', text: 'Escoges si deseas trabajar tesis, proyecto de grado, tesina, TFG, TFM o trabajo de suficiencia profesional. Te ayudamos a elegir la opción adecuada según tu nivel académico.' },
+    { name: 'Diagnóstico', short: 'Revisamos tu tema, avances y el reglamento.', text: 'Analizamos tu tema, avances y requisitos del reglamento. Detectamos fortalezas, riesgos y ajustes necesarios para planificar una ruta de trabajo realista.' },
+    { name: 'Presupuesto', short: 'Propuesta clara con alcances y forma de pago.', text: 'Te enviamos una propuesta económica alineada a la complejidad de tu tesis o proyecto de grado, indicando alcances, número de asesorías y forma de pago.' },
+    { name: 'Contrato digital', short: 'Protege tus datos y fija plazos y alcances.', text: 'Formalizamos el servicio con un contrato digital que protege tus datos y fija los plazos y alcances de la asesoría contratada.' },
+    { name: 'Tu asesor', short: 'Un experto de tu área te acompaña hasta la defensa.', text: 'Te asignamos un asesor experto en tu área. Coordinarás tus avances, revisiones y observaciones de cada capítulo, con acompañamiento personalizado hasta la defensa.' },
   ],
 };
 
 export const whyUs = {
   title: '¿Por qué elegirnos?',
-  text: 'Contamos con un equipo multidisciplinario de profesionales especializados y más de 10 años de experiencia, comprometidos con tu avance en cada servicio de asesoría. Somos tu socio en la investigación.',
+  text: 'Más de 10 años y un equipo multidisciplinario comprometido con tu avance.',
   items: [
-    { name: 'Protección de tus datos', text: 'Cuidamos la privacidad en todos nuestros servicios de asesoría de tesis. Toda la información de tu proyecto académico se maneja de manera privada y segura, asegurando que tus ideas, datos y documentos estén protegidos durante todo el proceso.' },
-    { name: 'Integridad académica', text: 'Tú eres el autor de tu investigación. Nuestros asesores te enseñan a citar, parafrasear y aplicar metodologías rigurosas, y revisamos la originalidad con herramientas académicas para que cada tesis, tesina o trabajo de suficiencia profesional cumpla con los estándares internacionales de investigación.' },
-    { name: 'Flexibilidad', text: 'Accede a asesoría online con horarios flexibles, adaptados a tus necesidades, desde cualquier lugar.' },
-    { name: 'Respuesta ágil', text: 'Entendemos la importancia de los plazos académicos. Por eso, revisamos tus avances y respondemos tus consultas de manera rápida y eficiente, sin comprometer la calidad ni el rigor académico de tu proyecto.' },
-    { name: 'Equipo integral', text: 'Equipo multidisciplinario de profesionales expertos en diversas áreas científicas, comprometidos con tu éxito.' },
+    { name: 'Protección de tus datos', text: 'Todo queda en un contrato digital: tu tema, tus datos y tus avances solo los ve tu asesor.' },
+    { name: 'Integridad académica', text: 'La tesis es tuya. Te enseñamos a citar y parafrasear, y revisamos la originalidad con Turnitin antes de cada entrega.' },
+    { name: 'Flexibilidad', text: 'Sesiones por videollamada en el horario que te acomode, aunque trabajes o vivas en otro país.' },
+    { name: 'Respuesta ágil', text: 'Te devolvemos cada capítulo revisado con observaciones claras, para que avances sin esperar semanas.' },
+    { name: 'Equipo integral', text: 'Asesores de ingeniería, salud, negocios, educación y ciencias sociales: siempre trabajas con alguien de tu área.' },
   ],
 };
 
+export const team = {
+  kicker: 'Más de 10 años investigando',
+  title: 'Asesores reales, de tu misma carrera',
+  text: 'Somos un equipo en Lima que acompaña tesis de pregrado a doctorado. Cada asesor viene de tu área —ingeniería, salud, ciencias sociales o letras— y trabaja contigo, no por ti.',
+};
+
 export const quality = [
-  {
-    title: 'Asesoría académica de alta calidad para tesis, tesinas y trabajos de grado',
-    text: 'Ofrecemos asesoría académica de alta calidad para estudiantes que desarrollan tesis, tesinas y trabajos de grado en cualquier nivel académico. Nuestro equipo de expertos te acompaña en cada etapa del proceso, desde la planificación del proyecto y la investigación metodológica hasta la redacción final, asegurando un trabajo riguroso, coherente y alineado con los estándares académicos internacionales.',
-  },
-  {
-    title: 'Acompañamiento especializado para tesis en todos los niveles académicos',
-    text: 'Ofrecemos acompañamiento especializado para estudiantes de pregrado, maestría y doctorado que buscan avanzar con seguridad en el desarrollo de su tesis. Nuestro equipo de asesores te brinda orientación metodológica, revisión académica y apoyo en cada etapa del proceso, con atención personalizada y soporte online para estudiantes de habla hispana en todo el mundo, con un servicio accesible, claro y de alta calidad académica.',
-  },
+  { title: 'Calidad en cada etapa', text: 'Revisamos cada capítulo según el reglamento de tu universidad y las normas de citación que te exijan.' },
+  { title: 'Acompañamiento personalizado', text: 'Un mismo asesor te acompaña de principio a fin: conoce tu tema, tus avances y las observaciones de tu jurado.' },
 ];
 
 export const toolsSection = {
-  title: 'Herramientas profesionales que respaldan tu asesoría de tesis y proyecto de grado',
-  text: 'En Científica Consultores utilizamos herramientas profesionales como Turnitin, Mendeley, Atlas.ti y SPSS para respaldar tu asesoría de tesis y proyecto de grado. Nuestro objetivo es cuidar la originalidad, el rigor metodológico y la calidad académica en cada etapa, apoyando a estudiantes de habla hispana en todo el mundo en el desarrollo de tesis, tesinas y trabajos académicos de manera ética y confiable.',
+  title: 'Herramientas profesionales',
+  text: 'Cuidamos la originalidad y el rigor de tu investigación con el mismo software que usan las universidades.',
   items: [
-    { tool: 'Turnitin', name: 'Originalidad con Turnitin', text: 'Con Turnitin revisamos la originalidad de tu tesis o proyecto de grado y te orientamos para citar correctamente cada fuente.' },
-    { tool: 'Mendeley', name: 'Gestión bibliográfica con Mendeley', text: 'Mendeley organiza referencias y bibliografía, facilitando la recolección de ideas, tesis y trabajos académicos con citas precisas.' },
-    { tool: 'Atlas.ti', name: 'Análisis cualitativo con Atlas.ti', text: 'Atlas.ti permite analizar datos cualitativos de forma rigurosa, apoyando la elaboración de tesis y proyectos académicos complejos.' },
-    { tool: 'SPSS', name: 'Análisis cuantitativo con SPSS', text: 'SPSS realiza análisis estadísticos precisos, asegurando resultados cuantitativos confiables en tu proyecto de grado o asesoría de tesis.' },
+    { tool: 'Turnitin', name: 'Originalidad', text: 'Revisamos la originalidad y te orientamos para citar cada fuente.' },
+    { tool: 'Mendeley', name: 'Referencias', text: 'Organizamos tu bibliografía con citas precisas.' },
+    { tool: 'Atlas.ti', name: 'Análisis cualitativo', text: 'Analizamos entrevistas y datos cualitativos con rigor.' },
+    { tool: 'SPSS', name: 'Análisis cuantitativo', text: 'Estadística confiable para tus resultados.' },
   ],
 };
 
 export const resources = {
-  title: 'Recursos académicos para tu proyecto y desarrollo de tesis',
-  text: 'Aquí encontrarás recursos académicos diseñados para fortalecer tu proceso de investigación y desarrollar tu proyecto de tesis con claridad. Te explicamos cómo elaborar un proyecto de tesis paso a paso, la estructura de un trabajo académico, las diferencias entre tesis, tesina, trabajo de grado y trabajo de suficiencia profesional (TSP), y cómo avanzar de manera organizada en cada etapa. Estos recursos están pensados para estudiantes de pregrado, maestría, doctorado y programas internacionales de habla hispana, con bases metodológicas sólidas y guías esenciales para tu estudio.',
+  title: 'Recursos académicos',
+  text: 'Guías gratuitas para avanzar tu tesis sin bloquearte.',
   items: [
-    { title: 'Cómo elaborar un proyecto de tesis paso a paso', text: 'Aprende las etapas fundamentales para construir un proyecto de tesis sólido: formulación del tema, objetivos, problema de investigación, marco teórico y metodología. Esta guía te ayudará a organizar tu propuesta con claridad y de acuerdo con estándares académicos internacionales.', link: { label: 'Cómo hacer tu proyecto de tesis', href: '/blog/como-hacer-tu-proyecto-de-tesis.html' } },
-    { title: 'Estructura de una tesis: guía completa', text: 'Conoce la estructura general de una tesis o trabajo de grado, incluyendo introducción, marco teórico, metodología, resultados, discusión y conclusiones. Te orientamos sobre qué debe llevar cada sección para que redactes un documento coherente y bien organizado.' },
-    { title: 'Diferencias entre tesis y trabajo de suficiencia profesional', text: 'Conoce las diferencias entre una tesis y un trabajo de suficiencia profesional, incluyendo objetivos, nivel de investigación, metodología y tipo de entrega. Esta guía te permite elegir el formato adecuado según los requisitos de tu programa académico.', link: { label: 'Tesis vs trabajo de suficiencia profesional', href: '/blog/tesis-vs-trabajo-suficiencia-profesional.html' } },
-    { title: 'Diferencias entre tesis, tesina y trabajo de grado', text: 'Comprende las diferencias entre tesis, tesina, TFG, TFM y trabajo de grado. Cada país y universidad utiliza denominaciones distintas, pero todas comparten elementos en común. Esta guía te ayudará a identificar qué tipo de trabajo necesitas presentar según tu programa académico.' },
-    { title: 'Consejos para avanzar sin bloquearte', text: 'Descubre recomendaciones prácticas para organizar tu tiempo, superar bloqueos, mejorar tu redacción y mantener un ritmo constante en tu investigación. Estos consejos te ayudarán a avanzar con seguridad y evitar retrasos en tu proyecto académico.' },
+    { title: 'Cómo elaborar un proyecto de tesis paso a paso', text: 'Tema, objetivos, problema, marco teórico y metodología: todo lo que necesita tu propuesta, explicado en orden.', link: { label: 'Cómo hacer tu proyecto de tesis', href: '/blog/como-hacer-tu-proyecto-de-tesis.html' } },
+    { title: 'Estructura de una tesis', text: 'Qué debe llevar cada capítulo, de la introducción a las conclusiones.' },
+    { title: 'Tesis o trabajo de suficiencia profesional', text: 'Diferencias en objetivos, metodología y entrega para elegir bien.', link: { label: 'Tesis vs trabajo de suficiencia profesional', href: '/blog/tesis-vs-trabajo-suficiencia-profesional.html' } },
+    { title: 'Tesis, tesina, TFG o TFM', text: 'Cada país usa un nombre distinto; te ayudamos a saber cuál te toca.' },
+    { title: 'Consejos para no bloquearte', text: 'Organiza tu tiempo, mejora tu redacción y mantén el ritmo.' },
   ],
 };
 
-export const faqIntro = 'Encuentra respuestas claras a las dudas más comunes antes de iniciar tu proyecto académico.';
+export const faqIntro = 'Resolvemos las dudas más comunes antes de empezar.';
 
 export const closing = {
-  title: 'Asesoría integral para tu tesis y proyecto',
-  text: 'Obtén el apoyo que necesitas para elaborar, sustentar o publicar tu investigación. Cuéntanos tu universidad, tu grado y tu fecha de entrega, y te decimos cómo podemos ayudarte.',
+  title: '¿Empezamos tu tesis?',
+  text: 'Cuéntanos tu universidad, tu grado y tu fecha de entrega, y te decimos cómo podemos ayudarte.',
+};
+
+/** Resumen corto de cada servicio para las tarjetas de la portada (se muestra completo). */
+export const serviceTeasers: Record<string, string> = {
+  pregrado: 'Te acompañamos desde que eliges el tema hasta que sustentas, con un asesor de tu misma carrera que conoce el formato de tu universidad.',
+  maestria: 'Ordenamos juntos tu investigación: un marco teórico sólido, la metodología correcta y el análisis de tus datos, capítulo por capítulo.',
+  doctorado: 'Un investigador con experiencia doctoral te ayuda a sostener tu aporte, elegir el análisis adecuado y llegar seguro a la defensa.',
+  tsp: 'Convierte lo que haces en tu trabajo en un informe profesional bien estructurado, listo para presentar según las reglas de tu universidad.',
+  articulos: 'Te guiamos para escribir tu artículo con estructura IMRyD, elegir la revista indexada adecuada y responder a los revisores.',
+  proyecto: '¿Te piden un plan de tesis? Definimos contigo el problema, los objetivos y la metodología para que presentes una propuesta clara.',
 };

@@ -7,30 +7,55 @@
   --whatsapp-600: #1ebe57;
   --orange-500: #fe8f01;
 
-  --paper-0: #f7f7f5;
-  --paper-1: #eeeeea;
-  --paper-2: #e2e2dc;
+  --paper-0: #fbfbfd;
+  --paper-1: #f1f2f8;
+  --paper-2: #e4e6f2;
   --ink-900: #13183d;
   --ink-600: #4b5072;
+
+  /* Paleta de acentos */
+  --navy-50: #eceefb;
+  --orange-50: #fff3e3;
+  --sky-500: #1f7ae0;
+  --sky-50: #e8f3ff;
+  --teal-500: #0b9490;
+  --teal-50: #e1f6f4;
+  --violet-500: #6d4cf0;
+  --violet-50: #efebff;
+  --pink-500: #d9407c;
+  --pink-50: #fdebf2;
+  --gold-400: #ffc233;
+
+  --gradient-brand: linear-gradient(135deg, var(--navy-700) 0%, var(--navy-600) 45%, #4a35c9 100%);
+  --gradient-warm: linear-gradient(135deg, var(--orange-500) 0%, #ff6a3d 100%);
+  --gradient-cool: linear-gradient(135deg, var(--sky-500) 0%, var(--teal-500) 100%);
+  --gradient-violet: linear-gradient(135deg, var(--violet-500) 0%, var(--pink-500) 100%);
+
+  --shadow-card: 0 1px 2px rgb(19 24 61 / 0.06), 0 10px 28px -14px rgb(19 24 61 / 0.22);
+  --shadow-lift: 0 2px 4px rgb(19 24 61 / 0.06), 0 24px 48px -18px rgb(29 45 140 / 0.4);
 
   --red-700: #b42318;
   --green-700: #1f6f43;
 
-  --font-text: var(--font-literata), Georgia, serif;
+  /* Texto en sans moderna; títulos con la serif de marca */
+  --font-text: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: var(--font-literata), Georgia, serif;
 
   --weight-regular: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
+  --weight-bold: 700;
 
-  --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
-  --step-ui: clamp(0.9375rem, 0.9rem + 0.1vw, 1.0625rem);
-  --step-body: clamp(1rem, 0.96rem + 0.18vw, 1.125rem);
-  --step-lead: clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem);
-  --step-title: clamp(1.25rem, 1.12rem + 0.55vw, 1.625rem);
-  --step-head: clamp(1.75rem, 1.35rem + 1.6vw, 2.75rem);
-  --step-display: clamp(2.25rem, 1.6rem + 2.8vw, 4rem);
-  --step-statement: clamp(1.375rem, 1.1rem + 1.1vw, 2.125rem);
-  --step-numeral: clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem);
+  /* Escala de letra moderada: texto 14–15 px, títulos de sección 22–30 px */
+  --step-small: clamp(0.75rem, 0.74rem + 0.04vw, 0.78rem);
+  --step-ui: clamp(0.8125rem, 0.8rem + 0.05vw, 0.875rem);
+  --step-body: clamp(0.875rem, 0.86rem + 0.06vw, 0.9375rem);
+  --step-lead: clamp(0.9375rem, 0.91rem + 0.12vw, 1.0313rem);
+  --step-title: clamp(1rem, 0.96rem + 0.18vw, 1.125rem);
+  --step-head: clamp(1.375rem, 1.2rem + 0.7vw, 1.875rem);
+  --step-display: clamp(1.75rem, 1.4rem + 1.5vw, 2.75rem);
+  --step-statement: clamp(1rem, 0.94rem + 0.3vw, 1.25rem);
+  --step-numeral: clamp(1.875rem, 1.5rem + 1.6vw, 2.75rem);
 
   --leading-display: 1.04;
   --leading-head: 1.1;
@@ -72,6 +97,7 @@
   --stagger: 80ms;
 
   --color-bg: var(--paper-0);
+  --color-band: #e8edf9;
   --color-surface: var(--paper-1);
   --color-surface-strong: var(--paper-2);
   --color-text: var(--ink-900);
@@ -91,7 +117,7 @@
   --edge: clamp(1rem, 0.4rem + 2.6vw, 3.5rem);
   --page-margin: clamp(1rem, 0.49rem + 2.09vw, 3rem);
   --gutter: clamp(1rem, 0.62rem + 1.57vw, 2.5rem);
-  --section-gap: var(--space-3xl);
+  --section-gap: clamp(2.25rem, 1.8rem + 1.4vw, 3rem);
   --axis: 5;
 
   --radius: 0.625rem;
@@ -130,6 +156,7 @@
   --input-bg: var(--navy-700);
   --input-border: var(--navy-100);
   background-color: var(--color-bg);
+  background-image: var(--gradient-brand);
   color: var(--color-text);
 }
 

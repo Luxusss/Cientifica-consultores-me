@@ -1,25 +1,29 @@
 ---
 import { Image } from 'astro:assets';
 import { services } from '@/data/services';
-import { servicesSection } from '@/data/home';
+import { servicesSection, serviceTeasers } from '@/data/home';
 ---
 
-<section class="services theme-surface section-wide" aria-labelledby="servicios">
+<section class="services section-wide band-soft" aria-labelledby="servicios">
   <div class="page stack stack-xl">
-    <header class="split head" data-reveal>
+    <header class="section-head center" data-reveal>
+      <span class="eyebrow">Servicios</span>
       <h2 id="servicios">{servicesSection.title}</h2>
-      <p class="text-lead">{servicesSection.text}</p>
+      <p>{servicesSection.text}</p>
     </header>
 
     <ul class="gallery" role="list" data-reveal="stagger">
-      {services.map((s) => (
-        <li class="tile">
+      {services.map((s, i) => (
+        <li class:list={['tile', i % 2 ? 'tone-6' : 'tone-1']}>
           <a class="frame" href={s.href} tabindex="-1" aria-hidden="true">
-            <Image src={s.image} alt={s.imageAlt} widths={[180, 360, 540, 720]} sizes="(min-width: 64em) 30vw, (min-width: 40em) 50vw, 6rem" class="portrait parallax-img" />
+            <Image src={s.image} alt={s.imageAlt} widths={[400, 600, 800]} sizes="(min-width: 64em) 28vw, (min-width: 40em) 50vw, 100vw" class="portrait" />
+            <span class="num">{String(i + 1).padStart(2, '0')}</span>
           </a>
-          <h3 class="name"><a href={s.href}>{s.title}<span class="arrow" aria-hidden="true">→</span></a></h3>
-          <p class="hook">{s.summary}</p>
-          <p class="summary">{s.description}</p>
+          <div class="body">
+            <h3 class="name"><a href={s.href}>{s.title}</a></h3>
+            <p class="summary">{serviceTeasers[s.id] ?? s.summary}</p>
+            <span class="go" aria-hidden="true">Ver servicio <span class="arrow">→</span></span>
+          </div>
         </li>
       ))}
     </ul>
@@ -27,38 +31,48 @@ import { servicesSection } from '@/data/home';
 </section>
 
 <style>
-  .head { --axis: 5; }
-  .head .text-lead { max-inline-size: 60ch; }
-  .gallery { display: grid; gap: var(--space-xl) var(--gutter); grid-template-columns: 1fr; }
-  .tile { display: grid; gap: var(--space-s); align-content: start; }
-  .frame { display: block; overflow: hidden; background-color: var(--navy-600); border-radius: var(--radius-card); }
-  .portrait { inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 22%; transition: transform var(--duration-reveal) var(--ease-out); }
+  .gallery { display: grid; gap: var(--space-m) var(--gutter); grid-template-columns: 1fr; }
 
-  .name { font-size: var(--step-lead); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
-  .name a { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-s); color: var(--color-text); text-decoration: none; }
-  .arrow { color: var(--color-accent-strong); transition: transform var(--duration-hover) var(--ease-out); }
-  .hook { color: var(--navy-600); font-weight: var(--weight-semibold); line-height: var(--leading-lead); }
-  .summary { color: var(--color-text-soft); font-size: var(--step-small); line-height: var(--leading-body); }
-
-  @media (max-width: 39.99em) {
-    .tile { grid-template-columns: 5.5rem minmax(0, 1fr); column-gap: var(--space-s); row-gap: var(--space-2xs); }
-    .frame { grid-row: 1 / span 2; align-self: start; }
-    .portrait { aspect-ratio: 1; }
-    .hook { grid-column: 2; font-size: var(--step-small); }
-    .summary { grid-column: 1 / -1; }
+  .tile {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    overflow: hidden;
+    border-radius: var(--radius-card);
+    background-color: var(--paper-0);
+    box-shadow: var(--shadow-card);
+    transition: opacity var(--duration-reveal) var(--ease-expo), transform var(--duration-reveal) var(--ease-expo), translate var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) var(--ease-out);
   }
+  /* Barra de color: solo aparece al pasar el mouse */
+  .tile::after { content: ''; position: absolute; z-index: 1; inset: auto 0 0; block-size: 4px; background-image: var(--tone-grad); transform: scaleX(0); transform-origin: left; transition: transform var(--duration-reveal) var(--ease-out); }
+
+  .frame { position: relative; display: block; overflow: hidden; background-color: var(--navy-50); }
+  .portrait { display: block; inline-size: 100%; block-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 18%; transition: transform var(--duration-reveal) var(--ease-out); }
+
+  .body { display: flex; flex-direction: column; gap: var(--space-2xs); padding: var(--space-s) var(--space-m) var(--space-m); }
+  .num { position: absolute; inset-block-start: var(--space-xs); inset-inline-start: var(--space-xs); padding: 0.25em 0.7em; border-radius: var(--radius-pill); background-color: var(--paper-0); box-shadow: var(--shadow-card); color: var(--tone); font-size: var(--step-small); font-weight: var(--weight-bold); letter-spacing: 0.04em; }
+  .name { font-family: var(--font-display); font-size: var(--step-title); line-height: 1.2; }
+  .name a { color: var(--color-text); text-decoration: none; }
+  .name a::after { content: ''; position: absolute; inset: 0; }
+  .tile:has(.name a:focus-visible) { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+  .name a:focus-visible { outline: none; }
+  .summary { color: var(--color-text-soft); font-size: var(--step-ui); line-height: var(--leading-body); }
+  .go { margin-block-start: auto; display: inline-flex; align-items: center; gap: 0.35em; inline-size: fit-content; padding: 0.45em 0.95em; border-radius: var(--radius-pill); background-color: var(--tone-soft); color: var(--tone); font-size: var(--step-small); font-weight: var(--weight-bold); }
+  .arrow { transition: transform var(--duration-hover) var(--ease-out); }
+
   @media (min-width: 40em) {
     .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
+  /* Escritorio: 3 columnas; foto apaisada centrada en rostro y traje */
   @media (min-width: 64em) {
     .gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .gallery { row-gap: var(--space-2xl); }
-    .portrait { aspect-ratio: 3 / 2; object-position: 50% 18%; }
+    .portrait { aspect-ratio: 3 / 2; object-position: 50% 14%; }
   }
 
   @media (hover: hover) and (pointer: fine) {
+    .tile:hover { translate: 0 -6px; box-shadow: var(--shadow-lift); }
+    .tile:hover::after { transform: scaleX(1); }
     .tile:hover .portrait { transform: scale(1.04); }
     .tile:hover .arrow { transform: translateX(4px); }
-    .name a:hover { text-decoration: underline; text-decoration-thickness: 0.06em; text-underline-offset: 0.18em; }
   }
 </style>
