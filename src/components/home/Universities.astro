@@ -2,13 +2,8 @@
 import { universities } from '@/data/proof';
 import { whatsappUrl } from '@/config/site';
 import Icon from '@/components/ui/Icon.astro';
-import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
-import { universityLogos } from '@/data/logos';
 import LatamMap from './LatamMap.astro';
 
-const files = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/clients/*', { eager: true });
-const logos = universityLogos.map((l) => ({ ...l, src: files[`/src/assets/images/clients/${l.file}`]?.default })).filter((l) => l.src);
 
 const total = universities.reduce((n, g) => n + g.names.length, 0);
 const index = universities.flatMap((g) => g.names.map((name) => ({ name, country: g.country })));
@@ -24,18 +19,6 @@ const index = universities.flatMap((g) => g.names.map((name) => ({ name, country
 
     <LatamMap />
 
-    <div class="marquee" aria-label="Universidades de nuestros clientes">
-      <ul class="track" role="list">
-        {logos.map((l) => (
-          <li class="logo"><Image src={l.src!} alt={l.name} height={64} class="logo-img" /></li>
-        ))}
-      </ul>
-      <ul class="track" role="list" aria-hidden="true">
-        {logos.map((l) => (
-          <li class="logo"><Image src={l.src!} alt="" height={64} class="logo-img" /></li>
-        ))}
-      </ul>
-    </div>
 
     <div class="finder" data-finder hidden>
       <div class="finder-copy">
@@ -170,19 +153,7 @@ const index = universities.flatMap((g) => g.names.map((name) => ({ name, country
 
 <style>
   .universities { overflow-x: clip; }
-  .marquee { display: flex; gap: var(--space-s); overflow-x: auto; scrollbar-width: none; mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
-  .track { display: flex; gap: var(--space-s); flex-shrink: 0; }
-  .track[aria-hidden='true'] { display: none; }
-  .logo { display: grid; place-items: center; inline-size: 9.5rem; block-size: 5.5rem; padding: var(--space-xs); background-color: #fff; border-radius: var(--radius-card); flex-shrink: 0; }
-  .logo-img { max-inline-size: 100%; max-block-size: 100%; inline-size: auto; block-size: auto; object-fit: contain; }
 
-  @media (prefers-reduced-motion: no-preference) {
-    .marquee { overflow: hidden; }
-    .track[aria-hidden='true'] { display: flex; }
-    .track { animation: marquee 140s linear infinite; }
-    .marquee:hover .track { animation-play-state: paused; }
-    @keyframes marquee { to { transform: translateX(calc(-100% - var(--space-s))); } }
-  }
 
   .finder {
     position: relative;

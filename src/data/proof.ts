@@ -108,3 +108,98 @@ export const testimonials: Testimonial[] = [
 ];
 
 export const tools = ['Turnitin', 'SPSS', 'Atlas.ti', 'Mendeley'] as const;
+
+/**
+ * Universidades con un desarrollo de tesis parecido al de las universidades peruanas que asesoramos:
+ * misma estructura base (planteamiento, marco teórico, metodología, resultados y discusión) y un perfil equivalente
+ * (pública nacional, católica o privada profesional). NO son clientes: no suman al total ni al buscador.
+ */
+export type SimilarGroup = { country: string; modality: string; names: { name: string; like: string }[] };
+export const similarUniversities: SimilarGroup[] = [
+  {
+    country: 'Perú',
+    modality: 'Tesis, trabajo de suficiencia profesional o artículo científico',
+    names: [],
+  },
+  {
+    country: 'Colombia',
+    modality: 'Trabajo de grado, monografía o tesis de maestría',
+    names: [
+      { name: 'Universidad Industrial de Santander', like: 'Universidad Nacional de Ingeniería' },
+      { name: 'Universidad de Cartagena', like: 'Universidad Nacional Mayor de San Marcos' },
+      { name: 'Universidad Pontificia Bolivariana', like: 'Pontificia Universidad Católica del Perú' },
+      { name: 'Universidad EAFIT', like: 'Universidad de Lima' },
+      { name: 'Universidad del Norte', like: 'Universidad Peruana de Ciencias Aplicadas' },
+    ],
+  },
+  {
+    country: 'México',
+    modality: 'Tesis, tesina o reporte de experiencia profesional',
+    names: [
+      { name: 'Instituto Politécnico Nacional', like: 'Universidad Nacional de Ingeniería' },
+      { name: 'Universidad Autónoma de Nuevo León', like: 'Universidad Nacional Mayor de San Marcos' },
+      { name: 'Benemérita Universidad Autónoma de Puebla', like: 'Universidad Nacional Federico Villarreal' },
+      { name: 'Tecnológico de Monterrey', like: 'Universidad Peruana de Ciencias Aplicadas' },
+      { name: 'Universidad Anáhuac', like: 'Universidad de Lima' },
+    ],
+  },
+  {
+    country: 'Bolivia',
+    modality: 'Tesis de grado, proyecto de grado o trabajo dirigido',
+    names: [
+      { name: 'Universidad Mayor de San Andrés', like: 'Universidad Nacional Mayor de San Marcos' },
+      { name: 'Universidad Mayor de San Simón', like: 'Universidad Nacional Mayor de San Marcos' },
+      { name: 'Universidad Autónoma Gabriel René Moreno', like: 'Universidad Nacional del Centro del Perú' },
+      { name: 'Universidad Católica Boliviana San Pablo', like: 'Pontificia Universidad Católica del Perú' },
+      { name: 'Universidad Privada Boliviana', like: 'Universidad Peruana de Ciencias Aplicadas' },
+      { name: 'Universidad Privada de Santa Cruz de la Sierra', like: 'Universidad San Ignacio de Loyola' },
+    ],
+  },
+  {
+    country: 'Ecuador',
+    modality: 'Trabajo de integración curricular o examen complexivo',
+    names: [
+      { name: 'Universidad Central del Ecuador', like: 'Universidad Nacional Mayor de San Marcos' },
+      { name: 'Escuela Politécnica Nacional', like: 'Universidad Nacional de Ingeniería' },
+      { name: 'Universidad de Guayaquil', like: 'Universidad Nacional Federico Villarreal' },
+      { name: 'Pontificia Universidad Católica del Ecuador', like: 'Pontificia Universidad Católica del Perú' },
+      { name: 'Universidad San Francisco de Quito', like: 'Universidad de Lima' },
+      { name: 'Universidad Técnica Particular de Loja', like: 'Universidad Continental' },
+    ],
+  },
+  {
+    country: 'Venezuela',
+    modality: 'Trabajo especial de grado (TEG) o trabajo de grado de maestría',
+    names: [
+      { name: 'Universidad Central de Venezuela', like: 'Universidad Nacional Mayor de San Marcos' },
+      { name: 'Universidad del Zulia', like: 'Universidad Nacional Federico Villarreal' },
+      { name: 'Universidad de Los Andes (Venezuela)', like: 'Universidad Nacional del Centro del Perú' },
+      { name: 'Universidad de Carabobo', like: 'Universidad Nacional del Callao' },
+      { name: 'Universidad Católica Andrés Bello', like: 'Pontificia Universidad Católica del Perú' },
+      { name: 'Universidad Metropolitana', like: 'Universidad de Lima' },
+    ],
+  },
+  {
+    country: 'Chile',
+    modality: 'Memoria, tesis de título o actividad formativa equivalente',
+    names: [
+      { name: 'Universidad de Chile', like: 'Universidad Nacional Mayor de San Marcos' },
+      { name: 'Universidad de Concepción', like: 'Universidad Nacional del Centro del Perú' },
+      { name: 'Universidad de Santiago de Chile', like: 'Universidad Nacional de Ingeniería' },
+      { name: 'Pontificia Universidad Católica de Valparaíso', like: 'Universidad Católica de Santa María' },
+      { name: 'Universidad Andrés Bello', like: 'Universidad Peruana de Ciencias Aplicadas' },
+    ],
+  },
+  {
+    country: 'España',
+    modality: 'Trabajo de fin de grado (TFG), de máster (TFM) o tesis doctoral',
+    names: [
+      { name: 'Universidad de Granada', like: 'Universidad Nacional Mayor de San Marcos' },
+      { name: 'Universidad de Salamanca', like: 'Universidad Nacional Mayor de San Marcos' },
+      { name: 'Universidad de Barcelona', like: 'Universidad Nacional Mayor de San Marcos' },
+      { name: 'Universidad Pontificia Comillas', like: 'Pontificia Universidad Católica del Perú' },
+      { name: 'Universidad Internacional de La Rioja (UNIR)', like: 'Universidad Continental' },
+      { name: 'UNED', like: 'Universidad Continental' },
+    ],
+  },
+];

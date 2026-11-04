@@ -3,14 +3,14 @@ import { intro } from '@/data/home';
 import { stats } from '@/data/stats';
 
 const facts = [
-  { value: `+${stats.years}`, label: 'años de experiencia' },
-  { value: `+${stats.clients}`, label: 'tesistas asesorados' },
-  { value: `+${stats.universities}`, label: 'universidades' },
-  { value: `+${stats.countries}`, label: 'países' },
+  { value: Number(stats.years), label: 'años de experiencia' },
+  { value: Number(stats.clients), label: 'tesistas asesorados' },
+  { value: Number(stats.universities), label: 'universidades' },
+  { value: Number(stats.countries), label: 'países' },
 ];
 ---
 
-<section class="intro" aria-labelledby="intro-titulo">
+<section class="intro" aria-labelledby="intro-titulo" data-counters>
   <div class="page inner" data-reveal>
     <div class="copy">
       <h2 id="intro-titulo">{intro.title}</h2>
@@ -21,11 +21,35 @@ const facts = [
     </div>
     <ul class="facts" role="list">
       {facts.map((f, i) => (
-        <li class:list={['fact', i % 2 ? 'tone-6' : 'tone-1']}><strong>{f.value}</strong><span>{f.label}</span></li>
+        <li class:list={['fact', i % 2 ? 'tone-6' : 'tone-1']}><strong>+<span data-count={f.value}>{f.value}</span></strong><span>{f.label}</span></li>
       ))}
     </ul>
   </div>
 </section>
+
+<script>
+  // Las cifras suben desde 0 al entrar a la página (o al volver a verlas tras recargar)
+  const root = document.querySelector<HTMLElement>('[data-counters]');
+  if (root && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const nums = [...root.querySelectorAll<HTMLElement>('[data-count]')];
+    const run = () => {
+      const start = performance.now();
+      const dur = 1600;
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - start) / dur);
+        const e = 1 - Math.pow(1 - t, 3);
+        for (const n of nums) n.textContent = String(Math.round(Number(n.dataset.count) * e));
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    for (const n of nums) n.textContent = '0';
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { io.disconnect(); run(); }
+    }, { threshold: 0.4 });
+    io.observe(root);
+  }
+</script>
 
 <style>
   .intro { padding-block: var(--section-gap); }
@@ -38,7 +62,7 @@ const facts = [
 
   .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-s); }
   .fact { display: grid; gap: 0.15rem; padding: var(--space-m); border-radius: var(--radius-card); background: linear-gradient(150deg, var(--tone-soft), var(--paper-0) 80%); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tone) 18%, transparent); }
-  .fact strong { font-family: var(--font-display); font-size: clamp(1.75rem, 1.4rem + 1vw, 2.25rem); line-height: 1; color: var(--tone); }
+  .fact strong { font-variant-numeric: tabular-nums; font-family: var(--font-display); font-size: clamp(1.75rem, 1.4rem + 1vw, 2.25rem); line-height: 1; color: var(--tone); }
   .fact span { color: var(--ink-600); font-size: var(--step-ui); font-weight: var(--weight-semibold); }
 
   @media (min-width: 64em) {
