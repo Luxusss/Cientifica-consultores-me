@@ -98,7 +98,7 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
         <span class="promo-kicker">Primera asesoría gratis</span>
         <p class="promo-title">¿No sabes cuál elegir?</p>
         <p class="promo-text">Cuéntanos tu caso y te recomendamos el servicio y el asesor ideal para tu carrera.</p>
-        <a class="promo-cta" href="/contactanos.html#formulario">Quiero mi asesoría gratis <span aria-hidden="true">→</span></a>
+        <a class="promo-cta" href="/contactanos.html#formulario">Pedir asesoría gratis <span class="promo-arrow" aria-hidden="true">→</span></a>
       </aside>
     </div>
   </div>
@@ -234,11 +234,13 @@ const isCurrent = (href: string) => current === href || (href === '/index.html' 
   .promo-kicker { inline-size: fit-content; padding: 0.25em 0.7em; border-radius: var(--radius-pill); background-color: rgb(255 255 255 / 0.14); color: var(--gold-400); font-size: var(--step-small); font-weight: var(--weight-bold); }
   .promo-title { font-family: var(--font-display); font-size: var(--step-title); font-weight: var(--weight-semibold); line-height: 1.2; }
   .promo-text { color: var(--navy-100); font-size: var(--step-small); line-height: 1.45; }
-  .promo-cta { display: inline-flex; align-items: center; justify-content: center; gap: 0.4em; margin-block-start: var(--space-2xs); padding: 0.65em 1em; border-radius: var(--radius-pill); background-color: var(--orange-500); color: var(--ink-900); font-size: var(--step-small); font-weight: var(--weight-bold); text-decoration: none; transition: transform var(--duration-hover) var(--ease-out); }
+  .promo-cta { display: flex; align-items: center; justify-content: center; gap: 0.5em; inline-size: 100%; min-block-size: 2.75rem; white-space: nowrap; margin-block-start: var(--space-xs); padding: 0.6em 1.1em; box-shadow: 0 10px 22px -10px rgb(254 143 1 / 0.8); border-radius: var(--radius-pill); background-color: var(--orange-500); color: var(--ink-900); font-size: var(--step-small); font-weight: var(--weight-bold); text-decoration: none; transition: transform var(--duration-hover) var(--ease-out); }
+  .promo-arrow { transition: transform var(--duration-hover) var(--ease-out); }
   @media (hover: hover) and (pointer: fine) {
     .service:hover { background-color: var(--paper-1); }
     .service:hover .service-name { color: var(--navy-600); }
     .promo-cta:hover { transform: translateY(-2px); color: var(--ink-900); }
+    .promo-cta:hover .promo-arrow { transform: translateX(3px); }
   }
 
   .menu-toggle, .menu-close {
