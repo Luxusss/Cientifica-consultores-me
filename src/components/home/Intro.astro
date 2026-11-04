@@ -28,26 +28,37 @@ const facts = [
 </section>
 
 <script>
-  // Las cifras suben desde 0 al entrar a la página (o al volver a verlas tras recargar)
+  // Las cifras cuentan desde 0 cuando quedan bien a la vista, y vuelven a contar cada vez que el usuario regresa a ellas.
   const root = document.querySelector<HTMLElement>('[data-counters]');
   if (root && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const nums = [...root.querySelectorAll<HTMLElement>('[data-count]')];
-    const run = () => {
-      const start = performance.now();
-      const dur = 1600;
-      const tick = (now: number) => {
-        const t = Math.min(1, (now - start) / dur);
-        const e = 1 - Math.pow(1 - t, 3);
-        for (const n of nums) n.textContent = String(Math.round(Number(n.dataset.count) * e));
-        if (t < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
+    const nums = [...root.querySelectorAll<HTMLElement>('.facts [data-count]')];
+    let frame = 0;
+    let delay = 0;
+    const reset = () => {
+      cancelAnimationFrame(frame);
+      clearTimeout(delay);
+      for (const n of nums) n.textContent = '0';
     };
-    for (const n of nums) n.textContent = '0';
-    const io = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { io.disconnect(); run(); }
-    }, { threshold: 0.4 });
-    io.observe(root);
+    const run = () => {
+      reset();
+      delay = window.setTimeout(() => {
+        const start = performance.now();
+        const dur = 1800;
+        const tick = (now: number) => {
+          const t = Math.min(1, (now - start) / dur);
+          const e = 1 - Math.pow(1 - t, 3);
+          for (const n of nums) n.textContent = String(Math.round(Number(n.dataset.count) * e));
+          if (t < 1) frame = requestAnimationFrame(tick);
+        };
+        frame = requestAnimationFrame(tick);
+      }, 200);
+    };
+    reset();
+    const target = root.querySelector<HTMLElement>('.facts') ?? root;
+    new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) run();
+      else reset();
+    }, { threshold: 0.9 }).observe(target);
   }
 </script>
 
