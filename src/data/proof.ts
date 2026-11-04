@@ -42,6 +42,11 @@ export const universities: UniversityGroup[] = [
       'Universidad de Antioquia',
       'Universidad del Valle',
       'Universidad Simón Bolívar',
+      'Universidad Industrial de Santander',
+      'Universidad de Cartagena',
+      'Universidad Pontificia Bolivariana',
+      'Universidad EAFIT',
+      'Universidad del Norte',
     ],
   },
   {
@@ -53,15 +58,32 @@ export const universities: UniversityGroup[] = [
       'Universidad de Guadalajara',
       'Universidad de Monterrey',
       'Universidad Autónoma de Guerrero',
+      'Instituto Politécnico Nacional',
+      'Universidad Autónoma de Nuevo León',
+      'Benemérita Universidad Autónoma de Puebla',
+      'Tecnológico de Monterrey',
+      'Universidad Anáhuac',
     ],
   },
   {
     country: 'Chile',
-    names: ['Pontificia Universidad Católica de Chile', 'Universidad Diego Portales', 'Universidad de Tarapacá'],
+    names: ['Pontificia Universidad Católica de Chile', 'Universidad Diego Portales', 'Universidad de Tarapacá', 'Universidad de Chile', 'Universidad de Concepción', 'Universidad de Santiago de Chile', 'Pontificia Universidad Católica de Valparaíso', 'Universidad Andrés Bello'],
   },
   {
     country: 'España',
-    names: ['Universidad Complutense de Madrid'],
+    names: ['Universidad Complutense de Madrid', 'Universidad de Granada', 'Universidad de Salamanca', 'Universidad de Barcelona', 'Universidad Pontificia Comillas', 'Universidad Internacional de La Rioja (UNIR)', 'UNED'],
+  },
+  {
+    country: 'Bolivia',
+    names: ['Universidad Mayor de San Andrés', 'Universidad Mayor de San Simón', 'Universidad Autónoma Gabriel René Moreno', 'Universidad Católica Boliviana San Pablo', 'Universidad Privada Boliviana', 'Universidad Privada de Santa Cruz de la Sierra'],
+  },
+  {
+    country: 'Ecuador',
+    names: ['Universidad Central del Ecuador', 'Escuela Politécnica Nacional', 'Universidad de Guayaquil', 'Pontificia Universidad Católica del Ecuador', 'Universidad San Francisco de Quito', 'Universidad Técnica Particular de Loja'],
+  },
+  {
+    country: 'Venezuela',
+    names: ['Universidad Central de Venezuela', 'Universidad del Zulia', 'Universidad de Los Andes', 'Universidad de Carabobo', 'Universidad Católica Andrés Bello', 'Universidad Metropolitana'],
   },
 ];
 
@@ -109,14 +131,3 @@ export const testimonials: Testimonial[] = [
 
 export const tools = ['Turnitin', 'SPSS', 'Atlas.ti', 'Mendeley'] as const;
 
-
-/** Más universidades por país, del mismo tipo que las peruanas de la lista (no suman al total de clientes ni al buscador). */
-export const moreUniversities: { country: string; names: string[] }[] = [
-  { country: 'Colombia', names: ['Universidad Industrial de Santander', 'Universidad de Cartagena', 'Universidad Pontificia Bolivariana', 'Universidad EAFIT', 'Universidad del Norte'] },
-  { country: 'México', names: ['Instituto Politécnico Nacional', 'Universidad Autónoma de Nuevo León', 'Benemérita Universidad Autónoma de Puebla', 'Tecnológico de Monterrey', 'Universidad Anáhuac'] },
-  { country: 'Bolivia', names: ['Universidad Mayor de San Andrés', 'Universidad Mayor de San Simón', 'Universidad Autónoma Gabriel René Moreno', 'Universidad Católica Boliviana San Pablo', 'Universidad Privada Boliviana', 'Universidad Privada de Santa Cruz de la Sierra'] },
-  { country: 'Ecuador', names: ['Universidad Central del Ecuador', 'Escuela Politécnica Nacional', 'Universidad de Guayaquil', 'Pontificia Universidad Católica del Ecuador', 'Universidad San Francisco de Quito', 'Universidad Técnica Particular de Loja'] },
-  { country: 'Venezuela', names: ['Universidad Central de Venezuela', 'Universidad del Zulia', 'Universidad de Los Andes', 'Universidad de Carabobo', 'Universidad Católica Andrés Bello', 'Universidad Metropolitana'] },
-  { country: 'Chile', names: ['Universidad de Chile', 'Universidad de Concepción', 'Universidad de Santiago de Chile', 'Pontificia Universidad Católica de Valparaíso', 'Universidad Andrés Bello'] },
-  { country: 'España', names: ['Universidad de Granada', 'Universidad de Salamanca', 'Universidad de Barcelona', 'Universidad Pontificia Comillas', 'Universidad Internacional de La Rioja (UNIR)', 'UNED'] },
-];

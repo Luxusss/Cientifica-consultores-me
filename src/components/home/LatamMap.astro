@@ -5,7 +5,7 @@ import { geoMercator, geoPath } from 'd3-geo';
 import type { Feature, FeatureCollection, Geometry } from 'geojson';
 import topology from 'world-atlas/countries-110m.json';
 import type { ImageMetadata } from 'astro';
-import { moreUniversities, universities } from '@/data/proof';
+import { universities } from '@/data/proof';
 import { logoByUniversity } from '@/data/logos';
 import peru from '@/assets/images/paises/peru.jpg';
 import colombia from '@/assets/images/paises/colombia.jpg';
@@ -65,7 +65,7 @@ const groups = legend.map((c) => ({
   id: c.id,
   name: c.name,
   flag: c.flag,
-  unis: [...(universities.find((g) => g.country === c.name)?.names ?? []), ...(moreUniversities.find((g) => g.country === c.name)?.names ?? [])].map((name) => {
+  unis: (universities.find((g) => g.country === c.name)?.names ?? []).map((name) => {
     const logoFile = logoByUniversity[name];
     return { name, initials: initials(name), logo: logoFile ? logoFiles['/src/assets/images/clients/' + logoFile]?.default : undefined };
   }),
@@ -117,7 +117,7 @@ const groups = legend.map((c) => ({
             <Image src={g.flag} alt="" width={48} height={32} class="flag flag-lg" />
             <div>
               <h3>{g.name}</h3>
-              <p>{g.unis.length > 0 ? `${g.unis.length} ${g.unis.length === 1 ? 'universidad' : 'universidades'}` : 'Atención online para todas las universidades'}</p>
+              <p>{g.unis.length > 0 ? `${g.unis.length} ${g.unis.length === 1 ? 'universidad' : 'universidades'} con tesistas asesorados` : 'Atención online para todas las universidades'}</p>
             </div>
           </header>
           {g.unis.length > 0 ? (
