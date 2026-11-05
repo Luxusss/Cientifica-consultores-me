@@ -33,7 +33,7 @@ export type Block = { id: string; title: string; intro?: string; points: Point[]
 export type Section =
   | { kind: 'points'; id: string; title: string; intro?: string; points: Point[]; variant?: 'overlay' }
   | { kind: 'text'; id: string; title: string; text: string[]; image?: ImageMetadata }
-  | { kind: 'list'; id: string; title: string; intro?: string; items: string[] }
+  | { kind: 'list'; id: string; title: string; intro?: string; items: string[]; aside?: { title: string; text: string } }
   | { kind: 'careers'; title: string; intro: string; prefix?: string }
   | { kind: 'stages'; title: string }
   | { kind: 'cta'; id: string; title: string; text?: string }
@@ -219,17 +219,20 @@ export const servicePages: Record<string, ServicePage> = {
         ],
       },
       {
-        kind: 'points',
-        id: 'metodologia',
-        title: 'Metodología de trabajo',
-        intro: 'Nuestra asesoría de trabajos doctorales sigue una metodología estructurada que cuida la calidad y el rigor académico en cada etapa:',
-        points: [
-          { title: 'Elección del título', text: 'Identifica el tema clave de la investigación y su principal punto de interés.' },
-          { title: 'Planteamiento del problema', text: 'Describe el problema que justifica la investigación, demostrando su relevancia y necesidad.' },
-          { title: 'Marco teórico', text: 'Presenta la base teórica y los antecedentes para contextualizar el problema y definir los pilares de la investigación.' },
-          { title: 'Metodología', text: 'El enfoque y los procedimientos del estudio, junto a la recolección y el análisis de datos, aseguran el rigor científico.' },
-          { title: 'Revisión de redacción', text: 'Revisamos tu redacción para que tenga estilo académico y cumpla el formato institucional.' },
-          { title: 'Revisión final', text: 'Revisión integral de tu trabajo y orientación en las últimas correcciones antes de presentarlo.' },
+        kind: 'list',
+        id: 'incluye',
+        title: '¿Qué incluye nuestra asesoría de tesis doctoral?',
+        aside: {
+          title: '¿Necesitas hacer tu tesis doctoral y no sabes por dónde empezar?',
+          text: 'Te apoyamos en la investigación, la redacción y la defensa de tu tesis. Ya sea que estés iniciando o tengas que levantar observaciones, podemos ayudarte.',
+        },
+        items: [
+          'Acompañamiento en tu tesis completa o por capítulo.',
+          'Orientación en marco teórico, metodología y conclusiones.',
+          'Apoyo en el análisis cualitativo o cuantitativo de tus datos.',
+          'Revisión de originalidad con Turnitin y guía de citación.',
+          'Preparación para la defensa y diapositivas en PPT.',
+          'Asesoría continua, online y personalizada.',
         ],
       },
       { kind: 'photos' },

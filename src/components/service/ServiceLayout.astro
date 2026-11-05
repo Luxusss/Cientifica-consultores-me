@@ -113,7 +113,7 @@ const schema = [
   {page.sections.map((sec) => {
     if (sec.kind === 'points') return <PointsBlock block={sec} eyebrow={eyebrows[sec.id]} band={band(sec)} />;
     if (sec.kind === 'text') return <TextBlock id={sec.id} title={sec.title} text={sec.text} eyebrow={eyebrows[sec.id]} band={band(sec)} image={sec.image} />;
-    if (sec.kind === 'list') return <ListBlock id={sec.id} title={sec.title} intro={sec.intro} items={sec.items} eyebrow={eyebrows[sec.id]} band={band(sec)} />;
+    if (sec.kind === 'list') return <ListBlock id={sec.id} title={sec.title} intro={sec.intro} items={sec.items} eyebrow={eyebrows[sec.id]} band={band(sec)} aside={sec.aside} />;
     if (sec.kind === 'careers') return <CareerAreas title={sec.title} intro={sec.intro} prefix={sec.prefix} band={band(sec)} />;
     if (sec.kind === 'stages') return <Stages initial={page.id} title={sec.title} band={band(sec)} only />;
     if (sec.kind === 'cta') return <CtaBlock id={sec.id} title={sec.title} text={sec.text} band={band(sec)} />;

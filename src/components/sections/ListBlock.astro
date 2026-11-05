@@ -1,5 +1,6 @@
 ---
 import Icon from '@/components/ui/Icon.astro';
+import FormButton from '@/components/ui/FormButton.astro';
 
 interface Props {
   id: string;
@@ -8,35 +9,82 @@ interface Props {
   items: string[];
   eyebrow?: string;
   band?: boolean;
+  /** Panel a la izquierda con una pregunta y su respuesta (la lista va a la derecha) */
+  aside?: { title: string; text: string };
   /** @deprecated se mantiene por compatibilidad */
   surface?: boolean;
 }
 
-const { id, title, intro, items, eyebrow, band = false } = Astro.props;
+const { id, title, intro, items, eyebrow, band = false, aside } = Astro.props;
 ---
 
 <section class:list={['section-wide', { 'band-soft': band }]} aria-labelledby={id}>
-  <div class="page stack stack-xl">
-    <header class="section-head center" data-reveal>
-      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
-      <h2 id={id}>{title}</h2>
-      {intro && <p>{intro}</p>}
-    </header>
-    <ul class="items" role="list" data-reveal="stagger">
-      {items.map((item, i) => (
-        <li class:list={['item', i % 2 ? 'tone-6' : 'tone-1']}>
-          <span class="check" aria-hidden="true"><Icon name="check" size="1.1rem" /></span>
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
-  </div>
+  {aside ? (
+    <div class="page split-list">
+      <div class="aside" data-reveal>
+        <span class="eyebrow">Para empezar</span>
+        <h2 class="aside-title">{aside.title}</h2>
+        <p>{aside.text}</p>
+        <FormButton label="Quiero mi asesoría gratis" icon />
+      </div>
+      <div class="list-side">
+        <h2 id={id} class="list-title" data-reveal>{title}</h2>
+        {intro && <p class="list-intro">{intro}</p>}
+        <ul class="items stacked" role="list" data-reveal="stagger">
+          {items.map((item, i) => (
+            <li class:list={['item', i % 2 ? 'tone-6' : 'tone-1']}>
+              <span class="check" aria-hidden="true"><Icon name="check" size="1.1rem" /></span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  ) : (
+    <div class="page stack stack-xl">
+      <header class="section-head center" data-reveal>
+        {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+        <h2 id={id}>{title}</h2>
+        {intro && <p>{intro}</p>}
+      </header>
+      <ul class="items" role="list" data-reveal="stagger">
+        {items.map((item, i) => (
+          <li class:list={['item', i % 2 ? 'tone-6' : 'tone-1']}>
+            <span class="check" aria-hidden="true"><Icon name="check" size="1.1rem" /></span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
 </section>
 
 <style>
   .items { display: grid; gap: var(--space-s); grid-template-columns: 1fr; }
-  .item { display: flex; align-items: center; gap: var(--space-s); padding: var(--space-s) var(--space-m); border-radius: var(--radius-card); background-color: var(--paper-0); box-shadow: var(--shadow-card); font-size: var(--step-body); font-weight: var(--weight-medium); line-height: var(--leading-body); }
+  .item { display: flex; align-items: center; gap: var(--space-s); padding: var(--space-s) var(--space-m); border-radius: var(--radius-card); background-color: var(--paper-0); box-shadow: var(--shadow-card); font-size: var(--step-body); font-weight: var(--weight-medium); line-height: var(--leading-body); transition: opacity var(--duration-reveal) var(--ease-expo), transform var(--duration-reveal) var(--ease-expo), translate var(--duration-ui) var(--ease-out); }
   .check { display: grid; place-items: center; flex-shrink: 0; inline-size: 2.2rem; block-size: 2.2rem; border-radius: 50%; background-image: var(--tone-grad); color: var(--paper-0); }
+  @media (min-width: 48em) { .items:not(.stacked) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
-  @media (min-width: 48em) { .items { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  /* Variante con panel: pregunta a la izquierda, lo que incluye a la derecha */
+  .split-list { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
+  .aside { position: relative; display: grid; gap: var(--space-s); justify-items: start; padding: var(--space-l); overflow: hidden; border-radius: calc(var(--radius-card) + 0.5rem); background-image: radial-gradient(24rem 16rem at 100% 100%, rgb(254 143 1 / 0.3), transparent 70%), var(--gradient-brand); color: var(--paper-0); box-shadow: var(--shadow-lift); }
+  .aside::after { content: ''; position: absolute; inset: -6rem -6rem auto auto; inline-size: 16rem; block-size: 16rem; border-radius: 50%; border: 2px solid rgb(255 255 255 / 0.08); }
+  .aside .eyebrow { background-color: rgb(255 255 255 / 0.12); color: var(--gold-400); }
+  .aside-title { color: var(--paper-0); font-size: var(--step-head); line-height: 1.12; }
+  .aside p { color: var(--navy-100); font-size: var(--step-lead); line-height: var(--leading-lead); }
+  .aside :global(.button) { gap: 0.55em; margin-block-start: var(--space-2xs); border-radius: var(--radius-pill); }
+  .list-side { display: grid; gap: var(--space-s); }
+  .list-title { font-size: var(--step-head); line-height: 1.15; }
+  .list-intro { color: var(--color-text-soft); }
+  .stacked { gap: var(--space-xs); }
+  .stacked .item { padding-block: 0.7rem; }
+
+  @media (min-width: 64em) {
+    .split-list { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+    .aside { padding: var(--space-xl); }
+    .stacked { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .item:hover { translate: 4px 0; }
+  }
 </style>
