@@ -21,13 +21,18 @@ import tematicaImg from '@/assets/images/tesis/secciones/tematica_img.jpg';
 import metodologicaImg from '@/assets/images/tesis/metodologica_img.jpg';
 import estadisticaImg from '@/assets/images/tesis/secciones/estadistica_img.jpg';
 import cualitativoImg from '@/assets/images/tesis/secciones/analisis_contenido_img.jpg';
+import ingenieriasImg from '@/assets/images/otros_servicios/datos_informacion/procesamiento.jpg';
+import letrasImg from '@/assets/images/otros_servicios/correccion_redaccion/manual_de_redaccion.jpg';
+import socialesImg from '@/assets/images/otros_servicios/proyectos/Proyectos-de-innovacion.jpg';
+import saludImg from '@/assets/images/carreras/ciencias-de-la-salud.jpg';
+import equipoImg from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg';
 
 export type Point = { title?: string; text: string; id?: string; image?: ImageMetadata; imageAlt?: string };
 export type Block = { id: string; title: string; intro?: string; points: Point[] };
 
 export type Section =
   | { kind: 'points'; id: string; title: string; intro?: string; points: Point[] }
-  | { kind: 'text'; id: string; title: string; text: string[] }
+  | { kind: 'text'; id: string; title: string; text: string[]; image?: ImageMetadata }
   | { kind: 'list'; id: string; title: string; intro?: string; items: string[] }
   | { kind: 'careers'; title: string; intro: string; prefix?: string }
   | { kind: 'stages'; title: string }
@@ -69,25 +74,25 @@ export const servicePages: Record<string, ServicePage> = {
     formSubject: 'Nuevo lead - Tesis de Pregrado',
     introAlt: 'Asesoría de tesis de pregrado, licenciatura y grado',
     intro: [
-      'La tesis de pregrado es el último gran paso para obtener tu título universitario, pero suele ser un proceso complejo y estresante. En Científica Consultores te ofrecemos asesoría de tesis en Lima, a nivel nacional y online. Nuestro acompañamiento cubre todas las fases: desde la elección del tema de investigación y la metodología (cualitativa, cuantitativa o mixta) hasta la revisión de tu redacción, el análisis de originalidad con Turnitin y la preparación para la sustentación. Enfócate en tu futuro académico y profesional.',
+      'La tesis es el último paso para tu título, y no tienes que darlo solo. Te acompañamos en Lima, a nivel nacional y online: del tema y la metodología (cualitativa, cuantitativa o mixta) a la redacción, la revisión con Turnitin y la sustentación.',
     ],
     sections: [
       {
         kind: 'text',
         id: 'metodo',
         title: 'Nuestra asesoría de tesis de pregrado: supera el desafío con expertos',
-        text: ['Nuestro método de trabajo se basa en la experiencia de más de 10 años y un equipo de asesores especialistas en tu área. Te ofrecemos un acompañamiento integral y 100% personalizado en cada fase de tu proyecto de tesis, para que avances con menos estrés y desarrolles una investigación propia, original y de calidad.'],
+        text: ['Más de 10 años y asesores de tu área. Te acompañamos de forma personalizada en cada fase, para que avances con menos estrés y con una investigación propia y original.'],
       },
       { kind: 'careers', title: 'Áreas de especialización: asesoría de tesis por carrera', intro: careersIntro, prefix: 'Asesoría de tesis para ' },
       {
         kind: 'points',
         id: 'por-que',
         title: '¿Por qué elegir nuestra asesoría para tu proyecto de grado en Lima?',
-        intro: 'Elegirnos es optar por la seguridad y la experiencia local. Somos la empresa de ayuda de tesis en Lima con más de una década de trayectoria, dedicada a acompañarte en tu proyecto de grado. Nuestro equipo de asesores especialistas en diversas áreas de estudio te orienta para que tu investigación cumpla con los estándares de tu universidad y destaque por su calidad, su originalidad y un proceso ordenado.',
+        intro: 'Más de una década en Lima acompañando proyectos de grado, con asesores que conocen los estándares de tu universidad.',
         points: [
-          { image: especialistaImg, imageAlt: 'Especialista en tesis', title: 'Especialista en tesis para ti', text: 'Contamos con un equipo multidisciplinario de asesores de tesis con amplia experiencia. Cada experto te guiará en tu investigación hasta la sustentación.' },
-          { image: turnitinImg, imageAlt: 'Asesor de tesis revisando el reporte de originalidad de Turnitin en Lima', title: 'Originalidad y buenas prácticas de citación', text: 'Revisamos la originalidad de tu tesis con Turnitin y te enseñamos a citar y parafrasear correctamente para que tu investigación sea tuya.' },
-          { image: onlineImg, imageAlt: 'Asesoría online', title: 'Asesoría online a tu medida', text: 'Nuestra asesoría online se adapta a tus horarios con reuniones virtuales y seguimiento constante, estés donde estés.' },
+          { image: especialistaImg, imageAlt: 'Especialista en tesis', title: 'Especialista en tesis para ti', text: 'Un asesor con experiencia en tu carrera te guía hasta la sustentación.' },
+          { image: turnitinImg, imageAlt: 'Asesor de tesis revisando el reporte de originalidad de Turnitin en Lima', title: 'Originalidad y buenas prácticas de citación', text: 'Revisamos tu tesis con Turnitin y te enseñamos a citar y parafrasear bien.' },
+          { image: onlineImg, imageAlt: 'Asesoría online', title: 'Asesoría online a tu medida', text: 'Reuniones virtuales en tu horario y seguimiento constante, estés donde estés.' },
         ],
       },
       {
@@ -95,11 +100,11 @@ export const servicePages: Record<string, ServicePage> = {
         id: 'incluye',
         title: '¿Qué incluye nuestra asesoría integral de tesis de pregrado?',
         points: [
-          { id: 'proyecto', image: proyectoImg, imageAlt: 'Desarrollo de tu proyecto de tesis', title: 'Desarrollo de tu proyecto de tesis', text: 'Te guiamos en el desarrollo de tu proyecto de tesis, desde la elección del tema hasta su estructuración. Incluye planteamiento del problema, objetivos, justificación, marco teórico y diseño metodológico. Nuestra asesoría de tesis online te ayuda a construir una base sólida, alineada a los criterios académicos de tu universidad.' },
-          { image: informeImg, imageAlt: 'Redacción del informe final y análisis de datos', title: 'Redacción del informe final y análisis de datos', text: 'Te apoyamos en la redacción de tesis, capítulo por capítulo, desde los resultados hasta las conclusiones y recomendaciones. Además, brindamos soporte en el análisis de datos cuantitativos o cualitativos, con el uso de software especializado según los requerimientos de tu investigación.' },
-          { image: observacionesImg, imageAlt: 'Levantamiento de observaciones y correcciones', title: 'Levantamiento de observaciones y correcciones', text: '¿Tu tesis ya fue revisada? Te ayudamos con el levantamiento de observaciones. Nuestros especialistas te explican cada observación y te guían en las correcciones para que tu trabajo de tesis cumpla con los estándares académicos exigidos.' },
-          { image: sustentacionImg, imageAlt: 'Asesoría para la sustentación de tesis', title: 'Asesoría para la sustentación de tesis', text: 'Prepárate con confianza para tu sustentación de tesis. Te orientamos en la estructura de la presentación, el manejo de preguntas y técnicas de exposición para lograr una defensa clara, segura y exitosa.' },
-          { image: normasImg, imageAlt: 'Normas de redacción con el estilo APA, Vancouver, ISO 690', title: 'Normas de redacción (APA, Vancouver, ISO 690)', text: 'Te ayudamos a aplicar correctamente las normas de redacción según el estilo requerido —APA, Vancouver, ISO 690 u otros—. Nuestros asesores se aseguran de que tu tesis cumpla con los estándares académicos en citas, referencias y formatos, mejorando su presentación y calidad formal.' },
+          { id: 'proyecto', image: proyectoImg, imageAlt: 'Desarrollo de tu proyecto de tesis', title: 'Desarrollo de tu proyecto de tesis', text: 'Del tema a la estructura: problema, objetivos, justificación, marco teórico y diseño metodológico, según tu universidad.' },
+          { image: informeImg, imageAlt: 'Redacción del informe final y análisis de datos', title: 'Redacción del informe final y análisis de datos', text: 'Revisamos tu redacción capítulo por capítulo y te apoyamos en el análisis de datos con software especializado.' },
+          { image: observacionesImg, imageAlt: 'Levantamiento de observaciones y correcciones', title: 'Levantamiento de observaciones y correcciones', text: '¿Te observaron la tesis? Te explicamos cada observación y te guiamos en las correcciones.' },
+          { image: sustentacionImg, imageAlt: 'Asesoría para la sustentación de tesis', title: 'Asesoría para la sustentación de tesis', text: 'Armamos contigo la presentación y ensayamos las preguntas del jurado para que defiendas con seguridad.' },
+          { image: normasImg, imageAlt: 'Normas de redacción con el estilo APA, Vancouver, ISO 690', title: 'Normas de redacción (APA, Vancouver, ISO 690)', text: 'Citas, referencias y formato en APA, Vancouver, ISO 690 o el estilo que te pidan.' },
         ],
       },
       { kind: 'photos' },
@@ -107,7 +112,8 @@ export const servicePages: Record<string, ServicePage> = {
         kind: 'text',
         id: 'normativa',
         title: 'Expertos en la normativa de todas las universidades de pregrado en Lima y a nivel nacional',
-        text: ['El éxito de una tesis de pregrado depende de cumplir al detalle la normativa interna de tu facultad. Nuestros asesores especialistas cuentan con la experiencia para adaptar tu investigación a los estándares metodológicos de cualquier institución, desde las principales universidades en Lima hasta las casas de estudio más prestigiosas a nivel nacional. Gracias a nuestra metodología 100% online, te brindamos un soporte de tesis eficiente, sin importar tu ubicación, para que tu proyecto cumpla con los requisitos de tu universidad rumbo a la sustentación.'],
+        text: ['Adaptamos tu tesis al reglamento de tu facultad, en Lima o en cualquier universidad del país, y te acompañamos online hasta la sustentación.'],
+        image: equipoImg,
       },
       {
         kind: 'points',
@@ -295,8 +301,8 @@ export const servicePages: Record<string, ServicePage> = {
 };
 
 export const careerAreas = [
-  { name: 'Ingenierías', careers: ['Ingeniería Civil', 'Ingeniería de Sistemas', 'Ingeniería Industrial', 'Ingeniería Mecánica', 'Ingeniería Eléctrica', 'Ingeniería Mecatrónica', 'Ingeniería Electrónica', 'Arquitectura'] },
-  { name: 'Letras', careers: ['Literatura', 'Comunicación y Periodismo', 'Historia', 'Educación'] },
-  { name: 'Ciencias sociales', careers: ['Administración de Empresas', 'Derecho', 'Economía', 'Contabilidad', 'Ciencia Política', 'Sociología'] },
-  { name: 'Ciencias de la salud', careers: ['Medicina', 'Enfermería', 'Odontología', 'Farmacia', 'Bioquímica', 'Obstetricia', 'Nutrición'] },
+  { name: 'Ingenierías', image: ingenieriasImg, careers: ['Ingeniería Civil', 'Ingeniería de Sistemas', 'Ingeniería Industrial', 'Ingeniería Mecánica', 'Ingeniería Eléctrica', 'Ingeniería Mecatrónica', 'Ingeniería Electrónica', 'Arquitectura'] },
+  { name: 'Letras', image: letrasImg, careers: ['Literatura', 'Comunicación y Periodismo', 'Historia', 'Educación'] },
+  { name: 'Ciencias sociales', image: socialesImg, careers: ['Administración de Empresas', 'Derecho', 'Economía', 'Contabilidad', 'Ciencia Política', 'Sociología'] },
+  { name: 'Ciencias de la salud', image: saludImg, careers: ['Medicina', 'Enfermería', 'Odontología', 'Farmacia', 'Bioquímica', 'Obstetricia', 'Nutrición'] },
 ];

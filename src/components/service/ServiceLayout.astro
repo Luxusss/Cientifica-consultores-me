@@ -32,10 +32,10 @@ const trust = [
   { icon: 'document', text: 'Originalidad con Turnitin' },
 ] as const;
 const facts = [
-  { value: `+${stats.years}`, label: 'años de experiencia' },
-  { value: `+${stats.clients}`, label: 'tesistas asesorados' },
-  { value: `+${stats.universities}`, label: 'universidades' },
-  { value: `+${stats.countries}`, label: 'países' },
+  { value: Number(stats.years), label: 'años de experiencia' },
+  { value: Number(stats.clients), label: 'tesistas asesorados' },
+  { value: Number(stats.universities), label: 'universidades' },
+  { value: Number(stats.countries), label: 'países' },
 ];
 const eyebrows: Record<string, string> = {
   metodo: 'Nuestro método', 'por-que': 'Por qué elegirnos', incluye: 'Qué incluye', normativa: 'Tu universidad', tipos: 'Tipos de asesoría',
@@ -78,8 +78,8 @@ const schema = [
           <Image src={page.introImage} alt={page.introAlt} widths={[480, 720, 960]} sizes="(min-width: 64em) 40vw, 100vw" class="intro-img" />
         </div>
       ) : (
-        <ul class="facts" role="list" data-reveal="stagger">
-          {facts.map((f, i) => <li class:list={['fact', i % 2 ? 'tone-6' : 'tone-1']}><strong>{f.value}</strong><span>{f.label}</span></li>)}
+        <ul class="facts" role="list" data-reveal="stagger" data-svc-counters>
+          {facts.map((f, i) => <li class:list={['fact', i % 2 ? 'tone-6' : 'tone-1']}><strong>+<span data-count={f.value}>{f.value}</span></strong><span>{f.label}</span></li>)}
         </ul>
       )}
       <div class="intro-copy" data-reveal>
@@ -91,16 +91,38 @@ const schema = [
 
   {page.sections.map((sec) => {
     if (sec.kind === 'points') return <PointsBlock block={sec} eyebrow={eyebrows[sec.id]} band={band(sec)} />;
-    if (sec.kind === 'text') return <TextBlock id={sec.id} title={sec.title} text={sec.text} eyebrow={eyebrows[sec.id]} band={band(sec)} />;
+    if (sec.kind === 'text') return <TextBlock id={sec.id} title={sec.title} text={sec.text} eyebrow={eyebrows[sec.id]} band={band(sec)} image={sec.image} />;
     if (sec.kind === 'list') return <ListBlock id={sec.id} title={sec.title} intro={sec.intro} items={sec.items} eyebrow={eyebrows[sec.id]} band={band(sec)} />;
     if (sec.kind === 'careers') return <CareerAreas title={sec.title} intro={sec.intro} prefix={sec.prefix} band={band(sec)} />;
-    if (sec.kind === 'stages') return <Stages initial={page.id} title={sec.title} band={band(sec)} />;
+    if (sec.kind === 'stages') return <Stages initial={page.id} title={sec.title} band={band(sec)} only />;
     if (sec.kind === 'cta') return <CtaBlock id={sec.id} title={sec.title} text={sec.text} band={band(sec)} />;
     return null;
   })}
   <FaqText items={page.faq} title={page.faqTitle} />
   <ContactBand />
 </Base>
+
+<script>
+  // Las cifras cuentan desde 0 una sola vez, al quedar a la vista
+  const box = document.querySelector<HTMLElement>('[data-svc-counters]');
+  if (box && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const nums = [...box.querySelectorAll<HTMLElement>('[data-count]')];
+    for (const n of nums) n.textContent = '0';
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      const start = performance.now();
+      const tick = (now: number) => {
+        const k = Math.min(1, (now - start) / 1800);
+        const v = 1 - Math.pow(1 - k, 3);
+        for (const n of nums) n.textContent = String(Math.round(Number(n.dataset.count) * v));
+        if (k < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }, { threshold: 0.6 });
+    io.observe(box);
+  }
+</script>
 
 <style>
   /* Hero */
@@ -115,8 +137,8 @@ const schema = [
   .intro-copy p { color: var(--color-text-soft); font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 70ch; }
   .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-s); }
   .fact { display: grid; gap: 0.2rem; justify-items: center; text-align: center; padding: var(--space-m) var(--space-s); border-radius: var(--radius-card); background: linear-gradient(150deg, var(--tone-soft), var(--paper-0) 80%); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tone) 18%, transparent); }
-  .fact strong { font-family: var(--font-display); font-size: clamp(1.75rem, 1.4rem + 1vw, 2.25rem); line-height: 1; color: var(--tone); }
-  .fact span { color: var(--ink-600); font-size: var(--step-ui); font-weight: var(--weight-semibold); }
+  .fact strong { font-variant-numeric: tabular-nums; font-family: var(--font-display); font-size: clamp(1.75rem, 1.4rem + 1vw, 2.25rem); line-height: 1; color: var(--tone); }
+  .fact > span { color: var(--ink-600); font-size: var(--step-ui); font-weight: var(--weight-semibold); }
   .intro-pic { overflow: hidden; border-radius: calc(var(--radius-card) + 0.35rem); box-shadow: var(--shadow-card); }
   .intro-img { display: block; inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 25%; }
 

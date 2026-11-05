@@ -1,18 +1,24 @@
 ---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 interface Props {
   id: string;
   title: string;
   text: string[];
   eyebrow?: string;
   band?: boolean;
+  /** Foto de fondo a todo el ancho, con velo azul */
+  image?: ImageMetadata;
   /** @deprecated se mantiene por compatibilidad */
   surface?: boolean;
 }
 
-const { id, title, text, eyebrow, band = false } = Astro.props;
+const { id, title, text, eyebrow, band = false, image } = Astro.props;
 ---
 
-<section class:list={['section-wide', { 'band-soft': band }]} aria-labelledby={id}>
+<section class:list={['section-wide', { 'band-soft': band && !image, photo: image }]} aria-labelledby={id}>
+  {image && <Image src={image} alt="" widths={[960, 1440, 1920]} sizes="100vw" class="bg" />}
   <div class="page">
     <div class="box" data-reveal>
       <span class="mark" aria-hidden="true"></span>
@@ -28,6 +34,14 @@ const { id, title, text, eyebrow, band = false } = Astro.props;
 </section>
 
 <style>
+  .photo { position: relative; isolation: isolate; overflow: hidden; }
+  .photo :global(.bg) { position: absolute; inset: 0; z-index: -2; inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 50% 40%; }
+  .photo::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(20 31 102 / 0.94) 0%, rgb(29 45 140 / 0.82) 55%, rgb(29 45 140 / 0.55) 100%); }
+  .photo .box { background-color: transparent; box-shadow: none; padding-inline: 0; }
+  .photo .mark { display: none; }
+  .photo h2 { color: var(--paper-0); }
+  .photo .eyebrow { background-color: rgb(255 255 255 / 0.14); color: var(--gold-400); }
+  .photo .copy p { color: var(--navy-100); }
   .box {
     position: relative;
     display: grid;

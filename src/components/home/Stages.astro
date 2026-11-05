@@ -8,33 +8,36 @@ interface Props {
   headingLevel?: 2 | 3;
   title?: string;
   band?: boolean;
+  /** Muestra solo el grado inicial, sin pestañas */
+  only?: boolean;
 }
 
-const { initial = 'pregrado', headingLevel = 2, title = 'Tu tesis por etapas', band = false } = Astro.props;
+const { initial = 'pregrado', headingLevel = 2, title = 'Tu tesis por etapas', band = false, only = false } = Astro.props;
 const Heading = `h${headingLevel}` as const;
 const start = stageTracks.find((t) => t.id === initial) ?? stageTracks[0];
+const tracks = only ? [start] : stageTracks;
 const icons = ['search', 'document', 'list', 'pen', 'badge', 'chat', 'users'] as const;
 const phase = (i: number, n: number) => (i < 2 ? 'Planificación' : i >= n - 3 ? 'Cierre' : 'Desarrollo');
 ---
 
-<section class:list={['section-wide stages-band', { 'band-soft': band }]} aria-labelledby="etapas" data-stages>
+<section class:list={['section-wide stages-band', { 'band-soft': band, single: only }]} aria-labelledby="etapas" data-stages>
   <div class="page stack stack-xl">
     <header class="section-head center" data-reveal>
       <span class="eyebrow">Tu camino</span>
       <Heading id="etapas">{title}</Heading>
-      <p>Elige tu grado y recorre cada etapa: te mostramos qué hacemos contigo en cada una hasta la sustentación.</p>
+      <p>{only ? 'Recorre cada etapa: te mostramos qué hacemos contigo hasta la sustentación.' : 'Elige tu grado y recorre cada etapa: te mostramos qué hacemos contigo en cada una hasta la sustentación.'}</p>
     </header>
 
     <div class="board">
       <div class="tabs" role="tablist" aria-label="Grado académico" hidden data-stages-tabs>
-        {stageTracks.map((t) => (
+        {tracks.map((t) => (
           <button type="button" role="tab" id={`tab-${t.id}`} aria-controls={`panel-${t.id}`} aria-selected={t.id === start.id ? 'true' : 'false'} tabindex={t.id === start.id ? 0 : -1}>
             {t.label}
           </button>
         ))}
       </div>
 
-      {stageTracks.map((t) => (
+      {tracks.map((t) => (
         <div class="panel" id={`panel-${t.id}`} role="tabpanel" aria-labelledby={`tab-${t.id}`} data-panel={t.id}>
           <p class="panel-title">{t.label}</p>
 
@@ -168,7 +171,7 @@ const phase = (i: number, n: number) => (i < 2 ? 'Planificación' : i >= n - 3 ?
   .board { display: grid; gap: var(--space-m); padding: var(--space-m); border-radius: calc(var(--radius-card) + 0.5rem); background-color: var(--paper-0); box-shadow: var(--shadow-lift); }
 
   .tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.3rem; inline-size: fit-content; max-inline-size: 100%; margin-inline: auto; padding: 0.3rem; border-radius: var(--radius-pill); background-color: var(--paper-1); }
-  .tabs[hidden] { display: none; }
+  .tabs[hidden], .single .tabs { display: none; }
   .tabs button { min-block-size: 2.5rem; padding: 0 var(--space-m); border-radius: var(--radius-pill); color: var(--ink-600); font-size: var(--step-ui); font-weight: var(--weight-semibold); transition: background-color var(--duration-hover) ease, color var(--duration-hover) ease; }
   .tabs button[aria-selected='true'] { background-image: var(--gradient-brand); color: var(--paper-0); box-shadow: 0 8px 18px -10px var(--navy-600); }
 

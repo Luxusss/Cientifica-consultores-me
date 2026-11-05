@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Icon from '@/components/ui/Icon.astro';
 import { careerAreas } from '@/data/servicePages';
 
@@ -24,8 +25,11 @@ const icons = ['bolt', 'pen', 'users', 'shield'] as const;
     <ul class="cols" role="list" data-reveal="stagger">
       {careerAreas.map((area, i) => (
         <li class:list={['area', i % 2 ? 'tone-6' : 'tone-1']}>
-          <span class="icon" aria-hidden="true"><Icon name={icons[i % icons.length]} size="1.3rem" /></span>
-          <h3>{prefix}{prefix ? area.name.toLowerCase() : area.name}</h3>
+          <div class="pic">
+            {area.image && <Image src={area.image} alt="" widths={[360, 540]} sizes="(min-width: 64em) 22vw, (min-width: 40em) 45vw, 100vw" class="pic-img" />}
+            <span class="icon" aria-hidden="true"><Icon name={icons[i % icons.length]} size="1.3rem" /></span>
+            <h3>{prefix && <small>{prefix.trim()}</small>}{area.name}</h3>
+          </div>
           <ul class="chips" role="list">
             {area.careers.map((c) => <li>{c}</li>)}
           </ul>
@@ -37,16 +41,20 @@ const icons = ['bolt', 'pen', 'users', 'shield'] as const;
 
 <style>
   .cols { display: grid; gap: var(--space-s); grid-template-columns: 1fr; }
-  .area { position: relative; display: grid; gap: var(--space-s); align-content: start; padding: var(--space-m); overflow: hidden; border-radius: var(--radius-card); background-color: var(--paper-0); box-shadow: var(--shadow-card); transition: opacity var(--duration-reveal) var(--ease-expo), transform var(--duration-reveal) var(--ease-expo), translate var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) var(--ease-out); }
-  .area::before { content: ''; position: absolute; inset: 0 0 auto; block-size: 4px; background-image: var(--tone-grad); }
-  .icon { display: grid; place-items: center; inline-size: 2.75rem; block-size: 2.75rem; border-radius: 0.9rem; background-image: var(--tone-grad); color: var(--paper-0); }
-  h3 { font-size: var(--step-title); line-height: 1.25; }
-  .chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .area { position: relative; display: grid; gap: var(--space-s); align-content: start; padding: 0 0 var(--space-m); overflow: hidden; border-radius: var(--radius-card); background-color: var(--paper-0); box-shadow: var(--shadow-card); transition: opacity var(--duration-reveal) var(--ease-expo), transform var(--duration-reveal) var(--ease-expo), translate var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) var(--ease-out); }
+  .pic { position: relative; display: grid; align-content: end; gap: var(--space-2xs); min-block-size: 11rem; padding: var(--space-m); overflow: hidden; color: var(--paper-0); isolation: isolate; }
+  .pic :global(.pic-img) { position: absolute; inset: 0; z-index: -2; inline-size: 100%; block-size: 100%; object-fit: cover; transition: transform var(--duration-reveal) var(--ease-out); }
+  .pic::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgb(20 31 102 / 0.15) 0%, rgb(20 31 102 / 0.88) 100%); }
+  .icon { display: grid; place-items: center; inline-size: 2.6rem; block-size: 2.6rem; border-radius: 0.85rem; background-image: var(--tone-grad); color: var(--paper-0); box-shadow: 0 8px 18px -8px rgb(0 0 0 / 0.5); }
+  h3 { display: grid; font-size: var(--step-title); line-height: 1.2; color: var(--paper-0); }
+  h3 small { font-family: var(--font-text); font-size: var(--step-small); font-weight: var(--weight-semibold); color: var(--gold-400); }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.35rem; padding-inline: var(--space-m); }
   .chips li { padding: 0.35em 0.75em; border-radius: var(--radius-pill); background-color: var(--tone-soft); color: var(--ink-600); font-size: var(--step-small); font-weight: var(--weight-semibold); }
 
   @media (min-width: 40em) { .cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 64em) { .cols { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
   @media (hover: hover) and (pointer: fine) {
     .area:hover { translate: 0 -4px; box-shadow: var(--shadow-lift); }
+    .area:hover :global(.pic-img) { transform: scale(1.06); }
   }
 </style>
