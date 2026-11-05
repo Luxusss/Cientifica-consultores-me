@@ -14,7 +14,7 @@ const links: NavLink[] = [{ label: 'Inicio', href: '/' }, ...trail];
   <nav class="page crumbs" aria-label="Migas de pan">
     <ol role="list">
       {links.map((link) => (
-        <li><a href={link.href}>{link.label}</a><span class="sep" aria-hidden="true">›</span></li>
+        <li><a href={link.href}>{link.href === '/' && <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 3 3 10.5V21h6.5v-6h5v6H21V10.5z" fill="currentColor" /></svg>}{link.label}</a><span class="sep" aria-hidden="true">›</span></li>
       ))}
       {current && <li><span aria-current="page">{current}</span></li>}
     </ol>
@@ -22,14 +22,15 @@ const links: NavLink[] = [{ label: 'Inicio', href: '/' }, ...trail];
 </div>
 
 <style>
-  .crumb-bar { border-block-end: 1px solid color-mix(in srgb, var(--ink-900) 8%, transparent); background-color: var(--paper-0); }
-  .crumbs { padding-block: var(--space-2xs); }
-  ol { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2xs); font-size: var(--step-small); }
-  li { display: inline-flex; align-items: center; gap: var(--space-2xs); }
-  a { display: inline-flex; align-items: center; min-block-size: 2.75rem; color: var(--ink-600); text-decoration: none; }
-  [aria-current='page'] { display: inline-flex; align-items: center; min-block-size: 2.75rem; }
-  .sep { color: var(--ink-600); }
-  [aria-current='page'] { color: var(--navy-600); font-weight: var(--weight-semibold); }
+  /* Migas de pan en una cápsula, sin raya divisoria */
+  .crumb-bar { background-color: transparent; }
+  .crumbs { padding-block: var(--space-s) 0; }
+  ol { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; padding: 0.45rem 1rem; border-radius: var(--radius-pill); background-color: var(--paper-0); box-shadow: var(--shadow-card); font-size: var(--step-ui); }
+  li { display: inline-flex; align-items: center; gap: 0.5rem; }
+  a { display: inline-flex; align-items: center; gap: 0.4em; min-block-size: 2rem; color: var(--ink-600); font-weight: var(--weight-medium); text-decoration: none; transition: color var(--duration-hover) ease; }
+  a svg { color: var(--orange-500); }
+  .sep { color: var(--orange-500); font-weight: var(--weight-bold); }
+  [aria-current='page'] { display: inline-flex; align-items: center; min-block-size: 2rem; color: var(--navy-600); font-weight: var(--weight-bold); }
 
   @media (hover: hover) and (pointer: fine) {
     a:hover { color: var(--navy-600); }

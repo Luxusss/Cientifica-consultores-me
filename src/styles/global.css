@@ -102,6 +102,8 @@
   .section-wide { padding-block: var(--section-gap); }
   /* Franja alterna en azul muy suave de la marca para separar secciones */
   .band-soft { background-color: var(--color-band); }
+  /* La sección que sigue a las migas de pan empieza más arriba */
+  .crumb-bar + .section-wide, .crumb-bar + * > .section-wide:first-child { padding-block-start: var(--space-m); }
 
   .stack { display: grid; gap: var(--stack, var(--space-s)); align-content: start; }
   .stack-m { --stack: var(--space-m); }
