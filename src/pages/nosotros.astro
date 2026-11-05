@@ -13,6 +13,7 @@ import office from '@/assets/images/banner/nuestro-equipo-de-asesores-de-tesis.j
 import team from '@/assets/images/otros/equipo-de-asesores.jpg';
 import meeting from '@/assets/images/otros/equipo-de-asesores-en-reunion.jpg';
 import officeLogo from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg';
+import advisors from '@/assets/images/banner/asesores-de-tesis-cientifica-consultores.jpg';
 import peru from '@/assets/images/paises/peru.jpg';
 import colombia from '@/assets/images/paises/colombia.jpg';
 import mexico from '@/assets/images/paises/mexico.jpg';
@@ -70,7 +71,7 @@ const schema = [
           <Picture formats={['avif', 'webp']} quality={82} src={office} alt="Equipo de asesores de Científica Consultores" widths={[720, 1080, 1570]} sizes="(min-width: 64em) 45vw, 100vw" loading="eager" fetchpriority="high" class="m-img" />
           <span class="ah-plate" aria-hidden="true"><Fragment set:html={logoSvg} /></span>
         </figure>
-        <figure class="m-side m-meet"><Image src={meeting} alt="Asesores en reunión de trabajo" widths={[320, 480]} sizes="16rem" class="m-img" /></figure>
+        <figure class="m-side m-meet"><Image src={advisors} alt="Asesores de Científica Consultores en la oficina" widths={[320, 480]} sizes="16rem" class="m-img" /></figure>
         <figure class="m-side m-cut"><Image src={officeLogo} alt="Equipo de Científica Consultores en la oficina" widths={[320, 480]} sizes="16rem" class="m-img" /></figure>
         <span class="m-chip c1"><Icon name="badge" size="1rem" />Empresa peruana</span>
         <span class="m-chip c2"><Icon name="users" size="1rem" />Equipo multidisciplinario</span>
@@ -186,7 +187,7 @@ const schema = [
   .ah-mosaic :global(picture) { display: block; block-size: 100%; }
   .ah-mosaic :global(.m-img) { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; }
   .m-main :global(.m-img) { object-position: 100% 30%; }
-  .m-meet :global(.m-img) { object-position: 40% 40%; }
+  .m-meet :global(.m-img) { object-position: 75% 30%; }
   .m-cut { background: linear-gradient(160deg, var(--navy-50), #dfe5f8); }
   .m-cut :global(.m-img) { object-fit: cover; object-position: 55% 20%; }
   .ah-plate { position: absolute; inset-block-start: 0; inset-inline-end: 0; inline-size: 7rem; padding: 0.6rem 0.85rem 0.6rem 1rem; border-end-start-radius: 1rem; background-color: rgb(15 22 80 / 0.88); color: var(--paper-0); }
