@@ -69,14 +69,13 @@ const schema = [
               </div>
               <div class="body">
                 <h3>{item.name}</h3>
-                <p>{item.text}</p>
+                <p>{item.text}{item.href && <> <a class="more" href={item.href}>Ver servicio →</a></>}</p>
                 <div class="actions">
                   <a class="quote" href={whatsappUrl(`Hola, quiero cotizar el servicio de ${item.name.toLowerCase()} (${g.name.toLowerCase()}).`)} target="_blank" rel="noopener" data-analytics="cotizar_otro_servicio">
                     <Icon name="whatsapp" size="1.1rem" />
                     <span>Solicitar cotización gratis</span>
                     <span class="q-arrow" aria-hidden="true">→</span>
                   </a>
-                  {item.href && <a class="more" href={item.href}>Ver servicio →</a>}
                 </div>
               </div>
             </li>
@@ -109,7 +108,8 @@ const schema = [
   .cards { display: grid; gap: var(--space-m); grid-template-columns: 1fr; }
   .card { position: relative; isolation: isolate; display: grid; grid-template-rows: auto 1fr; border-radius: var(--radius-card); background-color: var(--paper-0); box-shadow: var(--shadow-card); transition: opacity var(--duration-reveal) var(--ease-expo), transform var(--duration-reveal) var(--ease-expo), translate var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) ease; }
   .frame { position: relative; overflow: hidden; border-start-start-radius: var(--radius-card); border-start-end-radius: var(--radius-card); }
-  .photo { display: block; inline-size: 100%; aspect-ratio: 16 / 10; object-fit: cover; transition: transform var(--duration-reveal) var(--ease-out); }
+  /* Misma altura de foto en todos los grupos, sin importar cuántas tarjetas tenga */
+  .photo { display: block; inline-size: 100%; block-size: 13.5rem; object-fit: cover; transition: transform var(--duration-reveal) var(--ease-out); }
   .num { position: absolute; inset-block-start: var(--space-xs); inset-inline-start: var(--space-xs); display: grid; place-items: center; inline-size: 2.3rem; block-size: 2.3rem; border-radius: 0.75rem; background-image: var(--tone-grad); color: var(--paper-0); font-size: var(--step-small); font-weight: var(--weight-bold); box-shadow: 0 8px 16px -8px rgb(0 0 0 / 0.5); }
   .body { display: grid; grid-template-rows: auto 1fr auto; gap: var(--space-2xs); padding: var(--space-m); }
   .body h3 { font-size: var(--step-title); line-height: 1.25; }
@@ -118,7 +118,6 @@ const schema = [
   .quote { display: flex; align-items: center; gap: 0.55em; inline-size: 100%; padding: 0.55em 0.55em 0.55em 1.1em; border-radius: var(--radius-pill); background-color: var(--whatsapp-500); color: var(--ink-900); font-size: var(--step-ui); font-weight: var(--weight-bold); text-decoration: none; box-shadow: 0 10px 22px -14px rgb(37 211 102 / 0.9); transition: background-color var(--duration-hover) ease, transform var(--duration-hover) var(--ease-out); }
   .quote > span:not(.q-arrow) { flex: 1; }
   .q-arrow { display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; border-radius: 50%; background-color: rgb(19 24 61 / 0.9); color: var(--paper-0); transition: transform var(--duration-hover) var(--ease-out); }
-  .more { justify-self: center; }
   .more { color: var(--tone); font-size: var(--step-small); font-weight: var(--weight-bold); text-decoration: none; }
 
   @media (min-width: 40em) {
@@ -126,6 +125,8 @@ const schema = [
   }
   @media (min-width: 64em) {
     .cards.n-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    /* Con 2 servicios, las tarjetas mantienen el tamaño de las de 3 y van centradas */
+    .cards.n-2 { grid-template-columns: repeat(2, minmax(0, calc((100% - 2 * var(--space-m)) / 3))); justify-content: center; }
     .cards.n-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .index ul { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   }
