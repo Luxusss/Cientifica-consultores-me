@@ -76,6 +76,7 @@ const schema = [
     <div class="page intro">
       <div class="intro-copy" data-reveal>
         <span class="eyebrow">Sobre el servicio</span>
+        <h2 class="intro-title">Te acompañamos en cada etapa de tu tesis</h2>
         {page.intro.map((t) => <p>{t}</p>)}
       </div>
       {page.introImage ? (
@@ -151,10 +152,13 @@ const schema = [
   .trust-ico { display: grid; place-items: center; inline-size: 1.6rem; block-size: 1.6rem; border-radius: 50%; background-color: var(--orange-500); color: var(--ink-900); }
 
   /* Presentación */
+  .standfirst { padding-block: var(--space-xl); }
   .intro { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
-  .intro-copy { align-self: stretch; align-content: center; display: grid; gap: var(--space-s); justify-items: start; padding: var(--space-l); border-radius: calc(var(--radius-card) + 0.35rem); background-color: var(--paper-0); box-shadow: var(--shadow-card); border-inline-start: 5px solid var(--orange-500); }
+  /* Texto suelto (sin tarjeta) para no repetir el diseño de los bloques de abajo */
+  .intro-copy { align-self: center; display: grid; gap: var(--space-s); justify-items: start; }
+  .intro-title { font-size: var(--step-head); line-height: 1.12; max-inline-size: 18ch; }
   .intro-copy p { color: var(--color-text-soft); font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 70ch; }
-  .moments-wrap { display: grid; gap: var(--space-s); }
+  .moments-wrap { display: grid; gap: var(--space-xs); }
   .moments-title { font-family: var(--font-display); font-size: var(--step-title); font-weight: var(--weight-semibold); color: var(--ink-900); }
   .m-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2xs); }
   .m-tab { display: flex; align-items: center; gap: 0.6em; padding: 0.55rem 0.8rem 0.55rem 0.55rem; border: 0; border-radius: var(--radius-card); background-color: var(--paper-0); color: var(--ink-900); font: inherit; font-size: var(--step-ui); font-weight: var(--weight-semibold); text-align: start; cursor: pointer; box-shadow: var(--shadow-card); transition: background-color var(--duration-ui) ease, color var(--duration-ui) ease, transform var(--duration-ui) var(--ease-out); }
@@ -162,7 +166,7 @@ const schema = [
   .m-tab[aria-selected='true'] { background-image: var(--gradient-brand); color: var(--paper-0); }
   .m-tab[aria-selected='true'] .m-icon { background-image: var(--tone-grad); color: var(--paper-0); }
   .m-tab:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
-  .m-panel { display: grid; gap: var(--space-s); padding: var(--space-m); border-radius: var(--radius-card); background: linear-gradient(150deg, var(--tone-soft), var(--paper-0) 70%); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tone) 22%, transparent); }
+  .m-panel { display: grid; gap: var(--space-xs); padding: var(--space-s) var(--space-m); border-radius: var(--radius-card); background: linear-gradient(150deg, var(--tone-soft), var(--paper-0) 70%); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tone) 22%, transparent); }
   .m-panel[hidden] { display: none; }
   .m-lead { font-family: var(--font-display); font-size: var(--step-title); font-weight: var(--weight-semibold); color: var(--ink-900); }
   .m-steps { display: grid; gap: 0.5rem; }
