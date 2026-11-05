@@ -70,8 +70,12 @@ const hasMedia = Astro.slots.has('media');
     .photo-hero::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, var(--scrim-soft) 0%, transparent 20%), linear-gradient(0deg, color-mix(in srgb, var(--ink-900) 55%, transparent) 0%, transparent 30%), linear-gradient(90deg, var(--scrim-strong) 0%, var(--scrim-strong) 24%, transparent 60%); }
     /* Escritorio: texto a la izquierda y formulario compacto al lado; la foto queda libre a la derecha */
     .photo-hero .text { grid-template-columns: minmax(0, 36rem) minmax(0, 31rem); column-gap: var(--space-2xl); align-items: center; align-content: center; padding-inline: var(--edge) var(--space-l); padding-block: var(--space-l); max-inline-size: none; }
+    .photo-hero .text { grid-template-rows: 1fr auto auto auto 1fr; row-gap: var(--space-m); }
     .photo-hero .text > :global(:not(.form-card)) { grid-column: 1; }
-    .photo-hero .text > :global(.form-card) { grid-column: 2; grid-row: 1 / span 4; align-self: center; }
+    .photo-hero .text > :global(:nth-child(1)) { grid-row: 2; }
+    .photo-hero .text > :global(:nth-child(2)) { grid-row: 3; }
+    .photo-hero .text > :global(:nth-child(3)) { grid-row: 4; }
+    .photo-hero .text > :global(.form-card) { grid-column: 2; grid-row: 1 / -1; align-self: center; }
     .photo-hero .text :global(.form-card textarea) { min-block-size: 5.5rem; block-size: 5.5rem; overflow-y: auto; scrollbar-width: thin; }
     .photo-hero .text > :global(.text-lead) { max-inline-size: none; text-wrap: balance; }
     .photo-hero .text :global(.form-card) { max-inline-size: 31rem; margin-block-start: 0; padding: var(--space-m) var(--space-l) var(--space-l); gap: var(--space-xs); --input-height: 2.85rem; box-shadow: 0 24px 60px -24px color-mix(in srgb, var(--ink-900) 55%, transparent); }

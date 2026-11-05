@@ -18,7 +18,6 @@ const { id, title, text, eyebrow, band = false, image } = Astro.props;
 ---
 
 <section class:list={['section-wide', { 'band-soft': band && !image, photo: image }]} aria-labelledby={id}>
-  {image && <Image src={image} alt="" widths={[960, 1440, 1920]} sizes="100vw" class="bg" />}
   <div class="page">
     <div class="box" data-reveal>
       <span class="mark" aria-hidden="true"></span>
@@ -29,21 +28,26 @@ const { id, title, text, eyebrow, band = false, image } = Astro.props;
       <div class="copy">
         {text.map((t) => <p>{t}</p>)}
       </div>
+      {image && (
+        <figure class="shot">
+          <Image src={image} alt="Equipo de asesores de Científica Consultores en reunión" widths={[560, 800, 1103]} sizes="(min-width: 64em) 45vw, 100vw" quality={88} />
+        </figure>
+      )}
     </div>
   </div>
 </section>
 
 <style>
-  .photo { position: relative; isolation: isolate; overflow: hidden; }
-  .photo { min-block-size: 28rem; display: grid; align-items: center; }
-  .photo :global(.bg) { position: absolute; inset: 0; z-index: -2; inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 60% 16%; }
-  .photo::after { content: ''; position: absolute; inset: auto 0 0; z-index: -1; block-size: 26%; background: linear-gradient(0deg, rgb(15 22 80 / 1) 0%, rgb(15 22 80 / 0.9) 50%, transparent 100%); pointer-events: none; }
-  .photo::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(20 31 102 / 0.95) 0%, rgb(20 31 102 / 0.85) 38%, rgb(29 45 140 / 0.35) 75%, rgb(29 45 140 / 0.2) 100%); }
-  .photo .box { grid-template-columns: 1fr; max-inline-size: 36rem; background-color: transparent; box-shadow: none; padding-inline: 0; }
+  /* Con foto: fondo azul de la marca, texto a la izquierda y la foto completa en tarjeta (sin recortes ni ampliar) */
+  .photo { position: relative; isolation: isolate; overflow: hidden; background-image: radial-gradient(40rem 26rem at 85% 30%, rgb(254 143 1 / 0.18), transparent 70%), var(--gradient-brand); }
+  .photo .box { background-color: transparent; box-shadow: none; padding: 0; overflow: visible; }
   .photo .mark { display: none; }
   .photo h2 { color: var(--paper-0); }
   .photo .eyebrow { background-color: rgb(255 255 255 / 0.14); color: var(--gold-400); }
   .photo .copy p { color: var(--navy-100); }
+  .shot { position: relative; margin: 0; }
+  .shot :global(img) { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 1103 / 730; object-fit: cover; border-radius: calc(var(--radius-card) + 0.35rem); box-shadow: 0 30px 60px -24px rgb(0 0 0 / 0.6), 0 0 0 6px rgb(255 255 255 / 0.08); }
+  .shot::before { content: ''; position: absolute; inset: -0.9rem auto auto -0.9rem; z-index: -1; inline-size: 40%; block-size: 50%; border-radius: var(--radius-card); background-image: var(--gradient-warm); opacity: 0.9; }
   .box {
     position: relative;
     display: grid;
@@ -62,5 +66,9 @@ const { id, title, text, eyebrow, band = false, image } = Astro.props;
 
   @media (min-width: 64em) {
     .box { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; padding: var(--space-xl); }
+    .photo .box { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); grid-template-rows: auto auto; column-gap: var(--space-2xl); padding: 0; }
+    .photo .section-head { grid-column: 1; grid-row: 1; align-self: end; }
+    .photo .copy { grid-column: 1; grid-row: 2; align-self: start; }
+    .photo .shot { grid-column: 2; grid-row: 1 / span 2; }
   }
 </style>
