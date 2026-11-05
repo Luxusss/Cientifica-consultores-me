@@ -7,7 +7,7 @@ import Icon from '@/components/ui/Icon.astro';
 import ContactBand from '@/components/sections/ContactBand.astro';
 import { otherServices } from '@/data/otherServices';
 import { breadcrumb } from '@/lib/schema';
-import { site } from '@/config/site';
+import { site, whatsappUrl } from '@/config/site';
 import heroImg from '@/assets/images/banner/asesora-de-tesis-Cientifica-Consultores.jpg';
 
 const schema = [
@@ -41,26 +41,36 @@ const schema = [
 
   {otherServices.map((g, i) => (
     <section class="section-wide group" aria-labelledby={g.id}>
-      <div class="page layout">
-        <header class="intro" data-reveal>
-          <span class:list={['g-icon', i % 2 ? 'tone-6' : 'tone-1']} aria-hidden="true"><Icon name={g.icon} size="1.5rem" /></span>
-          <span class="eyebrow">Servicio {String(i + 1).padStart(2, '0')}</span>
-          <h2 id={g.id}>{g.name}</h2>
-          <p class="summary">{g.summary}</p>
-          <p class="for"><Icon name="user" size="1rem" />{g.forWho}</p>
-          <FormButton label="Cotizar este servicio" icon />
+      <div class="page stack stack-xl">
+        <header class="g-head" data-reveal>
+          <div class="g-title">
+            <span class:list={['g-icon', i % 2 ? 'tone-6' : 'tone-1']} aria-hidden="true"><Icon name={g.icon} size="1.5rem" /></span>
+            <div>
+              <span class="eyebrow">Servicio {String(i + 1).padStart(2, '0')} · {g.items.length} opciones</span>
+              <h2 id={g.id}>{g.name}</h2>
+            </div>
+          </div>
+          <div class="g-copy">
+            <p class="summary">{g.summary}</p>
+            <p class="for"><Icon name="user" size="1rem" />{g.forWho}</p>
+          </div>
         </header>
         <ul class:list={['cards', `n-${g.items.length}`]} role="list" data-reveal="stagger">
           {g.items.map((item, k) => (
             <li class:list={['card', (i + k) % 2 ? 'tone-6' : 'tone-1']}>
               <div class="frame">
-                <Image src={item.image} alt={item.alt} widths={[360, 540, 720]} sizes="(min-width: 64em) 26vw, (min-width: 40em) 45vw, 100vw" class="photo" />
+                <Image src={item.image} alt={item.alt} widths={[360, 540, 720]} sizes="(min-width: 64em) 30vw, (min-width: 40em) 45vw, 100vw" class="photo" />
                 <span class="num">{String(k + 1).padStart(2, '0')}</span>
               </div>
               <div class="body">
-                <h3>{item.href ? <a href={item.href}>{item.name}</a> : item.name}</h3>
+                <h3>{item.name}</h3>
                 <p>{item.text}</p>
-                {item.href && <span class="more" aria-hidden="true">Ver servicio →</span>}
+                <div class="actions">
+                  <a class="quote" href={whatsappUrl(`Hola, quiero cotizar el servicio de ${item.name.toLowerCase()} (${g.name.toLowerCase()}).`)} target="_blank" rel="noopener" data-analytics="cotizar_otro_servicio">
+                    <Icon name="whatsapp" size="1rem" /> Cotizar
+                  </a>
+                  {item.href && <a class="more" href={item.href}>Ver servicio →</a>}
+                </div>
               </div>
             </li>
           ))}
@@ -82,43 +92,43 @@ const schema = [
   .idx-text span { color: var(--navy-100); font-size: var(--step-small); }
   .idx-go { color: var(--gold-400); font-weight: var(--weight-bold); transition: transform var(--duration-hover) var(--ease-out); }
 
-  /* Cada grupo: explicación a la izquierda y los servicios a la derecha */
-  .layout { display: grid; gap: var(--space-l) var(--gutter); align-items: start; }
-  .intro { display: grid; gap: var(--space-xs); justify-items: start; }
-  .g-icon { display: grid; place-items: center; inline-size: 3.4rem; block-size: 3.4rem; border-radius: 1rem; background-image: var(--tone-grad); color: var(--paper-0); box-shadow: 0 12px 24px -12px var(--tone); }
-  .intro h2 { font-size: var(--step-head); line-height: 1.1; }
-  .summary { color: var(--color-text-soft); font-size: var(--step-lead); line-height: var(--leading-lead); }
-  .for { display: flex; align-items: center; gap: 0.5em; padding: 0.5em 0.9em; border-radius: var(--radius-pill); background-color: var(--orange-50); color: var(--orange-600); font-size: var(--step-small); font-weight: var(--weight-bold); }
-  .intro :global(.button) { gap: 0.55em; margin-block-start: var(--space-2xs); border-radius: var(--radius-pill); }
+  /* Cada grupo: encabezado a todo el ancho y los servicios debajo, cada uno con su botón de cotizar */
+  .g-head { display: grid; gap: var(--space-s) var(--gutter); align-items: end; padding-block-end: var(--space-m); border-block-end: 1px solid color-mix(in srgb, var(--navy-600) 14%, transparent); }
+  .g-title { display: flex; align-items: center; gap: var(--space-s); }
+  .g-icon { display: grid; place-items: center; flex-shrink: 0; inline-size: 3.6rem; block-size: 3.6rem; border-radius: 1.1rem; background-image: var(--tone-grad); color: var(--paper-0); box-shadow: 0 12px 24px -12px var(--tone); }
+  .g-title h2 { font-size: var(--step-head); line-height: 1.1; margin-block-start: 0.35rem; }
+  .g-copy { display: grid; gap: var(--space-xs); justify-items: start; }
+  .summary { color: var(--color-text-soft); font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 62ch; }
+  .for { display: inline-flex; align-items: center; gap: 0.5em; padding: 0.45em 0.9em; border-radius: var(--radius-pill); background-color: var(--orange-50); color: var(--orange-600); font-size: var(--step-small); font-weight: var(--weight-bold); }
 
-  .cards { display: grid; gap: var(--space-s); grid-template-columns: 1fr; }
-  .card { position: relative; display: grid; grid-template-rows: auto 1fr; overflow: hidden; border-radius: var(--radius-card); background-color: var(--paper-0); box-shadow: var(--shadow-card); transition: opacity var(--duration-reveal) var(--ease-expo), transform var(--duration-reveal) var(--ease-expo), translate var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) ease; }
-  .frame { position: relative; overflow: hidden; }
+  .cards { display: grid; gap: var(--space-m); grid-template-columns: 1fr; }
+  .card { position: relative; isolation: isolate; display: grid; grid-template-rows: auto 1fr; border-radius: var(--radius-card); background-color: var(--paper-0); box-shadow: var(--shadow-card); transition: opacity var(--duration-reveal) var(--ease-expo), transform var(--duration-reveal) var(--ease-expo), translate var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) ease; }
+  .frame { position: relative; overflow: hidden; border-start-start-radius: var(--radius-card); border-start-end-radius: var(--radius-card); }
   .photo { display: block; inline-size: 100%; aspect-ratio: 16 / 10; object-fit: cover; transition: transform var(--duration-reveal) var(--ease-out); }
-  .num { position: absolute; inset-block-end: -1.1rem; inset-inline-start: var(--space-m); display: grid; place-items: center; inline-size: 2.3rem; block-size: 2.3rem; border-radius: 0.75rem; background-image: var(--tone-grad); color: var(--paper-0); font-size: var(--step-small); font-weight: var(--weight-bold); box-shadow: 0 0 0 4px var(--paper-0); }
-  .frame { overflow: visible; }
-  .frame .photo { border-radius: 0; }
-  .card { isolation: isolate; }
-  .body { display: grid; gap: var(--space-2xs); align-content: start; padding: var(--space-l) var(--space-m) var(--space-m); }
+  .num { position: absolute; inset-block-start: var(--space-xs); inset-inline-start: var(--space-xs); display: grid; place-items: center; inline-size: 2.3rem; block-size: 2.3rem; border-radius: 0.75rem; background-image: var(--tone-grad); color: var(--paper-0); font-size: var(--step-small); font-weight: var(--weight-bold); box-shadow: 0 8px 16px -8px rgb(0 0 0 / 0.5); }
+  .body { display: grid; grid-template-rows: auto 1fr auto; gap: var(--space-2xs); padding: var(--space-m); }
   .body h3 { font-size: var(--step-title); line-height: 1.25; }
-  .body h3 a { color: inherit; text-decoration: none; }
-  .body h3 a::after { content: ''; position: absolute; inset: 0; z-index: 1; }
   .body p { color: var(--color-text-soft); font-size: var(--step-ui); line-height: var(--leading-body); }
-  .more { color: var(--tone); font-size: var(--step-small); font-weight: var(--weight-bold); }
+  .actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-s); margin-block-start: var(--space-xs); padding-block-start: var(--space-s); border-block-start: 1px solid var(--paper-2); }
+  .quote { display: inline-flex; align-items: center; gap: 0.45em; padding: 0.55em 1.1em; border-radius: var(--radius-pill); background-color: var(--whatsapp-500); color: var(--ink-900); font-size: var(--step-small); font-weight: var(--weight-bold); text-decoration: none; transition: background-color var(--duration-hover) ease, transform var(--duration-hover) var(--ease-out); }
+  .more { color: var(--tone); font-size: var(--step-small); font-weight: var(--weight-bold); text-decoration: none; }
 
   @media (min-width: 40em) {
     .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (min-width: 64em) {
-    .layout { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); }
-    .intro { position: sticky; inset-block-start: calc(var(--header-height) + var(--space-l)); }
+    .g-head { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
     .cards.n-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .index ul { max-inline-size: 36rem; }
+    .cards.n-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    /* Índice del banner: ocupa el ancho libre del banner */
+    :global(.photo-hero .text) > .index.index { grid-column: 1 / -1; }
+    .index ul { grid-template-columns: repeat(3, minmax(0, 1fr)); max-inline-size: 58rem; }
   }
   @media (hover: hover) and (pointer: fine) {
     .index a:hover { background-color: rgb(255 255 255 / 0.16); transform: translateY(-2px); }
     .index a:hover .idx-go { transform: translateY(3px); }
     .card:hover { translate: 0 -5px; box-shadow: var(--shadow-lift); }
     .card:hover .photo { transform: scale(1.05); }
+    .quote:hover { background-color: var(--whatsapp-600); color: var(--ink-900); transform: translateY(-1px); }
   }
 </style>
