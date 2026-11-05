@@ -178,8 +178,8 @@
 /* Fondos alternos automáticos: entre las secciones claras de cada página, una sí y una no lleva el azul suave.
    Las secciones oscuras (hero, foto, testimonios, bloques azules) no cuentan, así que el orden se mantiene solo
    al agregar, quitar o mover secciones. No hace falta poner clases a mano. */
-main > section:nth-child(even of section:not(.theme-field, .photo, .quote, .hero, .page-hero)) { background-color: var(--color-band); }
-main > section:nth-child(odd of section:not(.theme-field, .photo, .quote, .hero, .page-hero)) { background-color: var(--paper-0); background-image: none; }
+main > section:nth-child(even of section:not(.theme-field, .photo, .quote, .hero, .page-hero, .custom-hero)) { background-color: var(--color-band); }
+main > section:nth-child(odd of section:not(.theme-field, .photo, .quote, .hero, .page-hero, .custom-hero)) { background-color: var(--paper-0); background-image: none; }
 
 /* Identidad de marca en las fotos (ver BrandMark.astro):
    - tratamiento de color propio (azul de la marca en sombras y cálido en luces) para que las fotos de banco se vean de una misma sesión

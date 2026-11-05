@@ -1,7 +1,8 @@
 ---
 import { Picture } from 'astro:assets';
 import Base from '@/layouts/Base.astro';
-import PageHero from '@/components/ui/PageHero.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import logoSvg from '@/assets/brand/logo.svg?raw';
 import Icon from '@/components/ui/Icon.astro';
 import BrandPhoto from '@/components/ui/BrandPhoto.astro';
 import ContactBand from '@/components/sections/ContactBand.astro';
@@ -52,20 +53,24 @@ const schema = [
   description="Nuestro equipo experto ofrece asesoría en tesis para pregrado, maestría y doctorado. Más de 10 años ayudando a lograr investigaciones exitosas."
   schema={schema}
 >
-  <PageHero title="¿Quiénes somos en Científica Consultores?" crumb="Nosotros" lede="Un equipo de investigadores en Lima que, desde hace más de 10 años, acompaña a estudiantes de pregrado, maestría y doctorado hasta su título." balance="photo">
-    <Fragment slot="title"><span class="h1-main">¿Quiénes somos en</span> <span class="h1-tail">Científica Consultores?</span></Fragment>
-    <ul class="trust" role="list">
-      <li><span class="trust-ico"><Icon name="institution" size="0.95rem" /></span>Empresa peruana</li>
-      <li><span class="trust-ico"><Icon name="users" size="0.95rem" /></span>Equipo multidisciplinario</li>
-      <li><span class="trust-ico"><Icon name="globe" size="0.95rem" /></span>8 países</li>
-    </ul>
-    <div class="figures-card">
-      <ul class="fc-grid" role="list">
-        {figures.map((f, i) => <li class:list={[i % 2 ? 'tone-6' : 'tone-1']}><strong>{f.value}</strong><span>{f.label}</span></li>)}
-      </ul>
+  <section class="about-hero custom-hero" aria-labelledby="titulo">
+    <div class="page ah-grid">
+      <div class="ah-copy">
+        <span class="eyebrow">Nosotros</span>
+        <h1 id="titulo">¿Quiénes somos en <span class="ah-accent">Científica Consultores?</span></h1>
+        <p class="ah-lede">Un equipo de investigadores en Lima que, desde hace más de 10 años, acompaña a estudiantes de pregrado, maestría y doctorado hasta su título.</p>
+        <ul class="ah-figs" role="list">
+          {figures.map((f, i) => <li><strong class:list={[i % 2 ? 'navy' : 'orange']}>{f.value}</strong><span>{f.label}</span></li>)}
+        </ul>
+      </div>
+      <figure class="ah-photo">
+        <Picture formats={['avif', 'webp']} quality={82} src={office} alt="Equipo de asesores de Científica Consultores" widths={[720, 1080, 1570]} sizes="(min-width: 64em) 55vw, 100vw" loading="eager" fetchpriority="high" class="ah-img" />
+        <span class="ah-plate" aria-hidden="true"><Fragment set:html={logoSvg} /></span>
+        <figcaption class="ah-badge"><span class="ah-dot" aria-hidden="true"></span>Equipo multidisciplinario · Lima, Perú</figcaption>
+      </figure>
     </div>
-    <Picture slot="media" class="focus-center" formats={['avif', 'webp']} quality={80} src={office} alt="Nuestro equipo de asesores de tesis" widths={[960, 1280, 1570]} sizes="100vw" loading="eager" fetchpriority="high" />
-  </PageHero>
+  </section>
+  <Breadcrumbs current="Nosotros" />
 
   <section class="section-wide" aria-labelledby="historia">
     <div class="page story">
@@ -152,30 +157,33 @@ const schema = [
 </Base>
 
 <style>
-  /* Cifras del banner, en el lugar del formulario */
-  /* Cifras en una fila compacta bajo el texto, para no tapar al equipo */
-  .figures-card { display: block; max-inline-size: 36rem; }
-  /* El equipo ocupa más del banner para no dejar un hueco al centro */
+  /* Banner de Nosotros: claro y editorial, distinto al de los servicios */
+  .about-hero { position: relative; overflow: hidden; isolation: isolate; padding-block: var(--space-xl) var(--space-l); background: radial-gradient(40rem 26rem at 0% 0%, rgb(254 143 1 / 0.12), transparent 70%), radial-gradient(46rem 30rem at 100% 100%, rgb(29 45 140 / 0.14), transparent 70%), var(--paper-0); }
+  .ah-cube { position: absolute; z-index: -1; inset-block-start: -4rem; inset-inline-start: -6rem; inline-size: 34rem; color: rgb(29 45 140 / 0.05); }
+  .ah-cube :global(svg) { display: block; inline-size: 100%; block-size: auto; }
+  .ah-grid { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
+  .ah-copy { display: grid; gap: var(--space-s); justify-items: start; }
+  .ah-copy h1 { font-size: clamp(2.2rem, 1.2rem + 1.9vw, 3.1rem); line-height: 1.06; letter-spacing: -0.03em; max-inline-size: none; color: var(--navy-700); }
+  .ah-accent { display: block; color: var(--orange-500); }
+  .ah-lede { color: var(--color-text-soft); font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 44ch; }
+  .ah-figs { display: grid; inline-size: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-s) var(--space-m); margin-block-start: var(--space-xs); padding-block-start: var(--space-s); border-block-start: 1px solid var(--paper-2); }
+  .ah-figs li { display: grid; gap: 0.1rem; }
+  .ah-figs strong { font-family: var(--font-display); font-size: clamp(1.8rem, 1.4rem + 1vw, 2.4rem); line-height: 1; }
+  .ah-figs .orange { color: var(--orange-500); }
+  .ah-figs .navy { color: var(--navy-600); }
+  .ah-figs span { color: var(--ink-600); font-size: 0.75rem; font-weight: var(--weight-semibold); line-height: 1.3; }
+  .ah-photo { position: relative; margin: 0; }
+  .ah-photo :global(picture), .ah-photo :global(.ah-img) { display: block; inline-size: 100%; }
+  .ah-photo :global(.ah-img) { aspect-ratio: 16 / 10; block-size: auto; object-fit: cover; object-position: 78% 30%; border-radius: calc(var(--radius-card) + 0.6rem); box-shadow: 0 40px 80px -40px rgb(20 31 102 / 0.6); }
+  .ah-plate { position: absolute; inset-block-start: 0; inset-inline-end: 0; inline-size: 8rem; padding: 0.7rem 1rem 0.7rem 1.1rem; border-start-end-radius: calc(var(--radius-card) + 0.6rem); border-end-start-radius: 1.2rem; background-image: var(--gradient-brand); color: var(--paper-0); }
+  .ah-plate :global(svg) { display: block; inline-size: 100%; block-size: auto; }
+  .ah-badge { position: absolute; inset-block-end: -1.1rem; inset-inline-start: var(--space-m); display: inline-flex; align-items: center; gap: 0.55em; padding: 0.7em 1.2em; border-radius: var(--radius-pill); background-color: var(--paper-0); color: var(--navy-700); font-size: var(--step-small); font-weight: var(--weight-bold); box-shadow: 0 16px 34px -14px rgb(20 31 102 / 0.5); }
+  .ah-dot { inline-size: 0.55rem; block-size: 0.55rem; border-radius: 50%; background-color: var(--orange-500); box-shadow: 0 0 0 4px rgb(254 143 1 / 0.22); }
+  @media (min-width: 40em) { .ah-figs { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
   @media (min-width: 64em) {
-    :global(.photo-hero .media) { inline-size: calc(100% - 36rem); block-size: 100%; aspect-ratio: auto; mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.08) 6%, rgb(0 0 0 / 0.3) 12%, rgb(0 0 0 / 0.62) 18%, rgb(0 0 0 / 0.88) 24%, #000 30%), linear-gradient(180deg, transparent 0, #000 10%) !important; mask-composite: intersect !important; }
-    /* El velo oscuro termina antes de llegar al equipo, para no tapar a nadie */
-    :global(.photo-hero:has(.figures-card))::after { background: linear-gradient(180deg, var(--scrim-soft) 0%, transparent 20%), linear-gradient(0deg, color-mix(in srgb, var(--ink-900) 45%, transparent) 0%, transparent 25%), linear-gradient(90deg, var(--scrim-strong) 0%, var(--scrim-strong) 26%, transparent 42%) !important; }
-    :global(.photo-hero .media img) { object-position: 70% 22% !important; }
+    .about-hero { padding-block: var(--space-2xl) var(--space-xl); }
+    .ah-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
   }
-  /* Texto y cifras centrados de arriba a abajo en el banner */
-  @media (min-width: 64em) {
-    :global(.photo-hero .text:has(.figures-card)) { grid-template-rows: 1fr auto auto auto auto 1fr !important; }
-    :global(.photo-hero .text) > .figures-card.figures-card { grid-column: 1; grid-row: 5; align-self: start; margin-block-start: var(--space-2xs); }
-  }
-  .fc-title { color: var(--gold-400); font-size: var(--step-small); font-weight: var(--weight-bold); letter-spacing: 0.08em; text-transform: uppercase; }
-  .fc-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-radius: var(--radius-card); background-color: rgb(255 255 255 / 0.08); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.16); backdrop-filter: blur(8px); }
-  .fc-grid li { display: grid; gap: 0.15rem; padding: 0.75rem 0.9rem; }
-  .fc-grid li + li { border-inline-start: 1px solid rgb(255 255 255 / 0.14); }
-  .fc-grid strong { font-family: var(--font-display); font-size: clamp(1.4rem, 1.1rem + 0.8vw, 1.9rem); line-height: 1; color: var(--gold-400); }
-  .fc-grid li:nth-child(even) strong { color: var(--paper-0); }
-  .fc-grid span { color: var(--navy-100); font-size: 0.72rem; font-weight: var(--weight-semibold); line-height: 1.25; }
-  .fc-foot { display: flex; align-items: center; gap: 0.5em; color: var(--navy-100); font-size: var(--step-small); font-weight: var(--weight-semibold); }
-  .fc-foot :global(svg) { color: var(--gold-400); }
 
   /* Historia */
   .story { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
