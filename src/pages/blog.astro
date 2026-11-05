@@ -2,13 +2,27 @@
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import Base from '@/layouts/Base.astro';
-import PageHero from '@/components/ui/PageHero.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import Icon from '@/components/ui/Icon.astro';
 import ContactBand from '@/components/sections/ContactBand.astro';
 import { breadcrumb } from '@/lib/schema';
 import { formatDate, isoDate } from '@/lib/dates';
 import { site } from '@/config/site';
 
 const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Categoría de cada artículo (las guías de tesis primero en el filtro)
+const categoryOf = (id: string) => (/tesis|proyecto|suficiencia/.test(id) ? 'guias' : 'comunidad');
+const categories = [
+  { id: 'todos', label: 'Todos' },
+  { id: 'guias', label: 'Guías de tesis' },
+  { id: 'comunidad', label: 'Comunidad' },
+];
+const label = (c: string) => categories.find((x) => x.id === c)?.label ?? '';
+const minutes = (body = '') => Math.max(2, Math.round(body.split(/\s+/).length / 200));
+
+const [featured, ...rest] = posts;
+
 const schema = [
   breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Blog', path: '/blog.html' }]),
   {
@@ -25,49 +39,158 @@ const schema = [
   description="Guías, consejos y recursos para hacer tu tesis de pregrado, maestría o doctorado. Asesoramiento académico experto de Científica Consultores."
   schema={schema}
 >
-  <PageHero tone="field" title="Tu guía para la tesis: blog académico" crumb="Blog" lede="Bienvenido al blog de Científica Consultores, tu aliado en el camino hacia la culminación de tu tesis. Aquí encontrarás guías prácticas, consejos y recursos esenciales para la elaboración de tu tesis de pregrado, maestría o doctorado. ¡Explora nuestros artículos y simplifica tu proceso de investigación!" />
+  <section class="b-hero custom-hero" aria-labelledby="titulo">
+    <div class="page bh-grid">
+      <div class="bh-copy">
+        <span class="eyebrow">Blog académico</span>
+        <h1 id="titulo">Tu guía para la tesis, <span class="bh-accent">paso a paso</span></h1>
+        <p class="bh-lede">Guías prácticas y consejos de nuestros asesores para avanzar tu tesis de pregrado, maestría o doctorado sin bloquearte.</p>
+        <label class="bh-search">
+          <Icon name="search" size="1.1rem" />
+          <input type="search" aria-label="Buscar en el blog" placeholder="Busca un tema: proyecto, TSP, marco teórico…" autocomplete="off" data-blog-search />
+        </label>
+        <p class="bh-count"><Icon name="document" size="0.95rem" />{posts.length} artículos escritos por nuestro equipo</p>
+      </div>
 
-  <section class="section page stack stack-l" aria-labelledby="articulos">
-    <h2 id="articulos" class="posts-title" data-reveal>Todos los artículos</h2>
-    <ul role="list" data-reveal="stagger">
-      {posts.map((post, i) => (
-        <li class:list={['post', { lead: i === 0 }]}>
-          <a href={`/blog/${post.id}.html`} class="post-link">
-            <Image src={post.data.cover} alt={post.data.title} widths={[480, 720, 960]} sizes={i === 0 ? '(min-width: 64em) 58vw, 100vw' : '(min-width: 64em) 30vw, 100vw'} class="cover" />
-            <span class="post-text">
-              <h3 class="post-title">{post.data.heading}</h3>
-              <span class="excerpt">{post.data.description}</span>
-              <span class="meta"><time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time></span>
-            </span>
-          </a>
-        </li>
-      ))}
-    </ul>
+      <a class="bh-feature" href={`/blog/${featured.id}.html`}>
+        <span class="bh-cover"><Image src={featured.data.cover} alt={featured.data.title} widths={[480, 720, 960]} sizes="(min-width: 64em) 40vw, 100vw" loading="eager" class="bh-img" /></span>
+        <span class="bh-card">
+          <span class="bh-tag">Último artículo · {label(categoryOf(featured.id))}</span>
+          <span class="bh-title">{featured.data.heading}</span>
+          <span class="bh-meta"><time datetime={isoDate(featured.data.date)}>{formatDate(featured.data.date)}</time> · {minutes(featured.body)} min de lectura</span>
+          <span class="bh-go">Leer artículo <span aria-hidden="true">→</span></span>
+        </span>
+      </a>
+    </div>
+  </section>
+  <Breadcrumbs current="Blog" />
+
+  <section class="section-wide" aria-labelledby="articulos" data-blog>
+    <div class="page stack stack-xl">
+      <header class="list-head" data-reveal>
+        <div>
+          <span class="eyebrow">Biblioteca</span>
+          <h2 id="articulos">Más artículos</h2>
+        </div>
+        <div class="chips" role="group" aria-label="Filtrar por categoría">
+          {categories.map((c, i) => <button type="button" class="chip" data-cat={c.id} aria-pressed={i === 0 ? 'true' : 'false'}>{c.label}</button>)}
+        </div>
+      </header>
+
+      <ul class="grid" role="list" data-reveal="stagger">
+        {rest.map((post) => (
+          <li class="post" data-cat={categoryOf(post.id)} data-text={`${post.data.heading} ${post.data.description}`.toLowerCase()}>
+            <a href={`/blog/${post.id}.html`} class="post-link">
+              <span class="cover-box">
+                <Image src={post.data.cover} alt={post.data.title} widths={[360, 540, 720]} sizes="(min-width: 64em) 30vw, (min-width: 40em) 45vw, 100vw" class="cover" />
+                <span class="post-tag">{label(categoryOf(post.id))}</span>
+              </span>
+              <span class="post-body">
+                <span class="post-meta"><time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time> · {minutes(post.body)} min</span>
+                <h3 class="post-title">{post.data.heading}</h3>
+                <span class="excerpt">{post.data.description}</span>
+                <span class="read">Leer artículo <span class="arrow" aria-hidden="true">→</span></span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="empty" hidden data-empty>No encontramos artículos con ese tema. Escríbenos y te orientamos.</p>
+    </div>
   </section>
 
-  <ContactBand />
+  <ContactBand title="¿Prefieres que un asesor te guíe?" />
 </Base>
 
-<style>
-  .posts-title { font-size: var(--step-head); }
-  ul { display: grid; gap: var(--space-2xl); }
-  .post-link { display: grid; gap: var(--space-s); color: var(--color-text); text-decoration: none; }
-  .cover { inline-size: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-card); }
-  .meta { color: var(--color-text-soft); font-size: var(--step-small); }
-  .post-title { font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 30ch; }
-  .post-text { display: grid; gap: var(--space-xs); align-content: start; }
-  .excerpt { color: var(--color-text-soft); }
-
-  @media (hover: hover) and (pointer: fine) {
-    .post-link:hover .post-title { color: var(--navy-600); }
+<script>
+  const root = document.querySelector<HTMLElement>('[data-blog]');
+  const input = document.querySelector<HTMLInputElement>('[data-blog-search]');
+  if (root) {
+    const posts = [...root.querySelectorAll<HTMLElement>('.post')];
+    const chips = [...root.querySelectorAll<HTMLButtonElement>('[data-cat]')].filter((c) => c.tagName === 'BUTTON');
+    const empty = root.querySelector<HTMLElement>('[data-empty]')!;
+    const fold = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+    let cat = 'todos';
+    const apply = () => {
+      const q = fold(input?.value.trim() ?? '');
+      let shown = 0;
+      for (const p of posts) {
+        const ok = (cat === 'todos' || p.dataset.cat === cat) && (!q || fold(p.dataset.text ?? '').includes(q));
+        p.hidden = !ok;
+        if (ok) shown++;
+      }
+      empty.hidden = shown > 0;
+    };
+    chips.forEach((c) => c.addEventListener('click', () => {
+      cat = c.dataset.cat ?? 'todos';
+      chips.forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
+      apply();
+    }));
+    input?.addEventListener('input', () => {
+      apply();
+      if (input.value.trim().length === 1) root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   }
+</script>
 
+<style>
+  /* Banner del blog: hoja de cuaderno con renglones, como material de estudio */
+  .b-hero { position: relative; overflow: hidden; isolation: isolate; padding-block: var(--space-xl); background-color: var(--paper-0); background-image: linear-gradient(90deg, transparent 4.5rem, rgb(254 143 1 / 0.35) 4.5rem, rgb(254 143 1 / 0.35) calc(4.5rem + 2px), transparent calc(4.5rem + 2px)), repeating-linear-gradient(180deg, transparent 0 2.1rem, rgb(29 45 140 / 0.09) 2.1rem calc(2.1rem + 1px)); }
+  .bh-grid { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
+  .bh-copy { display: grid; gap: var(--space-s); justify-items: start; }
+  .bh-copy h1 { color: var(--navy-700); font-size: clamp(2.3rem, 1.3rem + 2vw, 3.3rem); line-height: 1.05; letter-spacing: -0.03em; max-inline-size: 16ch; }
+  .bh-accent { display: block; color: var(--orange-500); }
+  .bh-lede { color: var(--ink-600); font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 44ch; }
+  .bh-search { display: flex; align-items: center; gap: 0.6rem; inline-size: min(100%, 30rem); padding: 0.4rem 0.5rem 0.4rem 1rem; border-radius: var(--radius-pill); background-color: var(--paper-0); color: var(--navy-600); box-shadow: 0 14px 30px -18px rgb(20 31 102 / 0.5), inset 0 0 0 1.5px rgb(29 45 140 / 0.18); }
+  .bh-search:focus-within { box-shadow: 0 14px 30px -18px rgb(20 31 102 / 0.5), inset 0 0 0 2px var(--orange-500); }
+  .bh-search input { flex: 1; min-inline-size: 0; min-block-size: 2.6rem; border: 0; background: transparent; color: var(--ink-900); font: inherit; font-size: var(--step-ui); outline: none; }
+  .bh-count { display: inline-flex; align-items: center; gap: 0.5em; color: var(--ink-600); font-size: var(--step-small); font-weight: var(--weight-semibold); }
+  .bh-count :global(svg) { color: var(--orange-500); }
+
+  .bh-feature { position: relative; display: grid; color: var(--ink-900); text-decoration: none; }
+  .bh-cover { display: block; overflow: hidden; border-radius: calc(var(--radius-card) + 0.5rem); box-shadow: 0 34px 70px -34px rgb(20 31 102 / 0.6); }
+  .bh-cover :global(.bh-img) { display: block; inline-size: 100%; aspect-ratio: 16 / 10; object-fit: cover; transition: transform 1s var(--ease-out); }
+  .bh-card { display: grid; gap: 0.35rem; margin: -3.5rem var(--space-m) 0; padding: var(--space-m); position: relative; border-radius: var(--radius-card); background-color: var(--paper-0); box-shadow: 0 24px 48px -24px rgb(20 31 102 / 0.5); border-block-start: 4px solid var(--orange-500); }
+  .bh-tag { color: var(--orange-600); font-size: var(--step-small); font-weight: var(--weight-bold); letter-spacing: 0.04em; text-transform: uppercase; }
+  .bh-title { font-family: var(--font-display); font-size: var(--step-title); font-weight: var(--weight-semibold); line-height: 1.25; color: var(--navy-700); }
+  .bh-meta { color: var(--color-text-soft); font-size: var(--step-small); }
+  .bh-go { color: var(--navy-600); font-size: var(--step-ui); font-weight: var(--weight-bold); }
+
+  /* Lista */
+  .list-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--space-s); }
+  .list-head h2 { margin-block-start: var(--space-2xs); }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .chip { padding: 0.5em 1em; border: 0; border-radius: var(--radius-pill); background-color: var(--paper-0); color: var(--ink-600); font: inherit; font-size: var(--step-small); font-weight: var(--weight-semibold); cursor: pointer; box-shadow: var(--shadow-card); transition: background-color var(--duration-hover) ease, color var(--duration-hover) ease; }
+  .chip[aria-pressed='true'] { background-image: var(--gradient-brand); color: var(--paper-0); }
+
+  .grid { display: grid; gap: var(--space-m); grid-template-columns: 1fr; }
+  .post[hidden] { display: none; }
+  .post-link { display: grid; grid-template-rows: auto 1fr; block-size: 100%; overflow: hidden; border-radius: var(--radius-card); background-color: var(--paper-0); color: var(--ink-900); text-decoration: none; box-shadow: var(--shadow-card); transition: translate var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) ease; }
+  .cover-box { position: relative; display: block; overflow: hidden; }
+  .cover { display: block; inline-size: 100%; aspect-ratio: 16 / 10; object-fit: cover; transition: transform var(--duration-reveal) var(--ease-out); }
+  .post-tag { position: absolute; inset-block-start: var(--space-xs); inset-inline-start: var(--space-xs); padding: 0.3em 0.75em; border-radius: var(--radius-pill); background-color: var(--paper-0); color: var(--navy-700); font-size: var(--step-small); font-weight: var(--weight-bold); box-shadow: 0 8px 16px -8px rgb(0 0 0 / 0.4); }
+  .post-body { display: grid; grid-template-rows: auto auto 1fr auto; gap: var(--space-2xs); padding: var(--space-m); }
+  .post-meta { color: var(--orange-600); font-size: var(--step-small); font-weight: var(--weight-semibold); }
+  .post-title { font-size: var(--step-title); line-height: 1.25; }
+  .excerpt { color: var(--color-text-soft); font-size: var(--step-ui); line-height: var(--leading-body); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .read { margin-block-start: var(--space-2xs); padding-block-start: var(--space-xs); border-block-start: 1px solid var(--paper-2); color: var(--navy-600); font-size: var(--step-ui); font-weight: var(--weight-bold); }
+  .arrow { display: inline-block; transition: transform var(--duration-hover) var(--ease-out); }
+  .empty { padding: var(--space-l); border-radius: var(--radius-card); background-color: var(--paper-0); color: var(--ink-600); text-align: center; box-shadow: var(--shadow-card); max-inline-size: none; }
+
+  @media (min-width: 40em) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 64em) {
-    ul { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--gutter); }
-    .lead { grid-column: 1 / -1; }
-    .lead .post-link { grid-template-columns: 1fr 1fr; column-gap: var(--gutter); align-items: center; }
-    .lead .post-text { gap: var(--space-m); }
-    .lead .post-title { font-size: min(var(--step-head), 2.25rem); line-height: var(--leading-head); letter-spacing: var(--tracking-head); max-inline-size: none; }
-    .lead .excerpt { font-size: var(--step-lead); line-height: var(--leading-lead); }
+    .b-hero { padding-block: var(--space-2xl); }
+    .bh-grid { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); }
+    .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (max-width: 47.99em) {
+    .b-hero { background-image: repeating-linear-gradient(180deg, transparent 0 2.1rem, rgb(29 45 140 / 0.08) 2.1rem calc(2.1rem + 1px)); }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .bh-feature:hover :global(.bh-img) { transform: scale(1.04); }
+    .post-link:hover { translate: 0 -5px; box-shadow: var(--shadow-lift); }
+    .post-link:hover .cover { transform: scale(1.05); }
+    .post-link:hover .arrow { transform: translateX(4px); }
+    .chip[aria-pressed='false']:hover { background-color: var(--orange-50); color: var(--orange-600); }
   }
 </style>
