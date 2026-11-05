@@ -60,11 +60,9 @@ const schema = [
       <li><span class="trust-ico"><Icon name="globe" size="0.95rem" /></span>8 países</li>
     </ul>
     <div class="figures-card">
-      <p class="fc-title">Científica en cifras</p>
       <ul class="fc-grid" role="list">
         {figures.map((f, i) => <li class:list={[i % 2 ? 'tone-6' : 'tone-1']}><strong>{f.value}</strong><span>{f.label}</span></li>)}
       </ul>
-      <p class="fc-foot"><Icon name="map" size="0.95rem" />Oficina en {site.address.district}, Lima · atención online</p>
     </div>
     <Picture slot="media" class="focus-center" formats={['avif', 'webp']} quality={80} src={office} alt="Nuestro equipo de asesores de tesis" widths={[960, 1280, 1570]} sizes="100vw" loading="eager" fetchpriority="high" />
   </PageHero>
@@ -155,13 +153,16 @@ const schema = [
 
 <style>
   /* Cifras del banner, en el lugar del formulario */
-  :global(.photo-hero .text) > .figures-card.figures-card { grid-column: 2; grid-row: 1 / -1; align-self: center; }
-  .figures-card { display: grid; gap: var(--space-s); padding: var(--space-m); border-radius: calc(var(--radius-card) + 0.35rem); background-color: rgb(255 255 255 / 0.1); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.18), 0 30px 60px -30px rgb(0 0 0 / 0.6); backdrop-filter: blur(12px); }
+  /* Cifras en una fila compacta bajo el texto, para no tapar al equipo */
+  .figures-card { display: block; max-inline-size: 36rem; }
+  @media (min-width: 64em) { :global(.photo-hero .text) > .figures-card.figures-card { grid-column: 1; grid-row: 5; align-self: start; margin-block-start: var(--space-2xs); } }
   .fc-title { color: var(--gold-400); font-size: var(--step-small); font-weight: var(--weight-bold); letter-spacing: 0.08em; text-transform: uppercase; }
-  .fc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-xs); }
-  .fc-grid li { display: grid; gap: 0.2rem; padding: var(--space-s); border-radius: var(--radius-card); background-color: var(--paper-0); }
-  .fc-grid strong { font-family: var(--font-display); font-size: clamp(1.75rem, 1.4rem + 1vw, 2.4rem); line-height: 1; color: var(--tone); }
-  .fc-grid span { color: var(--ink-600); font-size: var(--step-small); font-weight: var(--weight-semibold); }
+  .fc-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-radius: var(--radius-card); background-color: rgb(255 255 255 / 0.08); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.16); backdrop-filter: blur(8px); }
+  .fc-grid li { display: grid; gap: 0.15rem; padding: 0.75rem 0.9rem; }
+  .fc-grid li + li { border-inline-start: 1px solid rgb(255 255 255 / 0.14); }
+  .fc-grid strong { font-family: var(--font-display); font-size: clamp(1.4rem, 1.1rem + 0.8vw, 1.9rem); line-height: 1; color: var(--gold-400); }
+  .fc-grid li:nth-child(even) strong { color: var(--paper-0); }
+  .fc-grid span { color: var(--navy-100); font-size: 0.72rem; font-weight: var(--weight-semibold); line-height: 1.25; }
   .fc-foot { display: flex; align-items: center; gap: 0.5em; color: var(--navy-100); font-size: var(--step-small); font-weight: var(--weight-semibold); }
   .fc-foot :global(svg) { color: var(--gold-400); }
 
@@ -213,7 +214,6 @@ const schema = [
     .pillars { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
   }
   @media (max-width: 63.99em) {
-    :global(.photo-hero .text) > .figures-card.figures-card { grid-column: auto; grid-row: auto; margin-block-start: var(--space-s); }
   }
   @media (hover: hover) and (pointer: fine) {
     .way:hover { translate: 0 -5px; box-shadow: var(--shadow-lift); }
