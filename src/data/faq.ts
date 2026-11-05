@@ -46,6 +46,8 @@ export const doctoradoFaq: Faq[] = [
   { question: '¿Qué incluye la asesoría de tesis doctoral?', answer: 'Apoyo en la formulación del tema, guía metodológica, revisión de la redacción y preparación para la sustentación.' },
   { question: '¿Cuál es el costo de la asesoría para una tesis de doctorado?', answer: 'Ofrecemos una cotización gratuita y personalizada según tu campo de estudio y el estado de tu proyecto. Contacta con nosotros para recibir una propuesta sin compromiso.' },
   { question: '¿Pueden ayudarme a elegir el tema de mi tesis?', answer: 'Sí. Te ofrecemos orientación para que encuentres un tema original y relevante para tu campo de estudio.' },
+  { question: '¿Pueden ayudarme si mi proyecto de tesis está avanzado?', answer: 'Claro. Si ya has comenzado, podemos ayudarte a corregir, completar o mejorar tu tesis. También te apoyamos con la sustentación y la presentación final.' },
+  { question: '¿La asesoría es 100 % online?', answer: 'Sí. Nuestro servicio es completamente online y flexible, ideal para estudiantes en cualquier ciudad del Perú o el extranjero. También contamos con atención presencial, previa cita, en nuestras oficinas.' },
 ];
 
 export const pregradoFaq: Faq[] = [
