@@ -23,14 +23,11 @@ const schema = [
 >
   <PageHero title="Otros servicios" crumb="Otros servicios" lede="Revisiones, proyectos, datos y corrección: un solo equipo para cada parte de tu trabajo, con tu primera asesoría gratis." balance="photo" tint>
     <Fragment slot="title"><span class="h1-main">Otros servicios para</span> <span class="h1-tail">tu investigación</span></Fragment>
-    <div class="hero-cta">
-      <a class="wa-big" href={whatsappUrl('Hola, quiero cotizar uno de sus servicios de investigación.')} target="_blank" rel="noopener" data-analytics="cotizar_otros_servicios_hero">
-        <Icon name="whatsapp" size="1.25rem" />
-        <span><strong>Cotiza gratis por WhatsApp</strong><small>Te respondemos en menos de 24 h</small></span>
-        <span class="wa-arrow" aria-hidden="true">→</span>
-      </a>
-      <p class="hero-note"><span class="dot" aria-hidden="true"></span>15 servicios · 5 áreas · asesores de tu especialidad</p>
-    </div>
+    <ul class="trust" role="list">
+      <li><span class="trust-ico"><Icon name="users" size="0.95rem" /></span>15 servicios en 5 áreas</li>
+      <li><span class="trust-ico"><Icon name="user" size="0.95rem" /></span>Asesor de tu especialidad</li>
+      <li><span class="trust-ico"><Icon name="clock" size="0.95rem" /></span>Respuesta en menos de 24 h</li>
+    </ul>
     <FormCard title="¡Cotiza tu servicio gratis!" subject="Nuevo lead - Otros servicios" variant="short" submitLabel="Quiero mi cotización" hint="Ej.: necesito una revisión sistemática sobre salud mental para un artículo, con entrega en junio." />
     <Picture slot="media" formats={['avif', 'webp']} quality={80} src={heroImg} alt="Asesora de tesis de Científica Consultores" widths={[960, 1280, 1570]} sizes="100vw" loading="eager" fetchpriority="high" />
   </PageHero>
@@ -104,16 +101,6 @@ const schema = [
   .idx-text span { color: var(--color-text-soft); font-size: var(--step-small); }
   .idx-go { color: var(--orange-500); font-weight: var(--weight-bold); transition: transform var(--duration-hover) var(--ease-out); }
 
-  /* Llamada a la acción del banner */
-  .hero-cta { display: grid; gap: var(--space-xs); justify-items: start; }
-  .wa-big { display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.65rem 0.7rem 0.65rem 1.2rem; border-radius: var(--radius-pill); background-color: var(--whatsapp-500); color: var(--ink-900); text-decoration: none; box-shadow: 0 16px 34px -14px rgb(37 211 102 / 0.75); transition: transform var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) ease; }
-  .wa-big > span:not(.wa-arrow) { display: grid; line-height: 1.2; }
-  .wa-big strong { font-size: var(--step-body); }
-  .wa-big small { font-size: var(--step-small); font-weight: var(--weight-semibold); opacity: 0.75; }
-  .wa-arrow { display: grid; place-items: center; inline-size: 2.4rem; block-size: 2.4rem; border-radius: 50%; background-color: rgb(19 24 61 / 0.9); color: var(--paper-0); font-weight: var(--weight-bold); transition: transform var(--duration-ui) var(--ease-out); }
-  .hero-note { display: inline-flex; align-items: center; gap: 0.55em; color: var(--navy-100); font-size: var(--step-small); font-weight: var(--weight-semibold); }
-  .dot { inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; background-color: var(--gold-400); box-shadow: 0 0 0 4px rgb(255 194 51 / 0.2); }
-
   /* Encabezado de cada grupo, centrado como en el resto de la web */
   .g-head { justify-items: center; }
   .g-icon { display: grid; place-items: center; inline-size: 3.6rem; block-size: 3.6rem; margin-block-end: var(--space-2xs); border-radius: 1.1rem; background-image: var(--tone-grad); color: var(--paper-0); box-shadow: 0 12px 24px -12px var(--tone); }
@@ -148,7 +135,6 @@ const schema = [
     .card:hover { translate: 0 -5px; box-shadow: var(--shadow-lift); }
     .card:hover .photo { transform: scale(1.05); }
     .quote:hover { background-color: var(--whatsapp-600); color: var(--ink-900); transform: translateY(-1px); }
-    .quote:hover .q-arrow, .wa-big:hover .wa-arrow { transform: translateX(3px); }
-    .wa-big:hover { transform: translateY(-2px); box-shadow: 0 20px 40px -14px rgb(37 211 102 / 0.85); color: var(--ink-900); }
+    .quote:hover .q-arrow { transform: translateX(3px); }
   }
 </style>
