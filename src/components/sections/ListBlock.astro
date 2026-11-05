@@ -1,37 +1,42 @@
 ---
+import Icon from '@/components/ui/Icon.astro';
+
 interface Props {
   id: string;
   title: string;
   intro?: string;
   items: string[];
+  eyebrow?: string;
+  band?: boolean;
+  /** @deprecated se mantiene por compatibilidad */
   surface?: boolean;
 }
 
-const { id, title, intro, items, surface = false } = Astro.props;
-const wide = title.length > 40;
+const { id, title, intro, items, eyebrow, band = false } = Astro.props;
 ---
 
-<section class:list={['section-wide', { 'theme-surface': surface }]} aria-labelledby={id}>
-  <div class:list={['page split', { 'split-wide': wide }]}>
-    <header class="stack stack-m" data-reveal>
+<section class:list={['section-wide', { 'band-soft': band }]} aria-labelledby={id}>
+  <div class="page stack stack-xl">
+    <header class="section-head center" data-reveal>
+      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
       <h2 id={id}>{title}</h2>
-      {intro && <p class="text-lead">{intro}</p>}
+      {intro && <p>{intro}</p>}
     </header>
     <ul class="items" role="list" data-reveal="stagger">
-      {items.map((item) => <li>{item}</li>)}
+      {items.map((item, i) => (
+        <li class:list={['item', i % 2 ? 'tone-6' : 'tone-1']}>
+          <span class="check" aria-hidden="true"><Icon name="check" size="1.1rem" /></span>
+          <span>{item}</span>
+        </li>
+      ))}
     </ul>
   </div>
 </section>
 
 <style>
-  .items { display: grid; gap: var(--space-m); }
-  .items li {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: var(--space-s);
-    align-items: baseline;
-    font-size: var(--step-lead);
-    line-height: var(--leading-lead);
-  }
-  .items li::before { content: ''; inline-size: 0.6em; block-size: 0.6em; background-color: var(--color-accent); transform: translateY(-0.1em); }
+  .items { display: grid; gap: var(--space-s); grid-template-columns: 1fr; }
+  .item { display: flex; align-items: center; gap: var(--space-s); padding: var(--space-s) var(--space-m); border-radius: var(--radius-card); background-color: var(--paper-0); box-shadow: var(--shadow-card); font-size: var(--step-body); font-weight: var(--weight-medium); line-height: var(--leading-body); }
+  .check { display: grid; place-items: center; flex-shrink: 0; inline-size: 2.2rem; block-size: 2.2rem; border-radius: 50%; background-image: var(--tone-grad); color: var(--paper-0); }
+
+  @media (min-width: 48em) { .items { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 </style>

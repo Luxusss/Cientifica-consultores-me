@@ -7,16 +7,17 @@ interface Props {
   initial?: string;
   headingLevel?: 2 | 3;
   title?: string;
+  band?: boolean;
 }
 
-const { initial = 'pregrado', headingLevel = 2, title = 'Tu tesis por etapas' } = Astro.props;
+const { initial = 'pregrado', headingLevel = 2, title = 'Tu tesis por etapas', band = false } = Astro.props;
 const Heading = `h${headingLevel}` as const;
 const start = stageTracks.find((t) => t.id === initial) ?? stageTracks[0];
 const icons = ['search', 'document', 'list', 'pen', 'badge', 'chat', 'users'] as const;
 const phase = (i: number, n: number) => (i < 2 ? 'Planificación' : i >= n - 3 ? 'Cierre' : 'Desarrollo');
 ---
 
-<section class="section-wide stages-band" aria-labelledby="etapas" data-stages>
+<section class:list={['section-wide stages-band', { 'band-soft': band }]} aria-labelledby="etapas" data-stages>
   <div class="page stack stack-xl">
     <header class="section-head center" data-reveal>
       <span class="eyebrow">Tu camino</span>

@@ -49,6 +49,12 @@ const hasMedia = Astro.slots.has('media');
   }
 
   .photo-hero { gap: 0; overflow: hidden; }
+  /* Formulario del hero: tarjeta blanca y botón píldora como en inicio */
+  .photo-hero :global(.form-card) { background-color: var(--paper-0); color: var(--ink-900); border-radius: calc(var(--radius-card) + 0.35rem); box-shadow: 0 30px 70px -28px rgb(0 0 0 / 0.65); border-block-start: 4px solid var(--orange-500); }
+  .photo-hero :global(.form-card > h2) { display: flex; align-items: center; gap: 0.5em; font-family: var(--font-display); font-size: var(--step-title); }
+  .photo-hero :global(.form-card > h2)::before { content: ''; inline-size: 0.6rem; block-size: 0.6rem; border-radius: 50%; background-color: var(--whatsapp-500); box-shadow: 0 0 0 4px rgb(37 211 102 / 0.22); }
+  .photo-hero :global(.form-card .button[type='submit']) { min-block-size: 3.2rem; border-radius: var(--radius-pill); background-image: var(--gradient-warm); color: var(--ink-900); font-weight: var(--weight-bold); box-shadow: 0 14px 30px -14px rgb(254 143 1 / 0.8); }
+  .photo-hero :global(.form-card .button[type='submit'])::after { content: '→'; margin-inline-start: 0.5em; }
   .photo-hero .text { align-content: center; padding: var(--space-xl) var(--page-margin) var(--space-2xl); position: relative; z-index: 1; }
   .photo-hero .media { aspect-ratio: 4 / 3; overflow: hidden; }
   .photo-hero .media :global(picture) { display: block; block-size: 100%; }
@@ -62,10 +68,10 @@ const hasMedia = Astro.slots.has('media');
     .photo-hero .media { position: absolute; inset: auto 0 0 auto; block-size: min(100%, 46rem); inline-size: auto; aspect-ratio: 1570 / 883; max-inline-size: 100%; mask-image: linear-gradient(90deg, transparent 0, #000 22%), linear-gradient(180deg, transparent 0, #000 12%); mask-composite: intersect; }
     .photo-hero .media :global(img) { object-position: 100% 50%; }
     .photo-hero::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, var(--scrim-soft) 0%, transparent 20%), linear-gradient(0deg, color-mix(in srgb, var(--ink-900) 55%, transparent) 0%, transparent 30%), linear-gradient(90deg, var(--scrim-strong) 0%, var(--scrim-strong) 24%, transparent 60%); }
-    .photo-hero .text { padding-inline: var(--edge) var(--space-l); padding-block: var(--space-s) var(--space-l); max-inline-size: calc(var(--edge) + 60rem); }
+    .photo-hero .text { padding-inline: var(--edge) var(--space-l); padding-block: var(--space-l) var(--space-xl); max-inline-size: calc(var(--edge) + 60rem); }
     .photo-hero .text > :global(.text-lead) { max-inline-size: none; text-wrap: balance; }
     .photo-hero .text :global(.form-card) { max-inline-size: 42rem; margin-block-start: var(--space-3xs); padding: var(--space-s) var(--space-m) var(--space-m); gap: var(--space-xs); box-shadow: 0 24px 60px -24px color-mix(in srgb, var(--ink-900) 55%, transparent); }
-    .page-hero.photo-hero :global(h1) { font-size: min(var(--step-display), 3.5rem); max-inline-size: none; text-wrap: balance; }
+    .page-hero.photo-hero :global(h1) { font-size: clamp(2.75rem, 1.6rem + 2.8vw, 4.25rem); line-height: 1.02; letter-spacing: -0.03em; max-inline-size: none; }
     .page-hero :global(h1) { font-size: min(var(--step-display), 5vw); }
     .favor-media :global(h1) { font-size: min(var(--step-display), 4vw); }
     .field-hero:not(.with-media) .text { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: end; }

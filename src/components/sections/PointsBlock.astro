@@ -4,80 +4,83 @@ import type { Block } from '@/data/servicePages';
 
 interface Props {
   block: Block;
+  eyebrow?: string;
+  band?: boolean;
+  /** @deprecated se mantiene por compatibilidad */
   surface?: boolean;
 }
 
-const { block, surface = false } = Astro.props;
-const titled = block.points.some((p) => p.title);
+const { block, eyebrow, band = false } = Astro.props;
 const introOnly = block.points.length === 0;
 const pictured = block.points.some((p) => p.image);
-const wide = block.title.length > 40;
+const count = block.points.length;
 ---
 
-<section class:list={[surface ? 'theme-surface section-wide' : 'section-wide']} aria-labelledby={block.id}>
-  {pictured ? (
-    <div class="page stack stack-xl">
-      <header class:list={['split', { 'split-wide': wide, 'split-end': !wide }]} data-reveal>
-        <h2 id={block.id}>{block.title}</h2>
-        {block.intro && <p class="text-lead">{block.intro}</p>}
-      </header>
-      <ul class:list={['cards', { four: block.points.length === 4 }]} role="list" data-reveal="stagger">
-        {block.points.map((p) => (
-          <li id={p.id} class="card">
+<section class:list={['section-wide', { 'band-soft': band }]} aria-labelledby={block.id}>
+  <div class="page stack stack-xl">
+    <header class="section-head center" data-reveal>
+      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+      <h2 id={block.id}>{block.title}</h2>
+      {block.intro && !introOnly && <p>{block.intro}</p>}
+      {introOnly && block.intro && <p>{block.intro}</p>}
+    </header>
+
+    {!introOnly && (
+      <ul class:list={['cards', `n-${count}`, { plain: !pictured }]} role="list" data-reveal="stagger">
+        {block.points.map((p, i) => (
+          <li id={p.id} class:list={['card', i % 2 ? 'tone-6' : 'tone-1']}>
             {p.image && (
               <div class="frame">
-                <Image src={p.image} alt={p.imageAlt ?? ''} widths={[360, 540, 720]} sizes="(min-width: 64em) 26vw, (min-width: 40em) 45vw, 100vw" class="photo parallax-img" />
+                <Image src={p.image} alt={p.imageAlt ?? ''} widths={[360, 540, 720]} sizes="(min-width: 64em) 30vw, (min-width: 40em) 45vw, 100vw" class="photo" />
               </div>
             )}
-            {p.title && <h3>{p.title}</h3>}
-            <p>{p.text}</p>
+            <div class="body">
+              <span class="num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              {p.title && <h3>{p.title}</h3>}
+              <p>{p.text}</p>
+            </div>
           </li>
         ))}
       </ul>
-    </div>
-  ) : (
-    <div class:list={['page split', { 'split-wide': wide }]}>
-      <header class="stack" data-reveal>
-        <h2 id={block.id}>{block.title}</h2>
-        {block.intro && !introOnly && <p class="text-lead">{block.intro}</p>}
-      </header>
-      {introOnly ? (
-        <p class="text-lead" data-reveal>{block.intro}</p>
-      ) : (
-        <ul class:list={['list', { titled }]} role="list" data-reveal="stagger">
-          {block.points.map((p) => (
-            <li id={p.id}>
-              {p.title && <h3>{p.title}</h3>}
-              <p>{p.text}</p>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  )}
+    )}
+  </div>
 </section>
 
 <style>
-  .list { display: grid; gap: var(--space-s); }
-  .list li { font-size: var(--step-lead); line-height: var(--leading-lead); }
-  .titled { gap: var(--space-l); }
-  .titled li { font-size: var(--step-body); line-height: var(--leading-body); }
-  .titled h3 { font-size: var(--step-title); line-height: var(--leading-head); font-weight: var(--weight-medium); margin-block-end: var(--space-2xs); }
+  .cards { display: grid; gap: var(--space-m) var(--gutter); grid-template-columns: 1fr; }
+  .card {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    overflow: hidden;
+    border-radius: var(--radius-card);
+    background-color: var(--paper-0);
+    box-shadow: var(--shadow-card);
+    transition: opacity var(--duration-reveal) var(--ease-expo), transform var(--duration-reveal) var(--ease-expo), translate var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) var(--ease-out);
+  }
+  .frame { overflow: hidden; background-color: var(--navy-50); }
+  .frame :global(.photo) { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: 50% 30%; transition: transform var(--duration-reveal) var(--ease-out); }
+  .body { position: relative; display: grid; gap: var(--space-2xs); align-content: start; padding: var(--space-l) var(--space-m) var(--space-m); }
+  .num { position: absolute; inset-block-start: -1.3rem; inset-inline-start: var(--space-m); display: grid; place-items: center; inline-size: 2.6rem; block-size: 2.6rem; border-radius: 0.85rem; background-image: var(--tone-grad); color: var(--paper-0); font-size: var(--step-small); font-weight: var(--weight-bold); box-shadow: 0 0 0 4px var(--paper-0), 0 10px 20px -10px rgb(0 0 0 / 0.4); }
+  .plain .body { padding-block-start: var(--space-m); }
+  .plain .num { position: static; box-shadow: none; margin-block-end: var(--space-2xs); }
+  .card h3 { font-size: var(--step-title); line-height: 1.25; }
+  .card p { color: var(--color-text-soft); font-size: var(--step-ui); line-height: var(--leading-body); }
 
-  .cards { display: grid; gap: var(--space-l) var(--gutter); grid-template-columns: repeat(auto-fill, minmax(min(17rem, 100%), 1fr)); }
-  .card { display: grid; gap: var(--space-xs); align-content: start; }
-  .frame { overflow: hidden; border-radius: var(--radius-card); margin-block-end: var(--space-2xs); }
-  .frame :global(.photo) { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 3 / 2; object-fit: cover; transition: transform var(--duration-reveal) var(--ease-out); }
-  .card h3 { font-size: var(--step-title); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
-  .card p { color: var(--color-text-soft); }
-
+  @media (min-width: 40em) {
+    .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
   @media (min-width: 64em) {
-    .titled { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--gutter); }
     .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .cards.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .cards.n-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    /* Cinco tarjetas: 3 arriba y 2 más anchas abajo */
+    .cards.n-5 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+    .cards.n-5 > .card { grid-column: span 2; }
+    .cards.n-5 > .card:nth-child(n + 4) { grid-column: span 3; }
+    .cards.n-5 > .card:nth-child(n + 4) .frame :global(.photo) { aspect-ratio: 21 / 9; }
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .card:hover :global(.photo) { transform: scale(1.05); }
+    .card:hover { translate: 0 -5px; box-shadow: var(--shadow-lift); }
+    .card:hover .frame :global(.photo) { transform: scale(1.05); }
   }
 </style>
