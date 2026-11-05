@@ -2,7 +2,7 @@
 import { Image, Picture } from 'astro:assets';
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/ui/PageHero.astro';
-import FormButton from '@/components/ui/FormButton.astro';
+import FormCard from '@/components/forms/FormCard.astro';
 import Icon from '@/components/ui/Icon.astro';
 import ContactBand from '@/components/sections/ContactBand.astro';
 import { otherServices } from '@/data/otherServices';
@@ -31,6 +31,7 @@ const schema = [
       </a>
       <p class="hero-note"><span class="dot" aria-hidden="true"></span>15 servicios · 5 áreas · asesores de tu especialidad</p>
     </div>
+    <FormCard title="¡Cotiza tu servicio gratis!" subject="Nuevo lead - Otros servicios" variant="short" submitLabel="Quiero mi cotización" hint="Ej.: necesito una revisión sistemática sobre salud mental para un artículo, con entrega en junio." />
     <Picture slot="media" formats={['avif', 'webp']} quality={80} src={heroImg} alt="Asesora de tesis de Científica Consultores" widths={[960, 1280, 1570]} sizes="100vw" loading="eager" fetchpriority="high" />
   </PageHero>
 
