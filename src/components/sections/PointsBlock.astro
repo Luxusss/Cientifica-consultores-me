@@ -43,7 +43,8 @@ const logo = (file: string) => logoFiles['/src/assets/images/clients/' + file]?.
                 {pt.logos.map((f) => logo(f) && <li><Image src={logo(f)!} alt={logoName(f)} height={80} class="f-logo" /></li>)}
               </ul>
             )}
-            <p class="f-text">{pt.text}</p>
+            {pt.highlight && <p class="f-high"><strong>{pt.highlight.value}</strong><span>{pt.highlight.text}</span></p>}
+            {pt.text && <p class="f-text">{pt.text}</p>}
             {pt.bullets && <ul class="f-bullets" role="list">{pt.bullets.map((b) => <li>{b}</li>)}</ul>}
           </li>
         ))}
@@ -114,12 +115,16 @@ const logo = (file: string) => logoFiles['/src/assets/images/clients/' + file]?.
   .f-stat span { font-size: var(--step-lead); font-weight: var(--weight-semibold); }
   .feature:first-child .f-text { color: var(--navy-100); }
   .f-text { color: var(--color-text-soft); font-size: var(--step-body); }
+  .f-high { display: flex; align-items: center; gap: var(--space-s); padding: var(--space-s); border-radius: var(--radius-card); background-color: rgb(255 255 255 / 0.1); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.14); }
+  .f-high strong { flex-shrink: 0; display: grid; place-items: center; inline-size: 4.4rem; block-size: 4.4rem; border-radius: 50%; background-image: var(--gradient-warm); color: var(--ink-900); font-family: var(--font-display); font-size: 1.35rem; box-shadow: 0 10px 22px -10px rgb(254 143 1 / 0.8); }
+  .f-high span { font-size: var(--step-ui); font-weight: var(--weight-semibold); line-height: 1.4; }
   .f-bullets { display: grid; gap: 0.55rem; margin-block-start: var(--space-2xs); padding-block-start: var(--space-s); border-block-start: 1px solid rgb(255 255 255 / 0.16); }
   .f-bullets li { display: flex; align-items: center; gap: 0.6em; font-size: var(--step-ui); font-weight: var(--weight-semibold); }
   .f-bullets li::before { content: '✓'; display: grid; place-items: center; flex-shrink: 0; inline-size: 1.5rem; block-size: 1.5rem; border-radius: 50%; background-color: var(--orange-500); color: var(--ink-900); font-size: 0.8rem; font-weight: var(--weight-bold); }
   .f-logos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-xs); }
-  .f-logos li { display: grid; place-items: center; block-size: 5.5rem; padding: var(--space-xs); border-radius: var(--radius-card); background-color: #fff; box-shadow: inset 0 0 0 1px var(--paper-2); }
-  .f-logos :global(.f-logo) { max-inline-size: 100%; max-block-size: 3.8rem; inline-size: auto; block-size: auto; object-fit: contain; }
+  .feature:not(:first-child) { align-content: space-between; }
+  .f-logos li { display: grid; place-items: center; block-size: 7.25rem; padding: var(--space-xs); border-radius: var(--radius-card); background-color: #fff; box-shadow: inset 0 0 0 1px var(--paper-2); }
+  .f-logos :global(.f-logo) { max-inline-size: 100%; max-block-size: 4.6rem; inline-size: auto; block-size: auto; object-fit: contain; }
 
   @media (min-width: 40em) {
     .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
