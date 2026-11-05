@@ -26,7 +26,6 @@ const { page } = Astro.props;
 const accentAt = page.h1Accent ? page.h1.lastIndexOf(page.h1Accent) : -1;
 const h1Main = accentAt > 0 ? page.h1.slice(0, accentAt).trim() : page.h1;
 const h1Tail = accentAt > 0 ? page.h1Accent! : '';
-const longTitle = h1Main.length > 22;
 const trust = [
   { icon: 'user', text: 'Asesor de tu carrera' },
   { icon: 'shield', text: 'Contrato digital' },
@@ -67,7 +66,7 @@ const schema = [
 
 <Base title={page.title} description={page.description} image={`/og/${page.id}.jpg`} schema={schema}>
   <PageHero title={page.h1} crumb={page.crumb} lede={page.lede} balance="photo">
-    <Fragment slot="title"><span class:list={['h1-main', { long: longTitle }]}>{h1Main}</span>{h1Tail && <> <span class:list={['h1-tail', { long: longTitle }]}>{h1Tail}</span></>}</Fragment>
+    <Fragment slot="title"><span class="h1-main">{h1Main}</span>{h1Tail && <> <span class="h1-tail">{h1Tail}</span></>}</Fragment>
     <ul class="trust" role="list">
       {trust.map((t) => <li><span class="trust-ico"><Icon name={t.icon} size="0.95rem" /></span>{t.text}</li>)}
     </ul>
@@ -149,10 +148,6 @@ const schema = [
 
 <style>
   /* Hero */
-  @media (min-width: 64em) {
-    .h1-main.long { font-size: 0.72em; }
-    .h1-tail.long { font-size: 0.6em; }
-  }
   .h1-tail { display: block; margin-block-start: 0.1em; padding-block-end: 0.12em; font-size: 0.8em; line-height: 1.1; background-image: linear-gradient(90deg, var(--gold-400), var(--orange-500) 60%, #ff7a59); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .trust { display: flex; flex-wrap: wrap; gap: 0.45rem; }
   .trust li { display: inline-flex; align-items: center; gap: 0.5em; padding: 0.35em 0.85em 0.35em 0.4em; border-radius: var(--radius-pill); background-color: rgb(255 255 255 / 0.1); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.16); color: var(--paper-0); font-size: var(--step-small); font-weight: var(--weight-semibold); backdrop-filter: blur(6px); }

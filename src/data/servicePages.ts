@@ -29,7 +29,7 @@ import equipoImg from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg'
 import onlineAsesoriaImg from '@/assets/images/blog/mujer-con-laptop-en-oficina.jpg';
 import tspTrabajoImg from '@/assets/images/otros_servicios/estudios_empiricos/Trabajo-de-suficiencia-profesional.jpg';
 
-export type Point = { title?: string; text: string; id?: string; image?: ImageMetadata; imageAlt?: string; tag?: string; stat?: string; statLabel?: string; logos?: string[] };
+export type Point = { title?: string; text: string; id?: string; image?: ImageMetadata; imageAlt?: string; tag?: string; stat?: string; statLabel?: string; logos?: string[]; bullets?: string[] };
 export type Block = { id: string; title: string; intro?: string; points: Point[]; variant?: 'overlay' | 'feature' };
 
 export type Section =
@@ -266,7 +266,7 @@ export const servicePages: Record<string, ServicePage> = {
         title: '¿Por qué elegir nuestro servicio de asesoría TSP?',
         variant: 'feature',
         points: [
-          { title: 'Resultados comprobados', stat: `+${stats.tsp}`, statLabel: 'profesionales acompañados en su TSP', text: 'Si el jurado te observa, te guiamos para levantar las observaciones sin costo adicional.' },
+          { title: 'Resultados comprobados', stat: `+${stats.tsp}`, statLabel: 'profesionales acompañados en su TSP', text: 'Si el jurado te observa, te guiamos para levantar las observaciones sin costo adicional.', bullets: ['Asesoría personalizada según tu universidad', 'Levantamiento de observaciones incluido', 'Acompañamiento hasta tu sustentación'] },
           { title: 'Expertos por universidad', text: 'Conocemos el formato y los requisitos del TSP en estas universidades y en muchas más.', logos: ['Universidad_Privada_del_Norte_UPN.png', 'u-universidad-cesar-vallejo.png', 'usil.png', 'UTP.jpeg'] },
         ],
       },

@@ -79,7 +79,8 @@ const hasMedia = Astro.slots.has('media');
     .photo-hero .text :global(.form-card textarea) { min-block-size: 5.5rem; block-size: 5.5rem; overflow-y: auto; scrollbar-width: thin; }
     .photo-hero .text > :global(.text-lead) { max-inline-size: none; text-wrap: balance; }
     .photo-hero .text :global(.form-card) { max-inline-size: 31rem; margin-block-start: 0; padding: var(--space-m) var(--space-l) var(--space-l); gap: var(--space-xs); --input-height: 2.85rem; box-shadow: 0 24px 60px -24px color-mix(in srgb, var(--ink-900) 55%, transparent); }
-    .page-hero.photo-hero :global(h1) { font-size: clamp(2.75rem, 1.5rem + 2.8vw, 4.4rem); line-height: 1.02; letter-spacing: -0.03em; max-inline-size: none; }
+    /* Mismo tamaño de título en todas las páginas de servicio (cabe el más largo, el del TSP) */
+    .page-hero.photo-hero :global(h1) { font-size: clamp(2.4rem, 1.3rem + 2.1vw, 3.4rem); line-height: 1.02; letter-spacing: -0.03em; max-inline-size: none; }
     .page-hero :global(h1) { font-size: min(var(--step-display), 5vw); }
     .favor-media :global(h1) { font-size: min(var(--step-display), 4vw); }
     .field-hero:not(.with-media) .text { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: end; }
