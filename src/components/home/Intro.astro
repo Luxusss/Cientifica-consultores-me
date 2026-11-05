@@ -28,7 +28,7 @@ const facts = [
 </section>
 
 <script>
-  // Las cifras cuentan desde 0 cuando quedan bien a la vista, y vuelven a contar cada vez que el usuario regresa a ellas.
+  // Las cifras cuentan desde 0 una sola vez, cuando quedan a la vista; después se quedan en su valor final.
   const root = document.querySelector<HTMLElement>('[data-counters]');
   if (root && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const nums = [...root.querySelectorAll<HTMLElement>('.facts [data-count]')];
@@ -55,10 +55,10 @@ const facts = [
     };
     reset();
     const target = root.querySelector<HTMLElement>('.facts') ?? root;
-    new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) run();
-      else reset();
-    }, { threshold: 0.9 }).observe(target);
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { io.disconnect(); run(); }
+    }, { threshold: 0.6 });
+    io.observe(target);
   }
 </script>
 
