@@ -157,12 +157,10 @@ const schema = [
   .figures-card { display: block; max-inline-size: 36rem; }
   /* El equipo ocupa más del banner para no dejar un hueco al centro */
   @media (min-width: 64em) {
-    :global(.photo-hero .media) { inline-size: 72%; block-size: 100%; aspect-ratio: auto; mask-image: linear-gradient(90deg, transparent 0, #000 16%) !important; }
+    :global(.photo-hero .media) { inline-size: calc(100% - 36rem); block-size: 100%; aspect-ratio: auto; mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.08) 6%, rgb(0 0 0 / 0.3) 12%, rgb(0 0 0 / 0.62) 18%, rgb(0 0 0 / 0.88) 24%, #000 30%), linear-gradient(180deg, transparent 0, #000 10%) !important; mask-composite: intersect !important; }
+    /* El velo oscuro termina antes de llegar al equipo, para no tapar a nadie */
+    :global(.photo-hero:has(.figures-card))::after { background: linear-gradient(180deg, var(--scrim-soft) 0%, transparent 20%), linear-gradient(0deg, color-mix(in srgb, var(--ink-900) 45%, transparent) 0%, transparent 25%), linear-gradient(90deg, var(--scrim-strong) 0%, var(--scrim-strong) 26%, transparent 42%) !important; }
     :global(.photo-hero .media img) { object-position: 70% 22% !important; }
-  }
-  /* Pantallas muy anchas: el equipo se acerca para no dejar un hueco al centro */
-  @media (min-width: 100em) {
-    :global(.photo-hero .media img) { transform: scale(1.14); transform-origin: 100% 40%; }
   }
   /* Texto y cifras centrados de arriba a abajo en el banner */
   @media (min-width: 64em) {
