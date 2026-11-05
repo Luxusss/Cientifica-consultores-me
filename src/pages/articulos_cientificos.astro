@@ -1,9 +1,13 @@
 ---
-import { Image, Picture } from 'astro:assets';
+import { Picture } from 'astro:assets';
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/ui/PageHero.astro';
 import FormCard from '@/components/forms/FormCard.astro';
+import Icon from '@/components/ui/Icon.astro';
+import PointsBlock from '@/components/sections/PointsBlock.astro';
+import ListBlock from '@/components/sections/ListBlock.astro';
 import ContactBand from '@/components/sections/ContactBand.astro';
+import type { Block } from '@/data/servicePages';
 import { breadcrumb } from '@/lib/schema';
 import { site } from '@/config/site';
 import heroImg from '@/assets/images/banner/asesor-de-articulo-cientifico.jpg';
@@ -11,32 +15,30 @@ import fromThesis from '@/assets/images/articulos_cientificos/articulo-desde-una
 import bookChapter from '@/assets/images/articulos_cientificos/capitulo-de-libro.jpg';
 import fromScratch from '@/assets/images/articulos_cientificos/empezando-desde-cero-un-articulo.jpg';
 
-const routes = [
-  {
-    title: 'Desde cero',
-    image: fromScratch,
-    text: 'Para colaborar de una manera efectiva, es importante que, como cliente, puedas encargarte de todas las actividades de campo, como la recopilación de datos, la realización de experimentos, las observaciones de la muestra de estudio, las entrevistas y cualquier otra acción necesaria para obtener la información requerida.',
-    points: ['Monitoreo constante: seguimiento detallado en cada paso.', 'Protección de datos: tu manuscrito se maneja de forma privada.', 'Experiencia comprobada: más de 10 años en publicaciones académicas.', 'Responsabilidad y compromiso: estándares de calidad hasta la publicación.'],
-  },
-  {
-    title: 'Desde una tesis',
-    image: fromThesis,
-    text: 'Necesitamos una tesis aprobada para revisar su viabilidad como artículo.',
-    points: ['Monitoreo constante: seguimiento detallado.', 'Privacidad: tu manuscrito se maneja de forma segura.', 'Experiencia: 10 años en publicaciones.', 'Calidad: claridad y rigor hasta la publicación.'],
-  },
-  {
-    title: 'Capítulo de libro',
-    image: bookChapter,
-    text: 'El cliente realiza la recolección de datos y otras acciones de campo necesarias.',
-    points: ['Monitoreo constante: asesoría continua.', 'Privacidad: protección de tus datos.', 'Experiencia: 10 años en el sector académico.', 'Compromiso: altos estándares de calidad.'],
-  },
-];
+const trust = [
+  { icon: 'user', text: 'Asesor de tu área' },
+  { icon: 'search', text: 'Revistas indexadas' },
+  { icon: 'document', text: 'Originalidad con Turnitin' },
+] as const;
+
+// Tres puntos de partida, con la foto completa de fondo
+const routes: Block = {
+  id: 'partida',
+  title: 'Artículos científicos: ¿cómo iniciamos?',
+  intro: 'Elige tu punto de partida y te acompañamos hasta la publicación.',
+  variant: 'overlay',
+  points: [
+    { title: 'Desde cero', tag: 'Investigación nueva', image: fromScratch, imageAlt: 'Artículo científico desde cero', text: 'Tú realizas el trabajo de campo (datos, experimentos o entrevistas) y te guiamos en el diseño, el análisis y la redacción del artículo.' },
+    { title: 'Desde una tesis', tag: 'Tesis aprobada', image: fromThesis, imageAlt: 'Artículo científico a partir de una tesis', text: 'Partimos de tu tesis aprobada, evaluamos si es viable como artículo y te ayudamos a adaptarla a una revista.' },
+    { title: 'Capítulo de libro', tag: 'Publicación en libro', image: bookChapter, imageAlt: 'Capítulo de libro académico', text: 'Con los datos que recolectas, te acompañamos a escribir un capítulo de libro académico con rigor y buenas citas.' },
+  ],
+};
 
 const commitments = [
-  { title: 'Monitoreo constante', text: 'Seguimiento detallado en cada paso.' },
-  { title: 'Protección de datos', text: 'Privacidad y profesionalismo.' },
-  { title: 'Experiencia comprobada', text: 'Más de 10 años en publicaciones académicas.' },
-  { title: 'Responsabilidad y compromiso', text: 'Estándares de calidad hasta la publicación.' },
+  'Monitoreo constante en cada paso',
+  'Protección de tus datos y tu manuscrito',
+  'Más de 10 años en publicaciones académicas',
+  'Estándares de calidad hasta la publicación',
 ];
 
 const schema = [
@@ -53,51 +55,15 @@ const schema = [
   schema={schema}
 >
   <PageHero title="Asesoría de artículos científicos" crumb="Artículos científicos" lede="Convierte tu investigación en una publicación: desde cero, desde tu tesis o como capítulo de libro." balance="photo">
+    <Fragment slot="title"><span class="h1-main">Asesoría de</span> <span class="h1-tail">artículos científicos</span></Fragment>
+    <ul class="trust" role="list">
+      {trust.map((t) => <li><span class="trust-ico"><Icon name={t.icon} size="0.95rem" /></span>{t.text}</li>)}
+    </ul>
     <FormCard title="¡Obtén tu primera asesoría gratis!" subject="Nuevo lead - Artículo Científico" variant="short" submitLabel="Quiero asesoría" />
     <Picture slot="media" formats={['avif', 'webp']} quality={80} src={heroImg} alt="Asesoría de artículos científicos" widths={[960, 1280, 1570]} sizes="100vw" loading="eager" fetchpriority="high" />
   </PageHero>
 
-  <section class="section page stack stack-xl" aria-labelledby="partida">
-    <header class="split split-wide">
-      <h2 id="partida">Artículos científicos: ¿cómo iniciamos?</h2>
-      <p class="text-lead">Elige tu punto de partida: desde cero, desde una tesis aprobada o como capítulo de libro.</p>
-    </header>
-    <ul class="list" role="list" data-reveal="stagger">
-      {routes.map((r) => (
-        <li>
-          <Image src={r.image} alt={`Artículo científico: ${r.title.toLowerCase()}`} widths={[360, 540, 720]} sizes="(min-width: 64em) 30vw, 100vw" class="route-img" />
-          <h3>{r.title}</h3>
-          <p>{r.text}</p>
-          <ul class="checks" role="list">
-            {r.points.map((pt) => <li>{pt}</li>)}
-          </ul>
-        </li>
-      ))}
-    </ul>
-  </section>
-
-  <section class="theme-surface section-wide" aria-labelledby="compromiso">
-    <div class="page split">
-      <h2 id="compromiso">Nuestro compromiso contigo</h2>
-      <ul class="stack items" role="list" data-reveal="stagger">
-        {commitments.map((c) => <li><strong>{c.title}.</strong> {c.text}</li>)}
-      </ul>
-    </div>
-  </section>
-
+  <PointsBlock block={routes} eyebrow="Tu punto de partida" />
+  <ListBlock id="compromiso" title="Nuestro compromiso contigo" items={commitments} eyebrow="Compromiso" variant="icons" />
   <ContactBand />
 </Base>
-
-<style>
-  .checks { display: grid; gap: var(--space-2xs); margin-block-start: var(--space-xs); }
-  .checks li { display: grid; grid-template-columns: auto 1fr; gap: var(--space-xs); align-items: baseline; }
-  .checks li::before { content: ''; inline-size: 0.5em; block-size: 0.5em; background-color: var(--color-accent); }
-  .list { display: grid; gap: var(--space-xl) var(--gutter); grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
-  .list li { display: grid; gap: var(--space-s); align-content: start; }
-  .route-img { inline-size: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-card); }
-  .list h3 { font-weight: var(--weight-semibold); }
-  .items li { font-size: var(--step-lead); line-height: var(--leading-lead); }
-  @media (max-width: 47.99em) {
-    :global(.page-hero h1) { font-size: var(--step-head); line-height: var(--leading-head); letter-spacing: var(--tracking-head); }
-  }
-</style>

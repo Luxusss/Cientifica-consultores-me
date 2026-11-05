@@ -173,3 +173,10 @@
   background-color: var(--color-bg);
   color: var(--color-text);
 }
+
+/* Va fuera de las capas para ganar a los temas de cada sección (.theme-surface, etc.). */
+/* Fondos alternos automáticos: entre las secciones claras de cada página, una sí y una no lleva el azul suave.
+   Las secciones oscuras (hero, foto, testimonios, bloques azules) no cuentan, así que el orden se mantiene solo
+   al agregar, quitar o mover secciones. No hace falta poner clases a mano. */
+main > section:nth-child(even of section:not(.theme-field, .photo, .quote, .hero, .page-hero)) { background-color: var(--color-band); }
+main > section:nth-child(odd of section:not(.theme-field, .photo, .quote, .hero, .page-hero)) { background-color: var(--paper-0); background-image: none; }
