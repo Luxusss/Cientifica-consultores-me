@@ -102,7 +102,6 @@
   .section-wide { padding-block: var(--section-gap); }
   /* Franja alterna en azul muy suave de la marca para separar secciones */
   .band-soft { background-color: var(--color-band); }
-  .band-soft .link-pill { background-color: var(--paper-0); box-shadow: var(--shadow-card); }
 
   .stack { display: grid; gap: var(--stack, var(--space-s)); align-content: start; }
   .stack-m { --stack: var(--space-m); }
@@ -132,25 +131,29 @@
   .accent-mark { position: relative; padding-block-start: var(--space-m); }
   .accent-mark::before { content: ''; position: absolute; inset-block-start: 0; inset-inline-start: 0; inline-size: 3rem; block-size: 4px; background-color: var(--color-accent); }
 
-  /* Enlace tipo botón suave con flecha */
+  /* Enlace tipo botón con contorno y flecha en círculo */
   .link-pill {
     display: inline-flex;
     align-items: center;
-    gap: 0.5em;
+    gap: 0.7em;
     inline-size: fit-content;
-    padding: 0.6em 1.1em;
+    min-block-size: 2.9rem;
+    padding: 0.35em 0.4em 0.35em 1.25em;
     border-radius: var(--radius-pill);
-    background-color: var(--navy-50);
+    background-color: var(--paper-0);
     color: var(--navy-600);
     font-size: var(--step-ui);
     font-weight: var(--weight-bold);
-    transition: background-color var(--duration-hover) ease, color var(--duration-hover) ease, gap var(--duration-hover) var(--ease-out);
+    box-shadow: inset 0 0 0 1.5px var(--navy-600), 0 8px 20px -12px rgb(29 45 140 / 0.45);
+    transition: background-color var(--duration-hover) ease, color var(--duration-hover) ease, box-shadow var(--duration-hover) ease;
   }
-  .link-pill::after { content: '→'; }
-  .theme-field .link-pill { background-color: rgb(255 255 255 / 0.12); color: var(--paper-0); }
+  .link-pill::after { content: '→'; display: grid; place-items: center; inline-size: 2.1rem; block-size: 2.1rem; border-radius: 50%; background-color: var(--navy-600); color: var(--paper-0); font-size: 1rem; line-height: 1; transition: background-color var(--duration-hover) ease, color var(--duration-hover) ease, transform var(--duration-hover) var(--ease-out); }
+  .theme-field .link-pill { background-color: transparent; color: var(--paper-0); box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 0.55); }
+  .theme-field .link-pill::after { background-color: var(--orange-500); color: var(--ink-900); }
   @media (hover: hover) and (pointer: fine) {
-    .link-pill:hover { gap: 0.8em; background-color: var(--navy-600); color: var(--paper-0); }
-    .theme-field .link-pill:hover { background-color: var(--orange-500); color: var(--ink-900); }
+    .link-pill:hover { background-color: var(--navy-600); color: var(--paper-0); }
+    .link-pill:hover::after { background-color: var(--orange-500); color: var(--ink-900); transform: translateX(3px); }
+    .theme-field .link-pill:hover { background-color: var(--paper-0); color: var(--navy-700); }
   }
 
   /* Encabezado de sección a ancho completo (sin columna vacía) */
