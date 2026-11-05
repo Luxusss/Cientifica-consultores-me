@@ -2,24 +2,43 @@
 import { Picture } from 'astro:assets';
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/ui/PageHero.astro';
+import Icon from '@/components/ui/Icon.astro';
+import BrandPhoto from '@/components/ui/BrandPhoto.astro';
 import ContactBand from '@/components/sections/ContactBand.astro';
 import { fullAddress, site } from '@/config/site';
+import { stats } from '@/data/stats';
 import { breadcrumb } from '@/lib/schema';
-import { listEs } from '@/lib/format';
 import office from '@/assets/images/banner/nuestro-equipo-de-asesores-de-tesis.jpg';
 import team from '@/assets/images/otros/equipo-de-asesores.jpg';
+import meeting from '@/assets/images/otros/equipo-de-asesores-en-reunion.jpg';
+import peru from '@/assets/images/paises/peru.jpg';
+import colombia from '@/assets/images/paises/colombia.jpg';
+import mexico from '@/assets/images/paises/mexico.jpg';
+import bolivia from '@/assets/images/paises/bolivia.jpg';
+import ecuador from '@/assets/images/paises/ecuador.jpg';
+import venezuela from '@/assets/images/paises/venezuela.jpg';
+import chile from '@/assets/images/paises/chile.jpg';
+import espana from '@/assets/images/paises/espana.jpg';
 import { Image } from 'astro:assets';
 
-const ways = [
-  { title: 'Compromiso real con tu éxito académico', text: 'En Científica Consultores no solo brindamos asesoría de tesis: nos involucramos de manera personalizada en cada etapa de tu proceso académico. Nuestro equipo multidisciplinario te guía con responsabilidad y puntualidad, asegurando que avances con seguridad, claridad y confianza hacia tu objetivo profesional.' },
-  { title: 'Más de 10 años impulsando logros académicos reales', text: 'Nuestra experiencia no solo se mide en años, sino en resultados: cientos de estudiantes y profesionales han logrado sustentar con éxito sus tesis gracias a nuestro acompañamiento experto en investigación y redacción académica. Con nosotros no estás solo: estás respaldado por un equipo que sabe cómo ayudarte a destacar.' },
-  { title: 'Asesoría con enfoque humano y profesional', text: 'Entendemos que cada estudiante tiene una historia, metas y desafíos únicos. Por eso, ofrecemos un servicio cercano, empático y altamente profesional que se adapta a tus necesidades. Nuestra prioridad es que te sientas acompañado en todo momento, con orientación clara, metodología y práctica que realmente te ayuden a avanzar.' },
+const figures = [
+  { value: `+${stats.years}`, label: 'años de experiencia' },
+  { value: `+${stats.clients}`, label: 'tesistas asesorados' },
+  { value: `+${stats.universities}`, label: 'universidades' },
+  { value: `${stats.countries}`, label: 'países' },
 ];
 
-const pillars = [
-  { title: 'Misión', text: 'Somos una empresa constituida por un equipo profesional multidisciplinario, cuyo objetivo es brindar a nuestros clientes el mejor servicio personalizado en investigación, asesoría y capacitación académica en las diferentes áreas de las ciencias. Nuestra prioridad es el desarrollo profesional de nuestros clientes.' },
-  { title: 'Visión', text: 'Ser una de las más importantes empresas en el rubro de la investigación, asesoría de tesis y capacitación académica, reconocida por su excelencia y calidad en cada uno de sus servicios.' },
-  { title: 'Valores', text: 'Seriedad, compromiso, responsabilidad y puntualidad en cada uno de nuestros servicios.' },
+const ways = [
+  { icon: 'badge', title: 'Compromiso con tu éxito', text: 'Nos involucramos en cada etapa de tu tesis con responsabilidad y puntualidad, para que avances con seguridad.' },
+  { icon: 'users', title: 'Un equipo de tu área', text: 'Asesores de ingeniería, salud, negocios, educación y ciencias sociales: siempre trabajas con alguien de tu carrera.' },
+  { icon: 'chat', title: 'Trato cercano', text: 'Cada estudiante tiene su historia y sus plazos. Te escuchamos y adaptamos la asesoría a lo que necesitas.' },
+] as const;
+
+const values = ['Seriedad', 'Compromiso', 'Responsabilidad', 'Puntualidad'];
+
+const flags = [
+  { src: peru, name: 'Perú' }, { src: colombia, name: 'Colombia' }, { src: mexico, name: 'México' }, { src: bolivia, name: 'Bolivia' },
+  { src: ecuador, name: 'Ecuador' }, { src: venezuela, name: 'Venezuela' }, { src: chile, name: 'Chile' }, { src: espana, name: 'España' },
 ];
 
 const schema = [
@@ -33,49 +52,100 @@ const schema = [
   description="Nuestro equipo experto ofrece asesoría en tesis para pregrado, maestría y doctorado. Más de 10 años ayudando a lograr investigaciones exitosas."
   schema={schema}
 >
-  <PageHero title="¿Quiénes somos en Científica Consultores?" crumb="Nosotros" lede="Sobre nosotros: asesoría especializada en tesis, investigación y capacitación académica, desde Lima, hace más de 10 años." balance="photo">
+  <PageHero title="¿Quiénes somos en Científica Consultores?" crumb="Nosotros" lede="Un equipo de investigadores en Lima que, desde hace más de 10 años, acompaña a estudiantes de pregrado, maestría y doctorado hasta su título." balance="photo">
+    <Fragment slot="title"><span class="h1-main">¿Quiénes somos en</span> <span class="h1-tail">Científica Consultores?</span></Fragment>
+    <ul class="trust" role="list">
+      <li><span class="trust-ico"><Icon name="institution" size="0.95rem" /></span>Empresa peruana</li>
+      <li><span class="trust-ico"><Icon name="users" size="0.95rem" /></span>Equipo multidisciplinario</li>
+      <li><span class="trust-ico"><Icon name="globe" size="0.95rem" /></span>8 países</li>
+    </ul>
+    <div class="figures-card">
+      <p class="fc-title">Científica en cifras</p>
+      <ul class="fc-grid" role="list">
+        {figures.map((f, i) => <li class:list={[i % 2 ? 'tone-6' : 'tone-1']}><strong>{f.value}</strong><span>{f.label}</span></li>)}
+      </ul>
+      <p class="fc-foot"><Icon name="map" size="0.95rem" />Oficina en {site.address.district}, Lima · atención online</p>
+    </div>
     <Picture slot="media" class="focus-center" formats={['avif', 'webp']} quality={80} src={office} alt="Nuestro equipo de asesores de tesis" widths={[960, 1280, 1570]} sizes="100vw" loading="eager" fetchpriority="high" />
   </PageHero>
 
-  <section class="section-wide page story" aria-labelledby="historia">
-    <div class="story-pic" data-reveal="shutter"><Image src={team} alt="Equipo de asesores" widths={[480, 720, 960, 1280]} sizes="(min-width: 64em) 42vw, 100vw" class="story-img" /></div>
-    <div class="stack stack-m" data-reveal="stagger">
-      <h2 id="historia">Nuestra historia</h2>
-    <p class="text-lead">En Científica Consultores brindamos asesoría especializada en tesis, investigación y capacitación académica. Nuestro equipo cuenta con más de 10 años de experiencia en el mercado, difundiendo y contribuyendo a la cultura científica, y ayudando a estudiantes y profesionales a alcanzar un desarrollo académico integral.</p>
+  <section class="section-wide" aria-labelledby="historia">
+    <div class="page story">
+      <div data-reveal><BrandPhoto src={team} alt="Equipo de asesores de Científica Consultores" caption="Nuestro equipo" cutout ratio="3/2" /></div>
+      <div class="story-copy" data-reveal>
+        <span class="eyebrow">Nuestra historia</span>
+        <h2 id="historia">Más de 10 años impulsando la investigación</h2>
+        <p>Brindamos asesoría especializada en tesis, investigación y capacitación académica. Difundimos la cultura científica y ayudamos a estudiantes y profesionales a alcanzar su desarrollo académico.</p>
+        <p>Hoy acompañamos tesis en universidades de Perú y de otros siete países, siempre con un asesor de la misma carrera del estudiante.</p>
+      </div>
     </div>
   </section>
 
-  <section class="theme-surface section-wide" aria-labelledby="acompanamos">
-    <div class="page split">
-      <h2 id="acompanamos">¿Por qué elegirnos?</h2>
-      <ul class="stack stack-l" role="list" data-reveal="stagger">
-        {ways.map((w) => (
-          <li><h3>{w.title}</h3><p>{w.text}</p></li>
+  <section class="section-wide" aria-labelledby="acompanamos">
+    <div class="page stack stack-xl">
+      <header class="section-head center" data-reveal>
+        <span class="eyebrow">Por qué elegirnos</span>
+        <h2 id="acompanamos">Lo que nos diferencia</h2>
+        <p>Asesoría con enfoque humano y profesional, pensada para que te sientas acompañado de principio a fin.</p>
+      </header>
+      <ul class="ways" role="list" data-reveal="stagger">
+        {ways.map((w, i) => (
+          <li class:list={['way', i % 2 ? 'tone-6' : 'tone-1']}>
+            <span class="w-icon" aria-hidden="true"><Icon name={w.icon} size="1.5rem" /></span>
+            <h3>{w.title}</h3>
+            <p>{w.text}</p>
+          </li>
         ))}
       </ul>
     </div>
   </section>
 
-  <section class="section page split" aria-labelledby="creemos">
-    <h2 id="creemos">Nuestros pilares</h2>
-    <dl class="stack stack-l" data-reveal="stagger">
-      {pillars.map((p) => (
-        <div><dt>{p.title}</dt><dd>{p.text}</dd></div>
-      ))}
-    </dl>
+  <section class="section-wide" aria-labelledby="creemos">
+    <div class="page pillars">
+      <div data-reveal><BrandPhoto src={meeting} alt="Asesores de Científica Consultores en reunión de trabajo" caption="Así trabajamos" ratio="4/5" /></div>
+      <div class="pillars-copy">
+        <header data-reveal>
+          <span class="eyebrow">Nuestros pilares</span>
+          <h2 id="creemos">Lo que nos guía</h2>
+        </header>
+        <div class="pillar" data-reveal>
+          <span class="p-icon tone-1" aria-hidden="true"><Icon name="search" size="1.2rem" /></span>
+          <div><h3>Misión</h3><p>Brindar el mejor servicio personalizado en investigación, asesoría y capacitación académica en todas las áreas de las ciencias, con el desarrollo profesional de nuestros clientes como prioridad.</p></div>
+        </div>
+        <div class="pillar" data-reveal>
+          <span class="p-icon tone-6" aria-hidden="true"><Icon name="badge" size="1.2rem" /></span>
+          <div><h3>Visión</h3><p>Ser una de las empresas más importantes en investigación, asesoría de tesis y capacitación académica, reconocida por su excelencia y calidad.</p></div>
+        </div>
+        <div class="pillar" data-reveal>
+          <span class="p-icon tone-1" aria-hidden="true"><Icon name="shield" size="1.2rem" /></span>
+          <div><h3>Valores</h3><ul class="values" role="list">{values.map((v) => <li>{v}</li>)}</ul></div>
+        </div>
+      </div>
+    </div>
   </section>
 
-
-  <section class="section page split" aria-labelledby="atendemos">
-    <h2 id="atendemos">Dónde atendemos</h2>
-    <div class="where-cols" data-reveal="stagger">
-      <div>
-        <h3>Oficina</h3>
-        <p>{fullAddress}. Previa cita.</p>
-      </div>
-      <div>
-        <h3>Online</h3>
-        <p>{listEs(site.countries)}.</p>
+  <section class="section-wide" aria-labelledby="atendemos">
+    <div class="page stack stack-xl">
+      <header class="section-head center" data-reveal>
+        <span class="eyebrow">Dónde atendemos</span>
+        <h2 id="atendemos">En Lima y en 8 países</h2>
+      </header>
+      <div class="where" data-reveal="stagger">
+        <article class="where-card office">
+          <span class="w-icon tone-1" aria-hidden="true"><Icon name="map" size="1.4rem" /></span>
+          <h3>Oficina en Lima</h3>
+          <p>{fullAddress}</p>
+          <p class="small">{site.address.reference} · previa cita</p>
+          <p class="small">{site.hours.map((h) => `${h.days}: ${h.label}`).join(' · ')}</p>
+        </article>
+        <article class="where-card">
+          <span class="w-icon tone-6" aria-hidden="true"><Icon name="globe" size="1.4rem" /></span>
+          <h3>Asesoría 100 % online</h3>
+          <p>Trabajamos por videollamada con estudiantes de:</p>
+          <ul class="flags" role="list">
+            {flags.map((f) => <li><Image src={f.src} alt="" width={36} height={24} class="flag" />{f.name}</li>)}
+          </ul>
+        </article>
       </div>
     </div>
   </section>
@@ -84,14 +154,69 @@ const schema = [
 </Base>
 
 <style>
+  /* Cifras del banner, en el lugar del formulario */
+  :global(.photo-hero .text) > .figures-card.figures-card { grid-column: 2; grid-row: 1 / -1; align-self: center; }
+  .figures-card { display: grid; gap: var(--space-s); padding: var(--space-m); border-radius: calc(var(--radius-card) + 0.35rem); background-color: rgb(255 255 255 / 0.1); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.18), 0 30px 60px -30px rgb(0 0 0 / 0.6); backdrop-filter: blur(12px); }
+  .fc-title { color: var(--gold-400); font-size: var(--step-small); font-weight: var(--weight-bold); letter-spacing: 0.08em; text-transform: uppercase; }
+  .fc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-xs); }
+  .fc-grid li { display: grid; gap: 0.2rem; padding: var(--space-s); border-radius: var(--radius-card); background-color: var(--paper-0); }
+  .fc-grid strong { font-family: var(--font-display); font-size: clamp(1.75rem, 1.4rem + 1vw, 2.4rem); line-height: 1; color: var(--tone); }
+  .fc-grid span { color: var(--ink-600); font-size: var(--step-small); font-weight: var(--weight-semibold); }
+  .fc-foot { display: flex; align-items: center; gap: 0.5em; color: var(--navy-100); font-size: var(--step-small); font-weight: var(--weight-semibold); }
+  .fc-foot :global(svg) { color: var(--gold-400); }
+
+  /* Historia */
   .story { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
-  .story-img { inline-size: 100%; block-size: auto; }
-  @media (min-width: 64em) {
-    .story { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-    .story-pic { grid-column: 1 / span 5; }
-    .story > .stack { grid-column: 7 / -1; }
+  .story-copy { display: grid; gap: var(--space-s); justify-items: start; }
+  .story-copy h2 { font-size: var(--step-head); line-height: 1.12; max-inline-size: 18ch; }
+  .story-copy p { color: var(--color-text-soft); font-size: var(--step-lead); line-height: var(--leading-lead); }
+
+  /* Diferencias */
+  .ways { display: grid; gap: var(--space-m); grid-template-columns: 1fr; }
+  .way { position: relative; display: grid; gap: var(--space-xs); align-content: start; padding: var(--space-l) var(--space-m); overflow: hidden; border-radius: calc(var(--radius-card) + 0.25rem); background-color: var(--paper-0); box-shadow: var(--shadow-card); transition: opacity var(--duration-reveal) var(--ease-expo), transform var(--duration-reveal) var(--ease-expo), translate var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) ease; }
+  .way::after { content: ''; position: absolute; inset: auto 0 0; block-size: 4px; background-image: var(--tone-grad); transform: scaleX(0.3); transform-origin: left; transition: transform var(--duration-reveal) var(--ease-out); }
+  .w-icon { display: grid; place-items: center; inline-size: 3.2rem; block-size: 3.2rem; border-radius: 1rem; background-image: var(--tone-grad); color: var(--paper-0); box-shadow: 0 12px 24px -12px var(--tone); }
+  .way h3, .where-card h3, .pillar h3 { font-size: var(--step-title); line-height: 1.25; }
+  .way p, .pillar p, .where-card p { color: var(--color-text-soft); font-size: var(--step-ui); line-height: var(--leading-body); }
+
+  /* Pilares */
+  .pillars { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
+  .pillars-copy { display: grid; gap: var(--space-s); }
+  .pillars-copy h2 { font-size: var(--step-head); margin-block-start: var(--space-2xs); }
+  .pillar { display: flex; gap: var(--space-s); padding: var(--space-m); border-radius: var(--radius-card); background-color: var(--paper-0); box-shadow: var(--shadow-card); }
+  .pillar > div { display: grid; gap: 0.3rem; }
+  .p-icon { display: grid; place-items: center; flex-shrink: 0; inline-size: 2.6rem; block-size: 2.6rem; border-radius: 0.85rem; background-image: var(--tone-grad); color: var(--paper-0); }
+  .values { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-block-start: 0.2rem; }
+  .values li { padding: 0.35em 0.85em; border-radius: var(--radius-pill); background-color: var(--orange-50); color: var(--orange-600); font-size: var(--step-small); font-weight: var(--weight-bold); }
+
+  /* Dónde atendemos */
+  .where { display: grid; gap: var(--space-m); grid-template-columns: 1fr; }
+  .where-card { display: grid; gap: var(--space-xs); align-content: start; padding: var(--space-l); border-radius: calc(var(--radius-card) + 0.25rem); background-color: var(--paper-0); box-shadow: var(--shadow-card); }
+  .office { background-image: radial-gradient(22rem 14rem at 100% 0%, rgb(254 143 1 / 0.25), transparent 70%), var(--gradient-brand); color: var(--paper-0); }
+  .office h3 { color: var(--paper-0); }
+  .office p { color: var(--navy-100); }
+  .office p:first-of-type { color: var(--paper-0); font-size: var(--step-body); font-weight: var(--weight-semibold); }
+  .small { font-size: var(--step-small) !important; }
+  .flags { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem var(--space-s); margin-block-start: var(--space-2xs); }
+  .flags li { display: flex; align-items: center; gap: 0.55em; font-size: var(--step-ui); font-weight: var(--weight-semibold); }
+  .flag { inline-size: 1.75rem; block-size: 1.15rem; object-fit: cover; border-radius: 3px; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.1); }
+
+  @media (min-width: 40em) {
+    .flags { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   }
-  h3, dt { font-weight: var(--weight-semibold); margin-block-end: var(--space-2xs); }
-  dt { font-size: var(--step-lead); }
-  .where-cols { display: grid; gap: var(--space-l) var(--gutter); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+  @media (min-width: 48em) {
+    .ways { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .where { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  }
+  @media (min-width: 64em) {
+    .story { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); }
+    .pillars { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  }
+  @media (max-width: 63.99em) {
+    :global(.photo-hero .text) > .figures-card.figures-card { grid-column: auto; grid-row: auto; margin-block-start: var(--space-s); }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .way:hover { translate: 0 -5px; box-shadow: var(--shadow-lift); }
+    .way:hover::after { transform: scaleX(1); }
+  }
 </style>
