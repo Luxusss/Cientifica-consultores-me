@@ -27,13 +27,14 @@ import socialesImg from '@/assets/images/otros_servicios/proyectos/Proyectos-de-
 import saludImg from '@/assets/images/carreras/ciencias-de-la-salud.jpg';
 import equipoImg from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg';
 import onlineAsesoriaImg from '@/assets/images/blog/mujer-con-laptop-en-oficina.jpg';
+import tspTrabajoImg from '@/assets/images/otros_servicios/estudios_empiricos/Trabajo-de-suficiencia-profesional.jpg';
 
-export type Point = { title?: string; text: string; id?: string; image?: ImageMetadata; imageAlt?: string; tag?: string };
-export type Block = { id: string; title: string; intro?: string; points: Point[]; variant?: 'overlay' };
+export type Point = { title?: string; text: string; id?: string; image?: ImageMetadata; imageAlt?: string; tag?: string; stat?: string; statLabel?: string; logos?: string[] };
+export type Block = { id: string; title: string; intro?: string; points: Point[]; variant?: 'overlay' | 'feature' };
 
 export type Section =
-  | { kind: 'points'; id: string; title: string; intro?: string; points: Point[]; variant?: 'overlay' }
-  | { kind: 'text'; id: string; title: string; text: string[]; image?: ImageMetadata; imageAlt?: string }
+  | { kind: 'points'; id: string; title: string; intro?: string; points: Point[]; variant?: 'overlay' | 'feature' }
+  | { kind: 'text'; id: string; title: string; text: string[]; image?: ImageMetadata; imageAlt?: string; cta?: string }
   | { kind: 'list'; id: string; title: string; intro?: string; items: string[]; aside?: { title: string; text: string }; variant?: 'icons' }
   | { kind: 'careers'; title: string; intro: string; prefix?: string }
   | { kind: 'stages'; title: string }
@@ -47,6 +48,8 @@ export type ServicePage = {
   title: string;
   description: string;
   h1: string;
+  /** Parte del título que va resaltada en naranja (el servicio) */
+  h1Accent?: string;
   lede: string;
   image: ImageMetadata;
   imageAlt: string;
@@ -69,6 +72,7 @@ export const servicePages: Record<string, ServicePage> = {
     title: 'Asesoría de Tesis de Pregrado en Lima | Científica Consultores',
     description: 'Asesoría profesional para tesis de pregrado en Lima y online: proyecto, informe final, observaciones, originalidad y sustentación. ¡Consulta gratuita!',
     h1: 'Asesoría de tesis de pregrado',
+    h1Accent: 'de pregrado',
     lede: 'El último paso para tu título, con un asesor de tu carrera a tu lado, en Lima, a nivel nacional y online.',
     image: pregradoImg,
     imageAlt: 'Asesoría de tesis de pregrado en Lima y online',
@@ -142,6 +146,7 @@ export const servicePages: Record<string, ServicePage> = {
     title: 'Asesoría de Tesis de Maestría en Lima | Científica Consultores',
     description: 'Asesoría online en tesis de Maestría: metodología, redacción y sustentación. Titúlate con el respaldo de expertos académicos.',
     h1: 'Asesoría de tesis de maestría',
+    h1Accent: 'de maestría',
     lede: '¿Buscas ayuda profesional para hacer tu tesis de maestría?',
     image: maestriaImg,
     imageAlt: 'Asesoría de tesis de maestría',
@@ -190,6 +195,7 @@ export const servicePages: Record<string, ServicePage> = {
     title: 'Asesoría de Tesis Doctoral | Científica Consultores',
     description: '¿Necesitas ayuda con tu tesis doctoral? Ofrecemos asesoría especializada en tu investigación y redacción. ¡Contáctanos vía WhatsApp para una consulta gratuita!',
     h1: 'Asesoría de tesis doctoral',
+    h1Accent: 'doctoral',
     lede: 'Un asesor con experiencia en investigación avanzada te acompaña desde la propuesta doctoral hasta la defensa.',
     image: doctoradoImg,
     imageAlt: 'Asesoría de tesis doctoral',
@@ -224,6 +230,7 @@ export const servicePages: Record<string, ServicePage> = {
     title: 'Asesoría de Trabajo de Suficiencia Profesional (TSP)',
     description: 'Asesoría para tu trabajo de suficiencia profesional (TSP): estructura, redacción, Turnitin y observaciones del jurado, según el formato de tu universidad.',
     h1: 'Asesoría para tu trabajo de suficiencia profesional (TSP)',
+    h1Accent: 'suficiencia profesional (TSP)',
     lede: '¿Tienes experiencia laboral de 3 años pero necesitas tu título universitario?',
     image: tspImg,
     imageAlt: 'Asesoría de trabajo de suficiencia profesional',
@@ -232,26 +239,14 @@ export const servicePages: Record<string, ServicePage> = {
     introAlt: 'Asesora de trabajo de suficiencia profesional de Científica Consultores',
     intro: ['Enfrentar tu trabajo de suficiencia profesional es el último paso para obtener tu título. En Científica Consultores ofrecemos una asesoría TSP integral para guiarte en cada etapa, asegurando que tu trabajo cumpla con los más altos estándares académicos y profesionales. Nuestro equipo de expertos te acompaña hasta tu sustentación.'],
     sections: [
-      { kind: 'cta', id: 'titulo-profesional', title: '¡Avanza hacia tu título profesional con el acompañamiento de expertos!' },
       {
         kind: 'text',
         id: 'que-es',
         title: '¿Qué es un trabajo de suficiencia profesional?',
-        text: ['Es un informe en el que aplicas lo que aprendiste en tu carrera para resolver un problema real de tu trabajo, y una de las modalidades para obtener el título profesional. Enfrentarlo es el último paso para titularte, y nuestros asesores te guían en cada etapa para que cumpla con los estándares académicos y profesionales de tu universidad.'],
-      },
-      {
-        kind: 'points',
-        id: 'estructura',
-        title: 'Estructura clave de un TSP',
-        intro: 'Un trabajo de suficiencia profesional bien planteado sigue una estructura rigurosa. Nuestros asesores se especializan en guiarte a través de cada uno de los siguientes elementos:',
-        points: [
-          { title: 'Aspectos generales', text: 'Descripción detallada del área en la que te desempeñas, incluyendo el RUC, la misión, la visión y la actividad económica de la empresa.' },
-          { title: 'Fundamento del área elegida', text: 'Desarrollo del marco conceptual y teórico que sustenta tu trabajo, alineado con tu carrera profesional y las actividades del área de estudio.' },
-          { title: 'Experiencia y aportes', text: 'Análisis de tu contribución a la empresa, detallando los logros, las soluciones implementadas y el impacto de tu experiencia profesional.' },
-          { title: 'Desarrollo del proyecto', text: 'Descripción de la solución planteada para un problema específico dentro de la empresa, detallando la metodología y las acciones que se llevaron a cabo.' },
-          { title: 'Análisis y resultados', text: 'Proyección y evaluación de los cambios esperados en la empresa tras la implementación de la solución propuesta. Incluye el análisis de los datos obtenidos y su interpretación.' },
-          { title: 'Conclusiones y recomendaciones', text: 'Resumen de los hallazgos principales y sugerencias futuras basadas en los resultados de tu trabajo.' },
-        ],
+        text: ['Es un informe donde aplicas lo que aprendiste en tu carrera para resolver un problema real de tu trabajo. Es una modalidad para obtener tu título sin hacer una tesis, y te guiamos para que cumpla lo que pide tu universidad.'],
+        image: tspTrabajoImg,
+        imageAlt: 'Profesionales revisando reportes y resultados de su trabajo',
+        cta: 'Solicitar presupuesto gratuito',
       },
       {
         kind: 'points',
@@ -269,9 +264,10 @@ export const servicePages: Record<string, ServicePage> = {
         kind: 'points',
         id: 'por-que',
         title: '¿Por qué elegir nuestro servicio de asesoría TSP?',
+        variant: 'feature',
         points: [
-          { title: 'Resultados comprobados', text: `Más de ${stats.tsp} profesionales acompañados en su TSP. Si el jurado te observa, te guiamos para levantar las observaciones sin costo adicional. Asesoría personalizada según tu universidad.` },
-          { title: 'Expertos por universidad', text: 'Conocemos los requisitos específicos de la UPN (Universidad Privada del Norte), la UCV (César Vallejo), la USIL (Universidad San Ignacio de Loyola), la UTP (Universidad Tecnológica del Perú) y más universidades.' },
+          { title: 'Resultados comprobados', stat: `+${stats.tsp}`, statLabel: 'profesionales acompañados en su TSP', text: 'Si el jurado te observa, te guiamos para levantar las observaciones sin costo adicional.' },
+          { title: 'Expertos por universidad', text: 'Conocemos el formato y los requisitos del TSP en estas universidades y en muchas más.', logos: ['Universidad_Privada_del_Norte_UPN.png', 'u-universidad-cesar-vallejo.png', 'usil.png', 'UTP.jpeg'] },
         ],
       },
       { kind: 'stages', title: 'Tu TSP por etapas' },
