@@ -25,7 +25,7 @@ const { id, title, text, band = false } = Astro.props;
 </section>
 
 <style>
-  .panel { display: grid; gap: var(--space-m) var(--gutter); align-items: center; padding: var(--space-l); border-radius: calc(var(--radius-card) + 0.5rem); background-image: radial-gradient(30rem 20rem at 100% 100%, rgb(254 143 1 / 0.28), transparent 70%), var(--gradient-brand); color: var(--paper-0); box-shadow: var(--shadow-lift); }
+  .panel { display: grid; gap: var(--space-m) var(--gutter); align-items: center; padding: var(--space-l); border-radius: calc(var(--radius-card) + 0.5rem); background-image: var(--gradient-brand); color: var(--paper-0); box-shadow: var(--shadow-lift); }
   .copy { display: grid; gap: var(--space-xs); justify-items: start; }
   .copy .eyebrow { background-color: rgb(255 255 255 / 0.12); color: var(--gold-400); }
   h2 { color: var(--paper-0); max-inline-size: 26ch; }

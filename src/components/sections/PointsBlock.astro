@@ -108,7 +108,7 @@ import BrandMark from '@/components/ui/BrandMark.astro';
   /* Variante destacada: dos tarjetas grandes con cifra o logos */
   .features { display: grid; gap: var(--space-m) var(--gutter); }
   .feature { position: relative; display: grid; gap: var(--space-s); align-content: start; padding: var(--space-l); overflow: hidden; border-radius: calc(var(--radius-card) + 0.35rem); background-color: var(--paper-0); box-shadow: var(--shadow-card); }
-  .feature:first-child { background-image: radial-gradient(22rem 14rem at 100% 0%, rgb(254 143 1 / 0.3), transparent 70%), var(--gradient-brand); color: var(--paper-0); }
+  .feature:first-child { background-image: var(--gradient-brand); color: var(--paper-0); }
   .feature h3 { font-size: var(--step-title); }
   .feature:first-child h3 { color: var(--gold-400); font-size: var(--step-ui); letter-spacing: 0.06em; text-transform: uppercase; }
   .f-stat { display: grid; gap: 0.2rem; }

@@ -12,6 +12,7 @@ import { breadcrumb } from '@/lib/schema';
 import office from '@/assets/images/banner/nuestro-equipo-de-asesores-de-tesis.jpg';
 import team from '@/assets/images/otros/equipo-de-asesores.jpg';
 import meeting from '@/assets/images/otros/equipo-de-asesores-en-reunion.jpg';
+import officeLogo from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg';
 import peru from '@/assets/images/paises/peru.jpg';
 import colombia from '@/assets/images/paises/colombia.jpg';
 import mexico from '@/assets/images/paises/mexico.jpg';
@@ -54,20 +55,26 @@ const schema = [
   schema={schema}
 >
   <section class="about-hero custom-hero" aria-labelledby="titulo">
+    <svg class="wm-cube" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 6 108 30v60L60 114 12 90V30z" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"/><path d="M12 30 60 54l48-24M60 54v60" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"/></svg>
     <div class="page ah-grid">
       <div class="ah-copy">
-        <span class="eyebrow">Nosotros</span>
+        <span class="eyebrow ah-eyebrow">Nosotros · Desde Lima para Latinoamérica</span>
         <h1 id="titulo">¿Quiénes somos en <span class="ah-accent">Científica Consultores?</span></h1>
-        <p class="ah-lede">Un equipo de investigadores en Lima que, desde hace más de 10 años, acompaña a estudiantes de pregrado, maestría y doctorado hasta su título.</p>
+        <p class="ah-lede">Un equipo de investigadores que, desde hace más de 10 años, acompaña a estudiantes de pregrado, maestría y doctorado hasta su título.</p>
         <ul class="ah-figs" role="list">
-          {figures.map((f, i) => <li><strong class:list={[i % 2 ? 'navy' : 'orange']}>{f.value}</strong><span>{f.label}</span></li>)}
+          {figures.map((f) => <li><strong>{f.value}</strong><span>{f.label}</span></li>)}
         </ul>
       </div>
-      <figure class="ah-photo">
-        <Picture formats={['avif', 'webp']} quality={82} src={office} alt="Equipo de asesores de Científica Consultores" widths={[720, 1080, 1570]} sizes="(min-width: 64em) 55vw, 100vw" loading="eager" fetchpriority="high" class="ah-img" />
-        <span class="ah-plate" aria-hidden="true"><Fragment set:html={logoSvg} /></span>
-        <figcaption class="ah-badge"><span class="ah-dot" aria-hidden="true"></span>Equipo multidisciplinario · Lima, Perú</figcaption>
-      </figure>
+      <div class="ah-mosaic">
+        <figure class="m-main">
+          <Picture formats={['avif', 'webp']} quality={82} src={office} alt="Equipo de asesores de Científica Consultores" widths={[720, 1080, 1570]} sizes="(min-width: 64em) 45vw, 100vw" loading="eager" fetchpriority="high" class="m-img" />
+          <span class="ah-plate" aria-hidden="true"><Fragment set:html={logoSvg} /></span>
+        </figure>
+        <figure class="m-side m-meet"><Image src={meeting} alt="Asesores en reunión de trabajo" widths={[320, 480]} sizes="16rem" class="m-img" /></figure>
+        <figure class="m-side m-cut"><Image src={officeLogo} alt="Equipo de Científica Consultores en la oficina" widths={[320, 480]} sizes="16rem" class="m-img" /></figure>
+        <span class="m-chip c1"><Icon name="badge" size="1rem" />Empresa peruana</span>
+        <span class="m-chip c2"><Icon name="users" size="1rem" />Equipo multidisciplinario</span>
+      </div>
     </div>
   </section>
   <Breadcrumbs current="Nosotros" />
@@ -157,32 +164,47 @@ const schema = [
 </Base>
 
 <style>
-  /* Banner de Nosotros: claro y editorial, distinto al de los servicios */
-  .about-hero { position: relative; overflow: hidden; isolation: isolate; padding-block: var(--space-xl) var(--space-l); background: radial-gradient(40rem 26rem at 0% 0%, rgb(254 143 1 / 0.12), transparent 70%), radial-gradient(46rem 30rem at 100% 100%, rgb(29 45 140 / 0.14), transparent 70%), var(--paper-0); }
-  .ah-cube { position: absolute; z-index: -1; inset-block-start: -4rem; inset-inline-start: -6rem; inline-size: 34rem; color: rgb(29 45 140 / 0.05); }
-  .ah-cube :global(svg) { display: block; inline-size: 100%; block-size: auto; }
+  /* Banner de Nosotros: azul de la marca, mosaico de fotos reales del equipo */
+  .about-hero { position: relative; overflow: hidden; isolation: isolate; padding-block: var(--space-xl); background-image: var(--gradient-brand); color: var(--paper-0); }
+  .wm-cube { position: absolute; z-index: -1; inset-block-end: -6rem; inset-inline-start: -5rem; inline-size: 28rem; color: rgb(255 255 255 / 0.05); }
   .ah-grid { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
   .ah-copy { display: grid; gap: var(--space-s); justify-items: start; }
-  .ah-copy h1 { font-size: clamp(2.2rem, 1.2rem + 1.9vw, 3.1rem); line-height: 1.06; letter-spacing: -0.03em; max-inline-size: none; color: var(--navy-700); }
+  .ah-eyebrow { background-color: rgb(255 255 255 / 0.12); color: var(--gold-400); }
+  .ah-copy h1 { color: var(--paper-0); font-size: clamp(2.2rem, 1.2rem + 1.9vw, 3.1rem); line-height: 1.06; letter-spacing: -0.03em; max-inline-size: none; }
   .ah-accent { display: block; color: var(--orange-500); }
-  .ah-lede { color: var(--color-text-soft); font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 44ch; }
-  .ah-figs { display: grid; inline-size: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-s) var(--space-m); margin-block-start: var(--space-xs); padding-block-start: var(--space-s); border-block-start: 1px solid var(--paper-2); }
-  .ah-figs li { display: grid; gap: 0.1rem; }
-  .ah-figs strong { font-family: var(--font-display); font-size: clamp(1.8rem, 1.4rem + 1vw, 2.4rem); line-height: 1; }
-  .ah-figs .orange { color: var(--orange-500); }
-  .ah-figs .navy { color: var(--navy-600); }
-  .ah-figs span { color: var(--ink-600); font-size: 0.75rem; font-weight: var(--weight-semibold); line-height: 1.3; }
-  .ah-photo { position: relative; margin: 0; }
-  .ah-photo :global(picture), .ah-photo :global(.ah-img) { display: block; inline-size: 100%; }
-  .ah-photo :global(.ah-img) { aspect-ratio: 16 / 10; block-size: auto; object-fit: cover; object-position: 78% 30%; border-radius: calc(var(--radius-card) + 0.6rem); box-shadow: 0 40px 80px -40px rgb(20 31 102 / 0.6); }
-  .ah-plate { position: absolute; inset-block-start: 0; inset-inline-end: 0; inline-size: 8rem; padding: 0.7rem 1rem 0.7rem 1.1rem; border-start-end-radius: calc(var(--radius-card) + 0.6rem); border-end-start-radius: 1.2rem; background-image: var(--gradient-brand); color: var(--paper-0); }
+  .ah-lede { color: var(--navy-100); font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 46ch; }
+  .ah-figs { display: grid; inline-size: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-block-start: var(--space-xs); border-radius: var(--radius-card); background-color: rgb(255 255 255 / 0.08); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.14); }
+  .ah-figs li { display: grid; gap: 0.1rem; padding: 0.8rem 1rem; }
+  .ah-figs li + li { border-inline-start: 1px solid rgb(255 255 255 / 0.12); }
+  .ah-figs strong { font-family: var(--font-display); font-size: clamp(1.5rem, 1.2rem + 0.8vw, 2rem); line-height: 1; color: var(--gold-400); }
+  .ah-figs li:nth-child(even) strong { color: var(--paper-0); }
+  .ah-figs span { color: var(--navy-100); font-size: 0.74rem; font-weight: var(--weight-semibold); line-height: 1.3; }
+
+  .ah-mosaic { position: relative; display: grid; grid-template-columns: 2.4fr 1fr; grid-template-rows: 1fr 1fr; gap: var(--space-xs); }
+  .ah-mosaic figure { position: relative; margin: 0; overflow: hidden; border-radius: var(--radius-card); box-shadow: 0 24px 48px -24px rgb(0 0 0 / 0.6), 0 0 0 1px rgb(255 255 255 / 0.1); }
+  .m-main { grid-row: 1 / span 2; aspect-ratio: 1570 / 883; }
+  .ah-mosaic :global(picture) { display: block; block-size: 100%; }
+  .ah-mosaic :global(.m-img) { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; }
+  .m-main :global(.m-img) { object-position: 100% 30%; }
+  .m-meet :global(.m-img) { object-position: 40% 40%; }
+  .m-cut { background: linear-gradient(160deg, var(--navy-50), #dfe5f8); }
+  .m-cut :global(.m-img) { object-fit: cover; object-position: 55% 20%; }
+  .ah-plate { position: absolute; inset-block-start: 0; inset-inline-end: 0; inline-size: 7rem; padding: 0.6rem 0.85rem 0.6rem 1rem; border-end-start-radius: 1rem; background-color: rgb(15 22 80 / 0.88); color: var(--paper-0); }
   .ah-plate :global(svg) { display: block; inline-size: 100%; block-size: auto; }
-  .ah-badge { position: absolute; inset-block-end: -1.1rem; inset-inline-start: var(--space-m); display: inline-flex; align-items: center; gap: 0.55em; padding: 0.7em 1.2em; border-radius: var(--radius-pill); background-color: var(--paper-0); color: var(--navy-700); font-size: var(--step-small); font-weight: var(--weight-bold); box-shadow: 0 16px 34px -14px rgb(20 31 102 / 0.5); }
-  .ah-dot { inline-size: 0.55rem; block-size: 0.55rem; border-radius: 50%; background-color: var(--orange-500); box-shadow: 0 0 0 4px rgb(254 143 1 / 0.22); }
+  .m-chip { position: absolute; z-index: 2; display: inline-flex; align-items: center; gap: 0.5em; padding: 0.55em 1em; border-radius: var(--radius-pill); background-color: var(--paper-0); color: var(--navy-700); font-size: var(--step-small); font-weight: var(--weight-bold); white-space: nowrap; box-shadow: 0 16px 34px -14px rgb(0 0 0 / 0.55); }
+  .m-chip :global(svg) { color: var(--orange-500); }
+  .c1 { inset-block-end: -0.9rem; inset-inline-start: var(--space-m); }
+  .c2 { inset-block-start: calc(50% - 1.1rem); inset-inline-end: -0.8rem; }
   @media (min-width: 40em) { .ah-figs { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  @media (max-width: 39.99em) { .ah-figs li:nth-child(3) { border-inline-start: 0; } .ah-figs li:nth-child(n + 3) { border-block-start: 1px solid rgb(255 255 255 / 0.12); } .c2 { display: none; } }
   @media (min-width: 64em) {
-    .about-hero { padding-block: var(--space-2xl) var(--space-xl); }
+    .about-hero { padding-block: var(--space-2xl); }
     .ah-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .m-chip { animation: chip-float 6s ease-in-out infinite; }
+    .c2 { animation-delay: -3s; }
+    @keyframes chip-float { 50% { translate: 0 -6px; } }
   }
 
   /* Historia */
@@ -212,7 +234,7 @@ const schema = [
   /* Dónde atendemos */
   .where { display: grid; gap: var(--space-m); grid-template-columns: 1fr; }
   .where-card { display: grid; gap: var(--space-xs); align-content: start; padding: var(--space-l); border-radius: calc(var(--radius-card) + 0.25rem); background-color: var(--paper-0); box-shadow: var(--shadow-card); }
-  .office { background-image: radial-gradient(22rem 14rem at 100% 0%, rgb(254 143 1 / 0.25), transparent 70%), var(--gradient-brand); color: var(--paper-0); }
+  .office { background-image: var(--gradient-brand); color: var(--paper-0); }
   .office h3 { color: var(--paper-0); }
   .office p { color: var(--navy-100); }
   .office p:first-of-type { color: var(--paper-0); font-size: var(--step-body); font-weight: var(--weight-semibold); }

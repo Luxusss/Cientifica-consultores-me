@@ -95,7 +95,7 @@ const icons = ['badge', 'shield', 'clock', 'user', 'check', 'chat'] as const;
 
   /* Variante con panel: pregunta a la izquierda, lo que incluye a la derecha */
   .split-list { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
-  .aside { position: relative; display: grid; gap: var(--space-s); justify-items: start; padding: var(--space-l); overflow: hidden; border-radius: calc(var(--radius-card) + 0.5rem); background-image: radial-gradient(24rem 16rem at 100% 100%, rgb(254 143 1 / 0.3), transparent 70%), var(--gradient-brand); color: var(--paper-0); box-shadow: var(--shadow-lift); }
+  .aside { position: relative; display: grid; gap: var(--space-s); justify-items: start; padding: var(--space-l); overflow: hidden; border-radius: calc(var(--radius-card) + 0.5rem); background-image: var(--gradient-brand); color: var(--paper-0); box-shadow: var(--shadow-lift); }
   .aside::after { content: ''; position: absolute; inset: -6rem -6rem auto auto; inline-size: 16rem; block-size: 16rem; border-radius: 50%; border: 2px solid rgb(255 255 255 / 0.08); }
   .aside .eyebrow { background-color: rgb(255 255 255 / 0.12); color: var(--gold-400); }
   .aside-title { color: var(--paper-0); font-size: var(--step-head); line-height: 1.12; }

@@ -38,18 +38,8 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios'
       </ul>
       <a class="th-cta" href="#mensajes">Ver las conversaciones <span aria-hidden="true">↓</span></a>
     </div>
-    <div class="th-marquee" aria-label="Opiniones de nuestros clientes">
-      {[0, 1].map((k) => (
-        <ul class="th-track" role="list" aria-hidden={k === 1 ? 'true' : undefined}>
-          {testimonials.map((q) => (
-            <li class="th-quote">
-              <p>“{q.quote.split('. ')[0]}.”</p>
-              <span class="th-who"><span class="th-av" aria-hidden="true">{q.name.charAt(0)}</span><span><strong>{q.name.split(' ').slice(0, 2).join(' ')}</strong><small>{q.university}</small></span></span>
-            </li>
-          ))}
-        </ul>
-      ))}
-    </div>
+    <svg class="wm-cube" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 6 108 30v60L60 114 12 90V30z" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"/><path d="M12 30 60 54l48-24M60 54v60" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"/></svg>
+    <svg class="wm-cube wm-2" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 6 108 30v60L60 114 12 90V30z" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"/><path d="M12 30 60 54l48-24M60 54v60" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"/></svg>
   </section>
   <Breadcrumbs current="Testimonios" />
 
@@ -164,7 +154,10 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios'
 
 <style>
   /* Banner de Testimonios: centrado, con citas reales desplazándose */
-  .t-hero { position: relative; overflow: hidden; isolation: isolate; padding-block: var(--space-2xl) var(--space-l); background: radial-gradient(50rem 26rem at 50% -10%, rgb(254 143 1 / 0.22), transparent 70%), var(--gradient-brand); color: var(--paper-0); }
+  .t-hero { position: relative; overflow: hidden; isolation: isolate; padding-block: var(--space-2xl) var(--space-l); background: var(--gradient-brand); color: var(--paper-0); }
+  .t-hero { padding-block: var(--space-2xl); }
+  .wm-cube { position: absolute; z-index: -1; inset-block-start: 50%; inset-inline-start: -4rem; inline-size: 26rem; translate: 0 -50%; color: rgb(255 255 255 / 0.05); }
+  .wm-2 { inset-inline-start: auto; inset-inline-end: -5rem; inline-size: 32rem; rotate: 12deg; color: rgb(255 255 255 / 0.04); }
   .th-top { display: grid; justify-items: center; gap: var(--space-s); text-align: center; }
   .th-eyebrow { background-color: rgb(255 255 255 / 0.12); color: var(--gold-400); }
   .th-top h1 { color: var(--paper-0); font-size: clamp(2.4rem, 1.3rem + 2.1vw, 3.4rem); line-height: 1.04; letter-spacing: -0.03em; max-inline-size: 18ch; }
@@ -175,22 +168,8 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios'
   .th-stats strong { font-family: var(--font-display); font-size: clamp(1.6rem, 1.3rem + 0.9vw, 2.2rem); line-height: 1; color: var(--gold-400); }
   .th-stats span { color: var(--navy-100); font-size: var(--step-small); font-weight: var(--weight-semibold); }
   .th-cta { display: inline-flex; align-items: center; gap: 0.5em; margin-block-start: var(--space-xs); padding: 0.75em 1.4em; border-radius: var(--radius-pill); background-image: var(--gradient-warm); color: var(--ink-900); font-weight: var(--weight-bold); text-decoration: none; box-shadow: 0 14px 30px -14px rgb(254 143 1 / 0.8); transition: transform var(--duration-ui) var(--ease-out); }
-  .th-marquee { display: flex; gap: var(--space-s); margin-block-start: var(--space-xl); overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-  .th-track { display: flex; flex-shrink: 0; gap: var(--space-s); }
-  .th-track[aria-hidden='true'] { display: none; }
-  .th-quote { display: grid; gap: var(--space-xs); align-content: space-between; inline-size: 20rem; padding: var(--space-m); border-radius: var(--radius-card); background-color: rgb(255 255 255 / 0.08); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.14); backdrop-filter: blur(6px); }
-  .th-quote p { font-size: var(--step-ui); line-height: var(--leading-body); color: var(--paper-0); }
-  .th-who { display: flex; align-items: center; gap: 0.6rem; }
-  .th-who > span:last-child { display: grid; line-height: 1.2; }
-  .th-who strong { font-size: var(--step-small); }
-  .th-who small { color: var(--navy-100); font-size: 0.72rem; }
-  .th-av { display: grid; place-items: center; flex-shrink: 0; inline-size: 2.2rem; block-size: 2.2rem; border-radius: 50%; background-image: var(--gradient-warm); color: var(--ink-900); font-weight: var(--weight-bold); }
   @media (prefers-reduced-motion: no-preference) {
-    .th-track[aria-hidden='true'] { display: flex; }
-    .th-track { animation: th-slide 60s linear infinite; }
-    .th-marquee:hover .th-track { animation-play-state: paused; }
-    @keyframes th-slide { to { transform: translateX(calc(-100% - var(--space-s))); } }
-  }
+      }
   @media (hover: hover) and (pointer: fine) { .th-cta:hover { transform: translateY(-2px); color: var(--ink-900); } }
 
   /* Visor tipo WhatsApp Web */

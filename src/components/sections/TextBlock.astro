@@ -43,7 +43,7 @@ import BrandPhoto from '@/components/ui/BrandPhoto.astro';
 
 <style>
   /* Con foto: fondo azul de la marca, texto a la izquierda y la foto completa en tarjeta (sin recortes ni ampliar) */
-  .photo { position: relative; isolation: isolate; overflow: hidden; background-image: radial-gradient(40rem 26rem at 85% 30%, rgb(254 143 1 / 0.18), transparent 70%), var(--gradient-brand); }
+  .photo { position: relative; isolation: isolate; overflow: hidden; background-image: var(--gradient-brand); }
   .photo .box { background-color: transparent; box-shadow: none; padding: 0; overflow: visible; }
   .photo .mark { display: none; }
   .photo h2 { color: var(--paper-0); }
