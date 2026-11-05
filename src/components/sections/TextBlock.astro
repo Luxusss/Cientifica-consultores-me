@@ -35,9 +35,10 @@ const { id, title, text, eyebrow, band = false, image } = Astro.props;
 
 <style>
   .photo { position: relative; isolation: isolate; overflow: hidden; }
-  .photo :global(.bg) { position: absolute; inset: 0; z-index: -2; inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 50% 40%; }
-  .photo::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(20 31 102 / 0.94) 0%, rgb(29 45 140 / 0.82) 55%, rgb(29 45 140 / 0.55) 100%); }
-  .photo .box { background-color: transparent; box-shadow: none; padding-inline: 0; }
+  .photo { min-block-size: 28rem; display: grid; align-items: center; }
+  .photo :global(.bg) { position: absolute; inset: 0; z-index: -2; inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 50% 18%; }
+  .photo::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(20 31 102 / 0.95) 0%, rgb(20 31 102 / 0.85) 38%, rgb(29 45 140 / 0.35) 75%, rgb(29 45 140 / 0.2) 100%); }
+  .photo .box { grid-template-columns: 1fr; max-inline-size: 36rem; background-color: transparent; box-shadow: none; padding-inline: 0; }
   .photo .mark { display: none; }
   .photo h2 { color: var(--paper-0); }
   .photo .eyebrow { background-color: rgb(255 255 255 / 0.14); color: var(--gold-400); }

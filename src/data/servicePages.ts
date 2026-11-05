@@ -27,11 +27,11 @@ import socialesImg from '@/assets/images/otros_servicios/proyectos/Proyectos-de-
 import saludImg from '@/assets/images/carreras/ciencias-de-la-salud.jpg';
 import equipoImg from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg';
 
-export type Point = { title?: string; text: string; id?: string; image?: ImageMetadata; imageAlt?: string };
-export type Block = { id: string; title: string; intro?: string; points: Point[] };
+export type Point = { title?: string; text: string; id?: string; image?: ImageMetadata; imageAlt?: string; tag?: string };
+export type Block = { id: string; title: string; intro?: string; points: Point[]; variant?: 'overlay' };
 
 export type Section =
-  | { kind: 'points'; id: string; title: string; intro?: string; points: Point[] }
+  | { kind: 'points'; id: string; title: string; intro?: string; points: Point[]; variant?: 'overlay' }
   | { kind: 'text'; id: string; title: string; text: string[]; image?: ImageMetadata }
   | { kind: 'list'; id: string; title: string; intro?: string; items: string[] }
   | { kind: 'careers'; title: string; intro: string; prefix?: string }
@@ -119,11 +119,13 @@ export const servicePages: Record<string, ServicePage> = {
         kind: 'points',
         id: 'tipos',
         title: 'Tipos de asesorías',
+        intro: 'Elige el apoyo que necesitas o combínalos según la etapa de tu tesis.',
+        variant: 'overlay',
         points: [
-          { image: tematicaImg, imageAlt: 'Asesoría temática', title: 'Temática', text: 'Un especialista de tu carrera te orienta en el contenido de tu investigación: el tema, los antecedentes y el marco teórico.' },
-          { image: metodologicaImg, imageAlt: 'Asesoría metodológica', title: 'Metodológica', text: 'Definimos el enfoque, el diseño, la población, la muestra y los instrumentos de tu investigación.' },
-          { image: estadisticaImg, imageAlt: 'Asesoría estadística', title: 'Estadística', text: 'Procesamos y analizamos tus datos cuantitativos con software especializado e interpretamos los resultados.' },
-          { image: cualitativoImg, imageAlt: 'Asesoría análisis de datos cualitativos', title: 'Análisis de datos cualitativos', text: 'Codificamos y analizamos entrevistas y grupos focales con Atlas.ti para construir tus categorías y hallazgos.' },
+          { image: tematicaImg, imageAlt: 'Asesoría temática', title: 'Temática', tag: 'Contenido', text: 'Un especialista de tu carrera te orienta en el contenido de tu investigación: el tema, los antecedentes y el marco teórico.' },
+          { image: metodologicaImg, imageAlt: 'Asesoría metodológica', title: 'Metodológica', tag: 'Diseño', text: 'Definimos el enfoque, el diseño, la población, la muestra y los instrumentos de tu investigación.' },
+          { image: estadisticaImg, imageAlt: 'Asesoría estadística', title: 'Estadística', tag: 'SPSS · Excel', text: 'Procesamos y analizamos tus datos cuantitativos con software especializado e interpretamos los resultados.' },
+          { image: cualitativoImg, imageAlt: 'Asesoría análisis de datos cualitativos', title: 'Análisis de datos cualitativos', tag: 'Atlas.ti', text: 'Codificamos y analizamos entrevistas y grupos focales con Atlas.ti para construir tus categorías y hallazgos.' },
         ],
       },
       { kind: 'stages', title: 'Tu tesis de pregrado por etapas' },

@@ -14,6 +14,7 @@ const { block, eyebrow, band = false } = Astro.props;
 const introOnly = block.points.length === 0;
 const pictured = block.points.some((p) => p.image);
 const count = block.points.length;
+const overlay = block.variant === 'overlay' && pictured;
 ---
 
 <section class:list={['section-wide', { 'band-soft': band }]} aria-labelledby={block.id}>
@@ -26,7 +27,7 @@ const count = block.points.length;
     </header>
 
     {!introOnly && (
-      <ul class:list={['cards', `n-${count}`, { plain: !pictured }]} role="list" data-reveal="stagger">
+      <ul class:list={['cards', `n-${count}`, { plain: !pictured, overlay }]} role="list" data-reveal="stagger">
         {block.points.map((p, i) => (
           <li id={p.id} class:list={['card', i % 2 ? 'tone-6' : 'tone-1']}>
             {p.image && (
@@ -36,6 +37,7 @@ const count = block.points.length;
             )}
             <div class="body">
               <span class="num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              {p.tag && <span class="tag">{p.tag}</span>}
               {p.title && <h3>{p.title}</h3>}
               <p>{p.text}</p>
             </div>
@@ -66,6 +68,18 @@ const count = block.points.length;
   .card h3 { font-size: var(--step-title); line-height: 1.25; }
   .card p { color: var(--color-text-soft); font-size: var(--step-ui); line-height: var(--leading-body); }
 
+  /* Variante con foto completa de fondo y texto encima */
+  .tag { display: none; }
+  .overlay .card { position: relative; grid-template-rows: none; min-block-size: 24rem; isolation: isolate; align-content: end; }
+  .overlay .frame { position: absolute; inset: 0; z-index: -2; }
+  .overlay .frame :global(.photo) { block-size: 100%; aspect-ratio: auto; }
+  .overlay .card::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgb(20 31 102 / 0.05) 15%, rgb(20 31 102 / 0.72) 55%, rgb(15 22 80 / 0.96) 100%); transition: background var(--duration-ui) ease; }
+  .overlay .body { align-self: end; padding: var(--space-m); color: var(--paper-0); }
+  .overlay .num { position: static; margin-block-end: var(--space-2xs); box-shadow: 0 8px 18px -8px rgb(0 0 0 / 0.6); }
+  .overlay .tag { display: inline-block; inline-size: fit-content; padding: 0.25em 0.7em; border-radius: var(--radius-pill); background-color: rgb(255 255 255 / 0.16); color: var(--gold-400); font-size: var(--step-small); font-weight: var(--weight-bold); backdrop-filter: blur(6px); }
+  .overlay .card h3 { color: var(--paper-0); font-size: var(--step-title); }
+  .overlay .card p { color: var(--navy-100); }
+
   @media (min-width: 40em) {
     .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
@@ -82,5 +96,6 @@ const count = block.points.length;
   @media (hover: hover) and (pointer: fine) {
     .card:hover { translate: 0 -5px; box-shadow: var(--shadow-lift); }
     .card:hover .frame :global(.photo) { transform: scale(1.05); }
+    .overlay .card:hover::after { background: linear-gradient(180deg, rgb(20 31 102 / 0.15) 0%, rgb(20 31 102 / 0.8) 45%, rgb(15 22 80 / 0.97) 100%); }
   }
 </style>

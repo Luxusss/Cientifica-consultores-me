@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Icon from '@/components/ui/Icon.astro';
+import FormButton from '@/components/ui/FormButton.astro';
 import { careerAreas } from '@/data/servicePages';
 
 interface Props {
@@ -13,48 +14,131 @@ interface Props {
 
 const { title = 'Un asesor de tu carrera', intro = 'Accede a asesoría personalizada según tu disciplina, con especialistas para cada carrera.', prefix = '', eyebrow = 'Por carrera', band = false } = Astro.props;
 const icons = ['bolt', 'pen', 'users', 'shield'] as const;
+const kicker = prefix.trim() || 'Asesoría para';
 ---
 
-<section class:list={['section-wide', { 'band-soft': band }]} aria-labelledby="carreras">
+<section class:list={['section-wide', { 'band-soft': band }]} aria-labelledby="carreras" data-areas>
   <div class="page stack stack-xl">
     <header class="section-head center" data-reveal>
       <span class="eyebrow">{eyebrow}</span>
       <h2 id="carreras">{title}</h2>
       <p>{intro}</p>
     </header>
-    <ul class="cols" role="list" data-reveal="stagger">
-      {careerAreas.map((area, i) => (
-        <li class:list={['area', i % 2 ? 'tone-6' : 'tone-1']}>
-          <div class="pic">
-            {area.image && <Image src={area.image} alt="" widths={[360, 540]} sizes="(min-width: 64em) 22vw, (min-width: 40em) 45vw, 100vw" class="pic-img" />}
-            <span class="icon" aria-hidden="true"><Icon name={icons[i % icons.length]} size="1.3rem" /></span>
-            <h3>{prefix && <small>{prefix.trim()}</small>}{area.name}</h3>
+
+    <div class="showcase" data-reveal>
+      <div class="picker" role="tablist" aria-label="Áreas de especialización">
+        {careerAreas.map((area, i) => (
+          <button type="button" role="tab" class:list={['pick', i % 2 ? 'tone-6' : 'tone-1']} id={`area-tab-${i}`} aria-controls={`area-${i}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-area-tab>
+            <span class="pick-icon" aria-hidden="true"><Icon name={icons[i % icons.length]} size="1.2rem" /></span>
+            <span class="pick-text"><strong>{area.name}</strong><span>{area.careers.length} carreras</span></span>
+            <span class="pick-bar" aria-hidden="true"><span></span></span>
+          </button>
+        ))}
+      </div>
+
+      <div class="stage">
+        {careerAreas.map((area, i) => (
+          <div class:list={['panel', i % 2 ? 'tone-6' : 'tone-1']} id={`area-${i}`} role="tabpanel" aria-labelledby={`area-tab-${i}`} hidden={i !== 0} data-area-panel>
+            {area.image && <Image src={area.image} alt="" widths={[640, 960, 1280]} sizes="(min-width: 64em) 60vw, 100vw" class="panel-img" />}
+            <div class="panel-body">
+              <p class="panel-kicker">{kicker}</p>
+              <h3>{area.name}</h3>
+              <ul class="careers" role="list">
+                {area.careers.map((c) => <li><Icon name="check" size="0.95rem" />{c}</li>)}
+              </ul>
+              <FormButton label={`Quiero un asesor de ${area.name.toLowerCase()}`} icon />
+            </div>
           </div>
-          <ul class="chips" role="list">
-            {area.careers.map((c) => <li>{c}</li>)}
-          </ul>
-        </li>
-      ))}
-    </ul>
+        ))}
+      </div>
+    </div>
   </div>
 </section>
 
-<style>
-  .cols { display: grid; gap: var(--space-s); grid-template-columns: 1fr; }
-  .area { position: relative; display: grid; gap: var(--space-s); align-content: start; padding: 0 0 var(--space-m); overflow: hidden; border-radius: var(--radius-card); background-color: var(--paper-0); box-shadow: var(--shadow-card); transition: opacity var(--duration-reveal) var(--ease-expo), transform var(--duration-reveal) var(--ease-expo), translate var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) var(--ease-out); }
-  .pic { position: relative; display: grid; align-content: end; gap: var(--space-2xs); min-block-size: 11rem; padding: var(--space-m); overflow: hidden; color: var(--paper-0); isolation: isolate; }
-  .pic :global(.pic-img) { position: absolute; inset: 0; z-index: -2; inline-size: 100%; block-size: 100%; object-fit: cover; transition: transform var(--duration-reveal) var(--ease-out); }
-  .pic::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgb(20 31 102 / 0.15) 0%, rgb(20 31 102 / 0.88) 100%); }
-  .icon { display: grid; place-items: center; inline-size: 2.6rem; block-size: 2.6rem; border-radius: 0.85rem; background-image: var(--tone-grad); color: var(--paper-0); box-shadow: 0 8px 18px -8px rgb(0 0 0 / 0.5); }
-  h3 { display: grid; font-size: var(--step-title); line-height: 1.2; color: var(--paper-0); }
-  h3 small { font-family: var(--font-text); font-size: var(--step-small); font-weight: var(--weight-semibold); color: var(--gold-400); }
-  .chips { display: flex; flex-wrap: wrap; gap: 0.35rem; padding-inline: var(--space-m); }
-  .chips li { padding: 0.35em 0.75em; border-radius: var(--radius-pill); background-color: var(--tone-soft); color: var(--ink-600); font-size: var(--step-small); font-weight: var(--weight-semibold); }
+<script>
+  for (const root of document.querySelectorAll<HTMLElement>('[data-areas]')) {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[data-area-tab]')];
+    const panels = [...root.querySelectorAll<HTMLElement>('[data-area-panel]')];
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let i = 0;
+    let timer = 0;
+    let paused = false;
+    let visible = false;
+    const show = (n: number, focus = false) => {
+      i = (n + tabs.length) % tabs.length;
+      tabs.forEach((t, j) => { t.setAttribute('aria-selected', String(j === i)); t.tabIndex = j === i ? 0 : -1; });
+      panels.forEach((p, j) => { p.hidden = j !== i; });
+      if (focus) tabs[i].focus();
+      root.classList.remove('run');
+      void root.offsetWidth;
+      if (!paused && visible && !reduce) root.classList.add('run');
+    };
+    const start = () => {
+      clearInterval(timer);
+      if (reduce || paused || !visible) { root.classList.remove('run'); return; }
+      root.classList.add('run');
+      timer = window.setInterval(() => show(i + 1), 6000);
+    };
+    tabs.forEach((t, j) => {
+      t.addEventListener('click', () => { show(j); paused = true; start(); });
+      t.addEventListener('keydown', (e) => {
+        const n = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? j + 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? j - 1 : null;
+        if (n === null) return;
+        e.preventDefault();
+        show(n, true);
+        paused = true;
+        start();
+      });
+    });
+    root.addEventListener('pointerenter', () => { paused = true; start(); });
+    root.addEventListener('pointerleave', () => { paused = false; start(); });
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; start(); }, { threshold: 0.3 }).observe(root);
+  }
+</script>
 
-  @media (min-width: 40em) { .cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 64em) { .cols { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+<style>
+  .showcase { display: grid; gap: var(--space-s); }
+  .picker { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2xs); }
+  .pick { position: relative; display: flex; align-items: center; gap: var(--space-xs); padding: var(--space-xs) var(--space-s); overflow: hidden; border: 0; border-radius: var(--radius-card); background-color: var(--paper-0); color: var(--ink-900); font: inherit; text-align: start; cursor: pointer; box-shadow: var(--shadow-card); transition: background-color var(--duration-ui) ease, color var(--duration-ui) ease, transform var(--duration-ui) var(--ease-out); }
+  .pick-icon { display: grid; place-items: center; flex-shrink: 0; inline-size: 2.5rem; block-size: 2.5rem; border-radius: 0.8rem; background-color: var(--tone-soft); color: var(--tone); transition: background var(--duration-ui) ease, color var(--duration-ui) ease; }
+  .pick-text { display: grid; gap: 0.1rem; line-height: 1.2; }
+  .pick-text strong { font-size: var(--step-ui); }
+  .pick-text span { color: var(--color-text-soft); font-size: var(--step-small); }
+  .pick[aria-selected='true'] { background-image: var(--gradient-brand); color: var(--paper-0); }
+  .pick[aria-selected='true'] .pick-icon { background-image: var(--tone-grad); color: var(--paper-0); }
+  .pick[aria-selected='true'] .pick-text span { color: var(--navy-100); }
+  .pick:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+  .pick-bar { position: absolute; inset: auto 0 0; block-size: 3px; background-color: transparent; }
+  .pick-bar span { display: block; block-size: 100%; background-image: var(--gradient-warm); transform: scaleX(0); transform-origin: left; }
+  .run .pick[aria-selected='true'] .pick-bar span { animation: fill 6s linear forwards; }
+  @keyframes fill { to { transform: scaleX(1); } }
+
+  .stage { position: relative; display: grid; }
+  .panel { position: relative; display: grid; align-items: end; min-block-size: 26rem; overflow: hidden; border-radius: calc(var(--radius-card) + 0.35rem); isolation: isolate; box-shadow: var(--shadow-lift); }
+  .panel[hidden] { display: none; }
+  .panel :global(.panel-img) { position: absolute; inset: 0; z-index: -2; inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 50% 30%; }
+  .panel::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(20 31 102 / 0.95) 0%, rgb(20 31 102 / 0.82) 45%, rgb(20 31 102 / 0.2) 100%); }
+  .panel-body { display: grid; gap: var(--space-s); justify-items: start; max-inline-size: 34rem; padding: var(--space-l); color: var(--paper-0); }
+  .panel-kicker { color: var(--gold-400); font-size: var(--step-small); font-weight: var(--weight-bold); letter-spacing: 0.06em; text-transform: uppercase; }
+  .panel-body h3 { font-family: var(--font-display); font-size: var(--step-head); line-height: 1.1; color: var(--paper-0); }
+  .careers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem var(--space-s); }
+  .careers li { display: flex; align-items: center; gap: 0.45em; font-size: var(--step-ui); font-weight: var(--weight-medium); }
+  .careers li :global(svg) { flex-shrink: 0; padding: 0.15rem; border-radius: 50%; background-color: var(--orange-500); color: var(--ink-900); }
+  .panel-body :global(.button) { gap: 0.55em; margin-block-start: var(--space-2xs); border-radius: var(--radius-pill); }
+
+  @media (min-width: 64em) {
+    .showcase { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); align-items: stretch; }
+    .picker { grid-template-columns: 1fr; align-content: center; gap: var(--space-xs); }
+    .pick { padding: var(--space-s) var(--space-m); }
+    .panel { min-block-size: 28rem; }
+  }
   @media (hover: hover) and (pointer: fine) {
-    .area:hover { translate: 0 -4px; box-shadow: var(--shadow-lift); }
-    .area:hover :global(.pic-img) { transform: scale(1.06); }
+    .pick:not([aria-selected='true']):hover { transform: translateX(4px); background-color: var(--orange-50); }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .panel:not([hidden]) { animation: panel-in 500ms var(--ease-out); }
+    .panel:not([hidden]) :global(.panel-img) { animation: zoom 6s ease-out both; }
+    @keyframes panel-in { from { opacity: 0; } }
+    @keyframes zoom { from { transform: scale(1.08); } }
   }
 </style>
