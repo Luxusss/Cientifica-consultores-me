@@ -6,14 +6,15 @@ interface Props {
   subject: string;
   variant?: 'short' | 'full';
   submitLabel?: string;
+  hint?: string;
 }
 
-const { title, subject, variant = 'full', submitLabel } = Astro.props;
+const { title, subject, variant = 'full', submitLabel, hint } = Astro.props;
 ---
 
 <div class="form-card theme-surface stack stack-m" id="formulario" data-lead-form>
   <h2 class="text-lead text-strong">{title}</h2>
-  <LeadForm subject={subject} variant={variant} submitLabel={submitLabel} />
+  <LeadForm subject={subject} variant={variant} submitLabel={submitLabel} hint={hint} />
   <slot />
 </div>
 

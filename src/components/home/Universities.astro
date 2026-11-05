@@ -173,6 +173,10 @@ const index = universities.flatMap((g) => g.names.map((name) => ({ name, country
   .finder-field { position: relative; z-index: 3; }
   .finder-list { position: absolute; inset-inline: 0; inset-block-start: calc(100% + 0.5rem); z-index: 5; display: grid; max-block-size: 17rem; overflow-y: auto; padding: 0.4rem; border-radius: 1.1rem; background-color: var(--paper-0); color: var(--ink-900); box-shadow: 0 24px 48px -18px rgb(0 0 0 / 0.45), 0 0 0 1px rgb(0 0 0 / 0.05); scrollbar-width: thin; }
   .finder-list[hidden] { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    .finder-list:not([hidden]) { animation: list-in 220ms var(--ease-out); }
+    @keyframes list-in { from { opacity: 0; transform: translateY(-6px); } }
+  }
   .finder-list :global(li) { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-s); padding: 0.65em 0.9em; border-radius: 0.7rem; cursor: pointer; font-size: var(--step-ui); }
   .finder-list :global(li[aria-selected='true']), .finder-list :global(li:hover) { background-color: var(--orange-50); }
   .finder-list :global(.sug-name) { font-weight: var(--weight-semibold); }

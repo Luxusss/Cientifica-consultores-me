@@ -16,9 +16,9 @@ import bookChapter from '@/assets/images/articulos_cientificos/capitulo-de-libro
 import fromScratch from '@/assets/images/articulos_cientificos/empezando-desde-cero-un-articulo.jpg';
 
 const trust = [
-  { icon: 'user', text: 'Asesor de tu área' },
   { icon: 'search', text: 'Revistas indexadas' },
-  { icon: 'document', text: 'Originalidad con Turnitin' },
+  { icon: 'pen', text: 'Estructura IMRyD' },
+  { icon: 'chat', text: 'Respuesta a revisores' },
 ] as const;
 
 // Tres puntos de partida, con la foto completa de fondo
@@ -59,7 +59,7 @@ const schema = [
     <ul class="trust" role="list">
       {trust.map((t) => <li><span class="trust-ico"><Icon name={t.icon} size="0.95rem" /></span>{t.text}</li>)}
     </ul>
-    <FormCard title="¡Obtén tu primera asesoría gratis!" subject="Nuevo lead - Artículo Científico" variant="short" submitLabel="Quiero asesoría" />
+    <FormCard title="¡Obtén tu primera asesoría gratis!" subject="Nuevo lead - Artículo Científico" variant="short" submitLabel="Quiero asesoría" hint="Ej.: tengo mi tesis de maestría aprobada en Psicología y quiero publicarla en una revista indexada." />
     <Picture slot="media" formats={['avif', 'webp']} quality={80} src={heroImg} alt="Asesoría de artículos científicos" widths={[960, 1280, 1570]} sizes="100vw" loading="eager" fetchpriority="high" />
   </PageHero>
 

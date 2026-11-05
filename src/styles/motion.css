@@ -85,3 +85,9 @@
   .header { view-transition-name: site-header; }
   ::view-transition-old(site-header), ::view-transition-new(site-header) { animation: none; }
 }
+
+/* Al llegar a una sección desde un enlace interno, su título se ilumina un momento */
+@media (prefers-reduced-motion: no-preference) {
+  :target h2, h2:target { animation: arrive 1.4s var(--ease-out); }
+  @keyframes arrive { 0% { color: var(--orange-500); transform: translateY(6px); } 40% { color: var(--orange-500); transform: none; } }
+}

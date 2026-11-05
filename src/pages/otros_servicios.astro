@@ -95,10 +95,11 @@ const schema = [
   /* Accesos rápidos a cada área, debajo del banner */
   .quick { padding-block: var(--space-m); }
   .index ul { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(13rem, 100%), 1fr)); gap: var(--space-xs); }
-  .index a { display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 0.9rem 0.7rem 0.7rem; border-radius: var(--radius-card); background-color: var(--paper-0); box-shadow: var(--shadow-card); color: var(--ink-900); text-decoration: none; transition: box-shadow var(--duration-hover) ease, transform var(--duration-hover) var(--ease-out); }
+  .index li { display: grid; }
+  .index a { block-size: 100%; display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 0.9rem 0.7rem 0.7rem; border-radius: var(--radius-card); background-color: var(--paper-0); box-shadow: var(--shadow-card); color: var(--ink-900); text-decoration: none; transition: box-shadow var(--duration-hover) ease, transform var(--duration-hover) var(--ease-out); }
   .idx-icon { display: grid; place-items: center; flex-shrink: 0; inline-size: 2.5rem; block-size: 2.5rem; border-radius: 0.8rem; background-image: var(--tone-grad); color: var(--paper-0); }
   .idx-text { display: grid; gap: 0.05rem; flex: 1; line-height: 1.2; }
-  .idx-text strong { font-size: var(--step-ui); }
+  .idx-text strong { font-size: var(--step-ui); text-wrap: balance; }
   .idx-text span { color: var(--color-text-soft); font-size: var(--step-small); }
   .idx-go { color: var(--orange-500); font-weight: var(--weight-bold); transition: transform var(--duration-hover) var(--ease-out); }
 

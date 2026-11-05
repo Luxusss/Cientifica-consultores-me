@@ -54,6 +54,10 @@ export type ServicePage = {
   image: ImageMetadata;
   imageAlt: string;
   formSubject: string;
+  /** Ejemplo para la caja de mensaje del formulario */
+  formHint: string;
+  /** Tres etiquetas de confianza del banner, propias del servicio */
+  trust: { icon: 'user' | 'shield' | 'document' | 'search' | 'clock' | 'badge' | 'pen' | 'list' | 'chat' | 'users'; text: string }[];
   intro: string[];
   introImage?: ImageMetadata;
   introAlt: string;
@@ -77,6 +81,8 @@ export const servicePages: Record<string, ServicePage> = {
     image: pregradoImg,
     imageAlt: 'Asesoría de tesis de pregrado en Lima y online',
     formSubject: 'Nuevo lead - Tesis de Pregrado',
+    formHint: 'Ej.: estudio Ingeniería Industrial en la UTP, aún no tengo tema y entrego el proyecto en abril.',
+    trust: [{ icon: 'user', text: 'Asesor de tu carrera' }, { icon: 'list', text: 'Del tema a la sustentación' }, { icon: 'document', text: 'Originalidad con Turnitin' }],
     introAlt: 'Asesoría de tesis de pregrado, licenciatura y grado',
     intro: [
       'La tesis es el último paso para tu título, y no tienes que darlo solo. Te acompañamos en Lima, a nivel nacional y online: del tema y la metodología (cualitativa, cuantitativa o mixta) a la redacción, la revisión con Turnitin y la sustentación.',
@@ -151,6 +157,8 @@ export const servicePages: Record<string, ServicePage> = {
     image: maestriaImg,
     imageAlt: 'Asesoría de tesis de maestría',
     formSubject: 'Nuevo lead - Tesis de Maestría',
+    formHint: 'Ej.: maestría en Gestión Pública, ya tengo el marco teórico y necesito apoyo con el análisis de datos.',
+    trust: [{ icon: 'users', text: 'Asesor con posgrado' }, { icon: 'search', text: 'Análisis cuali y cuantitativo' }, { icon: 'clock', text: 'Horarios para quien trabaja' }],
     introImage: maestriaIntro,
     introAlt: 'Asesor de tesis de maestría de Científica Consultores',
     intro: ['En Científica Consultores ofrecemos asesoría de tesis en Lima, con un enfoque integral para cada etapa de tu proyecto. Te ofrecemos un proceso transparente y eficiente, adaptado a tus necesidades académicas.'],
@@ -200,6 +208,8 @@ export const servicePages: Record<string, ServicePage> = {
     image: doctoradoImg,
     imageAlt: 'Asesoría de tesis doctoral',
     formSubject: 'Nuevo lead - Tesis Doctoral',
+    formHint: 'Ej.: doctorado en Educación, estoy en la propuesta y busco orientación para el diseño metodológico.',
+    trust: [{ icon: 'badge', text: 'Asesor con doctorado' }, { icon: 'search', text: 'Investigación avanzada' }, { icon: 'user', text: 'Preparación para la defensa' }],
     introImage: doctoradoIntro,
     introAlt: 'Asesor de tesis doctoral de Científica Consultores',
     intro: ['En Científica Consultores somos especialistas en brindar ayuda para tesis doctoral a profesionales que buscan completar su trabajo de investigación con excelencia. Sabemos que el proceso de una tesis de doctorado es exigente, por lo que nuestros asesores de tesis doctorales te acompañan en cada etapa, desde la planificación hasta la sustentación.'],
@@ -235,6 +245,8 @@ export const servicePages: Record<string, ServicePage> = {
     image: tspImg,
     imageAlt: 'Asesoría de trabajo de suficiencia profesional',
     formSubject: 'Nuevo lead - TSP',
+    formHint: 'Ej.: soy contador con 4 años de experiencia, estudié en la UPN y quiero titularme por TSP.',
+    trust: [{ icon: 'badge', text: 'Usa tu experiencia laboral' }, { icon: 'list', text: 'Formato de tu universidad' }, { icon: 'shield', text: 'Observaciones incluidas' }],
     introImage: tspIntro,
     introAlt: 'Asesora de trabajo de suficiencia profesional de Científica Consultores',
     intro: ['Enfrentar tu trabajo de suficiencia profesional es el último paso para obtener tu título. En Científica Consultores ofrecemos una asesoría TSP integral para guiarte en cada etapa, asegurando que tu trabajo cumpla con los más altos estándares académicos y profesionales. Nuestro equipo de expertos te acompaña hasta tu sustentación.'],

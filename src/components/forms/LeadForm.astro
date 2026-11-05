@@ -8,9 +8,11 @@ interface Props {
   subject: string;
   variant?: 'short' | 'full';
   submitLabel?: string;
+  /** Ejemplo que se muestra en la caja de mensaje, según el servicio */
+  hint?: string;
 }
 
-const { subject, variant = 'full', submitLabel = 'Enviar mensaje' } = Astro.props;
+const { subject, variant = 'full', submitLabel = 'Enviar mensaje', hint = 'Ej.: empiezo desde cero, tengo observaciones del jurado…' } = Astro.props;
 const telRequired: boolean = variant === 'short';
 const telLabel = telRequired ? 'WhatsApp' : 'WhatsApp (opcional)';
 const uid = `f${Math.random().toString(36).slice(2, 8)}`;
@@ -82,7 +84,7 @@ const options = countries.map((c) => ({ value: c.name, name: c.name, code: c.cod
     </div>
       </div>
       <Field id={`${uid}-email`} label="Correo electrónico (opcional)" name="email" type="email" autocomplete="email" inputmode="email" error="Revisa el formato del correo." />
-      <Field id={`${uid}-mensaje`} label="Cuéntanos tu caso (opcional)" name="mensaje" type="textarea" placeholder="Ej.: empiezo desde cero, tengo observaciones del jurado…" />
+      <Field id={`${uid}-mensaje`} label="Cuéntanos tu caso (opcional)" name="mensaje" type="textarea" placeholder={hint} />
     </>
   )}
   <Button type="submit">{submitLabel}</Button>
