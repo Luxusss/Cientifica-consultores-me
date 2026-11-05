@@ -45,6 +45,8 @@ const eyebrows: Record<string, string> = {
 // Fondos alternos: la presentación va en blanco y luego se intercalan franjas azul suave
 const rendered = page.sections.filter((sec) => sec.kind !== 'photos');
 const band = (sec: (typeof page.sections)[number]) => rendered.indexOf(sec) % 2 === 0;
+// Preguntas frecuentes y contacto siguen alternando después de la última sección
+const lastBand = rendered.length > 0 && (rendered.length - 1) % 2 === 0;
 const schema = [
   breadcrumb([
     { name: 'Inicio', path: '/' },
@@ -119,8 +121,8 @@ const schema = [
     if (sec.kind === 'cta') return <CtaBlock id={sec.id} title={sec.title} text={sec.text} band={band(sec)} />;
     return null;
   })}
-  <FaqText items={page.faq} title={page.faqTitle} />
-  <ContactBand />
+  <FaqText items={page.faq} title={page.faqTitle} band={!lastBand} />
+  <ContactBand band={lastBand} />
 </Base>
 
 <script>

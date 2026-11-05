@@ -9,12 +9,13 @@ interface Props {
   title?: string;
   id?: string;
   intro?: string;
+  band?: boolean;
 }
 
-const { items, title = 'Preguntas frecuentes', id = 'preguntas', intro } = Astro.props;
+const { items, title = 'Preguntas frecuentes', id = 'preguntas', intro, band = false } = Astro.props;
 ---
 
-<section class="faq section-wide" aria-labelledby={id}>
+<section class:list={['faq section-wide', { 'band-soft': band }]} aria-labelledby={id}>
   <div class="page layout">
     <aside class="side" data-reveal>
       <header class="section-head">

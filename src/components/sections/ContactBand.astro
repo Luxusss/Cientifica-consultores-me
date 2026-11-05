@@ -9,12 +9,13 @@ import estudiante from '@/assets/images/tesis/secciones/especialista-en-tesis.jp
 interface Props {
   title?: string;
   text?: string;
+  band?: boolean;
 }
 
-const { title = '¿Empezamos tu tesis?', text = `Cuéntanos tu universidad, tu grado y tu fecha de entrega, y te decimos cómo podemos ayudarte. Respondemos en ${site.replyTime}.` } = Astro.props;
+const { title = '¿Empezamos tu tesis?', text = `Cuéntanos tu universidad, tu grado y tu fecha de entrega, y te decimos cómo podemos ayudarte. Respondemos en ${site.replyTime}.`, band = true } = Astro.props;
 ---
 
-<section class="contact section-wide band-soft" aria-labelledby="contacto">
+<section class:list={['contact section-wide', { 'band-soft': band }]} aria-labelledby="contacto">
   <div class="page">
     <div class="panel" data-reveal>
       <span class="ring r1" aria-hidden="true"></span>
