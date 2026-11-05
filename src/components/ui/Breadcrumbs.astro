@@ -25,14 +25,14 @@ const links: NavLink[] = [{ label: 'Inicio', href: '/' }, ...trail];
   /* Migas de pan en una cápsula, sin raya divisoria */
   .crumb-bar { background-color: transparent; }
   .crumbs { padding-block: var(--space-s) 0; }
-  ol { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; padding: 0.45rem 1rem; border-radius: var(--radius-pill); background-color: var(--paper-0); box-shadow: var(--shadow-card); font-size: var(--step-ui); }
+  ol { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; padding: 0.45rem 1.1rem; border-radius: var(--radius-pill); background-image: var(--gradient-brand); box-shadow: 0 10px 24px -12px rgb(29 45 140 / 0.55); font-size: var(--step-ui); }
   li { display: inline-flex; align-items: center; gap: 0.5rem; }
-  a { display: inline-flex; align-items: center; gap: 0.4em; min-block-size: 2rem; color: var(--ink-600); font-weight: var(--weight-medium); text-decoration: none; transition: color var(--duration-hover) ease; }
-  a svg { color: var(--orange-500); }
-  .sep { color: var(--orange-500); font-weight: var(--weight-bold); }
-  [aria-current='page'] { display: inline-flex; align-items: center; min-block-size: 2rem; color: var(--navy-600); font-weight: var(--weight-bold); }
+  a { display: inline-flex; align-items: center; gap: 0.4em; min-block-size: 2rem; color: var(--navy-100); font-weight: var(--weight-medium); text-decoration: none; transition: color var(--duration-hover) ease; }
+  a svg { color: var(--gold-400); }
+  .sep { color: var(--gold-400); font-weight: var(--weight-bold); }
+  [aria-current='page'] { display: inline-flex; align-items: center; min-block-size: 2rem; color: var(--paper-0); font-weight: var(--weight-bold); }
 
   @media (hover: hover) and (pointer: fine) {
-    a:hover { color: var(--navy-600); }
+    a:hover { color: var(--paper-0); }
   }
 </style>
