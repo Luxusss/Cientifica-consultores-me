@@ -21,39 +21,46 @@ const schema = [
   description="Revisiones sistemáticas, metaanálisis, planes de negocio, proyectos, trabajo de campo, análisis estadístico y corrección de estilo para tu investigación."
   schema={schema}
 >
-  <PageHero title="Otros servicios" crumb="Otros servicios" lede="Más allá de la tesis: apoyo en cada parte de tu investigación, de la idea al documento final." balance="photo" tint>
-    <Fragment slot="title"><span class="h1-main">Otros</span> <span class="h1-tail">servicios</span></Fragment>
-    <nav class="index" aria-label="Grupos de servicios">
-      <ul role="list">
-        {otherServices.map((g, i) => (
-          <li>
-            <a href={`#${g.id}`}>
-              <span class:list={['idx-icon', i % 2 ? 'tone-6' : 'tone-1']} aria-hidden="true"><Icon name={g.icon} size="1.05rem" /></span>
-              <span class="idx-text"><strong>{g.name}</strong><span>{g.items.length} servicios</span></span>
-              <span class="idx-go" aria-hidden="true">↓</span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
+  <PageHero title="Otros servicios" crumb="Otros servicios" lede="Revisiones, proyectos, datos y corrección: un solo equipo para cada parte de tu trabajo, con tu primera asesoría gratis." balance="photo" tint>
+    <Fragment slot="title"><span class="h1-main">Otros servicios para</span> <span class="h1-tail">tu investigación</span></Fragment>
+    <div class="hero-cta">
+      <a class="wa-big" href={whatsappUrl('Hola, quiero cotizar uno de sus servicios de investigación.')} target="_blank" rel="noopener" data-analytics="cotizar_otros_servicios_hero">
+        <Icon name="whatsapp" size="1.25rem" />
+        <span><strong>Cotiza gratis por WhatsApp</strong><small>Te respondemos en menos de 24 h</small></span>
+        <span class="wa-arrow" aria-hidden="true">→</span>
+      </a>
+      <p class="hero-note"><span class="dot" aria-hidden="true"></span>15 servicios · 5 áreas · asesores de tu especialidad</p>
+    </div>
     <Picture slot="media" formats={['avif', 'webp']} quality={80} src={heroImg} alt="Asesora de tesis de Científica Consultores" widths={[960, 1280, 1570]} sizes="100vw" loading="eager" fetchpriority="high" />
   </PageHero>
+
+  <section class="section quick" aria-label="Áreas de servicio">
+    <div class="page">
+      <nav class="index" aria-label="Grupos de servicios">
+        <ul role="list">
+          {otherServices.map((g, i) => (
+            <li>
+              <a href={`#${g.id}`}>
+                <span class:list={['idx-icon', i % 2 ? 'tone-6' : 'tone-1']} aria-hidden="true"><Icon name={g.icon} size="1.05rem" /></span>
+                <span class="idx-text"><strong>{g.name}</strong><span>{g.items.length} servicios</span></span>
+                <span class="idx-go" aria-hidden="true">↓</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </section>
 
   {otherServices.map((g, i) => (
     <section class="section-wide group" aria-labelledby={g.id}>
       <div class="page stack stack-xl">
-        <header class="g-head" data-reveal>
-          <div class="g-title">
-            <span class:list={['g-icon', i % 2 ? 'tone-6' : 'tone-1']} aria-hidden="true"><Icon name={g.icon} size="1.5rem" /></span>
-            <div>
-              <span class="eyebrow">Servicio {String(i + 1).padStart(2, '0')} · {g.items.length} opciones</span>
-              <h2 id={g.id}>{g.name}</h2>
-            </div>
-          </div>
-          <div class="g-copy">
-            <p class="summary">{g.summary}</p>
-            <p class="for"><Icon name="user" size="1rem" />{g.forWho}</p>
-          </div>
+        <header class="section-head center g-head" data-reveal>
+          <span class:list={['g-icon', i % 2 ? 'tone-6' : 'tone-1']} aria-hidden="true"><Icon name={g.icon} size="1.5rem" /></span>
+          <span class="eyebrow">Servicio {String(i + 1).padStart(2, '0')} · {g.items.length} opciones</span>
+          <h2 id={g.id}>{g.name}</h2>
+          <p>{g.summary}</p>
+          <p class="for"><Icon name="user" size="1rem" />{g.forWho}</p>
         </header>
         <ul class:list={['cards', `n-${g.items.length}`]} role="list" data-reveal="stagger">
           {g.items.map((item, k) => (
@@ -67,7 +74,9 @@ const schema = [
                 <p>{item.text}</p>
                 <div class="actions">
                   <a class="quote" href={whatsappUrl(`Hola, quiero cotizar el servicio de ${item.name.toLowerCase()} (${g.name.toLowerCase()}).`)} target="_blank" rel="noopener" data-analytics="cotizar_otro_servicio">
-                    <Icon name="whatsapp" size="1rem" /> Cotizar
+                    <Icon name="whatsapp" size="1.1rem" />
+                    <span>Solicitar cotización gratis</span>
+                    <span class="q-arrow" aria-hidden="true">→</span>
                   </a>
                   {item.href && <a class="more" href={item.href}>Ver servicio →</a>}
                 </div>
@@ -83,23 +92,30 @@ const schema = [
 </Base>
 
 <style>
-  /* Índice del banner: tarjetas de vidrio con ícono y cantidad de servicios */
-  .index ul { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(15rem, 100%), 1fr)); gap: var(--space-2xs); }
-  .index a { display: flex; align-items: center; gap: 0.7rem; padding: 0.6rem 0.9rem 0.6rem 0.6rem; border-radius: var(--radius-card); background-color: rgb(255 255 255 / 0.08); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.16); color: var(--paper-0); text-decoration: none; backdrop-filter: blur(8px); transition: background-color var(--duration-hover) ease, transform var(--duration-hover) var(--ease-out); }
-  .idx-icon { display: grid; place-items: center; flex-shrink: 0; inline-size: 2.4rem; block-size: 2.4rem; border-radius: 0.8rem; background-image: var(--tone-grad); color: var(--paper-0); }
+  /* Accesos rápidos a cada área, debajo del banner */
+  .quick { padding-block: var(--space-m); }
+  .index ul { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(13rem, 100%), 1fr)); gap: var(--space-xs); }
+  .index a { display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 0.9rem 0.7rem 0.7rem; border-radius: var(--radius-card); background-color: var(--paper-0); box-shadow: var(--shadow-card); color: var(--ink-900); text-decoration: none; transition: box-shadow var(--duration-hover) ease, transform var(--duration-hover) var(--ease-out); }
+  .idx-icon { display: grid; place-items: center; flex-shrink: 0; inline-size: 2.5rem; block-size: 2.5rem; border-radius: 0.8rem; background-image: var(--tone-grad); color: var(--paper-0); }
   .idx-text { display: grid; gap: 0.05rem; flex: 1; line-height: 1.2; }
   .idx-text strong { font-size: var(--step-ui); }
-  .idx-text span { color: var(--navy-100); font-size: var(--step-small); }
-  .idx-go { color: var(--gold-400); font-weight: var(--weight-bold); transition: transform var(--duration-hover) var(--ease-out); }
+  .idx-text span { color: var(--color-text-soft); font-size: var(--step-small); }
+  .idx-go { color: var(--orange-500); font-weight: var(--weight-bold); transition: transform var(--duration-hover) var(--ease-out); }
 
-  /* Cada grupo: encabezado a todo el ancho y los servicios debajo, cada uno con su botón de cotizar */
-  .g-head { display: grid; gap: var(--space-s) var(--gutter); align-items: end; padding-block-end: var(--space-m); border-block-end: 1px solid color-mix(in srgb, var(--navy-600) 14%, transparent); }
-  .g-title { display: flex; align-items: center; gap: var(--space-s); }
-  .g-icon { display: grid; place-items: center; flex-shrink: 0; inline-size: 3.6rem; block-size: 3.6rem; border-radius: 1.1rem; background-image: var(--tone-grad); color: var(--paper-0); box-shadow: 0 12px 24px -12px var(--tone); }
-  .g-title h2 { font-size: var(--step-head); line-height: 1.1; margin-block-start: 0.35rem; }
-  .g-copy { display: grid; gap: var(--space-xs); justify-items: start; }
-  .summary { color: var(--color-text-soft); font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 62ch; }
-  .for { display: inline-flex; align-items: center; gap: 0.5em; padding: 0.45em 0.9em; border-radius: var(--radius-pill); background-color: var(--orange-50); color: var(--orange-600); font-size: var(--step-small); font-weight: var(--weight-bold); }
+  /* Llamada a la acción del banner */
+  .hero-cta { display: grid; gap: var(--space-xs); justify-items: start; }
+  .wa-big { display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.65rem 0.7rem 0.65rem 1.2rem; border-radius: var(--radius-pill); background-color: var(--whatsapp-500); color: var(--ink-900); text-decoration: none; box-shadow: 0 16px 34px -14px rgb(37 211 102 / 0.75); transition: transform var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) ease; }
+  .wa-big > span:not(.wa-arrow) { display: grid; line-height: 1.2; }
+  .wa-big strong { font-size: var(--step-body); }
+  .wa-big small { font-size: var(--step-small); font-weight: var(--weight-semibold); opacity: 0.75; }
+  .wa-arrow { display: grid; place-items: center; inline-size: 2.4rem; block-size: 2.4rem; border-radius: 50%; background-color: rgb(19 24 61 / 0.9); color: var(--paper-0); font-weight: var(--weight-bold); transition: transform var(--duration-ui) var(--ease-out); }
+  .hero-note { display: inline-flex; align-items: center; gap: 0.55em; color: var(--navy-100); font-size: var(--step-small); font-weight: var(--weight-semibold); }
+  .dot { inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; background-color: var(--gold-400); box-shadow: 0 0 0 4px rgb(255 194 51 / 0.2); }
+
+  /* Encabezado de cada grupo, centrado como en el resto de la web */
+  .g-head { justify-items: center; }
+  .g-icon { display: grid; place-items: center; inline-size: 3.6rem; block-size: 3.6rem; margin-block-end: var(--space-2xs); border-radius: 1.1rem; background-image: var(--tone-grad); color: var(--paper-0); box-shadow: 0 12px 24px -12px var(--tone); }
+  .for { display: inline-flex; align-items: center; gap: 0.5em; padding: 0.45em 0.95em; border-radius: var(--radius-pill); background-color: var(--orange-50); color: var(--orange-600) !important; font-size: var(--step-small) !important; font-weight: var(--weight-bold); }
 
   .cards { display: grid; gap: var(--space-m); grid-template-columns: 1fr; }
   .card { position: relative; isolation: isolate; display: grid; grid-template-rows: auto 1fr; border-radius: var(--radius-card); background-color: var(--paper-0); box-shadow: var(--shadow-card); transition: opacity var(--duration-reveal) var(--ease-expo), transform var(--duration-reveal) var(--ease-expo), translate var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) ease; }
@@ -109,26 +125,28 @@ const schema = [
   .body { display: grid; grid-template-rows: auto 1fr auto; gap: var(--space-2xs); padding: var(--space-m); }
   .body h3 { font-size: var(--step-title); line-height: 1.25; }
   .body p { color: var(--color-text-soft); font-size: var(--step-ui); line-height: var(--leading-body); }
-  .actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-s); margin-block-start: var(--space-xs); padding-block-start: var(--space-s); border-block-start: 1px solid var(--paper-2); }
-  .quote { display: inline-flex; align-items: center; gap: 0.45em; padding: 0.55em 1.1em; border-radius: var(--radius-pill); background-color: var(--whatsapp-500); color: var(--ink-900); font-size: var(--step-small); font-weight: var(--weight-bold); text-decoration: none; transition: background-color var(--duration-hover) ease, transform var(--duration-hover) var(--ease-out); }
+  .actions { display: grid; gap: var(--space-2xs); margin-block-start: var(--space-xs); }
+  .quote { display: flex; align-items: center; gap: 0.55em; inline-size: 100%; padding: 0.55em 0.55em 0.55em 1.1em; border-radius: var(--radius-pill); background-color: var(--whatsapp-500); color: var(--ink-900); font-size: var(--step-ui); font-weight: var(--weight-bold); text-decoration: none; box-shadow: 0 10px 22px -14px rgb(37 211 102 / 0.9); transition: background-color var(--duration-hover) ease, transform var(--duration-hover) var(--ease-out); }
+  .quote > span:not(.q-arrow) { flex: 1; }
+  .q-arrow { display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; border-radius: 50%; background-color: rgb(19 24 61 / 0.9); color: var(--paper-0); transition: transform var(--duration-hover) var(--ease-out); }
+  .more { justify-self: center; }
   .more { color: var(--tone); font-size: var(--step-small); font-weight: var(--weight-bold); text-decoration: none; }
 
   @media (min-width: 40em) {
     .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (min-width: 64em) {
-    .g-head { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
     .cards.n-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .cards.n-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    /* Índice del banner: ocupa el ancho libre del banner */
-    :global(.photo-hero .text) > .index.index { grid-column: 1 / -1; }
-    .index ul { grid-template-columns: repeat(3, minmax(0, 1fr)); max-inline-size: 58rem; }
+    .index ul { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   }
   @media (hover: hover) and (pointer: fine) {
-    .index a:hover { background-color: rgb(255 255 255 / 0.16); transform: translateY(-2px); }
+    .index a:hover { box-shadow: var(--shadow-lift); transform: translateY(-2px); }
     .index a:hover .idx-go { transform: translateY(3px); }
     .card:hover { translate: 0 -5px; box-shadow: var(--shadow-lift); }
     .card:hover .photo { transform: scale(1.05); }
     .quote:hover { background-color: var(--whatsapp-600); color: var(--ink-900); transform: translateY(-1px); }
+    .quote:hover .q-arrow, .wa-big:hover .wa-arrow { transform: translateX(3px); }
+    .wa-big:hover { transform: translateY(-2px); box-shadow: 0 20px 40px -14px rgb(37 211 102 / 0.85); color: var(--ink-900); }
   }
 </style>
