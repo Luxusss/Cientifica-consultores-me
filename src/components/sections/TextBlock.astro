@@ -32,6 +32,7 @@ const { id, title, text, eyebrow, band = false, image, imageAlt = '' } = Astro.p
       {image && (
         <figure class="shot">
           <Image src={image} alt={imageAlt} widths={[560, 800, 1103]} sizes="(min-width: 64em) 45vw, 100vw" quality={88} />
+          {eyebrow && <figcaption aria-hidden="true">{eyebrow}</figcaption>}
         </figure>
       )}
     </div>
@@ -47,8 +48,16 @@ const { id, title, text, eyebrow, band = false, image, imageAlt = '' } = Astro.p
   .photo .eyebrow { background-color: rgb(255 255 255 / 0.14); color: var(--gold-400); }
   .photo .copy p { color: var(--navy-100); }
   .shot { position: relative; margin: 0; }
-  .shot :global(img) { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 1103 / 730; object-fit: cover; border-radius: calc(var(--radius-card) + 0.35rem); box-shadow: 0 30px 60px -24px rgb(0 0 0 / 0.6), 0 0 0 6px rgb(255 255 255 / 0.08); }
-  .shot::before { content: ''; position: absolute; inset: -0.9rem auto auto -0.9rem; z-index: -1; inline-size: 40%; block-size: 50%; border-radius: var(--radius-card); background-image: var(--gradient-warm); opacity: 0.9; }
+  .shot :global(img) { position: relative; z-index: 1; display: block; inline-size: 100%; block-size: auto; aspect-ratio: 1103 / 730; object-fit: cover; border-radius: calc(var(--radius-card) + 0.35rem); box-shadow: 0 34px 70px -30px rgb(0 0 0 / 0.7); }
+  /* Marco fino desplazado detrás de la foto y una etiqueta flotante, en lugar del bloque naranja */
+  .shot::before { content: ''; position: absolute; inset: 1.1rem -1.1rem -1.1rem 1.1rem; border-radius: calc(var(--radius-card) + 0.35rem); border: 1.5px solid rgb(255 255 255 / 0.28); }
+  .shot figcaption { position: absolute; z-index: 2; inset-block-end: 1.1rem; inset-inline-start: -1rem; display: inline-flex; align-items: center; gap: 0.55em; padding: 0.55em 1em; border-radius: var(--radius-pill); background-color: var(--paper-0); color: var(--navy-700); font-size: var(--step-small); font-weight: var(--weight-bold); box-shadow: 0 16px 34px -14px rgb(0 0 0 / 0.55); }
+  @media (max-width: 63.99em) {
+    .shot { margin-inline-end: 0.6rem; }
+    .shot::before { inset: 0.6rem -0.6rem -0.6rem 0.6rem; }
+    .shot figcaption { inset-inline-start: 0.75rem; inset-block-end: 0.75rem; }
+  }
+  .shot figcaption::before { content: ''; inline-size: 0.55rem; block-size: 0.55rem; border-radius: 50%; background-color: var(--orange-500); box-shadow: 0 0 0 4px rgb(254 143 1 / 0.22); }
   .box {
     position: relative;
     display: grid;
