@@ -10,6 +10,7 @@ import mesa from '@/assets/images/otros_servicios/estudios_teoricos/revision_sis
 
 const icons = ['lock', 'badge', 'clock', 'bolt', 'users'] as const;
 const images = [datos, libro, laptop, analisis, mesa];
+import BrandMark from '@/components/ui/BrandMark.astro';
 ---
 
 <section class="section-wide why" aria-labelledby="por-que">
@@ -23,7 +24,7 @@ const images = [datos, libro, laptop, analisis, mesa];
       {whyUs.items.map((item, i) => (
         <li class:list={['card', `tone-${(i % 5) + 1}`, { wide: i < 2 }]}>
           <span class="media">
-            <span class="clip"><Image src={images[i % images.length]} alt="" widths={[360, 540, 720]} sizes="(min-width: 64em) 33vw, (min-width: 48em) 50vw, 100vw" class="img" /></span>
+            <span class="brand-frame clip"><BrandMark tone="light" /><Image src={images[i % images.length]} alt="" widths={[360, 540, 720]} sizes="(min-width: 64em) 33vw, (min-width: 48em) 50vw, 100vw" class="img" /></span>
             <span class="icon"><Icon name={icons[i % icons.length]} size="1.15rem" /></span>
           </span>
           <div class="body">

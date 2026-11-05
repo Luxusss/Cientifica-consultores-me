@@ -180,3 +180,15 @@
    al agregar, quitar o mover secciones. No hace falta poner clases a mano. */
 main > section:nth-child(even of section:not(.theme-field, .photo, .quote, .hero, .page-hero)) { background-color: var(--color-band); }
 main > section:nth-child(odd of section:not(.theme-field, .photo, .quote, .hero, .page-hero)) { background-color: var(--paper-0); background-image: none; }
+
+/* Identidad de marca en las fotos (ver BrandMark.astro):
+   - tratamiento de color propio (azul de la marca en sombras y cálido en luces) para que las fotos de banco se vean de una misma sesión
+   - línea naranja a la izquierda
+   - el logo sobre una placa azul sólida, para que se lea en cualquier foto */
+:where(.brand-frame) { position: relative; isolation: isolate; }
+.brand-frame img { filter: saturate(0.82) contrast(1.06) brightness(1.02); }
+.brand-frame::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(145deg, rgb(29 45 140 / 0.55) 0%, rgb(29 45 140 / 0.12) 45%, rgb(254 143 1 / 0.28) 100%); mix-blend-mode: soft-light; }
+.brand-frame::before { content: ''; position: absolute; inset: 0 auto 0 0; z-index: 3; inline-size: 4px; background-image: var(--gradient-warm); pointer-events: none; }
+.brand-mark { position: absolute; z-index: 3; inset-block-start: 0; inset-inline-end: 0; display: block; inline-size: 6.4rem; padding: 0.5rem 0.75rem 0.5rem 0.9rem; border-end-start-radius: 1rem; background-image: var(--gradient-brand); color: #fff; box-shadow: 0 8px 18px -8px rgb(0 0 0 / 0.55); pointer-events: none; }
+.brand-mark.dark { background: #fff; color: var(--navy-700); }
+.brand-mark svg { display: block; inline-size: 100%; block-size: auto; }

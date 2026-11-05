@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { services } from '@/data/services';
 import { servicesSection, serviceTeasers } from '@/data/home';
+import BrandMark from '@/components/ui/BrandMark.astro';
 ---
 
 <section class="services section-wide band-soft" aria-labelledby="servicios">
@@ -15,7 +16,7 @@ import { servicesSection, serviceTeasers } from '@/data/home';
     <ul class="gallery" role="list" data-reveal="stagger">
       {services.map((s, i) => (
         <li class:list={['tile', i % 2 ? 'tone-6' : 'tone-1']}>
-          <a class="frame" href={s.href} tabindex="-1" aria-hidden="true">
+          <a class="brand-frame frame" href={s.href} tabindex="-1" aria-hidden="true"><BrandMark tone="light" />
             <Image src={s.image} alt={s.imageAlt} widths={[400, 600, 800]} sizes="(min-width: 64em) 28vw, (min-width: 40em) 50vw, 100vw" class="portrait" />
             <span class="level">{s.name}</span>
           </a>

@@ -21,6 +21,7 @@ const feature = block.variant === 'feature';
 const logoFiles = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/clients/*', { eager: true });
 const logoName = (file: string) => Object.entries(logoByUniversity).find(([, f]) => f === file)?.[0] ?? '';
 const logo = (file: string) => logoFiles['/src/assets/images/clients/' + file]?.default;
+import BrandMark from '@/components/ui/BrandMark.astro';
 ---
 
 <section class:list={['section-wide', { 'band-soft': band }]} aria-labelledby={block.id}>
@@ -55,7 +56,7 @@ const logo = (file: string) => logoFiles['/src/assets/images/clients/' + file]?.
         {block.points.map((p, i) => (
           <li id={p.id} class:list={['card', i % 2 ? 'tone-6' : 'tone-1']}>
             {p.image && (
-              <div class="frame">
+              <div class="brand-frame frame"><BrandMark tone="light" />
                 <Image src={p.image} alt={p.imageAlt ?? ''} widths={[360, 540, 720]} sizes="(min-width: 64em) 30vw, (min-width: 40em) 45vw, 100vw" class="photo" />
               </div>
             )}

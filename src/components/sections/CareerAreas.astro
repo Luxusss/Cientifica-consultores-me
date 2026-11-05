@@ -15,6 +15,7 @@ interface Props {
 const { title = 'Un asesor de tu carrera', intro = 'Accede a asesoría personalizada según tu disciplina, con especialistas para cada carrera.', prefix = '', eyebrow = 'Por carrera', band = false } = Astro.props;
 const icons = ['bolt', 'pen', 'users', 'shield'] as const;
 const kicker = prefix.trim() || 'Asesoría para';
+import BrandMark from '@/components/ui/BrandMark.astro';
 ---
 
 <section class:list={['section-wide', { 'band-soft': band }]} aria-labelledby="carreras" data-areas>
@@ -40,6 +41,7 @@ const kicker = prefix.trim() || 'Asesoría para';
         {careerAreas.map((area, i) => (
           <div class:list={['panel', i % 2 ? 'tone-6' : 'tone-1']} id={`area-${i}`} role="tabpanel" aria-labelledby={`area-tab-${i}`} hidden={i !== 0} data-area-panel>
             {area.image && <Image src={area.image} alt="" widths={[640, 960, 1280]} sizes="(min-width: 64em) 60vw, 100vw" class="panel-img" />}
+            <BrandMark />
             <div class="panel-body">
               <p class="panel-kicker">{kicker}</p>
               <h3>{area.name}</h3>

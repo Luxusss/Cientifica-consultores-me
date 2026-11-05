@@ -1,0 +1,13 @@
+---
+/** Logo de la empresa como sello sobre una foto. El contenedor debe llevar la clase "brand-frame". */
+import logoSvg from '@/assets/brand/logo.svg?raw';
+
+interface Props {
+  /** 'light' para fotos oscuras o con velo, 'dark' para fotos claras */
+  tone?: 'light' | 'dark';
+}
+
+const { tone = 'light' } = Astro.props;
+---
+
+<span class:list={['brand-mark', tone]} aria-hidden="true"><Fragment set:html={logoSvg} /></span>

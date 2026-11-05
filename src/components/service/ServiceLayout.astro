@@ -58,6 +58,7 @@ const schema = [
   },
   faqPage(page.faq),
 ];
+import BrandPhoto from '@/components/ui/BrandPhoto.astro';
 ---
 
 <Base title={page.title} description={page.description} image={`/og/${page.id}.jpg`} schema={schema}>
@@ -79,7 +80,7 @@ const schema = [
       </div>
       {page.introImage ? (
         <div class="intro-pic" data-reveal>
-          <Image src={page.introImage} alt={page.introAlt} widths={[480, 720, 960]} sizes="(min-width: 64em) 40vw, 100vw" class="intro-img" />
+          <BrandPhoto src={page.introImage} alt={page.introAlt} caption="Tu asesor" />
         </div>
       ) : (
         <div class="moments-wrap" data-reveal data-moments>

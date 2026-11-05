@@ -14,6 +14,7 @@ const schema = [
   breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Otros servicios', path: '/otros_servicios.html' }]),
   ...otherServices.map((g) => ({ '@type': 'Service', name: g.name, description: g.summary, provider: { '@id': `${site.url}/#organizacion` } })),
 ];
+import BrandMark from '@/components/ui/BrandMark.astro';
 ---
 
 <Base
@@ -63,7 +64,7 @@ const schema = [
         <ul class:list={['cards', `n-${g.items.length}`]} role="list" data-reveal="stagger">
           {g.items.map((item, k) => (
             <li class:list={['card', (i + k) % 2 ? 'tone-6' : 'tone-1']}>
-              <div class="frame">
+              <div class="brand-frame frame"><BrandMark tone="light" />
                 <Image src={item.image} alt={item.alt} widths={[360, 540, 720]} sizes="(min-width: 64em) 30vw, (min-width: 40em) 45vw, 100vw" class="photo" />
                 <span class="num">{String(k + 1).padStart(2, '0')}</span>
               </div>

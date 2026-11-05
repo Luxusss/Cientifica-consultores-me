@@ -19,6 +19,7 @@ interface Props {
 }
 
 const { id, title, text, eyebrow, band = false, image, imageAlt = '', cta } = Astro.props;
+import BrandPhoto from '@/components/ui/BrandPhoto.astro';
 ---
 
 <section class:list={['section-wide', { 'band-soft': band && !image, photo: image }]} aria-labelledby={id}>
@@ -34,10 +35,7 @@ const { id, title, text, eyebrow, band = false, image, imageAlt = '', cta } = As
         {cta && <FormButton label={cta} icon />}
       </div>
       {image && (
-        <figure class="shot">
-          <Image src={image} alt={imageAlt} widths={[560, 800, 1103]} sizes="(min-width: 64em) 45vw, 100vw" quality={88} />
-          {eyebrow && <figcaption aria-hidden="true">{eyebrow}</figcaption>}
-        </figure>
+        <div class="shot"><BrandPhoto src={image} alt={imageAlt} caption={eyebrow} ratio="3/2" /></div>
       )}
     </div>
   </div>

@@ -38,9 +38,10 @@ const ratioClass = 'r-' + ratio.replace('/', '-');
   .r-4-5 { aspect-ratio: 4 / 5; }
   .r-16-10 { aspect-ratio: 16 / 10; }
   .brand-photo::before { content: ''; position: absolute; inset: 0 auto 0 0; z-index: 3; inline-size: 5px; background-image: var(--gradient-warm); }
+  .brand-photo:not(.cutout) .bp-img { filter: saturate(0.82) contrast(1.06) brightness(1.02); }
   .bp-img { position: absolute; inset: 0; z-index: 0; inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 50% 30%; transition: transform 1.2s var(--ease-out); }
-  .bp-veil { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, transparent 45%, rgb(20 31 102 / 0.55) 78%, rgb(15 22 80 / 0.92) 100%); }
-  .bp-mark { position: absolute; z-index: 2; inset-block-end: var(--space-s); inset-inline-end: var(--space-s); display: block; inline-size: 7.5rem; color: var(--paper-0); opacity: 0.92; filter: drop-shadow(0 2px 6px rgb(0 0 0 / 0.35)); }
+  .bp-veil { position: absolute; inset: 0; z-index: 1; background: linear-gradient(145deg, rgb(29 45 140 / 0.5) 0%, transparent 45%, rgb(254 143 1 / 0.25) 100%), linear-gradient(180deg, transparent 55%, rgb(20 31 102 / 0.7) 100%); }
+  .bp-mark { position: absolute; z-index: 2; inset-block-start: 0; inset-inline-end: 0; display: block; inline-size: 7.5rem; padding: 0.6rem 0.85rem 0.6rem 1rem; border-end-start-radius: 1.1rem; background-image: var(--gradient-brand); color: var(--paper-0); box-shadow: 0 10px 22px -10px rgb(0 0 0 / 0.55); }
   .bp-mark :global(svg) { display: block; inline-size: 100%; block-size: auto; }
   figcaption { position: absolute; z-index: 2; inset-block-end: var(--space-s); inset-inline-start: var(--space-m); display: inline-flex; align-items: center; gap: 0.5em; padding: 0.45em 0.95em; border-radius: var(--radius-pill); background-color: var(--paper-0); color: var(--navy-700); font-size: var(--step-small); font-weight: var(--weight-bold); box-shadow: 0 12px 26px -12px rgb(0 0 0 / 0.55); }
   figcaption::before { content: ''; inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; background-color: var(--orange-500); box-shadow: 0 0 0 4px rgb(254 143 1 / 0.22); }
@@ -50,7 +51,6 @@ const ratioClass = 'r-' + ratio.replace('/', '-');
   .cutout::after { content: ''; position: absolute; inset: -10% -6% auto auto; z-index: 0; inline-size: 55%; aspect-ratio: 1; border-radius: 2rem; border: 18px solid rgb(29 45 140 / 0.07); rotate: 18deg; }
   .cutout .bp-img { z-index: 1; object-fit: contain; object-position: 50% 100%; mix-blend-mode: multiply; }
   .cutout .bp-veil { background: linear-gradient(180deg, transparent 70%, rgb(20 31 102 / 0.18) 100%); z-index: 2; }
-  .cutout .bp-mark { inset-block-start: var(--space-s); inset-block-end: auto; inline-size: 7rem; color: var(--navy-700); opacity: 1; filter: none; }
 
   @media (hover: hover) and (pointer: fine) {
     .brand-photo:not(.cutout):hover .bp-img { transform: scale(1.04); }
