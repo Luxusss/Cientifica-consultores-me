@@ -10,9 +10,11 @@ interface Props {
   lede?: string;
   balance?: 'text' | 'media' | 'photo';
   tone?: 'plain' | 'field';
+  /** Tiñe la foto con el azul de la marca (para fotos que no vienen ya tratadas) */
+  tint?: boolean;
 }
 
-const { title, crumb = title, trail, subtitle, lede, balance = 'text', tone = 'plain' } = Astro.props;
+const { title, crumb = title, trail, subtitle, lede, balance = 'text', tone = 'plain', tint = false } = Astro.props;
 const hasMedia = Astro.slots.has('media');
 ---
 
@@ -23,7 +25,7 @@ const hasMedia = Astro.slots.has('media');
     {lede && <p class="text-lead">{lede}</p>}
     <slot />
   </div>
-  {hasMedia && <div class="media"><slot name="media" /></div>}
+  {hasMedia && <div class:list={['media', { tint }]}><slot name="media" /></div>}
 </section>
 <Breadcrumbs current={crumb} trail={trail} />
 
@@ -62,6 +64,9 @@ const hasMedia = Astro.slots.has('media');
   .photo-hero :global(.form-card .button[type='submit'])::after { content: '→'; margin-inline-start: 0.5em; }
   .photo-hero .text { align-content: center; padding: var(--space-xl) var(--page-margin) var(--space-2xl); position: relative; z-index: 1; }
   .photo-hero .media { aspect-ratio: 4 / 3; overflow: hidden; }
+  /* Mismo tratamiento que las fotos de los banners de servicio: velo azul que se funde hacia el texto */
+  @media (max-width: 63.99em) { .photo-hero .media.tint { position: relative; } }
+  .photo-hero .media.tint::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgb(29 45 140 / 0.95) 0%, rgb(29 45 140 / 0.72) 32%, rgb(29 45 140 / 0.5) 60%, rgb(29 45 140 / 0.42) 100%); }
   .photo-hero .media :global(picture) { display: block; block-size: 100%; }
   .photo-hero .media :global(img) { block-size: 100%; aspect-ratio: auto; object-position: 96% 20%; }
   .photo-hero .media :global(img.focus-center) { object-position: 60% 30%; }
