@@ -303,8 +303,8 @@ export const servicePages: Record<string, ServicePage> = {
 };
 
 export const careerAreas = [
-  { name: 'Ingenierías', image: ingenieriasImg, careers: ['Ingeniería Civil', 'Ingeniería de Sistemas', 'Ingeniería Industrial', 'Ingeniería Mecánica', 'Ingeniería Eléctrica', 'Ingeniería Mecatrónica', 'Ingeniería Electrónica', 'Arquitectura'] },
-  { name: 'Letras', image: letrasImg, careers: ['Literatura', 'Comunicación y Periodismo', 'Historia', 'Educación'] },
-  { name: 'Ciencias sociales', image: socialesImg, careers: ['Administración de Empresas', 'Derecho', 'Economía', 'Contabilidad', 'Ciencia Política', 'Sociología'] },
-  { name: 'Ciencias de la salud', image: saludImg, careers: ['Medicina', 'Enfermería', 'Odontología', 'Farmacia', 'Bioquímica', 'Obstetricia', 'Nutrición'] },
+  { name: 'Ingenierías', image: ingenieriasImg, careers: ['Ingeniería Civil', 'Ingeniería de Sistemas', 'Ingeniería de Software', 'Ingeniería Industrial', 'Ingeniería Mecánica', 'Ingeniería Eléctrica', 'Ingeniería Electrónica', 'Ingeniería Mecatrónica', 'Ingeniería Ambiental', 'Ingeniería Química', 'Ingeniería de Minas', 'Ingeniería Agroindustrial', 'Ingeniería Agronómica', 'Ingeniería de Telecomunicaciones', 'Arquitectura'] },
+  { name: 'Letras', image: letrasImg, careers: ['Literatura', 'Comunicación', 'Periodismo', 'Historia', 'Filosofía', 'Lingüística', 'Traducción e Interpretación', 'Educación Inicial', 'Educación Primaria', 'Educación Secundaria', 'Arte y Diseño'] },
+  { name: 'Ciencias sociales', image: socialesImg, careers: ['Administración de Empresas', 'Derecho', 'Economía', 'Contabilidad', 'Marketing', 'Negocios Internacionales', 'Psicología', 'Sociología', 'Ciencia Política', 'Antropología', 'Trabajo Social', 'Relaciones Internacionales', 'Turismo y Hotelería', 'Gestión Pública'] },
+  { name: 'Ciencias de la salud', image: saludImg, careers: ['Medicina Humana', 'Enfermería', 'Odontología', 'Obstetricia', 'Farmacia y Bioquímica', 'Nutrición', 'Tecnología Médica', 'Terapia Física', 'Psicología Clínica', 'Biología', 'Medicina Veterinaria', 'Salud Pública'] },
 ];

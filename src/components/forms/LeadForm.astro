@@ -192,6 +192,9 @@ const options = countries.map((c) => ({ value: c.name, name: c.name, code: c.cod
 <style>
   .lead-form { display: grid; gap: var(--space-m); container-type: inline-size; }
   .pair { display: grid; gap: var(--space-m); align-items: start; }
+  @container (min-width: 24rem) {
+    .compact .pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
   @container (min-width: 30rem) {
     .pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }

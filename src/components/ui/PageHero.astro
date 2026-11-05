@@ -69,13 +69,13 @@ const hasMedia = Astro.slots.has('media');
     .photo-hero .media :global(img) { object-position: 100% 50%; }
     .photo-hero::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, var(--scrim-soft) 0%, transparent 20%), linear-gradient(0deg, color-mix(in srgb, var(--ink-900) 55%, transparent) 0%, transparent 30%), linear-gradient(90deg, var(--scrim-strong) 0%, var(--scrim-strong) 24%, transparent 60%); }
     /* Escritorio: texto a la izquierda y formulario compacto al lado; la foto queda libre a la derecha */
-    .photo-hero .text { grid-template-columns: minmax(0, 31rem) minmax(0, 25rem); column-gap: var(--space-xl); align-items: center; align-content: center; padding-inline: var(--edge) var(--space-l); padding-block: var(--space-l); max-inline-size: none; }
+    .photo-hero .text { grid-template-columns: minmax(0, 36rem) minmax(0, 31rem); column-gap: var(--space-2xl); align-items: center; align-content: center; padding-inline: var(--edge) var(--space-l); padding-block: var(--space-l); max-inline-size: none; }
     .photo-hero .text > :global(:not(.form-card)) { grid-column: 1; }
     .photo-hero .text > :global(.form-card) { grid-column: 2; grid-row: 1 / span 4; align-self: center; }
-    .photo-hero .text :global(.form-card textarea) { min-block-size: 2.9rem; block-size: 2.9rem; }
+    .photo-hero .text :global(.form-card textarea) { min-block-size: 5.5rem; block-size: 5.5rem; overflow-y: auto; scrollbar-width: thin; }
     .photo-hero .text > :global(.text-lead) { max-inline-size: none; text-wrap: balance; }
-    .photo-hero .text :global(.form-card) { max-inline-size: 25rem; margin-block-start: 0; padding: var(--space-s) var(--space-m) var(--space-m); gap: var(--space-xs); --input-height: 2.6rem; box-shadow: 0 24px 60px -24px color-mix(in srgb, var(--ink-900) 55%, transparent); }
-    .page-hero.photo-hero :global(h1) { font-size: clamp(2.5rem, 1.5rem + 2.2vw, 3.6rem); line-height: 1.02; letter-spacing: -0.03em; max-inline-size: none; }
+    .photo-hero .text :global(.form-card) { max-inline-size: 31rem; margin-block-start: 0; padding: var(--space-m) var(--space-l) var(--space-l); gap: var(--space-xs); --input-height: 2.85rem; box-shadow: 0 24px 60px -24px color-mix(in srgb, var(--ink-900) 55%, transparent); }
+    .page-hero.photo-hero :global(h1) { font-size: clamp(2.75rem, 1.5rem + 2.8vw, 4.4rem); line-height: 1.02; letter-spacing: -0.03em; max-inline-size: none; }
     .page-hero :global(h1) { font-size: min(var(--step-display), 5vw); }
     .favor-media :global(h1) { font-size: min(var(--step-display), 4vw); }
     .field-hero:not(.with-media) .text { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: end; }

@@ -36,7 +36,8 @@ const { id, title, text, eyebrow, band = false, image } = Astro.props;
 <style>
   .photo { position: relative; isolation: isolate; overflow: hidden; }
   .photo { min-block-size: 28rem; display: grid; align-items: center; }
-  .photo :global(.bg) { position: absolute; inset: 0; z-index: -2; inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 50% 18%; }
+  .photo :global(.bg) { position: absolute; inset: 0; z-index: -2; inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 60% 16%; }
+  .photo::after { content: ''; position: absolute; inset: auto 0 0; z-index: -1; block-size: 26%; background: linear-gradient(0deg, rgb(15 22 80 / 1) 0%, rgb(15 22 80 / 0.9) 50%, transparent 100%); pointer-events: none; }
   .photo::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(20 31 102 / 0.95) 0%, rgb(20 31 102 / 0.85) 38%, rgb(29 45 140 / 0.35) 75%, rgb(29 45 140 / 0.2) 100%); }
   .photo .box { grid-template-columns: 1fr; max-inline-size: 36rem; background-color: transparent; box-shadow: none; padding-inline: 0; }
   .photo .mark { display: none; }

@@ -117,11 +117,11 @@ const kicker = prefix.trim() || 'Asesoría para';
   .panel { position: relative; display: grid; align-items: end; min-block-size: 26rem; overflow: hidden; border-radius: calc(var(--radius-card) + 0.35rem); isolation: isolate; box-shadow: var(--shadow-lift); }
   .panel[hidden] { display: none; }
   .panel :global(.panel-img) { position: absolute; inset: 0; z-index: -2; inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 50% 30%; }
-  .panel::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(20 31 102 / 0.95) 0%, rgb(20 31 102 / 0.82) 45%, rgb(20 31 102 / 0.2) 100%); }
-  .panel-body { display: grid; gap: var(--space-s); justify-items: start; max-inline-size: 34rem; padding: var(--space-l); color: var(--paper-0); }
+  .panel::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(20 31 102 / 0.96) 0%, rgb(20 31 102 / 0.88) 55%, rgb(20 31 102 / 0.35) 100%); }
+  .panel-body { display: grid; gap: var(--space-s); justify-items: start; max-inline-size: 46rem; padding: var(--space-l); color: var(--paper-0); }
   .panel-kicker { color: var(--gold-400); font-size: var(--step-small); font-weight: var(--weight-bold); letter-spacing: 0.06em; text-transform: uppercase; }
   .panel-body h3 { font-family: var(--font-display); font-size: var(--step-head); line-height: 1.1; color: var(--paper-0); }
-  .careers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem var(--space-s); }
+  .careers { display: grid; grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr)); gap: 0.45rem var(--space-s); inline-size: 100%; }
   .careers li { display: flex; align-items: center; gap: 0.45em; font-size: var(--step-ui); font-weight: var(--weight-medium); }
   .careers li :global(svg) { flex-shrink: 0; padding: 0.15rem; border-radius: 50%; background-color: var(--orange-500); color: var(--ink-900); }
   .panel-body :global(.button) { gap: 0.55em; margin-block-start: var(--space-2xs); border-radius: var(--radius-pill); }
@@ -130,7 +130,7 @@ const kicker = prefix.trim() || 'Asesoría para';
     .showcase { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); align-items: stretch; }
     .picker { grid-template-columns: 1fr; align-content: center; gap: var(--space-xs); }
     .pick { padding: var(--space-s) var(--space-m); }
-    .panel { min-block-size: 28rem; }
+    .panel { min-block-size: 31rem; }
   }
   @media (hover: hover) and (pointer: fine) {
     .pick:not([aria-selected='true']):hover { transform: translateX(4px); background-color: var(--orange-50); }

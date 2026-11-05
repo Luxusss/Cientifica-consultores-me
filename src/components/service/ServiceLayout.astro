@@ -31,12 +31,13 @@ const trust = [
   { icon: 'shield', text: 'Contrato digital' },
   { icon: 'document', text: 'Originalidad con Turnitin' },
 ] as const;
-const facts = [
-  { value: Number(stats.years), label: 'años de experiencia' },
-  { value: Number(stats.clients), label: 'tesistas asesorados' },
-  { value: Number(stats.universities), label: 'universidades' },
-  { value: Number(stats.countries), label: 'países' },
-];
+// ¿En qué punto estás? Cuatro situaciones típicas, cada una lleva al formulario
+const moments = [
+  { icon: 'search', title: 'Empiezo desde cero', text: 'Elegimos juntos un tema viable y armamos el proyecto.' },
+  { icon: 'pen', title: 'Estoy redactando', text: 'Revisamos tus capítulos, el marco teórico y los datos.' },
+  { icon: 'list', title: 'Me observaron la tesis', text: 'Te explicamos cada observación y cómo levantarla.' },
+  { icon: 'user', title: 'Voy a sustentar', text: 'Preparamos tu presentación y las preguntas del jurado.' },
+] as const;
 const eyebrows: Record<string, string> = {
   metodo: 'Nuestro método', 'por-que': 'Por qué elegirnos', incluye: 'Qué incluye', normativa: 'Tu universidad', tipos: 'Tipos de asesoría',
   empezar: 'Para empezar', online: '100 % online', confianza: 'Confianza', etapas: 'Paso a paso',
@@ -73,19 +74,30 @@ const schema = [
 
   <section class="section-wide standfirst" aria-label="Presentación">
     <div class="page intro">
+      <div class="intro-copy" data-reveal>
+        <span class="eyebrow">Sobre el servicio</span>
+        {page.intro.map((t) => <p>{t}</p>)}
+      </div>
       {page.introImage ? (
         <div class="intro-pic" data-reveal>
           <Image src={page.introImage} alt={page.introAlt} widths={[480, 720, 960]} sizes="(min-width: 64em) 40vw, 100vw" class="intro-img" />
         </div>
       ) : (
-        <ul class="facts" role="list" data-reveal="stagger" data-svc-counters>
-          {facts.map((f, i) => <li class:list={['fact', i % 2 ? 'tone-6' : 'tone-1']}><strong>+<span data-count={f.value}>{f.value}</span></strong><span>{f.label}</span></li>)}
-        </ul>
+        <div class="moments-wrap" data-reveal>
+          <p class="moments-title">¿En qué punto estás?</p>
+          <ul class="moments" role="list">
+            {moments.map((m, i) => (
+              <li>
+                <a class:list={['moment', i % 2 ? 'tone-6' : 'tone-1']} href="#formulario">
+                  <span class="m-icon" aria-hidden="true"><Icon name={m.icon} size="1.15rem" /></span>
+                  <span class="m-text"><strong>{m.title}</strong><span>{m.text}</span></span>
+                  <span class="m-go" aria-hidden="true">→</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
-      <div class="intro-copy" data-reveal>
-        <span class="eyebrow">Sobre el servicio</span>
-        {page.intro.map((t) => <p>{t}</p>)}
-      </div>
     </div>
   </section>
 
@@ -102,28 +114,6 @@ const schema = [
   <ContactBand />
 </Base>
 
-<script>
-  // Las cifras cuentan desde 0 una sola vez, al quedar a la vista
-  const box = document.querySelector<HTMLElement>('[data-svc-counters]');
-  if (box && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const nums = [...box.querySelectorAll<HTMLElement>('[data-count]')];
-    for (const n of nums) n.textContent = '0';
-    const io = new IntersectionObserver(([e]) => {
-      if (!e.isIntersecting) return;
-      io.disconnect();
-      const start = performance.now();
-      const tick = (now: number) => {
-        const k = Math.min(1, (now - start) / 1800);
-        const v = 1 - Math.pow(1 - k, 3);
-        for (const n of nums) n.textContent = String(Math.round(Number(n.dataset.count) * v));
-        if (k < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    }, { threshold: 0.6 });
-    io.observe(box);
-  }
-</script>
-
 <style>
   /* Hero */
   .h1-tail { display: block; margin-block-start: 0.12em; padding-block-end: 0.12em; font-size: 0.62em; line-height: 1.1; background-image: linear-gradient(90deg, var(--gold-400), var(--orange-500) 60%, #ff7a59); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -133,12 +123,22 @@ const schema = [
 
   /* Presentación */
   .intro { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
-  .intro-copy { display: grid; gap: var(--space-s); justify-items: start; padding: var(--space-l); border-radius: calc(var(--radius-card) + 0.35rem); background-color: var(--paper-0); box-shadow: var(--shadow-card); border-inline-start: 5px solid var(--orange-500); }
+  .intro-copy { align-self: stretch; align-content: center; display: grid; gap: var(--space-s); justify-items: start; padding: var(--space-l); border-radius: calc(var(--radius-card) + 0.35rem); background-color: var(--paper-0); box-shadow: var(--shadow-card); border-inline-start: 5px solid var(--orange-500); }
   .intro-copy p { color: var(--color-text-soft); font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 70ch; }
-  .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-s); }
-  .fact { display: grid; gap: 0.2rem; justify-items: center; text-align: center; padding: var(--space-m) var(--space-s); border-radius: var(--radius-card); background: linear-gradient(150deg, var(--tone-soft), var(--paper-0) 80%); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tone) 18%, transparent); }
-  .fact strong { font-variant-numeric: tabular-nums; font-family: var(--font-display); font-size: clamp(1.75rem, 1.4rem + 1vw, 2.25rem); line-height: 1; color: var(--tone); }
-  .fact > span { color: var(--ink-600); font-size: var(--step-ui); font-weight: var(--weight-semibold); }
+  .moments-wrap { display: grid; gap: var(--space-s); }
+  .moments-title { font-family: var(--font-display); font-size: var(--step-title); font-weight: var(--weight-semibold); color: var(--ink-900); }
+  .moments { display: grid; gap: var(--space-xs); }
+  .moment { display: flex; align-items: center; gap: var(--space-s); padding: var(--space-s) var(--space-m); border-radius: var(--radius-card); background-color: var(--paper-0); color: var(--ink-900); text-decoration: none; box-shadow: var(--shadow-card); transition: transform var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) ease, background-color var(--duration-ui) ease; }
+  .m-icon { display: grid; place-items: center; flex-shrink: 0; inline-size: 2.6rem; block-size: 2.6rem; border-radius: 0.85rem; background-image: var(--tone-grad); color: var(--paper-0); }
+  .m-text { display: grid; gap: 0.1rem; flex: 1; line-height: 1.3; }
+  .m-text strong { font-size: var(--step-body); }
+  .m-text span { color: var(--color-text-soft); font-size: var(--step-small); }
+  .m-go { display: grid; place-items: center; flex-shrink: 0; inline-size: 2rem; block-size: 2rem; border-radius: 50%; background-color: var(--tone-soft); color: var(--tone); font-weight: var(--weight-bold); transition: transform var(--duration-ui) var(--ease-out); }
+  @media (hover: hover) and (pointer: fine) {
+    .moment:hover { transform: translateX(4px); box-shadow: var(--shadow-lift); }
+    .moment:hover .m-go { transform: translateX(3px); }
+  }
+  @media (min-width: 40em) { .moments { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .intro-pic { overflow: hidden; border-radius: calc(var(--radius-card) + 0.35rem); box-shadow: var(--shadow-card); }
   .intro-img { display: block; inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 25%; }
 
