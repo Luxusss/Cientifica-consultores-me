@@ -155,7 +155,20 @@ const schema = [
   /* Cifras del banner, en el lugar del formulario */
   /* Cifras en una fila compacta bajo el texto, para no tapar al equipo */
   .figures-card { display: block; max-inline-size: 36rem; }
-  @media (min-width: 64em) { :global(.photo-hero .text) > .figures-card.figures-card { grid-column: 1; grid-row: 5; align-self: start; margin-block-start: var(--space-2xs); } }
+  /* El equipo ocupa más del banner para no dejar un hueco al centro */
+  @media (min-width: 64em) {
+    :global(.photo-hero .media) { inline-size: 72%; block-size: 100%; aspect-ratio: auto; mask-image: linear-gradient(90deg, transparent 0, #000 16%) !important; }
+    :global(.photo-hero .media img) { object-position: 70% 22% !important; }
+  }
+  /* Pantallas muy anchas: el equipo se acerca para no dejar un hueco al centro */
+  @media (min-width: 100em) {
+    :global(.photo-hero .media img) { transform: scale(1.14); transform-origin: 100% 40%; }
+  }
+  /* Texto y cifras centrados de arriba a abajo en el banner */
+  @media (min-width: 64em) {
+    :global(.photo-hero .text:has(.figures-card)) { grid-template-rows: 1fr auto auto auto auto 1fr !important; }
+    :global(.photo-hero .text) > .figures-card.figures-card { grid-column: 1; grid-row: 5; align-self: start; margin-block-start: var(--space-2xs); }
+  }
   .fc-title { color: var(--gold-400); font-size: var(--step-small); font-weight: var(--weight-bold); letter-spacing: 0.08em; text-transform: uppercase; }
   .fc-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-radius: var(--radius-card); background-color: rgb(255 255 255 / 0.08); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.16); backdrop-filter: blur(8px); }
   .fc-grid li { display: grid; gap: 0.15rem; padding: 0.75rem 0.9rem; }
@@ -169,8 +182,8 @@ const schema = [
   /* Historia */
   .story { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
   .story-copy { display: grid; gap: var(--space-s); justify-items: start; }
-  .story-copy h2 { font-size: var(--step-head); line-height: 1.12; max-inline-size: 18ch; }
-  .story-copy p { color: var(--color-text-soft); font-size: var(--step-lead); line-height: var(--leading-lead); }
+  .story-copy h2 { font-size: var(--step-head); line-height: 1.12; max-inline-size: none; text-wrap: balance; }
+  .story-copy p { max-inline-size: none; color: var(--color-text-soft); font-size: var(--step-lead); line-height: var(--leading-lead); }
 
   /* Diferencias */
   .ways { display: grid; gap: var(--space-m); grid-template-columns: 1fr; }
