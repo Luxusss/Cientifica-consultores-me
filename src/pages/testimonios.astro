@@ -27,6 +27,14 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios'
   schema={schema}
 >
   <section class="t-hero custom-hero" aria-labelledby="titulo">
+    <div class="th-bubbles" aria-hidden="true">
+      <span class="bb in b1"><b>Silvia</b>¡Aprobé! 🎓<i>1:16 p. m.</i></span>
+      <span class="bb in b2"><b>Daniel</b>Nos aprobaron con 15<i>10:46 p. m.</i></span>
+      <span class="bb out b3">¡Felicidades! Desde la familia Científica Consultores te deseamos muchos éxitos<i>4:54 p. m. ✓✓</i></span>
+      <span class="bb in b4"><b>Sergio</b>Fue aprobada por unanimidad<i>8:01 a. m.</i></span>
+      <span class="bb in b5"><b>Angelo</b>Me aprobaron mi tesis<i>4:49 p. m.</i></span>
+      <span class="bb out b6">¡Qué buena noticia! 👏<i>3:03 p. m. ✓✓</i></span>
+    </div>
     <div class="page th-top">
       <span class="eyebrow th-eyebrow">Testimonios reales</span>
       <h1 id="titulo">Lo que nos escriben <span class="th-accent">nuestros tesistas</span></h1>
@@ -36,10 +44,8 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios'
         <li><strong>{sust}</strong><span>sustentaciones en capturas</span></li>
         <li><strong>+{stats.universities}</strong><span>universidades</span></li>
       </ul>
-      <a class="th-cta" href="#mensajes">Ver las conversaciones <span aria-hidden="true">↓</span></a>
+      <a class="th-cta" href="#mensajes"><Icon name="whatsapp" size="1.1rem" />Ver las conversaciones <span aria-hidden="true">↓</span></a>
     </div>
-    <svg class="wm-cube" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 6 108 30v60L60 114 12 90V30z" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"/><path d="M12 30 60 54l48-24M60 54v60" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"/></svg>
-    <svg class="wm-cube wm-2" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 6 108 30v60L60 114 12 90V30z" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"/><path d="M12 30 60 54l48-24M60 54v60" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"/></svg>
   </section>
   <Breadcrumbs current="Testimonios" />
 
@@ -153,23 +159,41 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios'
 </script>
 
 <style>
-  /* Banner de Testimonios: centrado, con citas reales desplazándose */
-  .t-hero { position: relative; overflow: hidden; isolation: isolate; padding-block: var(--space-2xl) var(--space-l); background: var(--gradient-brand); color: var(--paper-0); }
-  .t-hero { padding-block: var(--space-2xl); }
-  .wm-cube { position: absolute; z-index: -1; inset-block-start: 50%; inset-inline-start: -4rem; inline-size: 26rem; translate: 0 -50%; color: rgb(255 255 255 / 0.05); }
-  .wm-2 { inset-inline-start: auto; inset-inline-end: -5rem; inline-size: 32rem; rotate: 12deg; color: rgb(255 255 255 / 0.04); }
-  .th-top { display: grid; justify-items: center; gap: var(--space-s); text-align: center; }
-  .th-eyebrow { background-color: rgb(255 255 255 / 0.12); color: var(--gold-400); }
-  .th-top h1 { color: var(--paper-0); font-size: clamp(2.4rem, 1.3rem + 2.1vw, 3.4rem); line-height: 1.04; letter-spacing: -0.03em; max-inline-size: 18ch; }
+  /* Banner de Testimonios: claro, con el fondo de chat de WhatsApp y burbujas reales */
+  .t-hero { position: relative; overflow: hidden; isolation: isolate; padding-block: var(--space-2xl); background-color: #efeae2; background-image: radial-gradient(circle at 20% 20%, rgb(29 45 140 / 0.07) 0 2px, transparent 3px), radial-gradient(circle at 70% 60%, rgb(37 211 102 / 0.08) 0 2px, transparent 3px); background-size: 34px 34px, 46px 46px; color: var(--ink-900); }
+  .t-hero::after { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(34rem 20rem at 50% 50%, rgb(239 234 226 / 0.96) 40%, transparent 75%); }
+  .th-top { position: relative; z-index: 1; display: grid; justify-items: center; gap: var(--space-s); text-align: center; }
+  .th-eyebrow { background-color: #d9fdd3; color: #0b6b3a; }
+  .th-top h1 { color: var(--navy-700); font-size: clamp(2.4rem, 1.3rem + 2.1vw, 3.4rem); line-height: 1.04; letter-spacing: -0.03em; max-inline-size: 18ch; }
   .th-accent { display: block; color: var(--orange-500); }
-  .th-lede { color: var(--navy-100); font-size: var(--step-lead); max-inline-size: 52ch; }
+  .th-lede { color: var(--ink-600); font-size: var(--step-lead); max-inline-size: 50ch; }
   .th-stats { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-xs) var(--space-l); margin-block-start: var(--space-2xs); }
   .th-stats li { display: grid; justify-items: center; gap: 0.1rem; }
-  .th-stats strong { font-family: var(--font-display); font-size: clamp(1.6rem, 1.3rem + 0.9vw, 2.2rem); line-height: 1; color: var(--gold-400); }
-  .th-stats span { color: var(--navy-100); font-size: var(--step-small); font-weight: var(--weight-semibold); }
-  .th-cta { display: inline-flex; align-items: center; gap: 0.5em; margin-block-start: var(--space-xs); padding: 0.75em 1.4em; border-radius: var(--radius-pill); background-image: var(--gradient-warm); color: var(--ink-900); font-weight: var(--weight-bold); text-decoration: none; box-shadow: 0 14px 30px -14px rgb(254 143 1 / 0.8); transition: transform var(--duration-ui) var(--ease-out); }
+  .th-stats strong { font-family: var(--font-display); font-size: clamp(1.6rem, 1.3rem + 0.9vw, 2.2rem); line-height: 1; color: var(--navy-600); }
+  .th-stats li:nth-child(2) strong { color: var(--orange-500); }
+  .th-stats span { color: var(--ink-600); font-size: var(--step-small); font-weight: var(--weight-semibold); }
+  .th-cta { display: inline-flex; align-items: center; gap: 0.5em; margin-block-start: var(--space-xs); padding: 0.75em 1.4em; border-radius: var(--radius-pill); background-color: var(--whatsapp-500); color: var(--ink-900); font-weight: var(--weight-bold); text-decoration: none; box-shadow: 0 14px 30px -14px rgb(37 211 102 / 0.8); transition: transform var(--duration-ui) var(--ease-out); }
+
+  .th-bubbles { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .bb { position: absolute; display: grid; gap: 0.15rem; max-inline-size: 15rem; padding: 0.5em 0.8em 0.4em; border-radius: 0.9rem; background-color: #fff; color: #111b21; font-size: 0.82rem; line-height: 1.35; box-shadow: 0 1px 1px rgb(0 0 0 / 0.08), 0 14px 30px -18px rgb(0 0 0 / 0.35); }
+  .bb b { color: #e5576b; font-size: 0.72rem; }
+  .bb i { justify-self: end; color: #667781; font-size: 0.66rem; font-style: normal; }
+  .bb.in { border-start-start-radius: 0.2rem; }
+  .bb.out { background-color: #d9fdd3; border-start-end-radius: 0.2rem; }
+  .bb.out i { color: #53bdeb; }
+  .b1 { inset-block-start: 14%; inset-inline-start: 6%; }
+  .b2 { inset-block-start: 44%; inset-inline-start: 3%; }
+  .b3 { inset-block-start: 70%; inset-inline-start: 9%; }
+  .b4 { inset-block-start: 16%; inset-inline-end: 6%; }
+  .b5 { inset-block-start: 46%; inset-inline-end: 3%; }
+  .b6 { inset-block-start: 72%; inset-inline-end: 9%; }
+  @media (max-width: 63.99em) { .th-bubbles { display: none; } }
   @media (prefers-reduced-motion: no-preference) {
-      }
+    .bb { animation: bb-in 700ms var(--ease-out) both, bb-float 7s ease-in-out 700ms infinite; }
+    .b2 { animation-delay: 120ms, 1.2s; } .b3 { animation-delay: 240ms, 2s; } .b4 { animation-delay: 360ms, 0.8s; } .b5 { animation-delay: 480ms, 1.6s; } .b6 { animation-delay: 600ms, 2.4s; }
+    @keyframes bb-in { from { opacity: 0; transform: translateY(12px) scale(0.95); } }
+    @keyframes bb-float { 50% { translate: 0 -6px; } }
+  }
   @media (hover: hover) and (pointer: fine) { .th-cta:hover { transform: translateY(-2px); color: var(--ink-900); } }
 
   /* Visor tipo WhatsApp Web */
