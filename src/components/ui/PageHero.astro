@@ -79,7 +79,10 @@ const hasMedia = Astro.slots.has('media');
     .photo-hero .media :global(img) { object-position: 100% 50%; }
     .photo-hero::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, var(--scrim-soft) 0%, transparent 20%), linear-gradient(0deg, color-mix(in srgb, var(--ink-900) 55%, transparent) 0%, transparent 30%), linear-gradient(90deg, var(--scrim-strong) 0%, var(--scrim-strong) 24%, transparent 60%); }
     /* Escritorio: texto a la izquierda y formulario compacto al lado; la foto queda libre a la derecha */
-    .photo-hero .text { grid-template-columns: minmax(0, 36rem) minmax(0, 31rem); column-gap: var(--space-2xl); align-items: center; align-content: center; padding-inline: var(--edge) var(--space-l); padding-block: var(--space-l); max-inline-size: none; }
+    /* Etiquetas de confianza siempre en una sola línea en escritorio */
+    .page-hero :global(.trust) { flex-wrap: nowrap; gap: 0.35rem; }
+    .page-hero :global(.trust li) { white-space: nowrap; padding-inline-end: 0.7em; font-size: 0.78rem; }
+    .photo-hero .text { grid-template-columns: minmax(0, 37rem) minmax(0, 31rem); column-gap: var(--space-2xl); align-items: center; align-content: center; padding-inline: var(--edge) var(--space-l); padding-block: var(--space-l); max-inline-size: none; }
     .photo-hero .text { grid-template-rows: 1fr auto auto auto 1fr; row-gap: var(--space-m); }
     .photo-hero .text > :global(:not(.form-card)) { grid-column: 1; }
     .photo-hero .text > :global(:nth-child(1)) { grid-row: 2; }
