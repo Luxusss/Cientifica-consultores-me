@@ -1,0 +1,82 @@
+---
+/** Medios de pago aceptados: pagos con Culqi (tarjetas y billeteras), bancos peruanos e internacionales. */
+import { siAmericanexpress, siDinersclub, siMastercard, siPaypal, siVisa, siWesternunion } from 'simple-icons';
+
+const cards = [
+  { name: 'Visa', path: siVisa.path, color: '#1A1F71' },
+  { name: 'Mastercard', path: siMastercard.path, color: '#EB001B' },
+  { name: 'American Express', path: siAmericanexpress.path, color: '#2E77BC' },
+  { name: 'Diners Club', path: siDinersclub.path, color: '#004C97' },
+];
+const banks = [
+  { name: 'BCP', cls: 'bcp' },
+  { name: 'BBVA', cls: 'bbva' },
+  { name: 'Interbank', cls: 'ibk' },
+  { name: 'Scotiabank', cls: 'scotia' },
+  { name: 'Banco de la Nación', cls: 'bn' },
+];
+const intl = [
+  { name: 'PayPal', path: siPaypal.path, color: '#003087' },
+  { name: 'Western Union', path: siWesternunion.path, color: '#000000' },
+];
+---
+
+<div class="payments">
+  <div class="pay-intro">
+    <p class="pay-title">Medios de pago</p>
+    <p class="pay-text">Paga seguro con tarjeta, billetera digital, transferencia o desde el extranjero.</p>
+    <span class="pay-secure"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 8V7a3 3 0 1 1 6 0v3z" fill="currentColor" /></svg>Pagos procesados con Culqi</span>
+  </div>
+  <div class="pay-groups">
+    <div class="pay-group">
+      <p class="pay-label">Tarjetas</p>
+      <ul class="pay-list" role="list">
+        {cards.map((c) => <li class="pay-chip" title={c.name}><svg viewBox="0 0 24 24" role="img" aria-label={c.name}><path d={c.path} fill={c.color} /></svg></li>)}
+      </ul>
+    </div>
+    <div class="pay-group">
+      <p class="pay-label">Billeteras</p>
+      <ul class="pay-list" role="list">
+        <li class="pay-chip wordmark yape" title="Yape">yape</li>
+        <li class="pay-chip wordmark plin" title="Plin">plin</li>
+      </ul>
+    </div>
+    <div class="pay-group">
+      <p class="pay-label">Transferencia</p>
+      <ul class="pay-list" role="list">
+        {banks.slice(0, 5).map((b) => <li class:list={['pay-chip wordmark', b.cls]} title={b.name}>{b.cls === 'bn' ? 'B. Nación' : b.name}</li>)}
+      </ul>
+    </div>
+    <div class="pay-group">
+      <p class="pay-label">Internacional</p>
+      <ul class="pay-list" role="list">
+        {intl.map((c) => <li class="pay-chip" title={c.name}><svg viewBox="0 0 24 24" role="img" aria-label={c.name}><path d={c.path} fill={c.color} /></svg></li>)}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<style>
+  .payments { display: grid; gap: var(--space-m) var(--gutter); padding-block: var(--space-l); border-block-start: 1px solid rgb(255 255 255 / 0.1); }
+  .pay-intro { display: grid; gap: 0.35rem; align-content: start; justify-items: start; }
+  .pay-title { color: var(--gold-400); font-size: var(--step-small); font-weight: var(--weight-bold); letter-spacing: 0.08em; text-transform: uppercase; }
+  .pay-text { color: var(--navy-100); font-size: var(--step-ui); max-inline-size: 34ch; }
+  .pay-secure { display: inline-flex; align-items: center; gap: 0.4em; margin-block-start: 0.2rem; padding: 0.3em 0.75em; border-radius: var(--radius-pill); background-color: rgb(37 211 102 / 0.14); color: #7ee2a4; font-size: 0.72rem; font-weight: var(--weight-bold); }
+  .pay-groups { display: grid; gap: var(--space-s) var(--space-m); grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr)); }
+  .pay-group { display: grid; gap: 0.45rem; align-content: start; }
+  .pay-label { color: var(--navy-100); font-size: 0.72rem; font-weight: var(--weight-semibold); letter-spacing: 0.05em; text-transform: uppercase; }
+  .pay-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .pay-chip { display: grid; place-items: center; min-inline-size: 3.4rem; block-size: 2.2rem; padding-inline: 0.55rem; border-radius: 0.55rem; background-color: #fff; box-shadow: 0 6px 14px -8px rgb(0 0 0 / 0.6); transition: transform var(--duration-hover) var(--ease-out); }
+  .pay-chip svg { inline-size: 1.6rem; block-size: 1.6rem; }
+  .wordmark { font-size: 0.78rem; font-weight: 800; letter-spacing: -0.01em; line-height: 1; white-space: nowrap; }
+  .yape { background-color: #742284; color: #fff; font-size: 0.95rem; text-transform: lowercase; }
+  .plin { background-image: linear-gradient(135deg, #00d1c1, #2b5fd9); color: #fff; font-size: 0.95rem; text-transform: lowercase; }
+  .bcp { color: #002a8d; } .bcp::after { content: '›'; margin-inline-start: 0.1em; color: #ff7800; font-weight: 900; }
+  .bcp { display: flex; align-items: center; }
+  .bbva { color: #004481; }
+  .ibk { color: #00a94f; }
+  .scotia { color: #ec111a; }
+  .bn { color: #c8102e; }
+  @media (min-width: 64em) { .payments { grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); } .pay-groups { grid-template-columns: auto auto auto auto; justify-content: space-between; } .bn { white-space: nowrap; } }
+  @media (hover: hover) and (pointer: fine) { .pay-chip:hover { transform: translateY(-2px); } }
+</style>

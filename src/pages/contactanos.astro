@@ -1,125 +1,295 @@
 ---
 import Base from '@/layouts/Base.astro';
 import FormCard from '@/components/forms/FormCard.astro';
-import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
 import FormButton from '@/components/ui/FormButton.astro';
-import { Image } from 'astro:assets';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import BrandPhoto from '@/components/ui/BrandPhoto.astro';
+import Icon from '@/components/ui/Icon.astro';
 import sessionImg from '@/assets/images/otros/equipo-de-asesores-en-reunion.jpg';
-import graduatesImg from '@/assets/images/otros/graduados.jpg';
-import PageHero from '@/components/ui/PageHero.astro';
-import { fullAddress, site } from '@/config/site';
+import { fullAddress, site, whatsappUrl } from '@/config/site';
 import { planNames, planRows } from '@/data/plans';
 import { advisoryVideo, breadcrumb } from '@/lib/schema';
 import { capitalize } from '@/lib/format';
 
 const address = fullAddress;
-const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${address}, Perú`)}`;
+const mapQuery = encodeURIComponent(`${address}, Perú`);
+const mapUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
+const mapEmbed = `https://www.google.com/maps?q=${mapQuery}&z=16&output=embed`;
+const telHref = `tel:${site.phone.e164}`;
+
+const channels = [
+  { icon: 'whatsapp', title: 'WhatsApp', text: site.phone.display, note: 'Respuesta más rápida', href: whatsappUrl(), cls: 'wa', external: true },
+  { icon: 'mail', title: 'Correo', text: site.email, note: `Respondemos en ${site.replyTime}`, href: `mailto:${site.email}`, cls: 'mail', external: false },
+  { icon: 'phone', title: 'Llamada', text: site.phone.display, note: 'Lunes a sábado', href: telHref, cls: 'call', external: false },
+  { icon: 'map', title: 'Oficina', text: `${site.address.district}, Lima`, note: 'Atención previa cita', href: '#horarios', cls: 'office', external: false },
+] as const;
+
+const steps = [
+  { title: 'Nos escribes', text: 'Por WhatsApp, correo o el formulario, con tu universidad y tu fecha.' },
+  { title: 'Diagnóstico gratis', text: 'Revisamos tu tema, tus avances y el reglamento de tu facultad.' },
+  { title: 'Presupuesto claro', text: 'Te enviamos una propuesta con alcances, plazos y forma de pago.' },
+  { title: 'Tu asesor', text: 'Te asignamos un especialista de tu carrera y empezamos.' },
+];
+
+// Días del horario para marcar el de hoy y mostrar si está abierto ahora (hora de Lima)
+const week = [
+  { day: 'Lunes', d: 1, open: '09:00', close: '18:00' },
+  { day: 'Martes', d: 2, open: '09:00', close: '18:00' },
+  { day: 'Miércoles', d: 3, open: '09:00', close: '18:00' },
+  { day: 'Jueves', d: 4, open: '09:00', close: '18:00' },
+  { day: 'Viernes', d: 5, open: '09:00', close: '18:00' },
+  { day: 'Sábado', d: 6, open: '09:00', close: '13:00' },
+  { day: 'Domingo', d: 0, open: '', close: '' },
+];
+const label = (t: string) => { const [h, m] = t.split(':').map(Number); return `${((h + 11) % 12) + 1}:${String(m).padStart(2, '0')} ${h < 12 ? 'a. m.' : 'p. m.'}`; };
+
 const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos', path: '/contactanos.html' }]), advisoryVideo()];
 ---
 
 <Base
   preloadFont
-  title="Asesoría de Tesis Personalizada | Contáctanos Hoy"
-  description="Escríbenos para recibir asesoría profesional en tesis de pregrado, maestría o doctoral. Te respondemos en menos de 24 horas."
+  title="Contacto | Asesoría de Tesis en Lima y Online | Científica Consultores"
+  description="Escríbenos por WhatsApp, correo o formulario y recibe tu primera asesoría de tesis gratis. Oficina en Los Olivos, Lima, y atención online. Respondemos en menos de 24 horas."
   schema={schema}
 >
-  <PageHero tone="field" title="¿Necesitas una asesoría de tesis en Lima? Contáctanos" crumb="Contáctanos" lede={`Te guiamos en tu tesis de pregrado, maestría, doctorado o segunda especialización. Escríbenos y te respondemos en ${site.replyTime}.`}>
-    <div class="alt">
-      <WhatsAppButton />
-      <a href={`mailto:${site.email}`}>{site.email}</a>
+  <section class="c-hero custom-hero" aria-labelledby="titulo">
+    <div class="page ch-grid">
+      <div class="ch-copy">
+        <span class="eyebrow">Contáctanos</span>
+        <h1 id="titulo">Hablemos de <span class="ch-accent">tu tesis</span></h1>
+        <p class="ch-lede">Elige el canal que prefieras. Tu primera asesoría es gratis y te respondemos en {site.replyTime}.</p>
+        <ul class="channels" role="list">
+          {channels.map((c) => (
+            <li>
+              <a class:list={['channel', c.cls]} href={c.href} target={c.external ? '_blank' : undefined} rel={c.external ? 'noopener' : undefined}>
+                <span class="ch-icon" aria-hidden="true"><Icon name={c.icon} size="1.25rem" /></span>
+                <span class="ch-text"><strong>{c.title}</strong><span>{c.text}</span><small>{c.note}</small></span>
+                <span class="ch-go" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="ch-form">
+        <FormCard title="Cuéntanos tu caso" subject="Web Principal - Contacto" variant="short" submitLabel="Quiero mi asesoría gratis" hint="Ej.: estudio Enfermería en la UPN, tengo el proyecto avanzado y sustento en julio." />
+      </div>
     </div>
-    <FormCard slot="media" title="¡Logra el sueño de graduarte con éxito!" subject="Web Principal - Contacto" />
-  </PageHero>
+  </section>
+  <Breadcrumbs current="Contáctanos" />
 
   <section class="section-wide" aria-labelledby="planes">
     <div class="page stack stack-xl">
-      <header class="split split-end" data-reveal>
-        <h2 id="planes">Nuestros planes</h2>
-        <p class="text-lead">Dos formas de trabajar tu tesis completa. Escríbenos y te enviamos un presupuesto según tu caso.</p>
+      <header class="section-head center" data-reveal>
+        <span class="eyebrow">Planes</span>
+        <h2 id="planes">Elige cómo trabajar tu tesis</h2>
+        <p>Dos planes de acompañamiento completo. Te enviamos el presupuesto según tu caso.</p>
       </header>
-      <ul class="plans" role="list" data-reveal="stagger">
-        {planNames.map((name, i) => (
-          <li class:list={['plan', { featured: i === 1 }]}>
-            <h3>{name}</h3>
-            <ul class="features" role="list">
-              {planRows.filter((r) => r.values[i] !== '—').map((r) => (
-                <li><span class="feature-name">{r.feature}</span>{r.values[i]}</li>
-              ))}
-            </ul>
-            <FormButton label="Quiero este plan" />
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
 
-  <section class="theme-surface section-wide" aria-labelledby="guia">
-    <div class="page guide">
-      <h2 id="guia" data-reveal>Te guiamos paso a paso en tu proyecto de <a href="/tesis.html">tesis</a></h2>
-      <div class="guide-pic" data-reveal="shutter">
-        <Image src={sessionImg} alt="Sesión de asesoría de tesis con el equipo de Científica Consultores" widths={[480, 720, 1101]} sizes="(min-width: 64em) 55vw, 100vw" class="guide-img" />
+      <div class="compare" data-reveal>
+        <div class="cmp-head">
+          <div class="cmp-corner">Incluye</div>
+          {planNames.map((name, i) => (
+            <div class:list={['cmp-plan', { featured: i === 1 }]}>
+              {i === 1 && <span class="badge">Recomendado</span>}
+              <span class="cmp-name">{name}</span>
+              <span class="cmp-sub">{i === 0 ? 'Lo esencial para titularte' : 'Acompañamiento total y equipo especialista'}</span>
+            </div>
+          ))}
+        </div>
+        <ul class="cmp-rows" role="list">
+          {planRows.map((r) => (
+            <li class="cmp-row">
+              <span class="cmp-feature">{r.feature}</span>
+              {r.values.map((v, i) => (
+                <span class:list={['cmp-cell', { featured: i === 1, none: v === '—' }]}>
+                  <span class="cmp-mobile">{planNames[i]}</span>
+                  {v === '—' ? <span class="cmp-no" aria-label="No incluido">—</span> : <><span class="cmp-yes" aria-hidden="true"><Icon name="check" size="0.85rem" /></span><span>{v}</span></>}
+                </span>
+              ))}
+            </li>
+          ))}
+        </ul>
+        <div class="cmp-foot">
+          <div class="cmp-corner"></div>
+          <div class="cmp-cta"><FormButton label="Quiero este plan" /></div>
+          <div class="cmp-cta featured"><FormButton label="Quiero este plan" icon /></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section-wide" aria-labelledby="horarios">
+  <section class="section-wide" aria-labelledby="guia">
+    <div class="page guide">
+      <div data-reveal><BrandPhoto src={sessionImg} alt="Sesión de asesoría de tesis con el equipo de Científica Consultores" caption="Así trabajamos" ratio="4/3" /></div>
+      <div class="guide-copy">
+        <header data-reveal>
+          <span class="eyebrow">Cómo empezamos</span>
+          <h2 id="guia">Te guiamos paso a paso en tu proyecto de <a href="/tesis.html">tesis</a></h2>
+        </header>
+        <ol class="timeline" role="list" data-reveal="stagger">
+          {steps.map((s, i) => (
+            <li><span class="t-num">{i + 1}</span><div><h3>{s.title}</h3><p>{s.text}</p></div></li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-wide" aria-labelledby="horarios" id="horarios">
     <div class="page stack stack-xl">
-      <h2 id="horarios" data-reveal>Horarios de atención y ubicación</h2>
-      <div class="visit" data-reveal="stagger">
-        <div class="visit-card">
-          <h3>Horarios de atención</h3>
-          <dl class="hours">
-            {site.hours.map((h) => (
-              <div>
-                <dt>{h.days}</dt>
-                <dd>{h.label}</dd>
-              </div>
-            ))}
-          </dl>
+      <header class="section-head center" data-reveal>
+        <span class="eyebrow">Visítanos</span>
+        <h2>Horarios de atención y ubicación</h2>
+      </header>
+      <div class="visit" data-reveal>
+        <div class="map-box">
+          <iframe src={mapEmbed} title={`Mapa: ${address}`} loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
         </div>
-        <address class="visit-card">
-          <h3>Ubicación</h3>
-          <p>{address}</p>
-          <p class="text-soft">{capitalize(site.address.reference)}. Atención presencial previa cita.</p>
-          <a href={mapUrl} target="_blank" rel="noopener">Ver en Google Maps</a>
-        </address>
-        <Image src={graduatesImg} alt="Graduados Científica Consultores" widths={[387]} sizes="(min-width: 64em) 24rem, 100vw" class="office" />
+        <div class="visit-card">
+          <div class="status" data-open-status><span class="dot" aria-hidden="true"></span><span data-open-text>Horario de atención</span></div>
+          <ul class="week" role="list" data-week>
+            {week.map((w) => (
+              <li data-day={w.d} data-open={w.open} data-close={w.close}>
+                <span>{w.day}</span>
+                <span>{w.open ? `${label(w.open)} – ${label(w.close)}` : 'Cerrado'}</span>
+              </li>
+            ))}
+          </ul>
+          <address class="addr">
+            <Icon name="map" size="1.1rem" />
+            <span><strong>{address}</strong><small>{capitalize(site.address.reference)}. Atención presencial previa cita.</small></span>
+          </address>
+          <div class="visit-actions">
+            <a class="v-btn primary" href={mapUrl} target="_blank" rel="noopener"><Icon name="map" size="1rem" />Cómo llegar</a>
+            <a class="v-btn" href={whatsappUrl('Hola, quiero agendar una cita presencial en su oficina.')} target="_blank" rel="noopener"><Icon name="whatsapp" size="1rem" />Agendar cita</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 </Base>
 
-<style>
-  .alt { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-m); }
-  .plans { display: grid; gap: var(--space-m); }
-  .plan { display: grid; gap: var(--space-l); align-content: start; justify-items: start; padding: var(--space-xl) var(--space-l); background-color: var(--color-surface); border-radius: var(--radius-card); }
-  .plan.featured { background-color: var(--navy-600); color: var(--paper-0); }
-  .plan h3 { font-size: var(--step-head); line-height: var(--leading-head); font-weight: var(--weight-medium); letter-spacing: var(--tracking-head); }
-  .features { display: grid; gap: var(--space-s); }
-  .features li { display: grid; gap: var(--space-3xs); padding-inline-start: 1.75rem; position: relative; }
-  .features li::before { content: ''; position: absolute; inset-inline-start: 0; inset-block-start: 0.35em; inline-size: 1rem; block-size: 1rem; border-radius: 50%; background-color: var(--orange-500); }
-  .feature-name { font-size: var(--step-small); font-weight: var(--weight-semibold); color: var(--color-text-soft); }
-  .featured .feature-name { color: var(--navy-100); }
-  .guide { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
-  .guide h2 { font-size: var(--step-head); }
-  .guide h2 a { color: var(--orange-600); text-underline-offset: 0.15em; }
-  .guide-pic { overflow: hidden; border-radius: var(--radius-card); }
-  .guide-img { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 3 / 2; object-fit: cover; }
-  @media (min-width: 64em) {
-    .guide { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-    .guide h2 { grid-column: 1 / span 5; }
-    .guide-pic { grid-column: 6 / -1; }
+<script>
+  // Marca el día de hoy y si la oficina está abierta, con la hora de Lima
+  const week = document.querySelector<HTMLElement>('[data-week]');
+  const status = document.querySelector<HTMLElement>('[data-open-status]');
+  if (week && status) {
+    const parts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Lima', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false }).formatToParts(new Date());
+    const get = (t: string) => parts.find((p) => p.type === t)?.value ?? '';
+    const day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(get('weekday'));
+    const now = `${get('hour').replace('24', '00')}:${get('minute')}`;
+    const today = week.querySelector<HTMLElement>(`[data-day="${day}"]`);
+    if (today) {
+      today.classList.add('today');
+      const { open = '', close = '' } = today.dataset;
+      const isOpen = open !== '' && now >= open && now < close;
+      status.classList.add(isOpen ? 'open' : 'closed');
+      status.querySelector('[data-open-text]')!.textContent = isOpen ? `Abierto ahora · cierra a las ${close}` : 'Cerrado ahora · escríbenos y te respondemos';
+    }
   }
-  .visit { display: grid; gap: var(--space-m); }
-  .visit-card { display: grid; gap: var(--space-s); align-content: start; justify-items: start; padding: var(--space-l); background-color: var(--color-surface); border-radius: var(--radius-card); font-style: normal; }
-  .visit-card h3 { font-size: var(--step-title); font-weight: var(--weight-medium); }
-  .hours { display: grid; gap: var(--space-s); }
-  .hours dt { color: var(--color-text-soft); font-size: var(--step-small); }
-  .hours dd { font-size: var(--step-lead); }
-  .office { inline-size: 100%; block-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-card); }
+</script>
 
+<style>
+  /* El mapa ya está en esta página: no se repite el del pie */
+  :global(body:has(#horarios .map-box) .footer .visit) { display: none; }
+  /* Banner de contacto: pantalla dividida, canales a la izquierda y formulario sobre azul a la derecha */
+  .c-hero { position: relative; overflow: hidden; isolation: isolate; padding-block: var(--space-xl); background-color: var(--paper-0); }
+  .c-hero::before { content: ''; position: absolute; z-index: -1; inset: 0 0 0 auto; inline-size: 42%; background-image: var(--gradient-brand); }
+  .ch-grid { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
+  @media (min-width: 64em) { .ch-grid { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); column-gap: var(--space-2xl); } .channels { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .ch-copy { display: grid; gap: var(--space-s); justify-items: start; }
+  .ch-copy h1 { color: var(--navy-700); font-size: clamp(2.4rem, 1.3rem + 2.2vw, 3.6rem); line-height: 1.02; letter-spacing: -0.03em; }
+  .ch-accent { color: var(--orange-500); }
+  .ch-lede { color: var(--ink-600); font-size: var(--step-lead); max-inline-size: 40ch; }
+  .channels { display: grid; gap: var(--space-xs); inline-size: 100%; margin-block-start: var(--space-xs); }
+  .channel { display: flex; align-items: center; gap: var(--space-s); padding: 0.75rem 1rem 0.75rem 0.75rem; border-radius: var(--radius-card); background-color: var(--paper-0); color: var(--ink-900); text-decoration: none; box-shadow: var(--shadow-card); transition: transform var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) ease; }
+  .ch-icon { display: grid; place-items: center; flex-shrink: 0; inline-size: 2.8rem; block-size: 2.8rem; border-radius: 0.9rem; color: var(--paper-0); }
+  .wa .ch-icon { background-color: var(--whatsapp-500); color: var(--ink-900); }
+  .mail .ch-icon { background-image: var(--gradient-brand); }
+  .call .ch-icon { background-image: var(--gradient-warm); color: var(--ink-900); }
+  .office .ch-icon { background-color: var(--navy-50); color: var(--navy-600); }
+  .ch-text { display: grid; flex: 1; min-inline-size: 0; line-height: 1.25; }
+  .ch-text strong { font-size: var(--step-ui); }
+  .ch-text span { overflow: hidden; color: var(--ink-900); font-size: var(--step-ui); text-overflow: ellipsis; white-space: nowrap; }
+  .ch-text small { color: var(--color-text-soft); font-size: var(--step-small); }
+  .ch-go { color: var(--orange-500); font-weight: var(--weight-bold); transition: transform var(--duration-hover) var(--ease-out); }
+  .ch-form :global(.form-card) { max-inline-size: none; background-color: var(--paper-0); color: var(--ink-900); border-radius: calc(var(--radius-card) + 0.35rem); box-shadow: 0 30px 70px -28px rgb(0 0 0 / 0.55); border-block-start: 4px solid var(--orange-500); }
+  .ch-form :global(.form-card > h2) { font-family: var(--font-display); font-size: var(--step-title); }
+  .ch-form :global(.form-card .button[type='submit']) { min-block-size: 3.2rem; border-radius: var(--radius-pill); background-image: var(--gradient-warm); color: var(--ink-900); font-weight: var(--weight-bold); }
+  @media (min-width: 40em) { .channels { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 63.99em) { .c-hero::before { inset: auto 0 0 0; inline-size: 100%; block-size: 38%; } }
+
+  /* Comparativa de planes */
+  .compare { overflow: hidden; border-radius: calc(var(--radius-card) + 0.35rem); background-color: var(--paper-0); box-shadow: var(--shadow-card); }
+  .cmp-head, .cmp-row, .cmp-foot { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .cmp-corner { display: none; }
+  .cmp-plan { position: relative; display: grid; gap: 0.25rem; padding: var(--space-m); }
+  .cmp-plan.featured { background-image: var(--gradient-brand); color: var(--paper-0); }
+  .badge { position: absolute; inset-block-start: var(--space-s); inset-inline-end: var(--space-s); padding: 0.3em 0.8em; border-radius: var(--radius-pill); background-color: var(--orange-500); color: var(--ink-900); font-size: var(--step-small); font-weight: var(--weight-bold); }
+  .cmp-name { font-family: var(--font-display); font-size: var(--step-title); font-weight: var(--weight-semibold); }
+  .cmp-sub { color: var(--color-text-soft); font-size: var(--step-small); }
+  .featured .cmp-sub { color: var(--navy-100); }
+  .cmp-row { border-block-start: 1px solid var(--paper-2); }
+  .cmp-feature { padding: var(--space-s) var(--space-m) 0; color: var(--navy-600); font-size: var(--step-ui); font-weight: var(--weight-bold); }
+  .cmp-cell { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.6rem var(--space-m); font-size: var(--step-ui); line-height: 1.45; color: var(--ink-600); }
+  .cmp-cell.featured { background-color: rgb(29 45 140 / 0.04); color: var(--ink-900); }
+  .cmp-mobile { flex-shrink: 0; min-inline-size: 6.5rem; color: var(--color-text-soft); font-size: var(--step-small); font-weight: var(--weight-semibold); }
+  .cmp-yes { display: grid; place-items: center; flex-shrink: 0; inline-size: 1.35rem; block-size: 1.35rem; border-radius: 50%; background-color: var(--orange-50); color: var(--orange-600); }
+  .featured .cmp-yes { background-image: var(--gradient-warm); color: var(--ink-900); }
+  .cmp-no { color: var(--paper-2); font-weight: var(--weight-bold); }
+  .cmp-foot { border-block-start: 1px solid var(--paper-2); }
+  .cmp-cta { padding: var(--space-m); }
+  .cmp-cta :global(.button) { inline-size: 100%; border-radius: var(--radius-pill); gap: 0.5em; }
+  .cmp-cta:not(.featured) :global(.button) { background-color: var(--paper-0); background-image: none; color: var(--navy-700); box-shadow: inset 0 0 0 1.5px var(--navy-600); }
+  .cmp-cta.featured { background-color: rgb(29 45 140 / 0.04); }
   @media (min-width: 48em) {
-    .plans { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .visit { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .cmp-head, .cmp-row, .cmp-foot { grid-template-columns: minmax(0, 3fr) minmax(0, 4fr) minmax(0, 4fr); }
+    .cmp-corner { display: block; padding: var(--space-m); color: var(--color-text-soft); font-size: var(--step-small); font-weight: var(--weight-bold); letter-spacing: 0.06em; text-transform: uppercase; align-self: end; }
+    .cmp-feature { padding: var(--space-s) var(--space-m); align-self: center; }
+    .cmp-cell { padding: var(--space-s) var(--space-m); }
+    .cmp-mobile { display: none; }
+    .cmp-plan { padding: var(--space-l) var(--space-m) var(--space-m); }
+  }
+
+  /* Cómo empezamos */
+  .guide { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
+  .guide-copy { display: grid; gap: var(--space-m); }
+  .guide-copy h2 { font-size: var(--step-head); margin-block-start: var(--space-2xs); }
+  .guide-copy h2 a { color: var(--orange-600); text-decoration: none; }
+  .timeline { position: relative; display: grid; gap: var(--space-s); }
+  .timeline::before { content: ''; position: absolute; inset: 1rem auto 1rem 1.05rem; inline-size: 2px; background-image: linear-gradient(var(--orange-500), var(--navy-600)); }
+  .timeline li { position: relative; display: flex; gap: var(--space-s); align-items: flex-start; }
+  .t-num { position: relative; display: grid; place-items: center; flex-shrink: 0; inline-size: 2.2rem; block-size: 2.2rem; border-radius: 50%; background-color: var(--paper-0); color: var(--navy-700); font-weight: var(--weight-bold); box-shadow: 0 0 0 3px var(--orange-500); }
+  .timeline h3 { font-size: var(--step-body); }
+  .timeline p { color: var(--color-text-soft); font-size: var(--step-ui); }
+  @media (min-width: 64em) { .guide { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); } }
+
+  /* Horarios y ubicación */
+  .visit { display: grid; overflow: hidden; border-radius: calc(var(--radius-card) + 0.35rem); background-color: var(--paper-0); box-shadow: var(--shadow-card); }
+  .map-box { position: relative; min-block-size: 18rem; background-color: var(--navy-50); }
+  .map-box iframe { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; border: 0; }
+  .visit-card { display: grid; gap: var(--space-s); align-content: start; padding: var(--space-l); }
+  .status { display: inline-flex; align-items: center; gap: 0.55em; inline-size: fit-content; padding: 0.45em 0.95em; border-radius: var(--radius-pill); background-color: var(--paper-1); color: var(--ink-600); font-size: var(--step-small); font-weight: var(--weight-bold); }
+  .status .dot { inline-size: 0.55rem; block-size: 0.55rem; border-radius: 50%; background-color: var(--ink-600); }
+  .status.open { background-color: #d9fdd3; color: #0b6b3a; }
+  .status.open .dot { background-color: var(--whatsapp-500); box-shadow: 0 0 0 4px rgb(37 211 102 / 0.25); }
+  .status.closed { background-color: var(--orange-50); color: var(--orange-600); }
+  .status.closed .dot { background-color: var(--orange-500); }
+  .week { display: grid; gap: 0.15rem; }
+  .week li { display: flex; justify-content: space-between; gap: var(--space-s); padding: 0.45rem 0.7rem; border-radius: 0.6rem; font-size: var(--step-ui); color: var(--ink-600); }
+  .week li span:last-child { font-variant-numeric: tabular-nums; }
+  .week li.today { background-color: var(--navy-50); color: var(--navy-700); font-weight: var(--weight-bold); }
+  .addr { display: flex; gap: 0.6rem; padding-block-start: var(--space-s); border-block-start: 1px solid var(--paper-2); font-style: normal; }
+  .addr :global(svg) { flex-shrink: 0; margin-block-start: 0.15rem; color: var(--orange-500); }
+  .addr span { display: grid; gap: 0.15rem; }
+  .addr small { color: var(--color-text-soft); font-size: var(--step-small); }
+  .visit-actions { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
+  .v-btn { display: inline-flex; align-items: center; gap: 0.45em; padding: 0.6em 1.1em; border-radius: var(--radius-pill); background-color: var(--paper-0); color: var(--navy-700); font-size: var(--step-ui); font-weight: var(--weight-bold); text-decoration: none; box-shadow: inset 0 0 0 1.5px var(--navy-600); }
+  .v-btn.primary { background-image: var(--gradient-brand); color: var(--paper-0); box-shadow: none; }
+  @media (min-width: 64em) { .visit { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); } .map-box { min-block-size: 100%; } }
+
+  @media (hover: hover) and (pointer: fine) {
+    .channel:hover { transform: translateY(-3px); box-shadow: var(--shadow-lift); }
+    .channel:hover .ch-go { transform: translateX(3px); }
   }
 </style>

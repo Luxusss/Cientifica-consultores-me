@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import { fullAddress, site, whatsappUrl } from '@/config/site';
 import { legalNav, mainNav, services } from '@/config/navigation';
 import Icon from '@/components/ui/Icon.astro';
+import Payments from './Payments.astro';
 import logo from '@/assets/brand/logo-white.png';
 
 const year = new Date().getFullYear();
@@ -55,6 +56,8 @@ const mapLink = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
         <a class="directions" href={mapLink} target="_blank" rel="noopener"><Icon name="map" size="1rem" /> Cómo llegar</a>
       </div>
     </div>
+
+    <Payments />
 
     <div class="legal">
       <p>© {year} {site.legalName} · RUC {site.ruc}</p>
