@@ -26,14 +26,15 @@ import letrasImg from '@/assets/images/otros_servicios/correccion_redaccion/manu
 import socialesImg from '@/assets/images/otros_servicios/proyectos/Proyectos-de-innovacion.jpg';
 import saludImg from '@/assets/images/carreras/ciencias-de-la-salud.jpg';
 import equipoImg from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg';
+import onlineAsesoriaImg from '@/assets/images/blog/mujer-con-laptop-en-oficina.jpg';
 
 export type Point = { title?: string; text: string; id?: string; image?: ImageMetadata; imageAlt?: string; tag?: string };
 export type Block = { id: string; title: string; intro?: string; points: Point[]; variant?: 'overlay' };
 
 export type Section =
   | { kind: 'points'; id: string; title: string; intro?: string; points: Point[]; variant?: 'overlay' }
-  | { kind: 'text'; id: string; title: string; text: string[]; image?: ImageMetadata }
-  | { kind: 'list'; id: string; title: string; intro?: string; items: string[]; aside?: { title: string; text: string } }
+  | { kind: 'text'; id: string; title: string; text: string[]; image?: ImageMetadata; imageAlt?: string }
+  | { kind: 'list'; id: string; title: string; intro?: string; items: string[]; aside?: { title: string; text: string }; variant?: 'icons' }
   | { kind: 'careers'; title: string; intro: string; prefix?: string }
   | { kind: 'stages'; title: string }
   | { kind: 'cta'; id: string; title: string; text?: string }
@@ -114,6 +115,7 @@ export const servicePages: Record<string, ServicePage> = {
         title: 'Expertos en la normativa de todas las universidades de pregrado en Lima y a nivel nacional',
         text: ['Adaptamos tu tesis al reglamento de tu facultad, en Lima o en cualquier universidad del país, y te acompañamos online hasta la sustentación.'],
         image: equipoImg,
+        imageAlt: 'Equipo de asesores de Científica Consultores en reunión',
       },
       {
         kind: 'points',
@@ -155,29 +157,20 @@ export const servicePages: Record<string, ServicePage> = {
         title: '¿Necesitas hacer tu tesis de maestría y no sabes por dónde empezar?',
         text: ['Este servicio está diseñado para estudiantes de maestría que buscan apoyo integral en la investigación, redacción y sustentación de su tesis. Ya sea que estés iniciando o necesites levantar observaciones, podemos ayudarte.'],
       },
-      {
-        kind: 'list',
-        id: 'incluye',
-        title: '¿Qué incluye nuestra asesoría de tesis de maestría?',
-        items: [
-          'Elaboración de tesis completas o por capítulo.',
-          'Redacción con marco teórico, metodología y conclusiones.',
-          'Análisis de originalidad con Turnitin y orientación en citación.',
-          'Preparación para la sustentación y diapositivas en PPT.',
-          'Asesoría continua, online y personalizada.',
-        ],
-      },
       { kind: 'photos' },
       {
         kind: 'text',
         id: 'online',
         title: 'Acompañamiento 100 % online y adaptado a tu horario',
         text: ['Trabajamos contigo a distancia, sin importar tu ciudad o universidad. Nuestro equipo multidisciplinario está disponible en horarios flexibles para avanzar a tu ritmo.'],
+        image: onlineAsesoriaImg,
+        imageAlt: 'Estudiante de maestría en una asesoría online desde su laptop',
       },
       {
         kind: 'list',
         id: 'confianza',
         title: '¿Por qué cientos de estudiantes confían en Científica Consultores?',
+        variant: 'icons',
         items: [
           `Más de ${stats.years} años de experiencia en asesoría de tesis.`,
           'Enfoque académico, práctico y ético.',
