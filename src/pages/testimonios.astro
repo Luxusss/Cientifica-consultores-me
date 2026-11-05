@@ -1,78 +1,212 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/ui/PageHero.astro';
+import Icon from '@/components/ui/Icon.astro';
 import ContactBand from '@/components/sections/ContactBand.astro';
-import { testimonials } from '@/data/proof';
+import { captureKinds, captures } from '@/data/captures';
 import { breadcrumb } from '@/lib/schema';
+import heroImg from '@/assets/images/otros/graduados.jpg';
+import logoSvg from '@/assets/brand/logo.svg?raw';
 
-const captures = Object.entries(import.meta.glob<{ default: ImageMetadata }>('@/assets/images/fotos_testimonios/*.png', { eager: true }))
-  .sort(([a], [b]) => Number(b.match(/(\d+)\.png$/)?.[1]) - Number(a.match(/(\d+)\.png$/)?.[1]))
-  .map(([, mod]) => mod.default);
+const files = import.meta.glob<{ default: ImageMetadata }>('@/assets/images/fotos_testimonios/*.png', { eager: true });
+const img = (n: number) => Object.entries(files).find(([k]) => k.endsWith(`/TESTIMONIO${n}.png`))?.[1].default;
+const items = captures.map((c) => ({ ...c, src: img(c.n) })).filter((c) => c.src);
+const total = items.length;
+const sust = items.filter((c) => c.kind === 'sustentacion').length;
 
 const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios', path: '/testimonios.html' }])];
 ---
 
 <Base
   title="Testimonios de Clientes | Científica Consultores"
-  description="Lee los testimonios de nuestros clientes satisfechos que han obtenido excelentes resultados con la asesoría de tesis de Científica Consultores."
+  description="Mensajes reales de nuestros clientes: tesis aprobadas, sustentaciones y recomendaciones de quienes se titularon con la asesoría de Científica Consultores."
   schema={schema}
 >
-  <PageHero tone="field" title="Testimonios de nuestros clientes" crumb="Testimonios" lede="Cada logro de nuestros trabajos académicos nos recuerda el sentido de nuestro origen. Agradecemos a nuestros clientes que, por propia iniciativa, autorizan que compartamos sus casos de éxito." />
+  <PageHero title="Testimonios de nuestros clientes" crumb="Testimonios" lede="Mensajes reales que nos enviaron por WhatsApp al aprobar su tesis o sustentar. Los compartimos con su autorización." balance="photo" tint>
+    <Fragment slot="title"><span class="h1-main">Lo que nos escriben</span> <span class="h1-tail">nuestros tesistas</span></Fragment>
+    <ul class="trust" role="list">
+      <li><span class="trust-ico"><Icon name="chat" size="0.95rem" /></span>Capturas reales</li>
+      <li><span class="trust-ico"><Icon name="shield" size="0.95rem" /></span>Con su autorización</li>
+      <li><span class="trust-ico"><Icon name="lock" size="0.95rem" /></span>Datos ocultos</li>
+    </ul>
+    <div class="hero-phones" aria-hidden="true">
+      {items.slice(0, 3).map((c, i) => (
+        <span class:list={['hp', `hp-${i + 1}`]}><Image src={c.src!} alt="" widths={[200, 300]} sizes="12rem" /></span>
+      ))}
+      <span class="hp-badge"><strong>{sust}</strong> sustentaciones aprobadas</span>
+    </div>
+    <Picture slot="media" formats={['avif', 'webp']} quality={78} src={heroImg} alt="Graduados celebrando" widths={[960, 1280, 1570]} sizes="100vw" loading="eager" fetchpriority="high" />
+  </PageHero>
 
-  <section class="section-wide" aria-labelledby="historias">
+  <section class="section-wide" aria-labelledby="mensajes">
     <div class="page stack stack-xl">
-      <header class="split split-end" data-reveal>
-        <h2 id="historias">Lo que dicen nuestros clientes</h2>
-        <p class="text-lead">Historias reales de personas que lograron titularse con nuestro apoyo.</p>
+      <header class="section-head center" data-reveal>
+        <span class="eyebrow">{total} conversaciones reales</span>
+        <h2 id="mensajes">Elige un chat y léelo tal como nos llegó</h2>
+        <p>Así celebramos con cada tesista cuando aprueba su plan, su tesis o su sustentación.</p>
       </header>
-      <ul class="cards" role="list" data-reveal="stagger">
-        {testimonials.map((t) => (
-          <li class="card">
-            <figure>
-              <span class="mark" aria-hidden="true">“</span>
-              <blockquote><p>{t.quote}</p></blockquote>
-              <figcaption>
-                <span class="avatar" aria-hidden="true">{t.name.charAt(0)}</span>
-                <span class="who"><strong>{t.name}</strong><span>{t.university}, {t.country}</span></span>
-              </figcaption>
-            </figure>
-          </li>
-        ))}
-      </ul>
+
+      <div class="wa" data-wa data-reveal>
+        <aside class="wa-side">
+          <div class="wa-top">
+            <span class="wa-me" aria-hidden="true"><Fragment set:html={logoSvg} /></span>
+            <span class="wa-title">Chats de tesistas</span>
+          </div>
+          <div class="wa-filters" role="group" aria-label="Filtrar conversaciones">
+            {captureKinds.map((k, i) => <button type="button" class="wa-filter" data-filter={k.id} aria-pressed={i === 0 ? 'true' : 'false'}>{k.label}</button>)}
+          </div>
+          <ul class="wa-list" role="list">
+            {items.map((c, i) => (
+              <li data-kind={c.kind}>
+                <button type="button" class="wa-chat" data-chat={i} aria-pressed={i === 0 ? 'true' : 'false'} aria-controls="wa-view">
+                  <span class:list={['wa-av', i % 2 ? 'tone-6' : 'tone-1']} aria-hidden="true">{c.name.charAt(0)}</span>
+                  <span class="wa-meta">
+                    <span class="wa-row"><strong>{c.name}</strong><span class="wa-tag">{c.tag}</span></span>
+                    <span class="wa-prev"><Icon name="check" size="0.85rem" />{c.preview}</span>
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </aside>
+
+        <div class="wa-main" id="wa-view" aria-live="polite">
+          <div class="wa-head">
+            <span class="wa-av tone-1" data-view-av aria-hidden="true">{items[0].name.charAt(0)}</span>
+            <span class="wa-who"><strong data-view-name>{items[0].name}</strong><span data-view-tag>{items[0].tag}</span></span>
+            <span class="wa-verified"><Icon name="badge" size="0.95rem" />Captura real</span>
+          </div>
+          <div class="wa-stage">
+            <button type="button" class="wa-nav prev" data-prev aria-label="Conversación anterior">‹</button>
+            <div class="wa-phone">
+              {items.map((c, i) => (
+                <Image src={c.src!} alt={`Captura de WhatsApp de ${c.name}: ${c.preview}`} widths={[363]} sizes="363px" class="wa-shot" data-shot={i} loading={i === 0 ? 'eager' : 'lazy'} hidden={i !== 0} />
+              ))}
+            </div>
+            <button type="button" class="wa-nav next" data-next aria-label="Conversación siguiente">›</button>
+          </div>
+          <p class="wa-count"><span data-count>1</span> de {total} · <span class="wa-note">Nombres, números y archivos ocultos para proteger a nuestros clientes</span></p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="theme-surface section-wide" aria-labelledby="mensajes">
-    <div class="page stack stack-l">
-      <h2 id="mensajes">Mensajes de nuestros clientes</h2>
-      <ul class="gallery" role="list" data-reveal="stagger">
-        {captures.map((src, i) => (
-          <li class="phone"><Image src={src} alt={`Captura del mensaje de un cliente, testimonio ${i + 1}`} widths={[180, 270, 363]} sizes="(min-width: 64em) 15rem, (min-width: 48em) 30vw, 45vw" class="shot" /></li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  <ContactBand />
+  <ContactBand title="¿Quieres ser el próximo en titularte?" />
 </Base>
 
-<style>
-  .cards { columns: 3 20rem; column-gap: var(--space-m); }
-  .card { break-inside: avoid; margin-block-end: var(--space-m); padding: var(--space-l); background-color: var(--color-surface); border-radius: var(--radius-card); }
-  figure { display: grid; gap: var(--space-s); }
-  .mark { font-size: var(--step-display); line-height: 0.5; color: var(--orange-500); block-size: 1.25rem; }
-  blockquote p { font-size: var(--step-body); line-height: var(--leading-body); }
-  figcaption { display: flex; align-items: center; gap: var(--space-xs); margin-block-start: var(--space-2xs); }
-  .avatar { display: grid; place-items: center; inline-size: 2.75rem; block-size: 2.75rem; border-radius: 50%; background-color: var(--navy-600); color: var(--paper-0); font-weight: var(--weight-semibold); flex-shrink: 0; }
-  .who { display: grid; line-height: var(--leading-small); }
-  .who span { color: var(--color-text-soft); font-size: var(--step-small); }
-  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(12rem, 44%), 1fr)); gap: var(--space-l) var(--space-m); justify-items: center; }
-  .phone { inline-size: 100%; max-inline-size: 15rem; padding: 0.5rem; border-radius: 1.75rem; background-color: var(--ink-900); transition: transform var(--duration-hover) var(--ease-out); }
-  .shot { display: block; inline-size: 100%; block-size: auto; border-radius: var(--radius-card); }
+<script>
+  for (const root of document.querySelectorAll<HTMLElement>('[data-wa]')) {
+    const chats = [...root.querySelectorAll<HTMLButtonElement>('[data-chat]')];
+    const shots = [...root.querySelectorAll<HTMLElement>('[data-shot]')];
+    const filters = [...root.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+    const name = root.querySelector<HTMLElement>('[data-view-name]')!;
+    const tag = root.querySelector<HTMLElement>('[data-view-tag]')!;
+    const av = root.querySelector<HTMLElement>('[data-view-av]')!;
+    const count = root.querySelector<HTMLElement>('[data-count]')!;
+    let current = 0;
+    const visible = () => chats.filter((c) => !(c.parentElement as HTMLElement).hidden).map((c) => Number(c.dataset.chat));
+    const show = (i: number, scroll = false) => {
+      current = i;
+      chats.forEach((c) => c.setAttribute('aria-pressed', String(Number(c.dataset.chat) === i)));
+      shots.forEach((s) => { const on = Number(s.dataset.shot) === i; s.hidden = !on; if (on) { s.classList.remove('in'); void s.offsetWidth; s.classList.add('in'); } });
+      const chat = chats[i];
+      name.textContent = chat.querySelector('strong')!.textContent;
+      tag.textContent = chat.querySelector('.wa-tag')!.textContent;
+      av.textContent = chat.querySelector('.wa-av')!.textContent;
+      av.className = chat.querySelector('.wa-av')!.className;
+      const list = visible();
+      count.textContent = String(list.indexOf(i) + 1);
+      count.nextSibling!.textContent = ` de ${list.length} · `;
+      if (scroll) chat.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+    };
+    const step = (d: number) => { const list = visible(); const k = list.indexOf(current); show(list[(k + d + list.length) % list.length], true); };
+    chats.forEach((c) => c.addEventListener('click', () => show(Number(c.dataset.chat))));
+    root.querySelector('[data-prev]')!.addEventListener('click', () => step(-1));
+    root.querySelector('[data-next]')!.addEventListener('click', () => step(1));
+    root.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') step(1); if (e.key === 'ArrowLeft') step(-1); });
+    filters.forEach((f) => f.addEventListener('click', () => {
+      filters.forEach((x) => x.setAttribute('aria-pressed', String(x === f)));
+      chats.forEach((c) => { const li = c.parentElement as HTMLElement; li.hidden = f.dataset.filter !== 'todos' && li.dataset.kind !== f.dataset.filter; });
+      const list = visible();
+      if (list.length) show(list.includes(current) ? current : list[0]);
+    }));
+  }
+</script>
 
+<style>
+  /* Banner: tres capturas en abanico como en un celular */
+  .hero-phones { position: relative; display: none; block-size: 22rem; }
+  .hp { position: absolute; inset-block-start: 50%; inline-size: 10.5rem; padding: 0.35rem; border-radius: 1.4rem; background-color: #0b0f2a; box-shadow: 0 30px 50px -20px rgb(0 0 0 / 0.7), 0 0 0 1px rgb(255 255 255 / 0.12); }
+  .hp :global(img) { display: block; inline-size: 100%; block-size: auto; border-radius: 1.1rem; }
+  .hp-1 { inset-inline-start: 50%; translate: -50% -50%; z-index: 2; }
+  .hp-2 { inset-inline-start: 50%; translate: -128% -46%; rotate: -8deg; opacity: 0.9; }
+  .hp-3 { inset-inline-start: 50%; translate: 28% -46%; rotate: 8deg; opacity: 0.9; }
+  .hp-badge { position: absolute; z-index: 3; inset-block-end: 0.5rem; inset-inline-start: 50%; translate: -50% 0; display: inline-flex; align-items: center; gap: 0.45em; padding: 0.55em 1.1em; border-radius: var(--radius-pill); background-color: var(--paper-0); color: var(--navy-700); font-size: var(--step-small); font-weight: var(--weight-bold); white-space: nowrap; box-shadow: 0 14px 30px -12px rgb(0 0 0 / 0.6); }
+  .hp-badge strong { color: var(--orange-600); font-size: var(--step-ui); }
+  @media (min-width: 64em) {
+    .hero-phones { display: block; }
+    :global(.photo-hero .text) > .hero-phones.hero-phones { grid-column: 2 !important; grid-row: 1 / -1 !important; align-self: center; inline-size: 100%; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hp-2, .hp-3 { animation: hp-float 6s ease-in-out infinite; }
+    .hp-3 { animation-delay: -3s; }
+    @keyframes hp-float { 50% { margin-block-start: -8px; } }
+  }
+
+  /* Visor tipo WhatsApp Web */
+  .wa { display: grid; grid-template-columns: minmax(0, 1fr); overflow: hidden; border-radius: calc(var(--radius-card) + 0.5rem); background-color: var(--paper-0); box-shadow: 0 40px 80px -40px rgb(20 31 102 / 0.55), 0 0 0 1px rgb(0 0 0 / 0.05); }
+  .wa-side { display: grid; grid-template-rows: auto auto 1fr; min-inline-size: 0; border-block-end: 1px solid var(--paper-2); background-color: var(--paper-0); }
+  .wa-top { display: flex; align-items: center; gap: 0.7rem; padding: 0.8rem 1rem; background-image: var(--gradient-brand); color: var(--paper-0); }
+  .wa-me { display: block; inline-size: 5.5rem; color: var(--paper-0); }
+  .wa-me :global(svg) { display: block; inline-size: 100%; block-size: auto; }
+  .wa-title { margin-inline-start: auto; font-size: var(--step-small); font-weight: var(--weight-bold); opacity: 0.85; }
+  .wa-filters { display: flex; gap: 0.35rem; padding: 0.7rem 0.8rem; overflow-x: auto; scrollbar-width: none; border-block-end: 1px solid var(--paper-2); }
+  .wa-filter { flex-shrink: 0; padding: 0.4em 0.85em; border: 0; border-radius: var(--radius-pill); background-color: var(--paper-1); color: var(--ink-600); font: inherit; font-size: var(--step-small); font-weight: var(--weight-semibold); cursor: pointer; transition: background-color var(--duration-hover) ease, color var(--duration-hover) ease; }
+  .wa-filter[aria-pressed='true'] { background-color: #d9fdd3; color: #0b6b3a; }
+  .wa-list { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+  .wa-list li[hidden] { display: none; }
+  .wa-chat { display: flex; align-items: center; gap: 0.7rem; inline-size: 100%; min-inline-size: min(16rem, 78vw); padding: 0.75rem 1rem; border: 0; border-block-end: 1px solid var(--paper-1); background: transparent; color: var(--ink-900); font: inherit; text-align: start; cursor: pointer; scroll-snap-align: start; transition: background-color var(--duration-hover) ease; }
+  .wa-chat[aria-pressed='true'] { background-color: #eef3ff; box-shadow: inset 4px 0 0 var(--orange-500); }
+  .wa-av { display: grid; place-items: center; flex-shrink: 0; inline-size: 2.7rem; block-size: 2.7rem; border-radius: 50%; background-image: var(--tone-grad); color: var(--paper-0); font-weight: var(--weight-bold); }
+  .wa-meta { display: grid; gap: 0.2rem; min-inline-size: 0; flex: 1; }
+  .wa-row { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+  .wa-row strong { font-size: var(--step-ui); }
+  .wa-tag { flex-shrink: 0; padding: 0.15em 0.55em; border-radius: var(--radius-pill); background-color: var(--orange-50); color: var(--orange-600); font-size: 0.68rem; font-weight: var(--weight-bold); }
+  .wa-prev { display: flex; align-items: center; gap: 0.3em; overflow: hidden; color: var(--color-text-soft); font-size: var(--step-small); white-space: nowrap; text-overflow: ellipsis; }
+  .wa-prev :global(svg) { flex-shrink: 0; color: #53bdeb; }
+
+  .wa-main { display: grid; grid-template-rows: auto 1fr auto; min-inline-size: 0; background-color: #efeae2; background-image: radial-gradient(circle at 20% 20%, rgb(29 45 140 / 0.06) 0 2px, transparent 3px), radial-gradient(circle at 70% 60%, rgb(254 143 1 / 0.07) 0 2px, transparent 3px); background-size: 34px 34px, 46px 46px; }
+  .wa-head { display: flex; flex-wrap: wrap; align-items: center; gap: 0.7rem; padding: 0.7rem 1rem; background-color: #f0f2f5; border-block-end: 1px solid rgb(0 0 0 / 0.06); }
+  .wa-who { display: grid; line-height: 1.2; }
+  .wa-who span { color: var(--color-text-soft); font-size: var(--step-small); }
+  .wa-verified { display: inline-flex; align-items: center; gap: 0.4em; margin-inline-start: auto; padding: 0.35em 0.8em; border-radius: var(--radius-pill); background-color: #d9fdd3; color: #0b6b3a; font-size: var(--step-small); font-weight: var(--weight-bold); }
+  .wa-stage { display: flex; align-items: center; justify-content: center; gap: var(--space-s); padding: var(--space-m) var(--space-s); }
+  .wa-phone { flex-shrink: 1; min-inline-size: 0; inline-size: min(17rem, 60vw); padding: 0.45rem; border-radius: 1.8rem; background-color: #0b0f2a; box-shadow: 0 30px 60px -28px rgb(0 0 0 / 0.65), 0 0 0 1px rgb(255 255 255 / 0.06); }
+  .wa-phone :global(.wa-shot) { display: block; inline-size: 100%; block-size: auto; border-radius: 1.4rem; }
+  .wa-phone :global(.wa-shot[hidden]) { display: none; }
+  @media (max-width: 47.99em) { .wa-nav { inline-size: 2.2rem; block-size: 2.2rem; font-size: 1.3rem; } .wa-stage { gap: 0.4rem; padding-inline: 0.4rem; } }
+  .wa-nav { display: grid; place-items: center; flex-shrink: 0; inline-size: 2.8rem; block-size: 2.8rem; border: 0; border-radius: 50%; background-color: var(--paper-0); color: var(--navy-700); font-size: 1.6rem; line-height: 1; cursor: pointer; box-shadow: var(--shadow-card); transition: transform var(--duration-hover) var(--ease-out), background-color var(--duration-hover) ease; }
+  .wa-count { padding: 0 var(--space-m) var(--space-m); color: var(--ink-600); font-size: var(--step-small); font-weight: var(--weight-semibold); text-align: center; max-inline-size: none; }
+  .wa-note { font-weight: var(--weight-regular); }
+
+  @media (min-width: 64em) {
+    .wa { grid-template-columns: 24rem minmax(0, 1fr); block-size: 44rem; }
+    .wa-side { border-block-end: 0; border-inline-end: 1px solid var(--paper-2); min-block-size: 0; }
+    .wa-list { display: block; overflow-y: auto; overflow-x: hidden; scroll-snap-type: none; }
+    .wa-chat { min-inline-size: 0; }
+    .wa-stage { min-block-size: 0; }
+    .wa-phone { inline-size: auto; block-size: 100%; max-block-size: 34rem; aspect-ratio: 363 / 733; }
+    .wa-phone :global(.wa-shot) { block-size: 100%; inline-size: auto; }
+  }
   @media (hover: hover) and (pointer: fine) {
-    .phone:hover { transform: translateY(-6px) rotate(-1deg); }
+    .wa-chat:not([aria-pressed='true']):hover { background-color: var(--paper-1); }
+    .wa-nav:hover { transform: scale(1.08); background-color: var(--orange-500); color: var(--ink-900); }
+    .wa-filter[aria-pressed='false']:hover { background-color: var(--orange-50); color: var(--orange-600); }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .wa-phone :global(.wa-shot.in) { animation: shot-in 420ms var(--ease-out); }
+    @keyframes shot-in { from { opacity: 0; transform: translateY(14px) scale(0.98); } }
   }
 </style>
