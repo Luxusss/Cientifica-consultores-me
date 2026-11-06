@@ -9,9 +9,9 @@ import tspImg from '@/assets/images/banner/asesoria-de-trabajo-de-suficiencia-pr
 import maestriaIntro from '@/assets/images/otros/asesor-de-tesis-de-maestria-cientifica-consultores.jpg';
 import doctoradoIntro from '@/assets/images/tesis/asesor-de-tesis-doctoral.jpg';
 import tspIntro from '@/assets/images/tesis/asesora-de-trabajo-de-suficiencia-profesional.jpg';
-import especialistaImg from '@/assets/images/tesis/secciones/especialista-en-tesis.jpg';
-import turnitinImg from '@/assets/images/tesis/secciones/asesor-de-tesis-especializado-en-turnitin.jpg';
-import onlineImg from '@/assets/images/tesis/secciones/analisis_de_similitud.webp';
+import onlineImg from '@/assets/images/tesis/secciones/asesoria-online-videollamada.jpg';
+import especialistaTesisImg from '@/assets/images/tesis/secciones/especialista-asesora-graduacion.jpg';
+import originalidadImg from '@/assets/images/tesis/secciones/originalidad-asesor-biblioteca.jpg';
 import proyectoImg from '@/assets/images/tesis/asesora-de-proyecto-de-tesis.jpg';
 import informeImg from '@/assets/images/tesis/secciones/asesoria_img1.jpg';
 import observacionesImg from '@/assets/images/tesis/secciones/levantamiento_de_observaciones.jpg';
@@ -101,9 +101,9 @@ export const servicePages: Record<string, ServicePage> = {
         title: '¿Por qué elegir nuestra asesoría para tu proyecto de grado en Lima?',
         intro: 'Más de una década en Lima acompañando proyectos de grado, con asesores que conocen los estándares de tu universidad.',
         points: [
-          { image: especialistaImg, imageAlt: 'Especialista en tesis', title: 'Especialista en tesis para ti', text: 'Un asesor con experiencia en tu carrera te guía hasta la sustentación.' },
-          { image: turnitinImg, imageAlt: 'Asesor de tesis revisando el reporte de originalidad de Turnitin en Lima', title: 'Originalidad y buenas prácticas de citación', text: 'Revisamos tu tesis con Turnitin y te enseñamos a citar y parafrasear bien.' },
-          { image: onlineImg, imageAlt: 'Asesoría online', title: 'Asesoría online a tu medida', text: 'Reuniones virtuales en tu horario y seguimiento constante, estés donde estés.' },
+          { image: especialistaTesisImg, imageAlt: 'Egresada celebrando su graduación tras la asesoría de tesis', title: 'Especialista en tesis para ti', text: 'Un asesor con experiencia en tu carrera te guía hasta la sustentación.' },
+          { image: originalidadImg, imageAlt: 'Asesor de tesis revisando el reporte de originalidad de Turnitin en Lima', title: 'Originalidad y buenas prácticas de citación', text: 'Revisamos tu tesis con Turnitin y te enseñamos a citar y parafrasear bien.' },
+          { image: onlineImg, imageAlt: 'Asesor de Científica Consultores en una asesoría online por videollamada', title: 'Asesoría online a tu medida', text: 'Reuniones virtuales en tu horario y seguimiento constante, estés donde estés.' },
         ],
       },
       {
