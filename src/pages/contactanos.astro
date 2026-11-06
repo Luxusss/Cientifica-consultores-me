@@ -7,6 +7,9 @@ import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import BrandPhoto from '@/components/ui/BrandPhoto.astro';
 import Icon from '@/components/ui/Icon.astro';
 import advisorImg from '@/assets/images/banner/asesora-de-tesis-Cientifica-Consultores.jpg';
+import deskImg from '@/assets/images/banner/nuestro-equipo-de-asesores-de-tesis.jpg';
+import planImg from '@/assets/images/banner/asesores-de-tesis-cientifica-consultores.jpg';
+import logoWhite from '@/assets/brand/logo-white.png';
 import sessionImg from '@/assets/images/otros/equipo-de-asesores-en-reunion.jpg';
 import { fullAddress, site, whatsappUrl } from '@/config/site';
 import { planNames, planRows } from '@/data/plans';
@@ -75,12 +78,16 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
         </ul>
       </div>
       <div class="ch-desk">
+        <Image src={deskImg} alt="" widths={[480, 800]} sizes="(min-width: 64em) 36vw, 100vw" class="surf-img" />
         <div class="advisor">
           <span class="advisor-ph"><Image src={advisorImg} alt="" width={480} class="advisor-img" /></span>
           <p><strong>Te atiende un asesor de tu carrera</strong><span>Déjanos tus datos y te escribimos por WhatsApp</span></p>
         </div>
         <FormCard title="Cuéntanos tu caso" subject="Web Principal - Contacto" variant="short" submitLabel="Quiero mi asesoría gratis" hint="Ej.: estudio Enfermería en la UPN, tengo el proyecto avanzado y sustento en julio." />
-        <p class="desk-foot"><Icon name="shield" size="0.95rem" />Tus datos solo los usa tu asesor.</p>
+        <div class="desk-foot">
+          <Image src={logoWhite} alt="Científica Consultores" height={56} class="desk-logo" />
+          <p><Icon name="shield" size="0.95rem" />Tus datos solo los usa tu asesor.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -98,6 +105,7 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
           <div class="cmp-corner">Incluye</div>
           {planNames.map((name, i) => (
             <div class:list={['cmp-plan', { featured: i === 1 }]}>
+              {i === 1 && <Image src={planImg} alt="" widths={[480, 800]} sizes="(min-width: 64em) 36vw, 100vw" class="surf-img" />}
               {i === 1 && <span class="badge">Recomendado</span>}
               <span class="cmp-name">{name}</span>
               <span class="cmp-sub">{i === 0 ? 'Lo esencial para titularte' : 'Acompañamiento total y equipo especialista'}</span>
@@ -232,7 +240,12 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
   .ch-go { grid-column: 3; grid-row: 1 / span 2; color: var(--navy-600); font-weight: var(--weight-bold); transition: transform var(--duration-ui) var(--ease-out); }
 
   /* Escritorio de atención: panel azul con la asesora y el formulario blanco dentro */
-  .ch-desk { display: grid; gap: var(--space-s); padding: var(--space-s); border-radius: calc(var(--radius-card) + 0.75rem); background-image: var(--gradient-brand); box-shadow: 0 40px 70px -40px rgb(20 31 102 / 0.7); }
+  /* Superficie de marca: foto real del equipo bajo un velo azul, línea naranja-dorada arriba (la misma del pie) y el logo */
+  .ch-desk, .cmp-plan.featured { position: relative; isolation: isolate; overflow: hidden; }
+  .surf-img { position: absolute; z-index: -2; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; filter: grayscale(1) contrast(1.1); }
+  .ch-desk::before, .cmp-plan.featured::before { content: ''; position: absolute; z-index: -1; inset: 0; background-image: linear-gradient(160deg, rgb(15 22 80 / 0.86) 0%, rgb(29 45 140 / 0.78) 55%, rgb(67 56 202 / 0.72) 100%); }
+  .ch-desk::after, .cmp-plan.featured::after { content: ''; position: absolute; inset: 0 0 auto; block-size: 4px; background-image: linear-gradient(90deg, var(--orange-500), var(--gold-400), var(--sky-500)); }
+  .ch-desk { display: grid; gap: var(--space-s); padding: var(--space-s); border-radius: calc(var(--radius-card) + 0.75rem); background-color: var(--navy-700); box-shadow: 0 40px 70px -40px rgb(20 31 102 / 0.7); }
   .advisor { display: flex; align-items: center; gap: var(--space-s); padding: var(--space-2xs) var(--space-xs) 0; color: var(--paper-0); }
   .advisor-ph { position: relative; flex-shrink: 0; overflow: hidden; inline-size: 3rem; block-size: 3rem; border-radius: 50%; box-shadow: 0 0 0 3px var(--orange-500); }
   .advisor-ph :global(.advisor-img) { position: absolute; inset-block-start: -0.2rem; inset-inline-start: -8.3rem; block-size: 7.8rem; inline-size: auto; max-inline-size: none; }
@@ -241,7 +254,9 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
   .ch-desk :global(.form-card) { max-inline-size: none; padding: var(--space-m); border-radius: var(--radius-card); background-color: var(--paper-0); color: var(--ink-900); box-shadow: none; }
   .ch-desk :global(.form-card > h2) { font-family: var(--font-display); font-size: var(--step-title); }
   .ch-desk :global(.form-card .button[type='submit']) { min-block-size: 3.2rem; border-radius: var(--radius-pill); background-image: var(--gradient-warm); color: var(--ink-900); font-weight: var(--weight-bold); }
-  .desk-foot { display: flex; align-items: center; justify-content: center; gap: 0.45em; padding-block-end: var(--space-3xs); color: var(--navy-100); font-size: var(--step-small); }
+  .desk-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-xs) var(--space-s); padding: var(--space-3xs) var(--space-xs) 0; }
+  .desk-foot :global(.desk-logo) { block-size: 1.9rem; inline-size: auto; }
+  .desk-foot p { display: inline-flex; align-items: center; gap: 0.45em; color: var(--navy-100); font-size: var(--step-small); }
   .desk-foot :global(svg) { color: var(--gold-400); }
   @media (min-width: 64em) {
     .ch-grid { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: var(--space-xl); }
@@ -253,7 +268,7 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
   .cmp-head, .cmp-row, .cmp-foot { display: grid; grid-template-columns: minmax(0, 1fr); }
   .cmp-corner { display: none; }
   .cmp-plan { position: relative; display: grid; gap: 0.25rem; padding: var(--space-m); }
-  .cmp-plan.featured { background-image: var(--gradient-brand); color: var(--paper-0); }
+  .cmp-plan.featured { background-color: var(--navy-700); color: var(--paper-0); }
   .badge { position: absolute; inset-block-start: var(--space-s); inset-inline-end: var(--space-s); padding: 0.3em 0.8em; border-radius: var(--radius-pill); background-color: var(--orange-500); color: var(--ink-900); font-size: var(--step-small); font-weight: var(--weight-bold); }
   .cmp-name { font-family: var(--font-display); font-size: var(--step-title); font-weight: var(--weight-semibold); }
   .cmp-sub { color: var(--color-text-soft); font-size: var(--step-small); }
