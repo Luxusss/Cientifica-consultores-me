@@ -11,7 +11,12 @@ export default defineConfig({
   integrations: [
     sitemap({
       filter: (page) => !/\/404(\.html)?$/.test(page),
-      serialize: (item) => ({ ...item, url: item.url === `${site}/` ? item.url : `${item.url.replace(/\/$/, '')}.html` }),
+      serialize: (item) => {
+        const url = item.url === `${site}/` ? item.url : `${item.url.replace(/\/$/, '')}.html`;
+        const legal = /(politica-privacidad|terminos-condiciones|libro-de-reclamaciones)/.test(url);
+        const service = /(tesis|suficiencia|articulos|otros_servicios)/.test(url) && !url.includes('/blog/');
+        return { ...item, url, lastmod: new Date().toISOString(), changefreq: legal ? 'yearly' : 'monthly', priority: url === `${site}/` ? 1 : service ? 0.9 : legal ? 0.3 : 0.7 };
+      },
     }),
   ],
   security: {

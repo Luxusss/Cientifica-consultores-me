@@ -18,11 +18,14 @@ const items = captures.map((c) => ({ ...c, src: img(c.n) })).filter((c) => c.src
 const total = items.length;
 const sust = items.filter((c) => c.kind === 'sustentacion').length;
 
-const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios', path: '/testimonios.html' }])];
+const schema = [
+  breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Testimonios', path: '/testimonios.html' }]),
+  { '@type': 'CollectionPage', name: 'Testimonios de tesistas', about: { '@id': 'https://cientificaconsultores.com/#organizacion' }, hasPart: { '@type': 'ItemList', numberOfItems: items.length, itemListElement: items.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: `${c.tag}: ${c.preview}` })) } },
+];
 ---
 
 <Base
-  title="Testimonios de Clientes | Científica Consultores"
+  title="Testimonios de Tesistas Aprobados | Científica Consultores"
   description="Mensajes reales de nuestros clientes: tesis aprobadas, sustentaciones y recomendaciones de quienes se titularon con la asesoría de Científica Consultores."
   schema={schema}
 >

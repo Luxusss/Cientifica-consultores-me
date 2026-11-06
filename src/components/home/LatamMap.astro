@@ -125,7 +125,7 @@ const groups = legend.map((c) => ({
               {g.unis.map((u) => (
                 <li class="uni">
                   <span class="uni-logo">
-                    {u.logo ? <Image src={u.logo} alt="" height={96} class="uni-img" loading="lazy" /> : <span class="mono" aria-hidden="true">{u.initials}</span>}
+                    {u.logo ? <Image src={u.logo} alt={`Logo de ${u.name}`} height={96} class="uni-img" loading="lazy" /> : <span class="mono" aria-hidden="true">{u.initials}</span>}
                   </span>
                   <span class="uni-name">{u.name}</span>
                 </li>

@@ -1,5 +1,6 @@
 ---
 import Base from '@/layouts/Base.astro';
+import { breadcrumb } from '@/lib/schema';
 import Field from '@/components/ui/Field.astro';
 import Button from '@/components/ui/Button.astro';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
@@ -9,7 +10,7 @@ import { endpoints, formsubmit } from '@/config/forms';
 const next = `${site.url}/libro-de-reclamaciones.html?enviado=1`;
 ---
 
-<Base
+<Base schema={[breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Libro de reclamaciones', path: '/libro-de-reclamaciones.html' }])]}
   title="Libro de Reclamaciones | Científica Consultores"
   description="Registra tu reclamo o queja sobre nuestros servicios. Te respondemos en un plazo máximo de 15 días hábiles, según la normativa de INDECOPI."
 >
