@@ -1,7 +1,7 @@
 import type { ImageMetadata } from 'astro';
-import revision from '@/assets/images/otros_servicios/estudios_teoricos/revision_sistematica.jpg';
-import metaanalisis from '@/assets/images/otros_servicios/estudios_teoricos/Metaanalisis.jpg';
-import articuloRevision from '@/assets/images/otros_servicios/estudios_teoricos/articulo_revision.jpg';
+import revision from '@/assets/images/otros_servicios/estudios_teoricos/revision-sistematica-asesora.jpg';
+import metaanalisis from '@/assets/images/otros_servicios/estudios_teoricos/metaanalisis-asesor.jpg';
+import articuloRevision from '@/assets/images/otros_servicios/estudios_teoricos/articulo-revision-asesora.jpg';
 import tsp from '@/assets/images/otros_servicios/estudios_empiricos/Trabajo-de-suficiencia-profesional.jpg';
 import negocios from '@/assets/images/otros_servicios/estudios_empiricos/Plan-de-Negocios.png';
 import mejora from '@/assets/images/otros_servicios/proyectos/Proyectos-de-mejora.jpg';
