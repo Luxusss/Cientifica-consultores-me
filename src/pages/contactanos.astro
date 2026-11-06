@@ -55,31 +55,32 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
   schema={schema}
 >
   <section class="c-hero custom-hero" aria-labelledby="titulo">
-    <svg class="wm-cube" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 6 108 30v60L60 114 12 90V30z" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"/><path d="M12 30 60 54l48-24M60 54v60" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"/></svg>
     <div class="page ch-grid">
       <div class="ch-copy">
         <Breadcrumbs current="Contáctanos" inline />
-        <span class="eyebrow ch-eyebrow">Primera asesoría gratis</span>
         <h1 id="titulo">Hablemos de <span class="ch-accent">tu tesis</span></h1>
-        <p class="ch-lede">Elige cómo prefieres escribirnos. Un asesor te responde en {site.replyTime}.</p>
+        <p class="ch-lede">Escríbenos por el canal que prefieras. Un asesor te responde en {site.replyTime} y la primera asesoría es gratis.</p>
+        <p class="ch-status" data-open-status><span class="dot" aria-hidden="true"></span><span data-open-text>Horario de atención</span></p>
         <ul class="channels" role="list">
           {channels.map((c) => (
             <li>
               <a class:list={['channel', c.cls]} href={c.href} target={c.external ? '_blank' : undefined} rel={c.external ? 'noopener' : undefined}>
-                <span class="ch-icon" aria-hidden="true"><Icon name={c.icon} size="1.15rem" /></span>
-                <span class="ch-text"><strong>{c.title}</strong><span>{c.text}</span><small>{c.note}</small></span>
+                <span class="ch-icon" aria-hidden="true"><Icon name={c.icon} size="1.1rem" /></span>
+                <span class="ch-name">{c.title}<small>{c.note}</small></span>
+                <span class="ch-value">{c.text}</span>
+                <span class="ch-go" aria-hidden="true">→</span>
               </a>
             </li>
           ))}
         </ul>
-        <p class="cs-foot"><Icon name="shield" size="1rem" />Tus datos solo los usa tu asesor.</p>
       </div>
-      <div class="ch-form">
+      <div class="ch-desk">
         <div class="advisor">
           <span class="advisor-ph"><Image src={advisorImg} alt="" width={480} class="advisor-img" /></span>
-          <p><strong>Te atiende un asesor de tu carrera</strong><span><span class="live" aria-hidden="true"></span>En línea de lunes a sábado</span></p>
+          <p><strong>Te atiende un asesor de tu carrera</strong><span>Déjanos tus datos y te escribimos por WhatsApp</span></p>
         </div>
         <FormCard title="Cuéntanos tu caso" subject="Web Principal - Contacto" variant="short" submitLabel="Quiero mi asesoría gratis" hint="Ej.: estudio Enfermería en la UPN, tengo el proyecto avanzado y sustento en julio." />
+        <p class="desk-foot"><Icon name="shield" size="0.95rem" />Tus datos solo los usa tu asesor.</p>
       </div>
     </div>
   </section>
@@ -179,8 +180,8 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
 <script>
   // Marca el día de hoy y si la oficina está abierta, con la hora de Lima
   const week = document.querySelector<HTMLElement>('[data-week]');
-  const status = document.querySelector<HTMLElement>('[data-open-status]');
-  if (week && status) {
+  const statuses = document.querySelectorAll<HTMLElement>('[data-open-status]');
+  if (week && statuses.length) {
     const parts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Lima', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false }).formatToParts(new Date());
     const get = (t: string) => parts.find((p) => p.type === t)?.value ?? '';
     const day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(get('weekday'));
@@ -190,57 +191,61 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
       today.classList.add('today');
       const { open = '', close = '' } = today.dataset;
       const isOpen = open !== '' && now >= open && now < close;
-      status.classList.add(isOpen ? 'open' : 'closed');
-      status.querySelector('[data-open-text]')!.textContent = isOpen ? `Abierto ahora · cierra a las ${close}` : 'Cerrado ahora · escríbenos y te respondemos';
+      statuses.forEach((status) => {
+        status.classList.add(isOpen ? 'open' : 'closed');
+        status.querySelector('[data-open-text]')!.textContent = isOpen ? `Abierto ahora · cierra a las ${close}` : 'Cerrado ahora · escríbenos y te respondemos';
+      });
     }
   }
 </script>
 
 <style>
-  /* El mapa ya está en esta página: no se repite el del pie */
-  :global(body:has(#horarios .map-box) .footer .visit) { display: none; }
-  /* Banner de contacto: una sola pieza azul con migas, título, canales y el formulario dentro */
-  .c-hero { position: relative; overflow: hidden; isolation: isolate; padding-block: var(--space-l) var(--space-xl); background-image: var(--gradient-brand); color: var(--paper-0); }
-  .wm-cube { position: absolute; z-index: -1; inset-block-end: -7rem; inset-inline-end: -6rem; inline-size: 30rem; color: rgb(255 255 255 / 0.05); }
-  .ch-grid { display: grid; gap: var(--space-l); align-items: center; }
-  .ch-copy { display: grid; gap: var(--space-s); justify-items: start; }
-  .ch-copy :global(.crumb-bar) { margin-block-end: var(--space-2xs); }
-  .ch-eyebrow { background-color: rgb(255 255 255 / 0.12); color: var(--gold-400); }
-  .ch-copy h1 { color: var(--paper-0); font-size: clamp(2.4rem, 1.3rem + 2.2vw, 3.6rem); line-height: 1.02; letter-spacing: -0.03em; }
+  /* Esta página ya tiene su propio mapa: el del pie no se repite */
+  :global(body:has(#horarios .map-box) .footer .map) { display: none; }
+  /* Banner de contacto: claro, como un directorio de atención (estado en vivo + canales en lista) y un escritorio azul con el formulario */
+  .c-hero { padding-block: var(--space-l) var(--space-xl); background-color: var(--paper-0); border-block-end: 1px solid var(--paper-2); }
+  .ch-grid { display: grid; gap: var(--space-l); align-items: start; }
+  .ch-copy { display: grid; gap: var(--space-s); justify-items: start; padding-block-start: var(--space-xs); }
+  .ch-copy :global(.crumb-bar.inline ol) { background-color: var(--navy-50); box-shadow: none; }
+  .ch-copy :global(.crumb-bar.inline a) { color: var(--navy-600); }
+  .ch-copy :global(.crumb-bar.inline [aria-current='page']) { color: var(--navy-700); }
+  .ch-copy :global(.crumb-bar.inline .sep), .ch-copy :global(.crumb-bar.inline a svg) { color: var(--orange-500); }
+  .ch-copy h1 { color: var(--navy-700); font-size: clamp(2.4rem, 1.3rem + 2.2vw, 3.6rem); line-height: 1.02; letter-spacing: -0.03em; }
   .ch-accent { color: var(--orange-500); }
-  .ch-lede { color: var(--navy-100); font-size: var(--step-lead); max-inline-size: 40ch; }
+  .ch-lede { color: var(--ink-600); font-size: var(--step-lead); max-inline-size: 44ch; }
+  .ch-status { display: inline-flex; align-items: center; gap: 0.5em; padding: 0.35rem 0.8rem; border-radius: var(--radius-pill); background-color: var(--orange-50); color: var(--orange-600); font-size: var(--step-small); font-weight: var(--weight-bold); }
+  .ch-status .dot { inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; background-color: currentColor; }
+  .ch-status.open { background-color: rgb(37 211 102 / 0.12); color: #128c4a; }
 
-  .channels { display: grid; gap: var(--space-xs); inline-size: 100%; margin-block-start: var(--space-xs); }
-  .channel { display: flex; align-items: center; gap: var(--space-s); block-size: 100%; padding: 0.8rem 0.9rem; border-radius: var(--radius-card); background-color: rgb(255 255 255 / 0.07); color: var(--paper-0); text-decoration: none; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.12); transition: background-color var(--duration-ui) ease, box-shadow var(--duration-ui) ease, transform var(--duration-ui) var(--ease-out); }
-  .ch-icon { display: grid; place-items: center; flex-shrink: 0; inline-size: 2.5rem; block-size: 2.5rem; border-radius: 0.8rem; color: var(--paper-0); }
+  /* Canales como filas de un directorio, separadas por líneas */
+  .channels { inline-size: 100%; margin-block-start: var(--space-xs); border-block-start: 1px solid var(--paper-2); }
+  .channels li { border-block-end: 1px solid var(--paper-2); }
+  .channel { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; column-gap: var(--space-s); padding: 0.85rem 0.25rem; border-radius: 0.6rem; color: var(--ink-900); text-decoration: none; transition: background-color var(--duration-ui) ease, padding var(--duration-ui) var(--ease-out); }
+  .ch-icon { grid-row: span 2; display: grid; place-items: center; inline-size: 2.4rem; block-size: 2.4rem; border-radius: 0.75rem; color: var(--paper-0); }
   .wa .ch-icon { background-color: var(--whatsapp-500); color: var(--ink-900); }
-  .mail .ch-icon { background-color: var(--paper-0); color: var(--navy-600); }
+  .mail .ch-icon { background-image: var(--gradient-brand); }
   .call .ch-icon { background-image: var(--gradient-warm); color: var(--ink-900); }
-  .office .ch-icon { background-color: var(--gold-400); color: var(--navy-700); }
-  .ch-text { display: grid; min-inline-size: 0; line-height: 1.3; }
-  .ch-text strong { font-size: var(--step-ui); }
-  .ch-text span { overflow: hidden; color: var(--navy-100); font-size: var(--step-small); text-overflow: ellipsis; white-space: nowrap; }
-  .ch-text small { color: var(--gold-400); font-size: 0.72rem; font-weight: var(--weight-bold); }
-  .cs-foot { display: flex; align-items: center; gap: 0.5em; color: var(--navy-100); font-size: var(--step-small); }
-  .cs-foot :global(svg) { color: var(--gold-400); }
+  .office .ch-icon { background-color: var(--navy-50); color: var(--navy-600); }
+  .ch-name { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.6rem; font-weight: var(--weight-bold); }
+  .ch-name small { color: var(--orange-600); font-size: 0.75rem; }
+  .ch-value { grid-column: 2; overflow: hidden; color: var(--ink-600); font-size: var(--step-small); text-overflow: ellipsis; white-space: nowrap; }
+  .ch-go { grid-column: 3; grid-row: 1 / span 2; color: var(--navy-600); font-weight: var(--weight-bold); transition: transform var(--duration-ui) var(--ease-out); }
 
-  .ch-form { overflow: hidden; border-radius: calc(var(--radius-card) + 0.6rem); background-color: var(--paper-0); color: var(--ink-900); box-shadow: 0 40px 80px -30px rgb(5 10 50 / 0.6); }
-  .advisor { display: flex; align-items: center; gap: var(--space-s); padding: var(--space-s) var(--space-m); background-color: var(--paper-1); border-block-end: 1px solid var(--paper-2); }
-  /* Recorte al rostro de la asesora dentro del círculo */
-  .advisor-ph { position: relative; flex-shrink: 0; overflow: hidden; inline-size: 3rem; block-size: 3rem; border-radius: 50%; box-shadow: 0 0 0 3px var(--paper-0), 0 0 0 5px var(--orange-500); }
+  /* Escritorio de atención: panel azul con la asesora y el formulario blanco dentro */
+  .ch-desk { display: grid; gap: var(--space-s); padding: var(--space-s); border-radius: calc(var(--radius-card) + 0.75rem); background-image: var(--gradient-brand); box-shadow: 0 40px 70px -40px rgb(20 31 102 / 0.7); }
+  .advisor { display: flex; align-items: center; gap: var(--space-s); padding: var(--space-2xs) var(--space-xs) 0; color: var(--paper-0); }
+  .advisor-ph { position: relative; flex-shrink: 0; overflow: hidden; inline-size: 3rem; block-size: 3rem; border-radius: 50%; box-shadow: 0 0 0 3px var(--orange-500); }
   .advisor-ph :global(.advisor-img) { position: absolute; inset-block-start: -0.2rem; inset-inline-start: -8.3rem; block-size: 7.8rem; inline-size: auto; max-inline-size: none; }
-  .advisor p { display: grid; gap: 0.1rem; color: var(--navy-700); font-size: var(--step-ui); line-height: 1.3; }
-  .advisor p > span { display: inline-flex; align-items: center; gap: 0.45em; color: var(--ink-600); font-size: var(--step-small); }
-  .live { inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; background-color: var(--whatsapp-500); box-shadow: 0 0 0 3px rgb(37 211 102 / 0.25); }
-  .ch-form :global(.form-card) { max-inline-size: none; padding: var(--space-m); border-radius: 0; background-color: var(--paper-0); color: var(--ink-900); box-shadow: none; }
-  .ch-form :global(.form-card > h2) { font-family: var(--font-display); font-size: var(--step-title); }
-  .ch-form :global(.form-card .button[type='submit']) { min-block-size: 3.2rem; border-radius: var(--radius-pill); background-image: var(--gradient-warm); color: var(--ink-900); font-weight: var(--weight-bold); }
-  @media (min-width: 40em) { .channels { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .advisor p { display: grid; gap: 0.1rem; font-size: var(--step-ui); line-height: 1.3; }
+  .advisor p > span { color: var(--navy-100); font-size: var(--step-small); }
+  .ch-desk :global(.form-card) { max-inline-size: none; padding: var(--space-m); border-radius: var(--radius-card); background-color: var(--paper-0); color: var(--ink-900); box-shadow: none; }
+  .ch-desk :global(.form-card > h2) { font-family: var(--font-display); font-size: var(--step-title); }
+  .ch-desk :global(.form-card .button[type='submit']) { min-block-size: 3.2rem; border-radius: var(--radius-pill); background-image: var(--gradient-warm); color: var(--ink-900); font-weight: var(--weight-bold); }
+  .desk-foot { display: flex; align-items: center; justify-content: center; gap: 0.45em; padding-block-end: var(--space-3xs); color: var(--navy-100); font-size: var(--step-small); }
+  .desk-foot :global(svg) { color: var(--gold-400); }
   @media (min-width: 64em) {
-    .c-hero { padding-block: var(--space-l) var(--space-2xl); }
     .ch-grid { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: var(--space-xl); }
-    .advisor { padding-inline: var(--space-l); }
-    .ch-form :global(.form-card) { padding: var(--space-m) var(--space-l) var(--space-l); }
+    .ch-desk { padding: var(--space-m); }
   }
 
   /* Comparativa de planes */
@@ -313,6 +318,7 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
   @media (min-width: 64em) { .visit { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); } .map-box { min-block-size: 100%; } }
 
   @media (hover: hover) and (pointer: fine) {
-    .channel:hover { transform: translateY(-2px); background-color: rgb(255 255 255 / 0.12); box-shadow: inset 0 0 0 1px rgb(254 143 1 / 0.6); }
+    .channel:hover { padding-inline-start: 0.6rem; background-color: var(--paper-1); }
+    .channel:hover .ch-go { transform: translateX(4px); color: var(--orange-500); }
   }
 </style>
