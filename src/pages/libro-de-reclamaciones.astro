@@ -100,7 +100,10 @@ const next = `${site.url}/libro-de-reclamaciones.html?enviado=1`;
 
       <p class="legal">La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito previo para interponer una denuncia ante el INDECOPI. El proveedor debe dar respuesta al reclamo o queja en un plazo no mayor a quince (15) días hábiles, el cual es improrrogable. La respuesta será brindada mediante comunicación electrónica enviada a la dirección que has consignado. Si deseas que la respuesta te sea enviada a tu domicilio, indícalo en el detalle del reclamo o queja.</p>
 
-      <p class="consent">Al enviar, aceptas que usemos tus datos para atender tu reclamo, según nuestra <a href="/politica-privacidad.html">Política de privacidad</a>.</p>
+      <label class="consent">
+        <input type="checkbox" name="acepta_politicas" value="Sí" required />
+        <span>He leído y acepto la <a href="/politica-privacidad.html" target="_blank" rel="noopener">Política de privacidad</a> y los <a href="/terminos-condiciones.html" target="_blank" rel="noopener">Términos y condiciones</a>, y autorizo el uso de mis datos para atender mi reclamo.<span class="req" aria-hidden="true">*</span></span>
+      </label>
       <Button type="submit">Enviar reclamo</Button>
     </form>
     </div>
@@ -155,8 +158,13 @@ const next = `${site.url}/libro-de-reclamaciones.html?enviado=1`;
   .field-file input { font-size: var(--step-small); }
 
   .legal { padding: var(--space-s) var(--space-m); border-radius: var(--radius-card); background-color: var(--navy-50); color: var(--ink-600); font-size: var(--step-small); line-height: 1.6; max-inline-size: none; }
-  .consent { margin-block-end: calc(-1 * var(--space-s)); color: var(--ink-600); font-size: var(--step-small); }
+  /* Casilla obligatoria de aceptación de políticas */
+  .consent { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-xs); align-items: start; padding: var(--space-s) var(--space-m); border-radius: var(--radius-card); background-color: var(--paper-1); box-shadow: inset 0 0 0 1.5px var(--paper-2); color: var(--ink-600); font-size: var(--step-small); line-height: 1.5; cursor: pointer; transition: box-shadow var(--duration-hover) ease, background-color var(--duration-hover) ease; }
+  .consent:has(input:checked) { background-color: var(--orange-50); box-shadow: inset 0 0 0 1.5px var(--orange-500); }
+  .consent input { inline-size: 1.2rem; block-size: 1.2rem; margin-block-start: 0.1rem; accent-color: var(--orange-500); cursor: pointer; }
   .consent a { color: var(--navy-600); font-weight: var(--weight-semibold); }
+  .consent .req { color: var(--color-error); margin-inline-start: 0.15em; }
+  :global(form[data-tried]) .consent:has(input:invalid), .consent:has(input:user-invalid) { box-shadow: inset 0 0 0 1.5px var(--color-error); }
   .form :global(.button) { justify-self: start; min-block-size: 3.2rem; padding-inline: 2rem; border-radius: var(--radius-pill); background-image: var(--gradient-warm); color: var(--ink-900); font-weight: var(--weight-bold); }
 
   @media (min-width: 48em) { .sheet { padding: var(--space-l) var(--space-xl); } }

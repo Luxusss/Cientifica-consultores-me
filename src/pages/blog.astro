@@ -8,17 +8,12 @@ import ContactBand from '@/components/sections/ContactBand.astro';
 import { breadcrumb } from '@/lib/schema';
 import { formatDate, isoDate } from '@/lib/dates';
 import { site } from '@/config/site';
+import { categories, categoryLabel, categoryOf, readingMinutes } from '@/lib/blog';
 
 const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const categoryOf = (id: string) => (/tesis|proyecto|suficiencia/.test(id) ? 'guias' : 'comunidad');
-const categories = [
-  { id: 'todos', label: 'Todos' },
-  { id: 'guias', label: 'Guías de tesis' },
-  { id: 'comunidad', label: 'Comunidad' },
-];
-const label = (c: string) => categories.find((x) => x.id === c)?.label ?? '';
-const minutes = (body = '') => Math.max(2, Math.round(body.split(/\s+/).length / 200));
+const label = categoryLabel;
+const minutes = readingMinutes;
 
 const schema = [
   breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Blog', path: '/blog.html' }]),
