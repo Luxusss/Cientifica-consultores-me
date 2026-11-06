@@ -26,7 +26,7 @@ import letrasImg from '@/assets/images/carreras/letras.jpg';
 import socialesImg from '@/assets/images/carreras/ciencias-sociales.jpg';
 import saludImg from '@/assets/images/carreras/ciencias-de-la-salud.jpg';
 import equipoImg from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg';
-import onlineAsesoriaImg from '@/assets/images/blog/mujer-con-laptop-en-oficina.jpg';
+import onlineAsesoriaImg from '@/assets/images/tesis/secciones/maestria-online-noche.jpg';
 import tspTrabajoImg from '@/assets/images/otros_servicios/estudios_empiricos/Trabajo-de-suficiencia-profesional.jpg';
 
 export type Point = { title?: string; text: string; id?: string; image?: ImageMetadata; imageAlt?: string; tag?: string; stat?: string; statLabel?: string; logos?: string[]; bullets?: string[]; highlight?: { value: string; text: string } };
@@ -177,7 +177,7 @@ export const servicePages: Record<string, ServicePage> = {
         title: 'Acompañamiento 100 % online y adaptado a tu horario',
         text: ['Trabajamos contigo a distancia, sin importar tu ciudad o universidad. Nuestro equipo multidisciplinario está disponible en horarios flexibles para avanzar a tu ritmo.'],
         image: onlineAsesoriaImg,
-        imageAlt: 'Estudiante de maestría en una asesoría online desde su laptop',
+        imageAlt: 'Asesor de Científica Consultores en una asesoría online de noche',
       },
       {
         kind: 'list',
