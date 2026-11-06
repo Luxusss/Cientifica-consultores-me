@@ -27,7 +27,7 @@ import socialesImg from '@/assets/images/carreras/ciencias-sociales.jpg';
 import saludImg from '@/assets/images/carreras/ciencias-de-la-salud.jpg';
 import equipoImg from '@/assets/images/otros/asesores-tesis-peru-cientifica.jpg';
 import onlineAsesoriaImg from '@/assets/images/tesis/secciones/maestria-online-noche.jpg';
-import tspTrabajoImg from '@/assets/images/otros_servicios/estudios_empiricos/Trabajo-de-suficiencia-profesional.jpg';
+import tspTrabajoImg from '@/assets/images/tesis/secciones/tsp-que-es-asesora-empresa.jpg';
 
 export type Point = { title?: string; text: string; id?: string; image?: ImageMetadata; imageAlt?: string; tag?: string; stat?: string; statLabel?: string; logos?: string[]; bullets?: string[]; highlight?: { value: string; text: string } };
 export type Block = { id: string; title: string; intro?: string; points: Point[]; variant?: 'overlay' | 'feature' };
@@ -257,7 +257,7 @@ export const servicePages: Record<string, ServicePage> = {
         title: '¿Qué es un trabajo de suficiencia profesional?',
         text: ['Es un informe donde aplicas lo que aprendiste en tu carrera para resolver un problema real de tu trabajo. Es una modalidad para obtener tu título sin hacer una tesis, y te guiamos para que cumpla lo que pide tu universidad.'],
         image: tspTrabajoImg,
-        imageAlt: 'Profesionales revisando reportes y resultados de su trabajo',
+        imageAlt: 'Asesora de Científica Consultores revisando con un profesional la mejora de un proceso de su empresa',
         cta: 'Solicitar presupuesto gratuito',
       },
       {
