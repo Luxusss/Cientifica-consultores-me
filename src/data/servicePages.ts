@@ -17,10 +17,10 @@ import informeImg from '@/assets/images/tesis/secciones/informe-asesor-analisis-
 import observacionesImg from '@/assets/images/tesis/secciones/observaciones-asesora-correcciones.jpg';
 import sustentacionImg from '@/assets/images/tesis/secciones/sustentacion-asesor-ensayo.jpg';
 import normasImg from '@/assets/images/tesis/secciones/normas-asesor-referencias.jpg';
-import tematicaImg from '@/assets/images/tesis/secciones/tematica_img.jpg';
-import metodologicaImg from '@/assets/images/tesis/metodologica_img.jpg';
-import estadisticaImg from '@/assets/images/tesis/secciones/estadistica_img.jpg';
-import cualitativoImg from '@/assets/images/tesis/secciones/analisis_contenido_img.jpg';
+import tematicaImg from '@/assets/images/tesis/secciones/tipo-tematica-asesora.jpg';
+import metodologicaImg from '@/assets/images/tesis/secciones/tipo-metodologica-asesor.jpg';
+import estadisticaImg from '@/assets/images/tesis/secciones/tipo-estadistica-asesora.jpg';
+import cualitativoImg from '@/assets/images/tesis/secciones/tipo-cualitativo-asesora.jpg';
 import ingenieriasImg from '@/assets/images/carreras/ingenierias.jpg';
 import letrasImg from '@/assets/images/carreras/letras.jpg';
 import socialesImg from '@/assets/images/carreras/ciencias-sociales.jpg';
