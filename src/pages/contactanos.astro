@@ -6,9 +6,9 @@ import FormButton from '@/components/ui/FormButton.astro';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import BrandPhoto from '@/components/ui/BrandPhoto.astro';
 import Icon from '@/components/ui/Icon.astro';
-import advisorImg from '@/assets/images/banner/asesora-de-tesis-Cientifica-Consultores.jpg';
-import deskImg from '@/assets/images/banner/nuestro-equipo-de-asesores-de-tesis.jpg';
-import planImg from '@/assets/images/banner/asesores-de-tesis-cientifica-consultores.jpg';
+import advisorImg from '@/assets/images/otros/asesor-en-investigador-y-proyectos-academicos.jpg';
+import deskImg from '@/assets/images/otros/equipo-de-asesores.jpg';
+import planImg from '@/assets/images/banner/hero/oficina-asesores.jpg';
 import logoWhite from '@/assets/brand/logo-white.png';
 import sessionImg from '@/assets/images/otros/equipo-de-asesores-en-reunion.jpg';
 import { fullAddress, site, whatsappUrl } from '@/config/site';
@@ -80,7 +80,7 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
       <div class="ch-desk">
         <Image src={deskImg} alt="" widths={[480, 800]} sizes="(min-width: 64em) 36vw, 100vw" class="surf-img" />
         <div class="advisor">
-          <span class="advisor-ph"><Image src={advisorImg} alt="" width={480} class="advisor-img" /></span>
+          <span class="advisor-ph"><Image src={advisorImg} alt="" width={160} height={160} class="advisor-img" /></span>
           <p><strong>Te atiende un asesor de tu carrera</strong><span>Déjanos tus datos y te escribimos por WhatsApp</span></p>
         </div>
         <FormCard title="Cuéntanos tu caso" subject="Web Principal - Contacto" variant="short" submitLabel="Quiero mi asesoría gratis" hint="Ej.: estudio Enfermería en la UPN, tengo el proyecto avanzado y sustento en julio." />
@@ -248,7 +248,7 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
   .ch-desk { display: grid; gap: var(--space-s); padding: var(--space-s); border-radius: calc(var(--radius-card) + 0.75rem); background-color: var(--navy-700); box-shadow: 0 40px 70px -40px rgb(20 31 102 / 0.7); }
   .advisor { display: flex; align-items: center; gap: var(--space-s); padding: var(--space-2xs) var(--space-xs) 0; color: var(--paper-0); }
   .advisor-ph { position: relative; flex-shrink: 0; overflow: hidden; inline-size: 3rem; block-size: 3rem; border-radius: 50%; box-shadow: 0 0 0 3px var(--orange-500); }
-  .advisor-ph :global(.advisor-img) { position: absolute; inset-block-start: -0.2rem; inset-inline-start: -8.3rem; block-size: 7.8rem; inline-size: auto; max-inline-size: none; }
+  .advisor-ph :global(.advisor-img) { inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 50% 20%; transform: scale(2.7); transform-origin: 50% 26%; }
   .advisor p { display: grid; gap: 0.1rem; font-size: var(--step-ui); line-height: 1.3; }
   .advisor p > span { color: var(--navy-100); font-size: var(--step-small); }
   .ch-desk :global(.form-card) { max-inline-size: none; padding: var(--space-m); border-radius: var(--radius-card); background-color: var(--paper-0); color: var(--ink-900); box-shadow: none; }
