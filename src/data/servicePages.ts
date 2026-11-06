@@ -12,11 +12,11 @@ import tspIntro from '@/assets/images/tesis/asesora-de-trabajo-de-suficiencia-pr
 import onlineImg from '@/assets/images/tesis/secciones/asesoria-online-videollamada.jpg';
 import especialistaTesisImg from '@/assets/images/tesis/secciones/especialista-asesora-graduacion.jpg';
 import originalidadImg from '@/assets/images/tesis/secciones/originalidad-asesor-biblioteca.jpg';
-import proyectoImg from '@/assets/images/tesis/asesora-de-proyecto-de-tesis.jpg';
-import informeImg from '@/assets/images/tesis/secciones/asesoria_img1.jpg';
-import observacionesImg from '@/assets/images/tesis/secciones/levantamiento_de_observaciones.jpg';
-import sustentacionImg from '@/assets/images/tesis/secciones/asesoria_img3.jpg';
-import normasImg from '@/assets/images/tesis/secciones/informe_final.jpg';
+import proyectoImg from '@/assets/images/tesis/secciones/proyecto-asesora-pizarra.jpg';
+import informeImg from '@/assets/images/tesis/secciones/informe-asesor-analisis-datos.jpg';
+import observacionesImg from '@/assets/images/tesis/secciones/observaciones-asesora-correcciones.jpg';
+import sustentacionImg from '@/assets/images/tesis/secciones/sustentacion-asesor-ensayo.jpg';
+import normasImg from '@/assets/images/tesis/secciones/normas-asesor-referencias.jpg';
 import tematicaImg from '@/assets/images/tesis/secciones/tematica_img.jpg';
 import metodologicaImg from '@/assets/images/tesis/metodologica_img.jpg';
 import estadisticaImg from '@/assets/images/tesis/secciones/estadistica_img.jpg';
