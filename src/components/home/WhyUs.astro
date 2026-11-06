@@ -2,14 +2,15 @@
 import { Image } from 'astro:assets';
 import Icon from '@/components/ui/Icon.astro';
 import { whyUs } from '@/data/home';
-import datos from '@/assets/images/otros_servicios/proyectos/Proyectos-tecnologicos.jpg';
-import libro from '@/assets/images/articulos_cientificos/capitulo-de-libro.jpg';
-import laptop from '@/assets/images/otros_servicios/estudios_teoricos/articulo_revision.jpg';
-import analisis from '@/assets/images/otros_servicios/datos_informacion/analisis.jpg';
-import mesa from '@/assets/images/otros_servicios/estudios_teoricos/revision_sistematica.jpg';
+// Fotos del equipo en ambientes de cada valor (protección, integridad, flexibilidad, rapidez y trabajo en equipo)
+import datos from '@/assets/images/home/por-que-datos.jpg';
+import integridad from '@/assets/images/home/por-que-integridad.jpg';
+import flexibilidad from '@/assets/images/home/por-que-flexibilidad.jpg';
+import agil from '@/assets/images/home/por-que-agil.jpg';
+import equipo from '@/assets/images/home/por-que-equipo.jpg';
 
 const icons = ['lock', 'badge', 'clock', 'bolt', 'users'] as const;
-const images = [datos, libro, laptop, analisis, mesa];
+const images = [datos, integridad, flexibilidad, agil, equipo];
 import BrandMark from '@/components/ui/BrandMark.astro';
 ---
 
