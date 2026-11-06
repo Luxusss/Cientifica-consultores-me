@@ -58,7 +58,7 @@ const mapLink = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
     </div>
 
     <div class="legal">
-      <p>© {year} {site.legalName} · RUC {site.ruc}</p>
+      <p>© {year} {site.legalName} · RUC {site.ruc} · <button type="button" class="cc-link" data-cc-open>Configurar cookies</button></p>
     </div>
   </div>
 </footer>
@@ -115,6 +115,7 @@ const mapLink = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
 
   .legal { display: flex; justify-content: center; padding-block-start: var(--space-s); color: var(--navy-100); font-size: var(--step-small); text-align: center; }
   .legal p { max-inline-size: none; }
+  .cc-link { padding: 0; border: 0; background: none; color: var(--paper-0); font: inherit; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
 
   @media (min-width: 64em) {
     .top { grid-template-columns: minmax(0, 3fr) minmax(0, 2.3fr) minmax(0, 1.3fr) minmax(0, 1.9fr) minmax(0, 3.4fr); }

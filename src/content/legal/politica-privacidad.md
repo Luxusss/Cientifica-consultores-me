@@ -60,7 +60,12 @@ Para ejercer cualquiera de estos derechos, puede enviar una solicitud por escrit
 
 Nuestro sitio web utiliza cookies y otras tecnologías similares (como píxeles de seguimiento de Meta Ads o Google Analytics) para mejorar su experiencia de navegación, analizar el tráfico del sitio, personalizar contenido y anuncios, y comprender cómo interactúa con nuestras campañas. Las cookies son pequeños archivos de texto que se almacenan en su dispositivo.
 
-Al utilizar nuestro sitio web, usted acepta el uso de estas cookies. Puede gestionar sus preferencias de cookies a través de la configuración de su navegador. Para obtener más información detallada sobre las cookies que utilizamos y cómo gestionarlas, le invitamos a consultar nuestra **Política de Cookies** o la sección específica en este documento.
+Usamos dos tipos de cookies:
+
+- **Esenciales:** necesarias para que el sitio funcione, por ejemplo para recordar su elección sobre las cookies. No requieren su consentimiento.
+- **De medición y publicidad:** de Google (Google Analytics, Google Ads, Google Tag Manager) y de Meta, para saber cómo se usa el sitio y medir nuestras campañas. Solo se usan si usted las acepta.
+
+La primera vez que ingresa le mostramos un aviso para que acepte o rechace las cookies no esenciales. Puede cambiar su elección en cualquier momento desde el enlace «Configurar cookies» al pie de cada página, o borrarlas desde la configuración de su navegador. Si tiene dudas, puede escribirnos a nuestro correo.
 
 ## 9. Enlaces a Terceros
 
