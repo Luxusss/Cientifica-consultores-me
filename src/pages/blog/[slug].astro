@@ -117,8 +117,8 @@ const schema = [
         <p><strong>¿Te sirvió este artículo?</strong> Compártelo con alguien que esté haciendo su tesis.</p>
         <ul role="list">
           {share.map((s) => <li><a class={`sh sh-${s.icon}`} href={s.href} target="_blank" rel="noopener" aria-label={`Compartir en ${s.name}`} title={s.name}><Icon name={s.icon} size="1.05rem" /></a></li>)}
-        </ul>
           <li><button type="button" class="sh sh-copy" data-copy={url} aria-label="Copiar enlace" title="Copiar enlace"><Icon name="document" size="1.05rem" /></button></li>
+        </ul>
       </div>
 
       <aside class="a-cta" aria-label="Asesoría de tesis">
@@ -238,8 +238,8 @@ const schema = [
   .a-toc ol { display: grid; gap: var(--space-xs) var(--space-l); }
   .a-toc a { display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); align-items: baseline; gap: 0.2rem; color: var(--navy-700); font-weight: var(--weight-semibold); line-height: 1.35; text-decoration: none; }
   .toc-n { font-family: var(--font-display); font-size: 1.3rem; font-weight: var(--weight-bold); line-height: 1; color: transparent; -webkit-text-stroke: 1px var(--orange-600); }
-  .a-end-share { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-s); padding-block: var(--space-m); border-block: 1px solid var(--paper-2); color: var(--ink-600); font-size: var(--step-small); }
-  .a-end-share p { max-inline-size: 34ch; }
+  .a-end-share { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-s) var(--space-m); inline-size: min(100%, 52rem); justify-self: center; padding: var(--space-s) var(--space-m); border-radius: calc(var(--radius-card) + 0.25rem); background-color: var(--paper-0); box-shadow: inset 0 0 0 1px var(--paper-2); color: var(--ink-600); font-size: var(--step-small); }
+  .a-end-share p { max-inline-size: none; }
   .a-end-share strong { color: var(--navy-700); }
   .sh-copy { position: relative; }
   .sh-copy::after { content: attr(data-tip); position: absolute; inset-block-end: calc(100% + 0.5rem); inset-inline-start: 50%; translate: -50% 0.25rem; padding: 0.35rem 0.7rem; border-radius: var(--radius-pill); background-color: var(--navy-700); color: var(--paper-0); font-size: 0.75rem; font-weight: var(--weight-bold); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 180ms ease, translate 180ms var(--ease-out); }
