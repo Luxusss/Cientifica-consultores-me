@@ -1,8 +1,12 @@
 ---
+import { Image } from 'astro:assets';
 import { getEntry, render } from 'astro:content';
 import Base from '@/layouts/Base.astro';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import Prose from '@/components/ui/Prose.astro';
+import Icon from '@/components/ui/Icon.astro';
+import logoColor from '@/assets/brand/logo-color.png';
+import { site } from '@/config/site';
 import { breadcrumb } from '@/lib/schema';
 
 interface Props {
@@ -10,22 +14,180 @@ interface Props {
   title: string;
   description: string;
   heading: string;
+  /** Norma principal en la que se basa el documento */
+  law?: string;
+  /** Fecha de la última actualización (AAAA-MM-DD) */
+  updated?: string;
 }
 
-const { entry, title, description, heading } = Astro.props;
+const { entry, title, description, heading, law, updated = '2026-10-26' } = Astro.props;
 const doc = await getEntry('legal', entry);
 if (!doc) throw new Error(`Falta el contenido legal: ${entry}`);
-const { Content } = await render(doc);
+const { Content, headings } = await render(doc);
 const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: heading, path: `/${entry}.html` }])];
+
+// Índice del documento a partir de sus títulos (“1. Información general” → número + título)
+const toc = headings
+  .filter((h) => h.depth === 2)
+  .map((h) => {
+    const m = h.text.match(/^(\d+)\.\s*(.+)$/);
+    return { slug: h.slug, num: m ? m[1].padStart(2, '0') : '', text: m ? m[2] : h.text };
+  });
+const minutes = Math.max(1, Math.round((doc.body ?? '').split(/\s+/).length / 200));
+const updatedLabel = new Intl.DateTimeFormat('es-PE', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(updated));
 ---
 
 <Base title={title} description={description} schema={schema}>
-  <Breadcrumbs current={heading} />
-  <article class="section page split">
-    <header class="stack">
-      <h1>{heading}</h1>
-      <p class="text-lead">{description}</p>
-    </header>
-    <Prose><Content /></Prose>
-  </article>
+  <section class="l-hero custom-hero" aria-labelledby="titulo">
+    <span class="l-mark" aria-hidden="true">§</span>
+    <div class="page l-hero-grid">
+      <div class="l-copy">
+        <Breadcrumbs current={heading} inline />
+        <span class="eyebrow l-eyebrow"><Icon name="document" size="0.95rem" />Documento legal</span>
+        <h1 id="titulo">{heading}</h1>
+        <p class="l-lede">{description}</p>
+        <ul class="l-meta" role="list">
+          {law && <li><Icon name="institution" size="1rem" />{law}</li>}
+          <li><Icon name="calendar" size="1rem" />Actualizado el <time datetime={updated}>{updatedLabel}</time></li>
+          <li><Icon name="clock" size="1rem" />Lectura de {minutes} min</li>
+        </ul>
+      </div>
+      <div class="seal" aria-hidden="true">
+        <svg viewBox="0 0 200 200" class="seal-ring">
+          <defs><path id="seal-path" d="M100 100 m-78 0 a78 78 0 1 1 156 0 a78 78 0 1 1 -156 0" /></defs>
+          <circle cx="100" cy="100" r="96" fill="none" stroke="currentColor" stroke-width="1.5" />
+          <circle cx="100" cy="100" r="62" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 5" />
+          <text><textPath href="#seal-path">CIENTÍFICA CONSULTORES S.A.C. · RUC {site.ruc} · LIMA, PERÚ ·</textPath></text>
+        </svg>
+        <span class="seal-core"><Icon name="shield" size="2.4rem" /></span>
+      </div>
+    </div>
+  </section>
+
+  <div class="page l-body">
+    {toc.length >= 3 && (
+      <aside class="l-side">
+        <details class="toc" open>
+          <summary><Icon name="list" size="1rem" />Índice del documento</summary>
+          <ol role="list">
+            {toc.map((t) => <li><a href={`#${t.slug}`} data-toc={t.slug}>{t.num && <span class="toc-num">{t.num}</span>}<span>{t.text}</span></a></li>)}
+          </ol>
+        </details>
+        <div class="help">
+          <p class="help-title">¿Dudas sobre este documento?</p>
+          <p>Escríbenos y te responde el área encargada.</p>
+          <a href={`mailto:${site.email}`}><Icon name="mail" size="1rem" />Escribir un correo</a>
+          <small>{site.email}</small>
+        </div>
+      </aside>
+    )}
+
+    <article class:list={['sheet', { solo: toc.length < 3 }]}>
+      <Prose><Content /></Prose>
+      <footer class="sign">
+        <Image src={logoColor} alt={site.name} height={96} class="sign-logo" />
+        <div>
+          <p class="sign-name">{site.legalName}</p>
+          <p>RUC {site.ruc} · Lima, Perú · Vigente desde el {updatedLabel}</p>
+        </div>
+        <button type="button" class="print" data-print><Icon name="document" size="1rem" />Imprimir o guardar PDF</button>
+      </footer>
+    </article>
+  </div>
 </Base>
+
+<script>
+  // Botón de impresión y resaltado del apartado que se está leyendo en el índice
+  // En celular el índice empieza cerrado para no empujar el texto hacia abajo
+  if (matchMedia('(max-width: 63.99em)').matches) document.querySelector('.toc')?.removeAttribute('open');
+  document.querySelector('[data-print]')?.addEventListener('click', () => window.print());
+  const links = new Map([...document.querySelectorAll<HTMLAnchorElement>('[data-toc]')].map((a) => [a.dataset.toc!, a]));
+  if (links.size && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        links.forEach((a) => a.removeAttribute('aria-current'));
+        links.get(e.target.id)?.setAttribute('aria-current', 'true');
+      }
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    links.forEach((_, id) => { const h = document.getElementById(id); if (h) io.observe(h); });
+  }
+</script>
+
+<style>
+  /* Banner legal: sobrio, azul de marca con el signo § de fondo y un sello con los datos de la empresa */
+  .l-hero { position: relative; overflow: hidden; isolation: isolate; padding-block: var(--space-l) var(--space-xl); background-image: linear-gradient(180deg, #0f1650, var(--navy-700)); color: var(--paper-0); }
+  .l-hero::after { content: ''; position: absolute; inset: auto 0 0; block-size: 4px; background-image: linear-gradient(90deg, var(--orange-500), var(--gold-400), var(--sky-500)); }
+  .l-mark { position: absolute; z-index: -1; inset-block-start: -4rem; inset-inline-end: 20%; font-family: var(--font-display); font-size: 26rem; line-height: 1; color: rgb(255 255 255 / 0.035); user-select: none; }
+  .l-hero-grid { display: grid; gap: var(--space-l); align-items: center; }
+  .l-copy { display: grid; gap: var(--space-s); justify-items: start; }
+  .l-eyebrow { background-color: rgb(255 255 255 / 0.1); color: var(--gold-400); }
+  .l-eyebrow::before { display: none; }
+  .l-copy h1 { color: var(--paper-0); font-size: clamp(2.3rem, 1.4rem + 2vw, 3.4rem); line-height: 1.04; letter-spacing: -0.025em; }
+  .l-lede { color: var(--navy-100); font-size: var(--step-lead); max-inline-size: 52ch; }
+  .l-meta { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-s); margin-block-start: var(--space-2xs); }
+  .l-meta li { display: inline-flex; align-items: center; gap: 0.45em; padding: 0.4em 0.85em; border-radius: var(--radius-pill); background-color: rgb(255 255 255 / 0.07); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.14); color: var(--paper-0); font-size: var(--step-small); font-weight: var(--weight-semibold); }
+  .l-meta :global(svg) { color: var(--gold-400); }
+
+  .seal { position: relative; display: none; place-items: center; inline-size: 13rem; aspect-ratio: 1; justify-self: end; color: rgb(255 255 255 / 0.55); }
+  .seal-ring { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; }
+  .seal-ring text { fill: var(--gold-400); font-family: var(--font-body, inherit); font-size: 10.5px; font-weight: 700; letter-spacing: 0.16em; }
+  .seal-core { display: grid; place-items: center; inline-size: 5.5rem; aspect-ratio: 1; border-radius: 50%; background-image: var(--gradient-warm); color: var(--navy-700); box-shadow: 0 18px 40px -16px rgb(254 143 1 / 0.7); }
+
+  /* Cuerpo: índice fijo a la izquierda y el documento como una hoja */
+  .l-body { display: grid; gap: var(--space-l); padding-block: var(--space-l) var(--section-gap); }
+  .l-side { display: grid; gap: var(--space-s); align-content: start; }
+  .toc { border-radius: var(--radius-card); background-color: var(--paper-0); box-shadow: inset 0 0 0 1px var(--paper-2); }
+  .toc summary { display: flex; align-items: center; gap: 0.5em; padding: var(--space-s) var(--space-m); color: var(--navy-700); font-size: var(--step-small); font-weight: var(--weight-bold); letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; list-style: none; }
+  .toc summary::-webkit-details-marker { display: none; }
+  .toc summary :global(svg) { color: var(--orange-500); }
+  .toc ol { display: grid; padding: 0 var(--space-xs) var(--space-s); }
+  .toc a { display: grid; grid-template-columns: 2rem minmax(0, 1fr); align-items: baseline; gap: 0.25rem; padding: 0.45rem 0.6rem; border-radius: 0.6rem; color: var(--ink-600); font-size: var(--step-small); line-height: 1.35; text-decoration: none; transition: background-color var(--duration-hover) ease, color var(--duration-hover) ease; }
+  .toc-num { color: var(--orange-600); font-weight: var(--weight-bold); font-variant-numeric: tabular-nums; }
+  .toc a[aria-current] { background-color: var(--navy-50); color: var(--navy-700); font-weight: var(--weight-semibold); }
+  .help { display: grid; gap: 0.35rem; padding: var(--space-m); border-radius: var(--radius-card); background-color: var(--navy-50); font-size: var(--step-small); color: var(--ink-600); }
+  .help small { color: var(--ink-600); font-size: 0.75rem; overflow-wrap: anywhere; }
+  .help-title { color: var(--navy-700); font-weight: var(--weight-bold); }
+  .help a { display: inline-flex; align-items: center; gap: 0.45em; margin-block-start: 0.2rem; color: var(--navy-600); font-weight: var(--weight-bold); overflow-wrap: anywhere; }
+
+  .sheet { min-inline-size: 0; padding: var(--space-m); border-radius: calc(var(--radius-card) + 0.4rem); background-color: var(--paper-0); box-shadow: 0 30px 60px -40px rgb(20 31 102 / 0.45), inset 0 0 0 1px var(--paper-2); }
+  .sheet :global(.prose) { max-inline-size: 48rem; color: var(--ink-700, var(--ink-600)); line-height: 1.75; }
+  .sheet :global(.prose > p:first-child) { padding: var(--space-s) var(--space-m); border-inline-start: 4px solid var(--orange-500); border-radius: 0 var(--radius-card) var(--radius-card) 0; background-color: var(--paper-1); color: var(--ink-900); }
+  .sheet :global(.prose h2) { scroll-margin-block-start: calc(var(--header-height) + var(--space-m)); margin-block-start: var(--space-l); padding-block-start: var(--space-m); border-block-start: 1px solid var(--paper-2); color: var(--navy-700); font-family: var(--font-display); font-size: clamp(1.3rem, 1.1rem + 0.5vw, 1.6rem); }
+  .sheet :global(.prose :is(p, li)) { max-inline-size: none; }
+  .sheet :global(.prose ul) { gap: var(--space-2xs); padding-inline-start: 1.4em; }
+  .sheet :global(.prose strong) { color: var(--navy-700); }
+  .sheet :global(.prose li::marker) { color: var(--orange-500); font-weight: var(--weight-bold); }
+  .sheet :global(.prose a) { color: var(--navy-600); font-weight: var(--weight-semibold); }
+
+  .sign { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: var(--space-s) var(--space-m); margin-block-start: var(--space-l); padding-block-start: var(--space-m); border-block-start: 2px solid var(--navy-700); font-size: var(--step-small); color: var(--ink-600); }
+  .sign :global(.sign-logo) { block-size: 3rem; inline-size: auto; }
+  .sign-name { color: var(--navy-700); font-weight: var(--weight-bold); font-size: var(--step-ui); }
+  .print { grid-column: 1 / -1; justify-self: start; display: inline-flex; align-items: center; gap: 0.5em; padding: 0.6em 1.1em; border: 0; border-radius: var(--radius-pill); background-color: var(--paper-0); color: var(--navy-700); font: inherit; font-weight: var(--weight-bold); box-shadow: inset 0 0 0 1.5px var(--navy-600); cursor: pointer; }
+
+  @media (min-width: 48em) {
+    .sheet { padding: var(--space-l) var(--space-xl); }
+    .sign { grid-template-columns: auto minmax(0, 1fr) auto; }
+    .print { grid-column: auto; }
+  }
+  @media (min-width: 64em) {
+    .l-hero-grid { grid-template-columns: minmax(0, 1fr) auto; }
+    .seal { display: grid; }
+    .l-body { grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: var(--space-xl); }
+    .l-side { align-self: start; position: sticky; inset-block-start: calc(var(--header-height) + var(--space-m)); }
+    .sheet.solo { grid-column: 1 / -1; max-inline-size: 56rem; justify-self: center; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .seal-ring { animation: seal-spin 60s linear infinite; }
+    @keyframes seal-spin { to { rotate: 360deg; } }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .toc a:hover { background-color: var(--paper-1); color: var(--navy-700); }
+    .print:hover { background-color: var(--navy-700); color: var(--paper-0); }
+  }
+  /* Impresión: solo el documento, sin banner ni menús */
+  @media print {
+    .l-hero, .l-side, .print { display: none; }
+    .sheet { box-shadow: none; padding: 0; }
+  }
+</style>

@@ -101,7 +101,8 @@
     }
     main > section:first-child:not(.hero) .crumb-bar { animation-delay: 0ms; }
     main > section:first-child:not(.hero) .eyebrow { animation-delay: 60ms; }
-    main > section:first-child:not(.hero) h1 { animation-delay: 140ms; animation-duration: 1.15s; }
+    main > section:first-child:not(.hero) h1 { animation-name: hero-title; animation-delay: 140ms; animation-duration: 1.1s; }
+    @keyframes hero-title { from { opacity: 0; translate: 0 22px; filter: blur(5px); } to { opacity: 1; translate: 0 0; filter: none; } }
     main > section:first-child:not(.hero) :is(h1 + p, .text-lead, .ch-lede) { animation-delay: 280ms; }
     main > section:first-child:not(.hero) :is(.ch-status, .trust, .ah-figs) { animation-delay: 380ms; }
     main > section:first-child:not(.hero) :is(.button, .channels) { animation-delay: 460ms; }
@@ -109,37 +110,22 @@
     main > section:first-child:not(.hero) :is(.form-card, .ch-desk, .ah-mosaic, .wa-viewer, .t-chat) { animation: card-in 1.2s var(--ease-expo) 320ms both; }
     main > section:first-child:not(.hero) .ch-desk .form-card { animation: none; }
     @keyframes hero-in {
-      from { opacity: 0; translate: 0 26px; filter: blur(8px); }
-      to { opacity: 1; translate: 0 0; filter: blur(0); }
+      from { opacity: 0; translate: 0 22px; }
+      to { opacity: 1; translate: 0 0; }
     }
     @keyframes card-in {
       from { opacity: 0; translate: 0 40px; scale: 0.97; }
       to { opacity: 1; translate: 0 0; scale: 1; }
     }
 
-    /* 2. Aparición al hacer scroll: además de subir, pasa de desenfocado a nítido */
-    .js [data-reveal]:not([data-reveal='stagger']):not([data-reveal='shutter']),
-    .js [data-reveal='stagger'] > * { filter: blur(6px); }
-    .js [data-reveal].is-in:not([data-reveal='stagger']):not([data-reveal='shutter']),
-    .js [data-reveal='stagger'].is-in > * { filter: blur(0); }
+    /* 2. Aparición al hacer scroll: solo opacidad y movimiento (se calculan en la GPU, sin tirones) */
     .js [data-reveal]:not([data-reveal='shutter']),
-    .js [data-reveal='stagger'] > * {
-      transition-property: opacity, transform, filter, translate, box-shadow;
-      transition-duration: var(--duration-reveal), var(--duration-reveal), var(--duration-reveal), var(--duration-ui), var(--duration-ui);
-      transition-timing-function: var(--ease-expo), var(--ease-expo), var(--ease-expo), var(--ease-out), var(--ease-out);
-    }
+    .js [data-reveal='stagger'] > * { will-change: auto; }
     /* Encabezados de sección: etiqueta, título y texto llegan uno tras otro */
-    .js header[data-reveal] > * { translate: 0 14px; transition: translate 900ms var(--ease-expo); }
+    .js header[data-reveal] > * { translate: 0 12px; transition: translate 800ms var(--ease-expo); }
     .js header[data-reveal] > :nth-child(2) { transition-delay: 90ms; }
     .js header[data-reveal] > :nth-child(n + 3) { transition-delay: 180ms; }
     .js header[data-reveal].is-in > * { translate: 0 0; }
-
-    /* 3. Etiquetas: el punto late suave, como señal de “en línea” */
-    .eyebrow::before { animation: dot-pulse 2.6s var(--ease-out) infinite; }
-    @keyframes dot-pulse {
-      0% { box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 45%, transparent); }
-      70%, 100% { box-shadow: 0 0 0 0.45em transparent; }
-    }
 
     /* 4. Botones: un brillo cruza el botón al pasar el mouse y la flecha avanza */
     .button { position: relative; overflow: hidden; isolation: isolate; }
@@ -159,7 +145,7 @@
   /* 5. Fotos con tratamiento de marca: al entrar en pantalla la imagen se asienta (de un leve zoom a su tamaño) */
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
-      .brand-photo .bp-img, .card img, .surf-img {
+      .brand-photo .bp-img {
         animation: img-settle linear both;
         animation-timeline: view();
         animation-range: entry 0% cover 45%;

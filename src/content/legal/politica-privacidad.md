@@ -20,12 +20,12 @@ Dependiendo del formulario que llene o de las acciones que realice en nuestro si
 
 Los datos personales que usted nos proporcione serán tratados para las siguientes finalidades:
 
-**• Gestión de Servicios y Ventas:** Para procesar sus solicitudes de asesoría, gestionar la compra de nuestros servicios a través de la pasarela de pago, procesar pagos, emitir comprobantes de pago, y entregar los servicios contratados.
-**• Comunicación con el Usuario:** Para responder a sus consultas, solicitudes de información, reclamos o sugerencias.
-**• Mejora de Servicios:** Para analizar el uso de nuestros servicios y sitio web, con el fin de mejorar la experiencia del usuario y la calidad de nuestras ofertas.
-**• Marketing y Publicidad (con su consentimiento expreso):** Para enviarle información sobre promociones, nuevos servicios, eventos o novedades de **CIENTÍFICA CONSULTORES** que puedan ser de su interés, siempre que haya otorgado su consentimiento específico para ello.
-**• Cumplimiento Legal:** Para cumplir con obligaciones legales y requerimientos de autoridades competentes.
-**• Fines Estadísticos y de Investigación:** Para realizar análisis internos sobre el comportamiento de nuestros usuarios y la efectividad de nuestras campañas.
+- **Gestión de Servicios y Ventas:** Para procesar sus solicitudes de asesoría, gestionar la compra de nuestros servicios a través de la pasarela de pago, procesar pagos, emitir comprobantes de pago, y entregar los servicios contratados.
+- **Comunicación con el Usuario:** Para responder a sus consultas, solicitudes de información, reclamos o sugerencias.
+- **Mejora de Servicios:** Para analizar el uso de nuestros servicios y sitio web, con el fin de mejorar la experiencia del usuario y la calidad de nuestras ofertas.
+- **Marketing y Publicidad (con su consentimiento expreso):** Para enviarle información sobre promociones, nuevos servicios, eventos o novedades de **CIENTÍFICA CONSULTORES** que puedan ser de su interés, siempre que haya otorgado su consentimiento específico para ello.
+- **Cumplimiento Legal:** Para cumplir con obligaciones legales y requerimientos de autoridades competentes.
+- **Fines Estadísticos y de Investigación:** Para realizar análisis internos sobre el comportamiento de nuestros usuarios y la efectividad de nuestras campañas.
 
 ## 4. Plazo de Conservación de los Datos Personales
 
@@ -35,9 +35,9 @@ Sus datos personales serán conservados por **CIENTÍFICA CONSULTORES** por el t
 
 Para cumplir con las finalidades mencionadas, sus datos personales podrán ser compartidos con:
 
-**• Proveedores de Servicios:** Empresas que nos asisten en la operación de nuestro sitio web, procesamiento de pagos (pasarelas de pago), envío de comunicaciones, análisis de datos, servicios de alojamiento web (hosting) o soporte técnico. Estas empresas solo accederán a los datos estrictamente necesarios para prestar el servicio y estarán obligadas a mantener la confidencialidad y a cumplir con la normativa de protección de datos.
-**• Autoridades Competentes:** En cumplimiento de obligaciones legales o requerimientos judiciales.
-**• Empresas del Grupo:** Si **CIENTÍFICA CONSULTORES** formara parte de un grupo empresarial, sus datos podrían ser compartidos con otras empresas del mismo grupo para fines administrativos internos y para la prestación de servicios, siempre bajo las mismas condiciones de seguridad y confidencialidad.
+- **Proveedores de Servicios:** Empresas que nos asisten en la operación de nuestro sitio web, procesamiento de pagos (pasarelas de pago), envío de comunicaciones, análisis de datos, servicios de alojamiento web (hosting) o soporte técnico. Estas empresas solo accederán a los datos estrictamente necesarios para prestar el servicio y estarán obligadas a mantener la confidencialidad y a cumplir con la normativa de protección de datos.
+- **Autoridades Competentes:** En cumplimiento de obligaciones legales o requerimientos judiciales.
+- **Empresas del Grupo:** Si **CIENTÍFICA CONSULTORES** formara parte de un grupo empresarial, sus datos podrían ser compartidos con otras empresas del mismo grupo para fines administrativos internos y para la prestación de servicios, siempre bajo las mismas condiciones de seguridad y confidencialidad.
 
 **CIENTÍFICA CONSULTORES** se compromete a no vender, alquilar ni divulgar sus datos personales a terceros no autorizados.
 
@@ -49,10 +49,10 @@ Para cumplir con las finalidades mencionadas, sus datos personales podrán ser c
 
 Usted tiene derecho a:
 
-**• Acceder** a sus datos personales que tenemos almacenados.
-**• Solicitar la **rectificación** de sus datos si son inexactos o incompletos.
-**•** Solicitar la **cancelación** (supresión) de sus datos cuando ya no sean necesarios para los fines para los que fueron recogidos.
-**• Oponerse** al tratamiento de sus datos personales para fines específicos.
+- **Acceder** a sus datos personales que tenemos almacenados.
+- Solicitar la **rectificación** de sus datos si son inexactos o incompletos.
+- Solicitar la **cancelación** (supresión) de sus datos cuando ya no sean necesarios para los fines para los que fueron recogidos.
+- **Oponerse** al tratamiento de sus datos personales para fines específicos.
 
 Para ejercer cualquiera de estos derechos, puede enviar una solicitud por escrito a la siguiente dirección de correo electrónico: [**informes@cientificaconsultores.com**](mailto:informes@cientificaconsultores.com), adjuntando una copia de su documento de identidad. Atenderemos su solicitud en los plazos establecidos por la Ley N° 29733 y su reglamento.
 
