@@ -91,3 +91,93 @@
   :target h2, h2:target { animation: arrive 1.4s var(--ease-out); }
   @keyframes arrive { 0% { color: var(--orange-500); transform: translateY(6px); } 40% { color: var(--orange-500); transform: none; } }
 }
+
+/* ───────────── Capa de movimiento moderna (sutil, en todo el sitio) ───────────── */
+@layer motion {
+  @media (prefers-reduced-motion: no-preference) {
+    /* 1. Entrada del banner de cada página: el contenido aparece en cascada, de desenfocado a nítido */
+    main > section:first-child:not(.hero) :is(.eyebrow, .crumb-bar, h1, h1 + p, .text-lead, .ch-lede, .ch-status, .button, .trust, .channels, .ah-figs) {
+      animation: hero-in 1s var(--ease-expo) both;
+    }
+    main > section:first-child:not(.hero) .crumb-bar { animation-delay: 0ms; }
+    main > section:first-child:not(.hero) .eyebrow { animation-delay: 60ms; }
+    main > section:first-child:not(.hero) h1 { animation-delay: 140ms; animation-duration: 1.15s; }
+    main > section:first-child:not(.hero) :is(h1 + p, .text-lead, .ch-lede) { animation-delay: 280ms; }
+    main > section:first-child:not(.hero) :is(.ch-status, .trust, .ah-figs) { animation-delay: 380ms; }
+    main > section:first-child:not(.hero) :is(.button, .channels) { animation-delay: 460ms; }
+    /* Tarjetas grandes del banner (formulario, mosaico, consola): suben y se asientan */
+    main > section:first-child:not(.hero) :is(.form-card, .ch-desk, .ah-mosaic, .wa-viewer, .t-chat) { animation: card-in 1.2s var(--ease-expo) 320ms both; }
+    main > section:first-child:not(.hero) .ch-desk .form-card { animation: none; }
+    @keyframes hero-in {
+      from { opacity: 0; translate: 0 26px; filter: blur(8px); }
+      to { opacity: 1; translate: 0 0; filter: blur(0); }
+    }
+    @keyframes card-in {
+      from { opacity: 0; translate: 0 40px; scale: 0.97; }
+      to { opacity: 1; translate: 0 0; scale: 1; }
+    }
+
+    /* 2. Aparición al hacer scroll: además de subir, pasa de desenfocado a nítido */
+    .js [data-reveal]:not([data-reveal='stagger']):not([data-reveal='shutter']),
+    .js [data-reveal='stagger'] > * { filter: blur(6px); }
+    .js [data-reveal].is-in:not([data-reveal='stagger']):not([data-reveal='shutter']),
+    .js [data-reveal='stagger'].is-in > * { filter: blur(0); }
+    .js [data-reveal]:not([data-reveal='shutter']),
+    .js [data-reveal='stagger'] > * {
+      transition-property: opacity, transform, filter, translate, box-shadow;
+      transition-duration: var(--duration-reveal), var(--duration-reveal), var(--duration-reveal), var(--duration-ui), var(--duration-ui);
+      transition-timing-function: var(--ease-expo), var(--ease-expo), var(--ease-expo), var(--ease-out), var(--ease-out);
+    }
+    /* Encabezados de sección: etiqueta, título y texto llegan uno tras otro */
+    .js header[data-reveal] > * { translate: 0 14px; transition: translate 900ms var(--ease-expo); }
+    .js header[data-reveal] > :nth-child(2) { transition-delay: 90ms; }
+    .js header[data-reveal] > :nth-child(n + 3) { transition-delay: 180ms; }
+    .js header[data-reveal].is-in > * { translate: 0 0; }
+
+    /* 3. Etiquetas: el punto late suave, como señal de “en línea” */
+    .eyebrow::before { animation: dot-pulse 2.6s var(--ease-out) infinite; }
+    @keyframes dot-pulse {
+      0% { box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 45%, transparent); }
+      70%, 100% { box-shadow: 0 0 0 0.45em transparent; }
+    }
+
+    /* 4. Botones: un brillo cruza el botón al pasar el mouse y la flecha avanza */
+    .button { position: relative; overflow: hidden; isolation: isolate; }
+    .button::after {
+      content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+      background-image: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.38) 50%, transparent 70%);
+      translate: -120% 0; transition: translate 0s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .button:hover::after { translate: 120% 0; transition: translate 900ms var(--ease-out); }
+      .button:hover :is(.cta-arrow, .arrow, .go) { translate: 4px 0; }
+      .button :is(.cta-arrow, .arrow, .go) { transition: translate var(--duration-ui) var(--ease-out); }
+      .button:active { scale: 0.98; }
+    }
+  }
+
+  /* 5. Fotos con tratamiento de marca: al entrar en pantalla la imagen se asienta (de un leve zoom a su tamaño) */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .brand-photo .bp-img, .card img, .surf-img {
+        animation: img-settle linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 45%;
+      }
+      @keyframes img-settle {
+        from { scale: 1.14; }
+        to { scale: 1; }
+      }
+      /* Marca de agua del cubo: gira muy lento con el scroll */
+      .wm-cube {
+        animation: cube-drift linear both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 100%;
+      }
+      @keyframes cube-drift {
+        from { rotate: -6deg; translate: 0 -2rem; }
+        to { rotate: 8deg; translate: 0 2rem; }
+      }
+    }
+  }
+}
