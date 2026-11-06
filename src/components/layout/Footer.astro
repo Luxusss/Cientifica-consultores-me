@@ -57,10 +57,10 @@ const mapLink = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
       </div>
     </div>
 
-    <Payments />
 
     <div class="legal">
       <p>© {year} {site.legalName} · RUC {site.ruc}</p>
+      <Payments />
     </div>
   </div>
 </footer>
@@ -108,7 +108,7 @@ const mapLink = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
   .map iframe { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; border: 0; filter: saturate(0.9); }
   .directions { position: absolute; inset-block-end: var(--space-s); inset-inline-end: var(--space-s); display: inline-flex; align-items: center; gap: 0.4em; padding: 0.55em 1em; border-radius: var(--radius-pill); background-image: var(--gradient-warm); color: var(--paper-0); font-size: var(--step-small); font-weight: var(--weight-bold); box-shadow: 0 10px 20px -8px rgb(0 0 0 / 0.5); }
 
-  .legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-s); padding-block-start: var(--space-m); border-block-start: 1px solid rgb(255 255 255 / 0.1); color: var(--navy-100); font-size: var(--step-small); }
+  .legal { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-s); padding-block-start: var(--space-m); border-block-start: 1px solid rgb(255 255 255 / 0.1); color: var(--navy-100); font-size: var(--step-small); }
   .legal p { max-inline-size: none; }
   .legal a { color: var(--paper-0); }
 
