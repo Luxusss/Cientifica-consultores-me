@@ -77,6 +77,9 @@ const hasMedia = Astro.slots.has('media');
     .photo-hero { position: relative; }
     .photo-hero .media { position: absolute; inset: auto 0 0 auto; block-size: min(100%, 46rem); inline-size: auto; aspect-ratio: 1570 / 883; max-inline-size: 100%; mask-image: linear-gradient(90deg, transparent 0, #000 22%), linear-gradient(180deg, transparent 0, #000 12%); mask-composite: intersect; }
     .photo-hero .media :global(img) { object-position: 100% 50%; }
+    /* En pantallas medianas el formulario tapa parte de la foto: la foto se corre a la derecha para que la persona quede visible */
+    .photo-hero { overflow-x: clip; }
+    .photo-hero .media { inset-inline-end: min(0px, calc((100vw - 1700px) * 0.55)); }
     .photo-hero::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, var(--scrim-soft) 0%, transparent 20%), linear-gradient(0deg, color-mix(in srgb, var(--ink-900) 55%, transparent) 0%, transparent 30%), linear-gradient(90deg, var(--scrim-strong) 0%, var(--scrim-strong) 24%, transparent 60%); }
     /* Escritorio: texto a la izquierda y formulario compacto al lado; la foto queda libre a la derecha */
     /* Etiquetas de confianza siempre en una sola línea en escritorio */

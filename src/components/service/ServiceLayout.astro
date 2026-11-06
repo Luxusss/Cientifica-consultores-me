@@ -62,7 +62,7 @@ import BrandPhoto from '@/components/ui/BrandPhoto.astro';
 ---
 
 <Base title={page.title} description={page.description} image={`/og/${page.id}.jpg`} schema={schema}>
-  <PageHero title={page.h1} crumb={page.crumb} lede={page.lede} balance="photo">
+  <PageHero title={page.h1} crumb={page.crumb} lede={page.lede} balance="photo" tint>
     <Fragment slot="title"><span class="h1-main">{h1Main}</span>{h1Tail && <> <span class="h1-tail">{h1Tail}</span></>}</Fragment>
     <ul class="trust" role="list">
       {trust.map((t) => <li><span class="trust-ico"><Icon name={t.icon} size="0.95rem" /></span>{t.text}</li>)}
