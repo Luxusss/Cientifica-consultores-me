@@ -88,6 +88,7 @@ const options = countries.map((c) => ({ value: c.name, name: c.name, code: c.cod
     </>
   )}
   <Button type="submit">{submitLabel}</Button>
+  <p class="consent">Al enviar, aceptas nuestra <a href="/politica-privacidad.html">Política de privacidad</a>.</p>
   <p class="status" role="status" aria-live="polite" data-status></p>
   <div class="sent" data-sent tabindex="-1">
     <svg class="check" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24" /><path d="M15 27l7 7 15-16" /></svg>
@@ -247,6 +248,9 @@ const options = countries.map((c) => ({ value: c.name, name: c.name, code: c.cod
   .tel-field:has(input:user-invalid:not(:placeholder-shown)) .tel,
   :global(form[data-tried]) .tel-field:has(input:invalid) .tel { border-block-end-color: var(--color-error); }
 
+  /* Aviso de consentimiento (Ley N.° 29733): breve, bajo el botón */
+  .consent { margin-block-start: calc(-1 * var(--space-2xs)); color: var(--color-text-soft, var(--ink-600)); font-size: 0.75rem; line-height: 1.4; text-align: center; }
+  .consent a { color: inherit; font-weight: var(--weight-semibold); text-decoration: underline; text-underline-offset: 2px; }
   .status { font-size: var(--step-small); line-height: var(--leading-small); font-weight: var(--weight-semibold); }
   .status:empty { display: none; }
   .status[data-tone='error'] { color: var(--color-error); }

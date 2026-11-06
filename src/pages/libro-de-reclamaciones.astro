@@ -62,20 +62,20 @@ const next = `${site.url}/libro-de-reclamaciones.html?enviado=1`;
       <fieldset>
         <legend>1. Identificación del consumidor reclamante</legend>
         <div class="cols">
-          <Field label="DNI" name="dni" inputmode="numeric" pattern="\d{8}" maxlength="8" required hint="8 dígitos" error="El DNI debe tener 8 dígitos." />
-          <Field label="Nombres" name="nombres" autocomplete="given-name" required error="Escribe tus nombres." />
-          <Field label="Apellidos" name="apellidos" autocomplete="family-name" required error="Escribe tus apellidos." />
-          <Field label="Correo electrónico" name="email" type="email" autocomplete="email" required error="Revisa el formato del correo." />
-          <Field label="Teléfono" name="telefono" type="tel" autocomplete="tel" inputmode="tel" pattern="[0-9 +()-]{7,20}" required hint="De 7 a 15 dígitos; puedes incluir +" error="Escribe un teléfono válido." />
-          <Field label="Dirección" name="direccion" autocomplete="street-address" required error="Escribe tu dirección." />
+          <Field label="DNI" name="dni" placeholder="Ej.: 45678912" inputmode="numeric" pattern="\d{8}" maxlength="8" required hint="8 dígitos" error="El DNI debe tener 8 dígitos." />
+          <Field label="Nombres" name="nombres" placeholder="Ej.: María Fernanda" autocomplete="given-name" required error="Escribe tus nombres." />
+          <Field label="Apellidos" name="apellidos" placeholder="Ej.: Quispe Rojas" autocomplete="family-name" required error="Escribe tus apellidos." />
+          <Field label="Correo electrónico" name="email" type="email" placeholder="Ej.: maria.quispe@gmail.com" autocomplete="email" required error="Revisa el formato del correo." />
+          <Field label="Teléfono" name="telefono" placeholder="Ej.: 987 654 321" type="tel" autocomplete="tel" inputmode="tel" pattern="[0-9 +()-]{7,20}" required hint="De 7 a 15 dígitos; puedes incluir +" error="Escribe un teléfono válido." />
+          <Field label="Dirección" name="direccion" placeholder="Ej.: Av. Universitaria 1234, Los Olivos, Lima" autocomplete="street-address" required error="Escribe tu dirección." />
         </div>
       </fieldset>
 
       <fieldset>
         <legend>2. Identificación del servicio contratado</legend>
         <div class="cols">
-          <Field label="Monto reclamado (S/)" name="monto_reclamado" type="number" step="0.01" min="0" inputmode="decimal" />
-          <Field label="Descripción del servicio contratado" name="servicio_descripcion" />
+          <Field label="Monto reclamado (S/)" name="monto_reclamado" placeholder="Ej.: 350.00" type="number" step="0.01" min="0" inputmode="decimal" />
+          <Field label="Descripción del servicio contratado" name="servicio_descripcion" placeholder="Ej.: Asesoría de tesis de pregrado, plan Tesis Completa" />
         </div>
       </fieldset>
 
@@ -89,8 +89,8 @@ const next = `${site.url}/libro-de-reclamaciones.html?enviado=1`;
           <div><dt>Reclamo</dt><dd>Disconformidad relacionada con los productos o servicios.</dd></div>
           <div><dt>Queja</dt><dd>Disconformidad no relacionada con los productos o servicios, o malestar respecto a la atención al público.</dd></div>
         </dl>
-        <Field label="Detalle del inconveniente" name="detalle" type="textarea" required error="Describe el inconveniente." />
-        <Field label="Pedido del consumidor" name="pedido" type="textarea" required error="Indica qué solución solicitas." />
+        <Field label="Detalle del inconveniente" name="detalle" placeholder="Cuéntanos qué pasó: fecha, servicio y el inconveniente. Ej.: El 10 de octubre solicité la revisión de mi capítulo 2 y aún no recibo respuesta." type="textarea" required error="Describe el inconveniente." />
+        <Field label="Pedido del consumidor" name="pedido" placeholder="Indica qué solución esperas. Ej.: Que me entreguen la revisión del capítulo 2 en un plazo de 5 días." type="textarea" required error="Indica qué solución solicitas." />
         <div class="field-file">
           <label for="lr-adjuntos">Adjuntar archivos (opcional)</label>
           <input id="lr-adjuntos" type="file" name="attachment" multiple accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,video/*" aria-describedby="lr-adjuntos-ayuda" />
@@ -100,6 +100,7 @@ const next = `${site.url}/libro-de-reclamaciones.html?enviado=1`;
 
       <p class="legal">La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito previo para interponer una denuncia ante el INDECOPI. El proveedor debe dar respuesta al reclamo o queja en un plazo no mayor a quince (15) días hábiles, el cual es improrrogable. La respuesta será brindada mediante comunicación electrónica enviada a la dirección que has consignado. Si deseas que la respuesta te sea enviada a tu domicilio, indícalo en el detalle del reclamo o queja.</p>
 
+      <p class="consent">Al enviar, aceptas que usemos tus datos para atender tu reclamo, según nuestra <a href="/politica-privacidad.html">Política de privacidad</a>.</p>
       <Button type="submit">Enviar reclamo</Button>
     </form>
     </div>
@@ -154,6 +155,8 @@ const next = `${site.url}/libro-de-reclamaciones.html?enviado=1`;
   .field-file input { font-size: var(--step-small); }
 
   .legal { padding: var(--space-s) var(--space-m); border-radius: var(--radius-card); background-color: var(--navy-50); color: var(--ink-600); font-size: var(--step-small); line-height: 1.6; max-inline-size: none; }
+  .consent { margin-block-end: calc(-1 * var(--space-s)); color: var(--ink-600); font-size: var(--step-small); }
+  .consent a { color: var(--navy-600); font-weight: var(--weight-semibold); }
   .form :global(.button) { justify-self: start; min-block-size: 3.2rem; padding-inline: 2rem; border-radius: var(--radius-pill); background-image: var(--gradient-warm); color: var(--ink-900); font-weight: var(--weight-bold); }
 
   @media (min-width: 48em) { .sheet { padding: var(--space-l) var(--space-xl); } }

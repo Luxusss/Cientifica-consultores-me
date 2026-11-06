@@ -78,4 +78,4 @@ Sus funciones son:
 
 ## 11. Aceptación de esta Política
 
-Al seleccionar el checkbox, usted declara haber leído y aceptado los términos de esta Política de Protección de la Privacidad.
+Al enviar sus datos a través de cualquiera de los formularios de nuestra página web, usted declara haber leído y aceptado los términos de esta Política de Protección de la Privacidad y autoriza el tratamiento de sus datos personales para las finalidades descritas en ella. El envío de comunicaciones comerciales solo se realizará con su consentimiento expreso, que puede retirar en cualquier momento escribiendo a nuestro correo.
