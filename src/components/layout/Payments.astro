@@ -1,5 +1,5 @@
 ---
-/** Medios de pago en una sola fila compacta (barra inferior del pie de página), con los logos oficiales. */
+/** Medios de pago en una fila compacta junto a las redes sociales del pie de página, con los logos oficiales. */
 import { Image } from 'astro:assets';
 import { siAmericanexpress, siDinersclub, siMastercard, siPaypal, siVisa, siWesternunion } from 'simple-icons';
 import bcp from '@/assets/images/pagos/bcp.png';
@@ -40,14 +40,14 @@ const intl = [
 </div>
 
 <style>
-  .pay { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; }
-  .pay-label { color: var(--navy-100); font-size: var(--step-small); font-weight: var(--weight-semibold); }
-  .pay-list { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-  .chip { display: grid; place-items: center; block-size: 1.75rem; min-inline-size: 2.6rem; padding-inline: 0.4rem; border-radius: 0.4rem; background-color: #fff; }
+  .pay { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.6rem; }
+  .pay-label { color: var(--gold-400); font-size: var(--step-small); font-weight: var(--weight-bold); letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; }
+  .pay-list { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+  .chip { display: grid; place-items: center; block-size: 1.75rem; min-inline-size: 2.2rem; padding-inline: 0.25rem; border-radius: 0.4rem; background-color: #fff; }
   .chip svg { inline-size: 1.15rem; block-size: 1.15rem; }
-  .chip :global(.logo) { display: block; inline-size: auto; block-size: 0.95rem; max-inline-size: 4.5rem; object-fit: contain; }
-  .chip.sq { min-inline-size: 1.75rem; padding: 0; overflow: hidden; }
+  .chip :global(.logo) { display: block; inline-size: auto; block-size: 0.95rem; max-inline-size: 4rem; object-fit: contain; }
+  .chip.sq { inline-size: 1.75rem; min-inline-size: 0; padding: 0; overflow: hidden; }
   .chip.sq { background-color: #742284; }
-  .chip.sq :global(.logo) { block-size: 100%; inline-size: 100%; max-inline-size: none; object-fit: cover; transform: scale(1.35); }
+  .chip.sq :global(.logo) { block-size: 100%; inline-size: 100%; max-inline-size: none; object-fit: cover; }
   .plin { background-image: linear-gradient(135deg, #00d1c1, #2b5fd9); color: #fff; font-size: 0.78rem; font-weight: 800; }
 </style>

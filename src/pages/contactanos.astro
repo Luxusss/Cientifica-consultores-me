@@ -1,10 +1,12 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '@/layouts/Base.astro';
 import FormCard from '@/components/forms/FormCard.astro';
 import FormButton from '@/components/ui/FormButton.astro';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import BrandPhoto from '@/components/ui/BrandPhoto.astro';
 import Icon from '@/components/ui/Icon.astro';
+import advisorImg from '@/assets/images/banner/asesora-de-tesis-Cientifica-Consultores.jpg';
 import sessionImg from '@/assets/images/otros/equipo-de-asesores-en-reunion.jpg';
 import { fullAddress, site, whatsappUrl } from '@/config/site';
 import { planNames, planRows } from '@/data/plans';
@@ -53,35 +55,34 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
   schema={schema}
 >
   <section class="c-hero custom-hero" aria-labelledby="titulo">
-    <div class="page ch-top">
-      <span class="eyebrow ch-eyebrow">Contáctanos · Primera asesoría gratis</span>
-      <h1 id="titulo">Hablemos de <span class="ch-accent">tu tesis</span></h1>
-      <p class="ch-lede">Elige cómo prefieres escribirnos. Un asesor te responde en {site.replyTime}.</p>
-    </div>
-    <div class="page">
-      <div class="console">
-        <aside class="console-side">
-          <p class="cs-title"><span class="live" aria-hidden="true"></span>Asesores en línea</p>
-          <ul class="channels" role="list">
-            {channels.map((c) => (
-              <li>
-                <a class:list={['channel', c.cls]} href={c.href} target={c.external ? '_blank' : undefined} rel={c.external ? 'noopener' : undefined}>
-                  <span class="ch-icon" aria-hidden="true"><Icon name={c.icon} size="1.2rem" /></span>
-                  <span class="ch-text"><strong>{c.title}</strong><span>{c.text}</span></span>
-                  <small>{c.note}</small>
-                </a>
-              </li>
-            ))}
-          </ul>
-          <p class="cs-foot"><Icon name="shield" size="1rem" />Tus datos solo los usa tu asesor.</p>
-        </aside>
-        <div class="console-form">
-          <FormCard title="Cuéntanos tu caso" subject="Web Principal - Contacto" variant="short" submitLabel="Quiero mi asesoría gratis" hint="Ej.: estudio Enfermería en la UPN, tengo el proyecto avanzado y sustento en julio." />
+    <svg class="wm-cube" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 6 108 30v60L60 114 12 90V30z" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"/><path d="M12 30 60 54l48-24M60 54v60" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"/></svg>
+    <div class="page ch-grid">
+      <div class="ch-copy">
+        <Breadcrumbs current="Contáctanos" inline />
+        <span class="eyebrow ch-eyebrow">Primera asesoría gratis</span>
+        <h1 id="titulo">Hablemos de <span class="ch-accent">tu tesis</span></h1>
+        <p class="ch-lede">Elige cómo prefieres escribirnos. Un asesor te responde en {site.replyTime}.</p>
+        <ul class="channels" role="list">
+          {channels.map((c) => (
+            <li>
+              <a class:list={['channel', c.cls]} href={c.href} target={c.external ? '_blank' : undefined} rel={c.external ? 'noopener' : undefined}>
+                <span class="ch-icon" aria-hidden="true"><Icon name={c.icon} size="1.15rem" /></span>
+                <span class="ch-text"><strong>{c.title}</strong><span>{c.text}</span><small>{c.note}</small></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p class="cs-foot"><Icon name="shield" size="1rem" />Tus datos solo los usa tu asesor.</p>
+      </div>
+      <div class="ch-form">
+        <div class="advisor">
+          <span class="advisor-ph"><Image src={advisorImg} alt="" width={480} class="advisor-img" /></span>
+          <p><strong>Te atiende un asesor de tu carrera</strong><span><span class="live" aria-hidden="true"></span>En línea de lunes a sábado</span></p>
         </div>
+        <FormCard title="Cuéntanos tu caso" subject="Web Principal - Contacto" variant="short" submitLabel="Quiero mi asesoría gratis" hint="Ej.: estudio Enfermería en la UPN, tengo el proyecto avanzado y sustento en julio." />
       </div>
     </div>
   </section>
-  <Breadcrumbs current="Contáctanos" />
 
   <section class="section-wide" aria-labelledby="planes">
     <div class="page stack stack-xl">
@@ -198,40 +199,48 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
 <style>
   /* El mapa ya está en esta página: no se repite el del pie */
   :global(body:has(#horarios .map-box) .footer .visit) { display: none; }
-  /* Banner de contacto: título centrado sobre azul y una consola blanca (canales + formulario) que baja sobre el fondo claro */
-  .c-hero { position: relative; isolation: isolate; padding-block: var(--space-xl) var(--space-l); background-color: var(--paper-0); }
-  .c-hero::before { content: ''; position: absolute; z-index: -1; inset: 0 0 auto; block-size: 62%; background-image: var(--gradient-brand); }
-  .c-hero::after { content: ''; position: absolute; z-index: -1; inset: 0 0 auto; block-size: 62%; background-image: radial-gradient(circle at 1px 1px, rgb(255 255 255 / 0.12) 1px, transparent 0); background-size: 22px 22px; mask-image: linear-gradient(180deg, #000, transparent); }
-  .ch-top { display: grid; justify-items: center; gap: var(--space-xs); margin-block-end: var(--space-l); text-align: center; }
+  /* Banner de contacto: una sola pieza azul con migas, título, canales y el formulario dentro */
+  .c-hero { position: relative; overflow: hidden; isolation: isolate; padding-block: var(--space-l) var(--space-xl); background-image: var(--gradient-brand); color: var(--paper-0); }
+  .wm-cube { position: absolute; z-index: -1; inset-block-end: -7rem; inset-inline-end: -6rem; inline-size: 30rem; color: rgb(255 255 255 / 0.05); }
+  .ch-grid { display: grid; gap: var(--space-l); align-items: center; }
+  .ch-copy { display: grid; gap: var(--space-s); justify-items: start; }
+  .ch-copy :global(.crumb-bar) { margin-block-end: var(--space-2xs); }
   .ch-eyebrow { background-color: rgb(255 255 255 / 0.12); color: var(--gold-400); }
-  .ch-top h1 { color: var(--paper-0); font-size: clamp(2.4rem, 1.3rem + 2.2vw, 3.6rem); line-height: 1.02; letter-spacing: -0.03em; }
+  .ch-copy h1 { color: var(--paper-0); font-size: clamp(2.4rem, 1.3rem + 2.2vw, 3.6rem); line-height: 1.02; letter-spacing: -0.03em; }
   .ch-accent { color: var(--orange-500); }
-  .ch-lede { color: var(--navy-100); font-size: var(--step-lead); max-inline-size: 46ch; }
+  .ch-lede { color: var(--navy-100); font-size: var(--step-lead); max-inline-size: 40ch; }
 
-  .console { display: grid; overflow: hidden; border-radius: calc(var(--radius-card) + 0.6rem); background-color: var(--paper-0); box-shadow: 0 40px 80px -36px rgb(20 31 102 / 0.55), 0 0 0 1px rgb(0 0 0 / 0.04); }
-  .console-side { display: grid; gap: var(--space-s); align-content: start; padding: var(--space-m); background-color: var(--paper-1); }
-  .cs-title { display: inline-flex; align-items: center; gap: 0.55em; color: var(--navy-700); font-size: var(--step-small); font-weight: var(--weight-bold); letter-spacing: 0.04em; text-transform: uppercase; }
-  .live { inline-size: 0.55rem; block-size: 0.55rem; border-radius: 50%; background-color: var(--whatsapp-500); box-shadow: 0 0 0 4px rgb(37 211 102 / 0.25); }
-  .channels { display: grid; gap: var(--space-2xs); }
-  .channel { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: auto auto; column-gap: var(--space-s); align-items: center; padding: 0.7rem 0.85rem; border-radius: var(--radius-card); background-color: var(--paper-0); color: var(--ink-900); text-decoration: none; box-shadow: inset 0 0 0 1px var(--paper-2); transition: box-shadow var(--duration-ui) ease, transform var(--duration-ui) var(--ease-out); }
-  .ch-icon { grid-row: 1 / span 2; display: grid; place-items: center; inline-size: 2.6rem; block-size: 2.6rem; border-radius: 0.85rem; color: var(--paper-0); }
+  .channels { display: grid; gap: var(--space-xs); inline-size: 100%; margin-block-start: var(--space-xs); }
+  .channel { display: flex; align-items: center; gap: var(--space-s); block-size: 100%; padding: 0.8rem 0.9rem; border-radius: var(--radius-card); background-color: rgb(255 255 255 / 0.07); color: var(--paper-0); text-decoration: none; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.12); transition: background-color var(--duration-ui) ease, box-shadow var(--duration-ui) ease, transform var(--duration-ui) var(--ease-out); }
+  .ch-icon { display: grid; place-items: center; flex-shrink: 0; inline-size: 2.5rem; block-size: 2.5rem; border-radius: 0.8rem; color: var(--paper-0); }
   .wa .ch-icon { background-color: var(--whatsapp-500); color: var(--ink-900); }
-  .mail .ch-icon { background-image: var(--gradient-brand); }
+  .mail .ch-icon { background-color: var(--paper-0); color: var(--navy-600); }
   .call .ch-icon { background-image: var(--gradient-warm); color: var(--ink-900); }
-  .office .ch-icon { background-color: var(--navy-50); color: var(--navy-600); }
-  .ch-text { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.5rem; min-inline-size: 0; }
+  .office .ch-icon { background-color: var(--gold-400); color: var(--navy-700); }
+  .ch-text { display: grid; min-inline-size: 0; line-height: 1.3; }
   .ch-text strong { font-size: var(--step-ui); }
-  .ch-text span { overflow: hidden; color: var(--ink-600); font-size: var(--step-small); text-overflow: ellipsis; white-space: nowrap; }
-  .channel small { color: var(--orange-600); font-size: 0.72rem; font-weight: var(--weight-bold); }
-  .cs-foot { display: flex; align-items: center; gap: 0.5em; margin-block-start: auto; padding-block-start: var(--space-s); border-block-start: 1px solid var(--paper-2); color: var(--ink-600); font-size: var(--step-small); }
-  .cs-foot :global(svg) { color: var(--navy-600); }
-  .console-form :global(.form-card) { max-inline-size: none; padding: var(--space-l); border-radius: 0; background-color: var(--paper-0); color: var(--ink-900); box-shadow: none; }
-  .console-form :global(.form-card > h2) { font-family: var(--font-display); font-size: var(--step-title); }
-  .console-form :global(.form-card .button[type='submit']) { min-block-size: 3.2rem; border-radius: var(--radius-pill); background-image: var(--gradient-warm); color: var(--ink-900); font-weight: var(--weight-bold); }
+  .ch-text span { overflow: hidden; color: var(--navy-100); font-size: var(--step-small); text-overflow: ellipsis; white-space: nowrap; }
+  .ch-text small { color: var(--gold-400); font-size: 0.72rem; font-weight: var(--weight-bold); }
+  .cs-foot { display: flex; align-items: center; gap: 0.5em; color: var(--navy-100); font-size: var(--step-small); }
+  .cs-foot :global(svg) { color: var(--gold-400); }
+
+  .ch-form { overflow: hidden; border-radius: calc(var(--radius-card) + 0.6rem); background-color: var(--paper-0); color: var(--ink-900); box-shadow: 0 40px 80px -30px rgb(5 10 50 / 0.6); }
+  .advisor { display: flex; align-items: center; gap: var(--space-s); padding: var(--space-s) var(--space-m); background-color: var(--paper-1); border-block-end: 1px solid var(--paper-2); }
+  /* Recorte al rostro de la asesora dentro del círculo */
+  .advisor-ph { position: relative; flex-shrink: 0; overflow: hidden; inline-size: 3rem; block-size: 3rem; border-radius: 50%; box-shadow: 0 0 0 3px var(--paper-0), 0 0 0 5px var(--orange-500); }
+  .advisor-ph :global(.advisor-img) { position: absolute; inset-block-start: -0.2rem; inset-inline-start: -8.3rem; block-size: 7.8rem; inline-size: auto; max-inline-size: none; }
+  .advisor p { display: grid; gap: 0.1rem; color: var(--navy-700); font-size: var(--step-ui); line-height: 1.3; }
+  .advisor p > span { display: inline-flex; align-items: center; gap: 0.45em; color: var(--ink-600); font-size: var(--step-small); }
+  .live { inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; background-color: var(--whatsapp-500); box-shadow: 0 0 0 3px rgb(37 211 102 / 0.25); }
+  .ch-form :global(.form-card) { max-inline-size: none; padding: var(--space-m); border-radius: 0; background-color: var(--paper-0); color: var(--ink-900); box-shadow: none; }
+  .ch-form :global(.form-card > h2) { font-family: var(--font-display); font-size: var(--step-title); }
+  .ch-form :global(.form-card .button[type='submit']) { min-block-size: 3.2rem; border-radius: var(--radius-pill); background-image: var(--gradient-warm); color: var(--ink-900); font-weight: var(--weight-bold); }
+  @media (min-width: 40em) { .channels { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 64em) {
-    .console { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
-    .console-side { padding: var(--space-l); border-inline-end: 1px solid var(--paper-2); }
-    .console-form :global(.form-card) { padding: var(--space-l) var(--space-xl); }
+    .c-hero { padding-block: var(--space-l) var(--space-2xl); }
+    .ch-grid { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: var(--space-xl); }
+    .advisor { padding-inline: var(--space-l); }
+    .ch-form :global(.form-card) { padding: var(--space-m) var(--space-l) var(--space-l); }
   }
 
   /* Comparativa de planes */
@@ -304,7 +313,6 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
   @media (min-width: 64em) { .visit { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); } .map-box { min-block-size: 100%; } }
 
   @media (hover: hover) and (pointer: fine) {
-    .channel:hover { transform: translateY(-3px); box-shadow: var(--shadow-lift); }
-    .channel:hover .ch-go { transform: translateX(3px); }
+    .channel:hover { transform: translateY(-2px); background-color: rgb(255 255 255 / 0.12); box-shadow: inset 0 0 0 1px rgb(254 143 1 / 0.6); }
   }
 </style>

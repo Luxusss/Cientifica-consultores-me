@@ -4,14 +4,16 @@ import type { NavLink } from '@/config/navigation';
 interface Props {
   current?: string;
   trail?: NavLink[];
+  /** Dentro de un banner oscuro: sin contenedor propio y con cápsula translúcida */
+  inline?: boolean;
 }
 
-const { current, trail = [] } = Astro.props;
+const { current, trail = [], inline = false } = Astro.props;
 const links: NavLink[] = [{ label: 'Inicio', href: '/' }, ...trail];
 ---
 
-<div class="crumb-bar">
-  <nav class="page crumbs" aria-label="Migas de pan">
+<div class:list={['crumb-bar', { inline }]}>
+  <nav class:list={['crumbs', { page: !inline }]} aria-label="Migas de pan">
     <ol role="list">
       {links.map((link) => (
         <li><a href={link.href}>{link.href === '/' && <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 3 3 10.5V21h6.5v-6h5v6H21V10.5z" fill="currentColor" /></svg>}{link.label}</a><span class="sep" aria-hidden="true">›</span></li>
@@ -31,6 +33,10 @@ const links: NavLink[] = [{ label: 'Inicio', href: '/' }, ...trail];
   a svg { color: var(--gold-400); }
   .sep { color: var(--gold-400); font-weight: var(--weight-bold); }
   [aria-current='page'] { display: inline-flex; align-items: center; min-block-size: 2rem; color: var(--paper-0); font-weight: var(--weight-bold); }
+
+  .inline .crumbs { padding: 0; }
+  .inline ol { padding: 0.3rem 0.9rem; background-image: none; background-color: rgb(255 255 255 / 0.08); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.16); font-size: var(--step-small); }
+  .inline a, .inline [aria-current='page'] { min-block-size: 1.75rem; }
 
   @media (hover: hover) and (pointer: fine) {
     a:hover { color: var(--paper-0); }
