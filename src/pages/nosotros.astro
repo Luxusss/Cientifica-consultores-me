@@ -202,9 +202,10 @@ const schema = [
   @media (max-width: 39.99em) { .ah-figs li:nth-child(3) { border-inline-start: 0; } .ah-figs li:nth-child(n + 3) { border-block-start: 1px solid rgb(255 255 255 / 0.12); } .c2 { display: none; } }
   @media (min-width: 64em) {
     .about-hero { padding-block: var(--space-2xl); }
-    .ah-grid { grid-template-columns: minmax(0, 30rem) minmax(0, 1fr); column-gap: var(--space-2xl); }
-    .about-hero > .page { inline-size: calc(100% - 2 * var(--edge)); max-inline-size: 80rem; }
-    .ah-mosaic { inline-size: 100%; max-inline-size: 50rem; justify-self: end; }
+    /* Más espacio para el mosaico de fotos: página más ancha y columna de texto algo más angosta */
+    .ah-grid { grid-template-columns: minmax(0, 28rem) minmax(0, 1fr); column-gap: var(--space-xl); }
+    .about-hero > .page { inline-size: calc(100% - 2 * var(--edge)); max-inline-size: 92rem; }
+    .ah-mosaic { inline-size: 100%; max-inline-size: 62rem; justify-self: end; }
     .ah-figs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .ah-figs li:nth-child(3) { border-inline-start: 0; }
     .ah-figs li:nth-child(n + 3) { border-block-start: 1px solid rgb(255 255 255 / 0.12); }
