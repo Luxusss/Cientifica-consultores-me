@@ -11,9 +11,9 @@ import tecnologicos from '@/assets/images/otros_servicios/proyectos/tecnologico-
 import campo from '@/assets/images/otros_servicios/datos_informacion/campo-asesora-mercado.jpg';
 import procesamiento from '@/assets/images/otros_servicios/datos_informacion/procesamiento-asesor-encuestas.jpg';
 import analisis from '@/assets/images/otros_servicios/datos_informacion/analisis-asesor-graficos.jpg';
-import ortotipografica from '@/assets/images/otros_servicios/correccion_redaccion/Correccion_ortotipo.jpg';
-import estilo from '@/assets/images/otros_servicios/correccion_redaccion/correcion_de_estilo.jpeg';
-import normas from '@/assets/images/otros_servicios/correccion_redaccion/manual_de_redaccion.jpg';
+import ortotipografica from '@/assets/images/otros_servicios/correccion_redaccion/ortotipografica-asesora-imprenta.jpg';
+import estilo from '@/assets/images/otros_servicios/correccion_redaccion/estilo-asesor-cafe.jpg';
+import normas from '@/assets/images/otros_servicios/correccion_redaccion/normas-asesora-biblioteca.jpg';
 
 /** focus: punto horizontal (en %) que debe quedar a la vista cuando la tarjeta recorta los lados de la foto */
 export type ServiceItem = { name: string; image: ImageMetadata; alt: string; text: string; href?: string; focus?: 35 | 65 | 70 | 75 | 80 | 85 };
