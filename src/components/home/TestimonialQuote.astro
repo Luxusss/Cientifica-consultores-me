@@ -3,7 +3,6 @@ import { Image } from 'astro:assets';
 import type { Testimonial } from '@/data/proof';
 import { stats } from '@/data/stats';
 import { captures } from '@/data/captures';
-import Icon from '@/components/ui/Icon.astro';
 import graduados from '@/assets/images/otros/graduados.jpg';
 
 interface Props {
@@ -16,7 +15,7 @@ const initials = (name: string) => name.split(' ').filter(Boolean).slice(0, 2).m
 type Card = { quote: string; name: string; meta: string; wa?: boolean };
 const rows: Card[][] = [
   testimonials.map((t) => ({ quote: t.quote, name: t.name, meta: `${t.university}, ${t.country}` })),
-  captures.map((c) => ({ quote: c.preview, name: c.name, meta: `Mensaje de WhatsApp · ${c.tag}`, wa: true })),
+  captures.map((c) => ({ quote: c.preview, name: c.name, meta: `${c.tag} · por WhatsApp`, wa: true })),
 ];
 ---
 
@@ -38,11 +37,11 @@ const rows: Card[][] = [
         {[0, 1].map((copy) => (
           <ul class="track" role="list" aria-hidden={copy === 1 ? 'true' : undefined} aria-label={copy === 0 ? (r === 0 ? 'Testimonios de clientes' : 'Mensajes de WhatsApp de nuestros tesistas') : undefined}>
             {list.map((t, i) => (
-              <li class:list={['card', `tone-${((i + r * 2) % 5) + 1}`, { wa: t.wa }]}>
+              <li class:list={['card', `tone-${((i + r * 2) % 5) + 1}`]}>
                 <figure>
                   <blockquote><p>“{t.quote}”</p></blockquote>
                   <figcaption>
-                    <span class="avatar" aria-hidden="true">{t.wa ? <Icon name="whatsapp" size="1.15rem" /> : initials(t.name)}</span>
+                    <span class="avatar" aria-hidden="true">{initials(t.name)}</span>
                     <span class="who">
                       <strong>{t.name}</strong>
                       <span>{t.meta}</span>
@@ -101,9 +100,7 @@ const rows: Card[][] = [
   .who { display: grid; gap: 0.1rem; line-height: 1.3; }
   .who strong { font-size: var(--step-ui); }
   .who span { font-size: var(--step-small); color: var(--ink-600); }
-  /* Tarjetas de mensajes de WhatsApp: frase más grande (son cortas) y avatar verde con el ícono */
-  .wa blockquote p { font-family: var(--font-display); font-size: var(--step-title); line-height: 1.35; color: var(--ink-900); }
-  .wa .avatar { background-image: none; background-color: var(--whatsapp-500); color: var(--ink-900); }
+
 
   .more-wrap { display: grid; justify-items: center; }
 
