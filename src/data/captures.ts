@@ -29,20 +29,22 @@ export const captures: Capture[] = [
 ];
 
 /**
- * Logros que los clientes nos contaron en esas mismas conversaciones.
- * Se muestran como una cinta en la sección de testimonios del inicio, debajo de las reseñas.
+ * Testimonios de la segunda fila del inicio: lo que cada cliente escribió en esas mismas conversaciones,
+ * redactado en un tono más formal. Se conserva el sentido de su mensaje y no se agrega nada que no haya dicho;
+ * por eso cada tarjeta indica que es un mensaje de WhatsApp adaptado.
  */
-export type Win = { name: string; result: string };
-export const wins: Win[] = [
-  { name: 'Sergio', result: 'tesis aprobada por unanimidad' },
-  { name: 'Hans', result: 'sustentó con 15' },
-  { name: 'Angelo', result: 'tesis aprobada' },
-  { name: 'Silvia', result: 'aprobó su sustentación' },
-  { name: 'Daniel y su compañera', result: 'aprobados con 15' },
-  { name: 'Jaime', result: 'pasó su sustentación' },
-  { name: 'Jessica', result: 'sustentación aprobada' },
-  { name: 'Kami', result: 'ya sustentó' },
-  { name: 'Tesista', result: 'plan de tesis aceptado por su universidad' },
-  { name: 'Tesista', result: 'tesis aprobada' },
-  { name: 'Tesista', result: 'sustentación aprobada' },
+export type ChatQuote = { name: string; tag: string; quote: string };
+export const chatQuotes: ChatQuote[] = [
+  { name: 'Hans', tag: 'Sustentación aprobada', quote: 'Sustenté el miércoles y obtuve una nota satisfactoria: entre el trabajo y la sustentación, la calificación fue 15. Estoy muy agradecido por el apoyo que me brindaron.' },
+  { name: 'Sergio', tag: 'Tesis aprobada por unanimidad', quote: 'Quiero agradecerles por su apoyo. Realizamos la sustentación de nuestra tesis y fue aprobada por unanimidad. Muchas gracias.' },
+  { name: 'Tesista', tag: 'Recomendación', quote: 'Muchas gracias por su apoyo. Los recomendaré, porque con ustedes no tuve mayores inconvenientes. Son muy profesionales.' },
+  { name: 'Daniel y su compañera', tag: 'Aprobados con 15', quote: 'Gracias a Dios, aprobamos con 15 y por fin dejamos atrás el estrés. Agradecemos al equipo de Científica Consultores por su apoyo durante todo este proceso.' },
+  { name: 'Angelo', tag: 'Tesis aprobada', quote: 'Me aprobaron la tesis. Muchas gracias por todo su apoyo y su guía.' },
+  { name: 'Tesista', tag: 'Plan de tesis aprobado', quote: 'Les informo que la universidad aceptó mi plan de tesis y que ya presenté la solicitud para la designación de mi asesor.' },
+  { name: 'Silvia', tag: 'Sustentación aprobada', quote: 'Ya sustenté y aprobé. Muchas gracias por todo; había estado con los nervios de punta.' },
+  { name: 'Luz', tag: 'Agradecimiento', quote: 'Me uno al agradecimiento de Sergio. ¡Muchísimas gracias por todo! Bendiciones.' },
+  { name: 'Jaime', tag: 'Sustentación aprobada', quote: 'Ayer sustenté y aprobé mi tesis. Muchas gracias por el apoyo.' },
+  { name: 'Tesista', tag: 'Tesis aprobada', quote: 'Mi tesis fue aprobada. Gracias por el trabajo realizado; ahora continuaremos con las asesorías que faltan.' },
+  { name: 'Jessica', tag: 'Sustentación aprobada', quote: '¡Aprobamos la sustentación! Muchas gracias por todo su apoyo.' },
+  { name: 'Tesista', tag: 'Sustentación aprobada', quote: 'Buen día. Les comento que aprobé mi sustentación de tesis. Gracias.' },
 ];
