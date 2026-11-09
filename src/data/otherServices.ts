@@ -8,14 +8,15 @@ import mejora from '@/assets/images/otros_servicios/proyectos/mejora-asesor-plan
 import innovacion from '@/assets/images/otros_servicios/proyectos/innovacion-asesora-prototipo.jpg';
 import factibilidad from '@/assets/images/otros_servicios/proyectos/factibilidad-asesor-local.jpg';
 import tecnologicos from '@/assets/images/otros_servicios/proyectos/tecnologico-asesora-bodega.jpg';
-import campo from '@/assets/images/otros_servicios/datos_informacion/trabajo_de_campo.jpg';
+import campo from '@/assets/images/otros_servicios/datos_informacion/campo-asesora-mercado.jpg';
 import procesamiento from '@/assets/images/otros_servicios/datos_informacion/procesamiento.jpg';
-import analisis from '@/assets/images/otros_servicios/datos_informacion/analisis.jpg';
+import analisis from '@/assets/images/otros_servicios/datos_informacion/analisis-asesor-graficos.jpg';
 import ortotipografica from '@/assets/images/otros_servicios/correccion_redaccion/Correccion_ortotipo.jpg';
 import estilo from '@/assets/images/otros_servicios/correccion_redaccion/correcion_de_estilo.jpeg';
 import normas from '@/assets/images/otros_servicios/correccion_redaccion/manual_de_redaccion.jpg';
 
-export type ServiceItem = { name: string; image: ImageMetadata; alt: string; text: string; href?: string };
+/** focus: punto horizontal (en %) que debe quedar a la vista cuando la tarjeta recorta los lados de la foto */
+export type ServiceItem = { name: string; image: ImageMetadata; alt: string; text: string; href?: string; focus?: 35 | 65 | 70 | 75 | 80 | 85 };
 export type ServiceGroup = {
   id: string;
   name: string;
@@ -47,8 +48,8 @@ export const otherServices: ServiceGroup[] = [
     summary: 'Trabajos basados en tu experiencia o en datos reales de una empresa o un mercado. Te guiamos para que el resultado sea aplicable y bien sustentado.',
     forWho: 'Para profesionales que trabajan y emprendedores.',
     items: [
-      { name: 'Trabajo de suficiencia profesional', image: tsp, alt: 'Trabajo de suficiencia profesional', text: 'Convierte tu experiencia laboral en un informe para titularte, según el formato de tu universidad.', href: '/trabajo-de-suficiencia-profesional.html' },
-      { name: 'Planes de negocio', image: negocios, alt: 'Plan de negocios', text: 'Estructuramos contigo el estudio de mercado, el modelo de negocio y las proyecciones financieras.' },
+      { name: 'Trabajo de suficiencia profesional', image: tsp, alt: 'Trabajo de suficiencia profesional', text: 'Convierte tu experiencia laboral en un informe para titularte, según el formato de tu universidad.', href: '/trabajo-de-suficiencia-profesional.html', focus: 75 },
+      { name: 'Planes de negocio', image: negocios, alt: 'Plan de negocios', text: 'Estructuramos contigo el estudio de mercado, el modelo de negocio y las proyecciones financieras.', focus: 70 },
     ],
   },
   {
@@ -60,8 +61,8 @@ export const otherServices: ServiceGroup[] = [
     items: [
       { name: 'Proyectos de mejora', image: mejora, alt: 'Proyectos de mejora', text: 'Diagnóstico de un proceso y una propuesta para optimizarlo con indicadores medibles.' },
       { name: 'Proyectos de innovación', image: innovacion, alt: 'Proyectos de innovación', text: 'Diseño de un producto, servicio o proceso nuevo, desde la idea hasta su validación.' },
-      { name: 'Proyectos de factibilidad', image: factibilidad, alt: 'Proyecto de factibilidad', text: 'Evaluación técnica, económica y financiera para saber si un proyecto es viable.' },
-      { name: 'Proyectos tecnológicos', image: tecnologicos, alt: 'Proyectos tecnológicos', text: 'Formulación de proyectos que aplican tecnología o software a un problema concreto.' },
+      { name: 'Proyectos de factibilidad', image: factibilidad, alt: 'Proyecto de factibilidad', text: 'Evaluación técnica, económica y financiera para saber si un proyecto es viable.', focus: 85 },
+      { name: 'Proyectos tecnológicos', image: tecnologicos, alt: 'Proyectos tecnológicos', text: 'Formulación de proyectos que aplican tecnología o software a un problema concreto.', focus: 80 },
     ],
   },
   {
@@ -71,7 +72,7 @@ export const otherServices: ServiceGroup[] = [
     summary: 'La parte más técnica de tu investigación: recoger, ordenar y analizar tus datos con el software adecuado, para que tus resultados sean confiables.',
     forWho: 'Para tesis, artículos e investigaciones de cualquier área.',
     items: [
-      { name: 'Trabajo de campo', image: campo, alt: 'Trabajo de campo', text: 'Recojo de datos con técnicas cuantitativas (encuestas) y cualitativas (entrevistas y grupos focales).' },
+      { name: 'Trabajo de campo', image: campo, alt: 'Trabajo de campo', text: 'Recojo de datos con técnicas cuantitativas (encuestas) y cualitativas (entrevistas y grupos focales).', focus: 65 },
       { name: 'Procesamiento', image: procesamiento, alt: 'Procesamiento de datos', text: 'Armamos tus bases de datos y transcribimos entrevistas y grupos focales.' },
       { name: 'Análisis', image: analisis, alt: 'Análisis de datos', text: 'Análisis estadístico descriptivo e inferencial, y análisis cualitativo de contenido.' },
     ],

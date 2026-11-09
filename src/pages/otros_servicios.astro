@@ -65,7 +65,7 @@ import BrandMark from '@/components/ui/BrandMark.astro';
           {g.items.map((item, k) => (
             <li class:list={['card', (i + k) % 2 ? 'tone-6' : 'tone-1']}>
               <div class="brand-frame frame"><BrandMark tone="light" />
-                <Image src={item.image} alt={item.alt} widths={[360, 540, 720]} sizes="(min-width: 64em) 30vw, (min-width: 40em) 45vw, 100vw" class="photo" />
+                <Image src={item.image} alt={item.alt} widths={[360, 540, 720]} sizes="(min-width: 64em) 30vw, (min-width: 40em) 45vw, 100vw" class:list={['photo', item.focus && `fx-${item.focus}`]} />
                 <span class="num">{String(k + 1).padStart(2, '0')}</span>
               </div>
               <div class="body">
@@ -110,6 +110,13 @@ import BrandMark from '@/components/ui/BrandMark.astro';
   .card { position: relative; isolation: isolate; display: grid; grid-template-rows: auto 1fr; border-radius: var(--radius-card); background-color: var(--paper-0); box-shadow: var(--shadow-card); transition: opacity var(--duration-reveal) var(--ease-expo), transform var(--duration-reveal) var(--ease-expo), translate var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) ease; }
   .frame { position: relative; overflow: hidden; border-start-start-radius: var(--radius-card); border-start-end-radius: var(--radius-card); }
   /* Misma altura de foto en todos los grupos, sin importar cuántas tarjetas tenga */
+  /* Encuadre de cada foto: deja a la vista a la persona y a quien la acompaña cuando la tarjeta recorta los lados */
+  .photo.fx-35 { object-position: 35% 50%; }
+  .photo.fx-65 { object-position: 65% 50%; }
+  .photo.fx-70 { object-position: 70% 50%; }
+  .photo.fx-75 { object-position: 75% 50%; }
+  .photo.fx-80 { object-position: 80% 50%; }
+  .photo.fx-85 { object-position: 85% 50%; }
   .photo { display: block; inline-size: 100%; block-size: 13.5rem; object-fit: cover; transition: transform var(--duration-reveal) var(--ease-out); }
   .num { position: absolute; inset-block-start: var(--space-xs); inset-inline-start: var(--space-xs); display: grid; place-items: center; inline-size: 2.3rem; block-size: 2.3rem; border-radius: 0.75rem; background-image: var(--tone-grad); color: var(--paper-0); font-size: var(--step-small); font-weight: var(--weight-bold); box-shadow: 0 8px 16px -8px rgb(0 0 0 / 0.5); }
   .body { display: grid; grid-template-rows: auto 1fr auto; gap: var(--space-2xs); padding: var(--space-m); }
