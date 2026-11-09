@@ -5,9 +5,9 @@ import articuloRevision from '@/assets/images/otros_servicios/estudios_teoricos/
 import tsp from '@/assets/images/otros_servicios/estudios_empiricos/tsp-asesor-empresa.jpg';
 import negocios from '@/assets/images/otros_servicios/estudios_empiricos/plan-negocio-asesora-cafeteria.jpg';
 import mejora from '@/assets/images/otros_servicios/proyectos/Proyectos-de-mejora.jpg';
-import innovacion from '@/assets/images/otros_servicios/proyectos/Proyectos-de-innovacion.jpg';
-import factibilidad from '@/assets/images/otros_servicios/proyectos/Proyecto-de-factibilidad.jpg';
-import tecnologicos from '@/assets/images/otros_servicios/proyectos/Proyectos-tecnologicos.jpg';
+import innovacion from '@/assets/images/otros_servicios/proyectos/innovacion-asesora-prototipo.jpg';
+import factibilidad from '@/assets/images/otros_servicios/proyectos/factibilidad-asesor-local.jpg';
+import tecnologicos from '@/assets/images/otros_servicios/proyectos/tecnologico-asesora-bodega.jpg';
 import campo from '@/assets/images/otros_servicios/datos_informacion/trabajo_de_campo.jpg';
 import procesamiento from '@/assets/images/otros_servicios/datos_informacion/procesamiento.jpg';
 import analisis from '@/assets/images/otros_servicios/datos_informacion/analisis.jpg';
