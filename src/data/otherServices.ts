@@ -9,7 +9,7 @@ import innovacion from '@/assets/images/otros_servicios/proyectos/innovacion-ase
 import factibilidad from '@/assets/images/otros_servicios/proyectos/factibilidad-asesor-local.jpg';
 import tecnologicos from '@/assets/images/otros_servicios/proyectos/tecnologico-asesora-bodega.jpg';
 import campo from '@/assets/images/otros_servicios/datos_informacion/campo-asesora-mercado.jpg';
-import procesamiento from '@/assets/images/otros_servicios/datos_informacion/procesamiento.jpg';
+import procesamiento from '@/assets/images/otros_servicios/datos_informacion/procesamiento-asesor-encuestas.jpg';
 import analisis from '@/assets/images/otros_servicios/datos_informacion/analisis-asesor-graficos.jpg';
 import ortotipografica from '@/assets/images/otros_servicios/correccion_redaccion/Correccion_ortotipo.jpg';
 import estilo from '@/assets/images/otros_servicios/correccion_redaccion/correcion_de_estilo.jpeg';
