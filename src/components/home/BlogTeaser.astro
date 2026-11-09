@@ -47,7 +47,7 @@ const minutes = (body = '') => Math.max(1, Math.round(body.split(/\s+/).length /
   .accent { color: var(--navy-600); }
   .head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: var(--space-s); }
   .cal { position: absolute; inset-block-end: var(--space-xs); inset-inline-end: var(--space-xs); display: grid; justify-items: center; min-inline-size: 3rem; padding: 0.35rem 0.5rem; border-radius: 0.75rem; background-color: var(--paper-0); color: var(--ink-600); font-size: var(--step-small); line-height: 1.1; text-transform: uppercase; box-shadow: var(--shadow-card); }
-  .cal strong { color: var(--tone); font-size: var(--step-title); }
+  .cal strong { color: var(--tone-ink, var(--tone)); font-size: var(--step-title); }
   .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5em; font-size: var(--step-small); color: var(--ink-600); }
   .sep { color: var(--tone); }
 
@@ -68,7 +68,7 @@ const minutes = (body = '') => Math.max(1, Math.round(body.split(/\s+/).length /
   .cover { inline-size: 100%; aspect-ratio: 16 / 10; object-fit: cover; transition: transform var(--duration-reveal) var(--ease-out); }
   .tag { position: absolute; inset-block-start: var(--space-xs); inset-inline-start: var(--space-xs); padding: 0.25em 0.75em; border-radius: var(--radius-pill); background-image: var(--tone-grad); color: var(--paper-0); font-size: var(--step-small); font-weight: var(--weight-bold); }
   .body { display: flex; flex-direction: column; gap: var(--space-2xs); padding: var(--space-m); }
-  .date { color: var(--tone); font-weight: var(--weight-semibold); }
+  .date { color: var(--tone-ink, var(--tone)); font-weight: var(--weight-semibold); }
   .title { font-family: var(--font-display); font-size: var(--step-title); line-height: 1.25; font-weight: var(--weight-semibold); text-wrap: balance; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .excerpt { color: var(--color-text-soft); font-size: var(--step-small); line-height: var(--leading-body); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .read { margin-block-start: auto; padding-block-start: var(--space-2xs); color: var(--navy-600); font-size: var(--step-ui); font-weight: var(--weight-semibold); }

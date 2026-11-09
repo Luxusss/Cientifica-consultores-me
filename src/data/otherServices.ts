@@ -15,15 +15,12 @@ import ortotipografica from '@/assets/images/otros_servicios/correccion_redaccio
 import estilo from '@/assets/images/otros_servicios/correccion_redaccion/estilo-asesor-cafe.jpg';
 import normas from '@/assets/images/otros_servicios/correccion_redaccion/normas-asesora-biblioteca.jpg';
 
-/** focus: punto horizontal (en %) que debe quedar a la vista cuando la tarjeta recorta los lados de la foto */
 export type ServiceItem = { name: string; image: ImageMetadata; alt: string; text: string; href?: string; focus?: 35 | 65 | 70 | 75 | 80 | 85 };
 export type ServiceGroup = {
   id: string;
   name: string;
   icon: 'document' | 'users' | 'bolt' | 'list' | 'pen';
-  /** De qué se trata el grupo, en una o dos frases */
   summary: string;
-  /** Para quién es */
   forWho: string;
   items: ServiceItem[];
 };

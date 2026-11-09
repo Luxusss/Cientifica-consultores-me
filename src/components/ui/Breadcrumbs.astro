@@ -4,7 +4,6 @@ import type { NavLink } from '@/config/navigation';
 interface Props {
   current?: string;
   trail?: NavLink[];
-  /** Dentro de un banner oscuro: sin contenedor propio y con cápsula translúcida */
   inline?: boolean;
 }
 
@@ -24,7 +23,6 @@ const links: NavLink[] = [{ label: 'Inicio', href: '/' }, ...trail];
 </div>
 
 <style>
-  /* Migas de pan en una cápsula, sin raya divisoria */
   .crumb-bar { background-color: transparent; }
   .crumbs { padding-block: var(--space-s) 0; }
   ol { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; padding: 0.45rem 1.1rem; border-radius: var(--radius-pill); background-image: var(--gradient-brand); box-shadow: 0 10px 24px -12px rgb(29 45 140 / 0.55); font-size: var(--step-ui); }

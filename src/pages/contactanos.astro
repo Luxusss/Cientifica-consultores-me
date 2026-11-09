@@ -36,7 +36,6 @@ const steps = [
   { title: 'Tu asesor', text: 'Te asignamos un especialista de tu carrera y empezamos.' },
 ];
 
-// Días del horario para marcar el de hoy y mostrar si está abierto ahora (hora de Lima)
 const week = [
   { day: 'Lunes', d: 1, open: '09:00', close: '18:00' },
   { day: 'Martes', d: 2, open: '09:00', close: '18:00' },
@@ -186,7 +185,6 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
 </Base>
 
 <script>
-  // Marca el día de hoy y si la oficina está abierta, con la hora de Lima
   const week = document.querySelector<HTMLElement>('[data-week]');
   const statuses = document.querySelectorAll<HTMLElement>('[data-open-status]');
   if (week && statuses.length) {
@@ -208,9 +206,7 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
 </script>
 
 <style>
-  /* Esta página ya tiene su propio mapa: el del pie no se repite */
   :global(body:has(#horarios .map-box) .footer .visit) { display: none; }
-  /* Banner de contacto: claro, como un directorio de atención (estado en vivo + canales en lista) y un escritorio azul con el formulario */
   .c-hero { padding-block: var(--space-l) var(--space-xl); background-color: var(--paper-0); border-block-end: 1px solid var(--paper-2); }
   .ch-grid { display: grid; gap: var(--space-l); align-items: start; }
   .ch-copy { display: grid; gap: var(--space-s); justify-items: start; padding-block-start: var(--space-xs); }
@@ -219,13 +215,12 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
   .ch-copy :global(.crumb-bar.inline [aria-current='page']) { color: var(--navy-700); }
   .ch-copy :global(.crumb-bar.inline .sep), .ch-copy :global(.crumb-bar.inline a svg) { color: var(--orange-500); }
   .ch-copy h1 { color: var(--navy-700); font-size: clamp(2.4rem, 1.3rem + 2.2vw, 3.6rem); line-height: 1.02; letter-spacing: -0.03em; }
-  .ch-accent { color: var(--orange-500); }
+  .ch-accent { color: var(--orange-ink); }
   .ch-lede { color: var(--ink-600); font-size: var(--step-lead); max-inline-size: 44ch; }
-  .ch-status { display: inline-flex; align-items: center; gap: 0.5em; padding: 0.35rem 0.8rem; border-radius: var(--radius-pill); background-color: var(--orange-50); color: var(--orange-600); font-size: var(--step-small); font-weight: var(--weight-bold); }
+  .ch-status { display: inline-flex; align-items: center; gap: 0.5em; padding: 0.35rem 0.8rem; border-radius: var(--radius-pill); background-color: var(--orange-50); color: var(--orange-ink); font-size: var(--step-small); font-weight: var(--weight-bold); }
   .ch-status .dot { inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; background-color: currentColor; }
   .ch-status.open { background-color: rgb(37 211 102 / 0.12); color: #128c4a; }
 
-  /* Canales como filas de un directorio, separadas por líneas */
   .channels { inline-size: 100%; margin-block-start: var(--space-xs); border-block-start: 1px solid var(--paper-2); }
   .channels li { border-block-end: 1px solid var(--paper-2); }
   .channel { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; column-gap: var(--space-s); padding: 0.85rem 0.25rem; border-radius: 0.6rem; color: var(--ink-900); text-decoration: none; transition: background-color var(--duration-ui) ease, padding var(--duration-ui) var(--ease-out); }
@@ -235,12 +230,10 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
   .call .ch-icon { background-image: var(--gradient-warm); color: var(--ink-900); }
   .office .ch-icon { background-color: var(--navy-50); color: var(--navy-600); }
   .ch-name { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.6rem; font-weight: var(--weight-bold); }
-  .ch-name small { color: var(--orange-600); font-size: 0.75rem; }
+  .ch-name small { color: var(--orange-ink); font-size: 0.75rem; }
   .ch-value { grid-column: 2; overflow: hidden; color: var(--ink-600); font-size: var(--step-small); text-overflow: ellipsis; white-space: nowrap; }
   .ch-go { grid-column: 3; grid-row: 1 / span 2; color: var(--navy-600); font-weight: var(--weight-bold); transition: transform var(--duration-ui) var(--ease-out); }
 
-  /* Escritorio de atención: panel azul con la asesora y el formulario blanco dentro */
-  /* Superficie de marca: foto real del equipo bajo un velo azul, línea naranja-dorada arriba (la misma del pie) y el logo */
   .ch-desk, .cmp-plan.featured { position: relative; isolation: isolate; overflow: hidden; }
   .surf-img { position: absolute; z-index: -2; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; filter: grayscale(1) contrast(1.1); }
   .ch-desk::before, .cmp-plan.featured::before { content: ''; position: absolute; z-index: -1; inset: 0; background-image: linear-gradient(160deg, rgb(15 22 80 / 0.86) 0%, rgb(29 45 140 / 0.78) 55%, rgb(67 56 202 / 0.72) 100%); }
@@ -263,7 +256,6 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
     .ch-desk { padding: var(--space-m); }
   }
 
-  /* Comparativa de planes */
   .compare { overflow: hidden; border-radius: calc(var(--radius-card) + 0.35rem); background-color: var(--paper-0); box-shadow: var(--shadow-card); }
   .cmp-head, .cmp-row, .cmp-foot { display: grid; grid-template-columns: minmax(0, 1fr); }
   .cmp-corner { display: none; }
@@ -295,7 +287,6 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
     .cmp-plan { padding: var(--space-l) var(--space-m) var(--space-m); }
   }
 
-  /* Cómo empezamos */
   .guide { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
   .guide-copy { display: grid; gap: var(--space-m); }
   .guide-copy h2 { font-size: var(--step-head); margin-block-start: var(--space-2xs); }
@@ -308,7 +299,6 @@ const schema = [breadcrumb([{ name: 'Inicio', path: '/' }, { name: 'Contáctanos
   .timeline p { color: var(--color-text-soft); font-size: var(--step-ui); }
   @media (min-width: 64em) { .guide { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); } }
 
-  /* Horarios y ubicación */
   .visit { display: grid; overflow: hidden; border-radius: calc(var(--radius-card) + 0.35rem); background-color: var(--paper-0); box-shadow: var(--shadow-card); }
   .map-box { position: relative; min-block-size: 18rem; background-color: var(--navy-50); }
   .map-box iframe { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; border: 0; }

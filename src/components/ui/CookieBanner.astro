@@ -1,9 +1,4 @@
 ---
-/**
- * Aviso de cookies con Google Consent Mode v2.
- * La elección se guarda en el navegador (localStorage 'cc-consent': 'all' | 'essential')
- * y se comunica a Google con gtag('consent', 'update', …). El valor por defecto se fija en Base.astro.
- */
 import Icon from './Icon.astro';
 ---
 
@@ -11,7 +6,7 @@ import Icon from './Icon.astro';
   <span class="cc-icon" aria-hidden="true"><Icon name="shield" size="1.2rem" /></span>
   <p class="cc-text">
     Usamos cookies propias y de terceros para medir el uso del sitio y mostrarte anuncios relevantes.
-    Puedes aceptarlas o seguir solo con las esenciales. <a href="/politica-privacidad.html#8-uso-de-cookies-y-tecnologías-similares">Más información</a>.
+    Puedes aceptarlas o seguir solo con las esenciales. <a href="/politica-privacidad.html#8-uso-de-cookies-y-tecnologías-similares">Más información sobre cookies</a>.
   </p>
   <div class="cc-actions">
     <button type="button" class="cc-btn cc-reject" data-cc-choice="essential">Rechazar no esenciales</button>
@@ -30,7 +25,7 @@ import Icon from './Icon.astro';
   const close = () => { if (box) { box.classList.remove('is-open'); setTimeout(() => { box.hidden = true; }, 300); } };
 
   const save = (choice: string) => {
-    try { localStorage.setItem(KEY, choice); } catch { /* modo privado: se aplica solo en esta visita */ }
+    try { localStorage.setItem(KEY, choice); } catch {}
     const v = choice === 'all' ? 'granted' : 'denied';
     gtag('consent', 'update', { ad_storage: v, ad_user_data: v, ad_personalization: v, analytics_storage: v });
     w.dataLayer?.push({ event: 'cookie_consent', consent: choice });
@@ -38,7 +33,6 @@ import Icon from './Icon.astro';
   };
 
   box?.querySelectorAll<HTMLButtonElement>('[data-cc-choice]').forEach((b) => b.addEventListener('click', () => save(b.dataset.ccChoice!)));
-  // Enlace “Configurar cookies” del pie: vuelve a mostrar el aviso
   document.querySelectorAll('[data-cc-open]').forEach((b) => b.addEventListener('click', open));
   if (!read()) setTimeout(open, 1200);
 </script>
@@ -66,7 +60,6 @@ import Icon from './Icon.astro';
   }
   .cookie[hidden] { display: none; }
   .cookie.is-open { opacity: 1; translate: 0 0; }
-  /* Línea de marca arriba, como en el pie y los banners */
   .cookie::before { content: ''; position: absolute; inset: 0 1.5rem auto; block-size: 3px; border-radius: 0 0 3px 3px; background-image: linear-gradient(90deg, var(--orange-500), var(--gold-400), var(--sky-500)); }
   .cc-icon { display: grid; place-items: center; inline-size: 2.4rem; block-size: 2.4rem; border-radius: 0.75rem; background-color: var(--navy-50); color: var(--navy-600); }
   .cc-text { color: var(--ink-600); font-size: var(--step-small); line-height: 1.5; max-inline-size: none; }

@@ -48,7 +48,6 @@ export const universityLogos = [
   { file: 'universidad-valle-web.webp', name: 'Universidad del Valle' },
 ];
 
-/** Logo de cada universidad de la lista de clientes (revisado a mano: varios archivos tenían nombres equivocados). */
 export const logoByUniversity: Record<string, string> = {
   'Universidad Nacional Mayor de San Marcos': 'unmsm.jpg',
   'Pontificia Universidad Católica del Perú': 'pucp.jpg',
@@ -87,7 +86,6 @@ export const logoByUniversity: Record<string, string> = {
   'Universidad Diego Portales': 'udp-web.jpg',
   'Universidad de Tarapacá': 'universidad-tarapaca-web.webp',
   'Universidad Complutense de Madrid': 'universidad-complutense-web.webp',
-  // Universidades agregadas por país (logos oficiales de Wikimedia Commons)
   'Universidad Industrial de Santander': 'u-universidad-industrial-de-santander.png',
   'Universidad de Cartagena': 'u-universidad-de-cartagena.png',
   'Universidad Pontificia Bolivariana': 'u-universidad-pontificia-bolivariana.png',

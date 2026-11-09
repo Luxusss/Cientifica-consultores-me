@@ -56,7 +56,6 @@
   strong, b { font-weight: var(--weight-semibold); }
   small { font-size: var(--step-small); line-height: var(--leading-small); }
 
-  /* Enlaces sin subrayado: se distinguen por color y peso */
   a {
     color: var(--color-link);
     font-weight: var(--weight-semibold);
@@ -101,8 +100,6 @@
 
   .section { padding-block: calc(var(--section-gap) / 2); }
   .section-wide { padding-block: var(--section-gap); }
-  /* Franja alterna en azul muy suave de la marca para separar secciones */
-  /* La sección que sigue a las migas de pan empieza más arriba */
   .crumb-bar + .section-wide, .crumb-bar + * > .section-wide:first-child { padding-block-start: var(--space-m); }
 
   .stack { display: grid; gap: var(--stack, var(--space-s)); align-content: start; }
@@ -133,7 +130,6 @@
   .accent-mark { position: relative; padding-block-start: var(--space-m); }
   .accent-mark::before { content: ''; position: absolute; inset-block-start: 0; inset-inline-start: 0; inline-size: 3rem; block-size: 4px; background-color: var(--color-accent); }
 
-  /* Enlace tipo botón con contorno y flecha en círculo */
   .link-pill {
     display: inline-flex;
     align-items: center;
@@ -158,7 +154,6 @@
     .theme-field .link-pill:hover { background-color: var(--paper-0); color: var(--navy-700); }
   }
 
-  /* Encabezado de sección a ancho completo (sin columna vacía) */
   .section-head { display: grid; gap: var(--space-xs); justify-items: start; max-inline-size: 52rem; }
   .section-head h2 { max-inline-size: 30ch; }
   .section-head p { max-inline-size: 70ch; color: var(--color-text-soft); font-size: var(--step-lead); line-height: var(--leading-lead); }
@@ -169,7 +164,6 @@
     .section-head.row > :last-child { grid-row: 1 / span 3; grid-column: 2; }
   }
 
-  /* Etiqueta pequeña de color sobre los títulos */
   .eyebrow {
     display: inline-flex;
     align-items: center;
@@ -178,7 +172,7 @@
     padding: 0.35em 0.85em;
     border-radius: var(--radius-pill);
     background-color: var(--orange-50);
-    color: var(--orange-600);
+    color: var(--orange-ink);
     font-size: var(--step-small);
     font-weight: var(--weight-bold);
     letter-spacing: 0.06em;
@@ -187,7 +181,6 @@
   .eyebrow::before { content: ''; inline-size: 0.5em; block-size: 0.5em; border-radius: 50%; background-color: currentColor; }
   .theme-field .eyebrow { background-color: rgb(255 255 255 / 0.12); color: var(--gold-400); }
 
-  /* Título con degradado */
   .text-gradient {
     background-image: linear-gradient(90deg, var(--navy-600), var(--violet-500) 60%, var(--pink-500));
     -webkit-background-clip: text;
@@ -196,14 +189,12 @@
   }
   .theme-field .text-gradient { background-image: linear-gradient(90deg, var(--gold-400), var(--orange-500)); }
 
-  /* Colores por tarjeta: añade .tone-1 … .tone-6 */
-  /* Tonos solo con colores de la marca: naranja y azules */
-  .tone-1 { --tone: var(--orange-500); --tone-soft: var(--orange-50); --tone-grad: var(--gradient-warm); }
-  .tone-2 { --tone: var(--navy-600); --tone-soft: var(--navy-50); --tone-grad: linear-gradient(135deg, var(--navy-600), var(--sky-500)); }
-  .tone-3 { --tone: var(--orange-600); --tone-soft: var(--orange-50); --tone-grad: linear-gradient(135deg, var(--orange-500), var(--gold-400)); }
-  .tone-4 { --tone: var(--sky-500); --tone-soft: var(--sky-50); --tone-grad: linear-gradient(135deg, var(--sky-500), var(--navy-600)); }
-  .tone-5 { --tone: var(--orange-500); --tone-soft: var(--orange-50); --tone-grad: linear-gradient(135deg, var(--orange-600), var(--orange-500)); }
-  .tone-6 { --tone: var(--navy-600); --tone-soft: var(--navy-50); --tone-grad: linear-gradient(135deg, var(--navy-700), var(--navy-600)); }
+  .tone-1 { --tone: var(--orange-500); --tone-ink: var(--orange-ink); --tone-soft: var(--orange-50); --tone-grad: var(--gradient-warm); }
+  .tone-2 { --tone: var(--navy-600); --tone-ink: var(--navy-600); --tone-soft: var(--navy-50); --tone-grad: linear-gradient(135deg, var(--navy-600), var(--sky-500)); }
+  .tone-3 { --tone: var(--orange-600); --tone-ink: var(--orange-ink); --tone-soft: var(--orange-50); --tone-grad: linear-gradient(135deg, var(--orange-500), var(--gold-400)); }
+  .tone-4 { --tone: var(--sky-500); --tone-ink: var(--sky-ink); --tone-soft: var(--sky-50); --tone-grad: linear-gradient(135deg, var(--sky-500), var(--navy-600)); }
+  .tone-5 { --tone: var(--orange-500); --tone-ink: var(--orange-ink); --tone-soft: var(--orange-50); --tone-grad: linear-gradient(135deg, var(--orange-600), var(--orange-500)); }
+  .tone-6 { --tone: var(--navy-600); --tone-ink: var(--navy-600); --tone-soft: var(--navy-50); --tone-grad: linear-gradient(135deg, var(--navy-700), var(--navy-600)); }
 
   .visually-hidden {
     position: absolute;

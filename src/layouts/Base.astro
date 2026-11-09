@@ -24,9 +24,7 @@ interface Props {
 const { schema = [], overlay = false, preloadFont = false, ...seo } = Astro.props;
 const gtm = `(function(w,d,i){w.dataLayer=w.dataLayer||[];var ev=['scroll','pointerdown','keydown','touchstart','mousemove'],done=false;function load(){if(done)return;done=true;ev.forEach(function(e){w.removeEventListener(e,load)});w.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});var j=d.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;d.head.appendChild(j)}ev.forEach(function(e){w.addEventListener(e,load,{passive:true})});w.addEventListener('load',function(){setTimeout(load,5000)})})(window,document,'${site.gtmId}');`;
 const loadGtm = import.meta.env.PROD;
-// Google Consent Mode v2, antes de cargar Google Tag Manager: las cookies de medición y publicidad
-// empiezan desactivadas para todos y solo se activan si la persona acepta (la elección guardada se aplica al instante).
-const consent = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=gtag;var D='denied',G='granted';gtag('consent','default',{ad_storage:D,ad_user_data:D,ad_personalization:D,analytics_storage:D,wait_for_update:500});gtag('set','ads_data_redaction',true);try{var c=localStorage.getItem('cc-consent');if(c){var v=c==='all'?G:D;gtag('consent','update',{ad_storage:v,ad_user_data:v,ad_personalization:v,analytics_storage:v})}}catch(e){}`;
+const consent = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=gtag;var D='denied',G='granted';gtag('consent','default',{ad_storage:G,ad_user_data:G,ad_personalization:G,analytics_storage:G});gtag('set','ads_data_redaction',true);try{var c=localStorage.getItem('cc-consent');if(c){var v=c==='all'?G:D;gtag('consent','update',{ad_storage:v,ad_user_data:v,ad_personalization:v,analytics_storage:v})}}catch(e){}`;
 import { pageKey } from '@/lib/page';
 ---
 

@@ -9,11 +9,8 @@ interface Props {
   items: string[];
   eyebrow?: string;
   band?: boolean;
-  /** Panel a la izquierda con una pregunta y su respuesta (la lista va a la derecha) */
   aside?: { title: string; text: string };
-  /** Tarjetas grandes con ícono, en fila */
   variant?: 'icons';
-  /** @deprecated se mantiene por compatibilidad */
   surface?: boolean;
 }
 
@@ -80,7 +77,6 @@ const icons = ['badge', 'shield', 'clock', 'user', 'check', 'chat'] as const;
   .check { display: grid; place-items: center; flex-shrink: 0; inline-size: 2.2rem; block-size: 2.2rem; border-radius: 50%; background-image: var(--tone-grad); color: var(--paper-0); }
   @media (min-width: 48em) { .items:not(.stacked) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
-  /* Variante con íconos: tarjetas en fila */
   .tiles { display: grid; gap: var(--space-s); grid-template-columns: 1fr; }
   .tile { position: relative; display: grid; gap: var(--space-s); align-content: start; padding: var(--space-l) var(--space-m) var(--space-m); overflow: hidden; border-radius: calc(var(--radius-card) + 0.25rem); background-color: var(--paper-0); box-shadow: var(--shadow-card); transition: opacity var(--duration-reveal) var(--ease-expo), transform var(--duration-reveal) var(--ease-expo), translate var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) ease; }
   .tile-icon { display: grid; place-items: center; inline-size: 3.4rem; block-size: 3.4rem; border-radius: 1rem; background-image: var(--tone-grad); color: var(--paper-0); box-shadow: 0 12px 24px -12px var(--tone); }
@@ -93,7 +89,6 @@ const icons = ['badge', 'shield', 'clock', 'user', 'check', 'chat'] as const;
     .tile:hover .tile-bar { transform: scaleX(1); }
   }
 
-  /* Variante con panel: pregunta a la izquierda, lo que incluye a la derecha */
   .split-list { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
   .aside { position: relative; display: grid; gap: var(--space-s); justify-items: start; padding: var(--space-l); overflow: hidden; border-radius: calc(var(--radius-card) + 0.5rem); background-image: var(--gradient-brand); color: var(--paper-0); box-shadow: var(--shadow-lift); }
   .aside::after { content: ''; position: absolute; inset: -6rem -6rem auto auto; inline-size: 16rem; block-size: 16rem; border-radius: 50%; border: 2px solid rgb(255 255 255 / 0.08); }

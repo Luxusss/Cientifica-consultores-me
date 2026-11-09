@@ -1,20 +1,20 @@
 ---
-/** Banner de los documentos legales: sobrio, con el logo de fondo y un sello con los datos de la empresa. */
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import type { ComponentProps } from 'astro/types';
 import Icon from '@/components/ui/Icon.astro';
 import logoSvg from '@/assets/brand/logo.svg?raw';
 import { site } from '@/config/site';
+
+type IconName = ComponentProps<typeof Icon>['name'];
 
 interface Props {
   heading: string;
   description: string;
   eyebrow?: string;
-  icon?: string;
-  /** Fichas con datos del documento (norma, fecha, plazo…) */
-  meta?: { icon: string; text: string; datetime?: string }[];
+  icon?: IconName;
+  meta?: { icon: IconName; text: string; datetime?: string }[];
 }
 
-// Solo el cubo del logo (la parte izquierda del dibujo) como marca de agua
 const cubeSvg = logoSvg.replace(/viewBox="[^"]*"/, 'viewBox="0 0 1240 1236"');
 const { heading, description, eyebrow = 'Documento legal', icon = 'shield', meta = [] } = Astro.props;
 ---
@@ -48,7 +48,6 @@ const { heading, description, eyebrow = 'Documento legal', icon = 'shield', meta
 <style>
   .l-hero { position: relative; overflow: hidden; isolation: isolate; padding-block: var(--space-l) var(--space-xl); background-image: linear-gradient(180deg, #0f1650, var(--navy-700)); color: var(--paper-0); }
   .l-hero::after { content: ''; position: absolute; inset: auto 0 0; block-size: 4px; background-image: linear-gradient(90deg, var(--orange-500), var(--gold-400), var(--sky-500)); }
-  /* Cubo del logo como marca de agua, centrado detrás del sello */
   .l-mark { position: absolute; z-index: -1; inset-block-start: 50%; inset-inline-start: 50%; translate: -50% -50%; inline-size: 190%; color: rgb(255 255 255 / 0.05); pointer-events: none; }
   .l-mark :global(svg) { display: block; inline-size: 100%; block-size: auto; }
   .l-hero-grid { display: grid; gap: var(--space-l); align-items: center; }

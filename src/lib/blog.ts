@@ -1,4 +1,3 @@
-/** Utilidades compartidas por la lista del blog y cada artículo */
 export const categories = [
   { id: 'todos', label: 'Todos' },
   { id: 'guias', label: 'Guías de tesis' },

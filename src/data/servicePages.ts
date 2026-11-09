@@ -48,15 +48,12 @@ export type ServicePage = {
   title: string;
   description: string;
   h1: string;
-  /** Parte del título que va resaltada en naranja (el servicio) */
   h1Accent?: string;
   lede: string;
   image: ImageMetadata;
   imageAlt: string;
   formSubject: string;
-  /** Ejemplo para la caja de mensaje del formulario */
   formHint: string;
-  /** Tres etiquetas de confianza del banner, propias del servicio */
   trust: { icon: 'user' | 'shield' | 'document' | 'search' | 'clock' | 'badge' | 'pen' | 'list' | 'chat' | 'users'; text: string }[];
   intro: string[];
   introImage?: ImageMetadata;

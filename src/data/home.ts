@@ -75,7 +75,6 @@ export const closing = {
   text: 'Cuéntanos tu universidad, tu grado y tu fecha de entrega, y te decimos cómo podemos ayudarte.',
 };
 
-/** Resumen corto de cada servicio para las tarjetas de la portada (se muestra completo). */
 export const serviceTeasers: Record<string, string> = {
   pregrado: 'Te acompañamos desde que eliges el tema hasta que sustentas, con un asesor de tu misma carrera que conoce el formato de tu universidad.',
   maestria: 'Ordenamos juntos tu investigación: un marco teórico sólido, la metodología correcta y el análisis de tus datos, capítulo por capítulo.',

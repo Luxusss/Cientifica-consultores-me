@@ -1,9 +1,4 @@
 ---
-/**
- * Foto con la identidad de la marca: velo azul en la parte baja, línea naranja,
- * el cubo del logo como sello y una etiqueta opcional. Sirve para que las fotos
- * se vean como material propio de la empresa y no como imágenes de banco.
- */
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import logoSvg from '@/assets/brand/logo.svg?raw';
@@ -11,17 +6,13 @@ import logoSvg from '@/assets/brand/logo.svg?raw';
 interface Props {
   src: ImageMetadata;
   alt: string;
-  /** Texto de la etiqueta que va sobre la foto */
   caption?: string;
-  /** Proporción de la foto */
   ratio?: '4/3' | '3/2' | '4/5' | '16/10';
-  /** Para fotos recortadas con fondo blanco: se funden sobre el fondo de la marca */
   cutout?: boolean;
   sizes?: string;
 }
 
 const { src, alt, caption, ratio = '4/3', cutout = false, sizes = '(min-width: 64em) 45vw, 100vw' } = Astro.props;
-// Sin estilos en línea: la política de seguridad (CSP) no los permite
 const ratioClass = 'r-' + ratio.replace('/', '-');
 ---
 
@@ -45,7 +36,6 @@ const ratioClass = 'r-' + ratio.replace('/', '-');
   figcaption { position: absolute; z-index: 2; inset-block-end: var(--space-s); inset-inline-start: var(--space-m); display: inline-flex; align-items: center; gap: 0.5em; padding: 0.45em 0.95em; border-radius: var(--radius-pill); background-color: var(--paper-0); color: var(--navy-700); font-size: var(--step-small); font-weight: var(--weight-bold); box-shadow: 0 12px 26px -12px rgb(0 0 0 / 0.55); }
   figcaption::before { content: ''; inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; background-color: var(--orange-500); box-shadow: 0 0 0 4px rgb(254 143 1 / 0.22); }
 
-  /* Recorte con fondo blanco: el fondo blanco desaparece sobre un fondo claro de la marca con el cubo de fondo */
   .cutout { background: linear-gradient(160deg, var(--navy-50), #dfe5f8); }
   .cutout::after { content: ''; position: absolute; inset: -10% -6% auto auto; z-index: 0; inline-size: 55%; aspect-ratio: 1; border-radius: 2rem; border: 18px solid rgb(29 45 140 / 0.07); rotate: 18deg; }
   .cutout .bp-img { z-index: 1; object-fit: contain; object-position: 50% 100%; mix-blend-mode: multiply; }

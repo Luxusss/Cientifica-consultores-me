@@ -86,16 +86,13 @@
   ::view-transition-old(site-header), ::view-transition-new(site-header) { animation: none; }
 }
 
-/* Al llegar a una sección desde un enlace interno, su título se ilumina un momento */
 @media (prefers-reduced-motion: no-preference) {
   :target h2, h2:target { animation: arrive 1.4s var(--ease-out); }
   @keyframes arrive { 0% { color: var(--orange-500); transform: translateY(6px); } 40% { color: var(--orange-500); transform: none; } }
 }
 
-/* ───────────── Capa de movimiento moderna (sutil, en todo el sitio) ───────────── */
 @layer motion {
   @media (prefers-reduced-motion: no-preference) {
-    /* 1. Entrada del banner de cada página: el contenido aparece en cascada, de desenfocado a nítido */
     main > section:first-child:not(.hero) :is(.eyebrow, .crumb-bar, h1, h1 + p, .text-lead, .ch-lede, .ch-status, .button, .trust, .channels, .ah-figs) {
       animation: hero-in 1s var(--ease-expo) both;
     }
@@ -106,7 +103,6 @@
     main > section:first-child:not(.hero) :is(h1 + p, .text-lead, .ch-lede) { animation-delay: 280ms; }
     main > section:first-child:not(.hero) :is(.ch-status, .trust, .ah-figs) { animation-delay: 380ms; }
     main > section:first-child:not(.hero) :is(.button, .channels) { animation-delay: 460ms; }
-    /* Tarjetas grandes del banner (formulario, mosaico, consola): suben y se asientan */
     main > section:first-child:not(.hero) :is(.form-card, .ch-desk, .ah-mosaic, .wa-viewer, .t-chat) { animation: card-in 1.2s var(--ease-expo) 320ms both; }
     main > section:first-child:not(.hero) .ch-desk .form-card { animation: none; }
     @keyframes hero-in {
@@ -118,16 +114,13 @@
       to { opacity: 1; translate: 0 0; scale: 1; }
     }
 
-    /* 2. Aparición al hacer scroll: solo opacidad y movimiento (se calculan en la GPU, sin tirones) */
     .js [data-reveal]:not([data-reveal='shutter']),
     .js [data-reveal='stagger'] > * { will-change: auto; }
-    /* Encabezados de sección: etiqueta, título y texto llegan uno tras otro */
     .js header[data-reveal] > * { translate: 0 12px; transition: translate 800ms var(--ease-expo); }
     .js header[data-reveal] > :nth-child(2) { transition-delay: 90ms; }
     .js header[data-reveal] > :nth-child(n + 3) { transition-delay: 180ms; }
     .js header[data-reveal].is-in > * { translate: 0 0; }
 
-    /* 4. Botones: un brillo cruza el botón al pasar el mouse y la flecha avanza */
     .button { position: relative; overflow: hidden; isolation: isolate; }
     .button::after {
       content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
@@ -142,7 +135,6 @@
     }
   }
 
-  /* 5. Fotos con tratamiento de marca: al entrar en pantalla la imagen se asienta (de un leve zoom a su tamaño) */
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       .brand-photo .bp-img {
@@ -154,7 +146,6 @@
         from { scale: 1.14; }
         to { scale: 1; }
       }
-      /* Marca de agua del cubo: gira muy lento con el scroll */
       .wm-cube {
         animation: cube-drift linear both;
         animation-timeline: view();
@@ -168,12 +159,10 @@
   }
 }
 
-/* Luz que sigue al mouse en las tarjetas (ver scripts/spotlight.ts) */
 @layer motion {
   .has-spot { position: relative; isolation: isolate; }
   .spot-glow { position: absolute; z-index: 2; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity 350ms var(--ease-out);
     background: radial-gradient(22rem circle at var(--mx, 50%) var(--my, 50%), rgb(254 143 1 / 0.16), transparent 60%); }
-  /* Borde iluminado solo cerca del cursor */
   .spot-glow::after { content: ''; position: absolute; inset: 0; padding: 2px; border-radius: inherit;
     background: radial-gradient(14rem circle at var(--mx, 50%) var(--my, 50%), rgb(254 143 1 / 0.9), rgb(255 199 44 / 0.4) 40%, transparent 70%);
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }

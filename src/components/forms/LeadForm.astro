@@ -8,7 +8,6 @@ interface Props {
   subject: string;
   variant?: 'short' | 'full';
   submitLabel?: string;
-  /** Ejemplo que se muestra en la caja de mensaje, según el servicio */
   hint?: string;
 }
 
@@ -226,7 +225,7 @@ const options = countries.map((c) => ({ value: c.name, name: c.name, code: c.cod
     .cc-code, .cc::after { display: none; }
     .cc select { position: static; opacity: 1; appearance: base-select; display: flex; align-items: center; gap: 0.5rem; inline-size: auto; block-size: 100%; padding: 0 var(--space-xs) 0 var(--space-s); background: transparent; border: 0; color: inherit; font: inherit; font-weight: var(--weight-semibold); }
     .cc select:focus-visible { outline: none; }
-    .cc-button { display: flex; align-items: center; block-size: 100%; }
+    .cc-button { display: flex; align-items: center; block-size: 100%; min-inline-size: 2.75rem; min-block-size: 2.75rem; }
     .cc select::picker-icon { content: ''; inline-size: 0.4rem; block-size: 0.4rem; border-inline-end: 2px solid currentColor; border-block-end: 2px solid currentColor; transform: translateY(-2px) rotate(45deg); opacity: 0.6; transition: transform var(--duration-ui) var(--ease-out); }
     .cc select:open::picker-icon { transform: translateY(2px) rotate(225deg); }
     .cc selectedcontent .cc-name, .cc selectedcontent .cc-p { display: none; }
@@ -248,7 +247,6 @@ const options = countries.map((c) => ({ value: c.name, name: c.name, code: c.cod
   .tel-field:has(input:user-invalid:not(:placeholder-shown)) .tel,
   :global(form[data-tried]) .tel-field:has(input:invalid) .tel { border-block-end-color: var(--color-error); }
 
-  /* Aviso de consentimiento (Ley N.° 29733): breve, bajo el botón */
   .consent { margin-block-start: calc(-1 * var(--space-2xs)); color: var(--color-text-soft, var(--ink-600)); font-size: 0.75rem; line-height: 1.4; text-align: center; }
   .consent a { color: inherit; font-weight: var(--weight-semibold); text-decoration: underline; text-underline-offset: 2px; }
   .status { font-size: var(--step-small); line-height: var(--leading-small); font-weight: var(--weight-semibold); }

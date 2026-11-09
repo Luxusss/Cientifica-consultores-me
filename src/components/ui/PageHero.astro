@@ -10,7 +10,6 @@ interface Props {
   lede?: string;
   balance?: 'text' | 'media' | 'photo';
   tone?: 'plain' | 'field';
-  /** Tiñe la foto con el azul de la marca (para fotos que no vienen ya tratadas) */
   tint?: boolean;
 }
 
@@ -51,12 +50,10 @@ const hasMedia = Astro.slots.has('media');
   }
 
   .photo-hero { gap: 0; overflow: hidden; }
-  /* Nombre del servicio resaltado en el título y etiquetas de confianza (todas las páginas con este banner) */
   .page-hero :global(.h1-tail) { display: block; margin-block-start: 0.1em; padding-block-end: 0.12em; font-size: 0.8em; line-height: 1.1; background-image: linear-gradient(90deg, var(--gold-400), var(--orange-500) 60%, #ff7a59); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .page-hero :global(.trust) { display: flex; flex-wrap: wrap; gap: 0.45rem; }
   .page-hero :global(.trust li) { display: inline-flex; align-items: center; gap: 0.5em; padding: 0.35em 0.85em 0.35em 0.4em; border-radius: var(--radius-pill); background-color: rgb(255 255 255 / 0.1); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.16); color: var(--paper-0); font-size: var(--step-small); font-weight: var(--weight-semibold); backdrop-filter: blur(6px); }
   .page-hero :global(.trust-ico) { display: grid; place-items: center; inline-size: 1.6rem; block-size: 1.6rem; border-radius: 50%; background-color: var(--orange-500); color: var(--ink-900); }
-  /* Formulario del hero: tarjeta blanca y botón píldora como en inicio */
   .photo-hero :global(.form-card) { background-color: var(--paper-0); color: var(--ink-900); border-radius: calc(var(--radius-card) + 0.35rem); box-shadow: 0 30px 70px -28px rgb(0 0 0 / 0.65); border-block-start: 4px solid var(--orange-500); }
   .photo-hero :global(.form-card > h2) { display: flex; align-items: center; gap: 0.5em; font-family: var(--font-display); font-size: var(--step-title); }
   .photo-hero :global(.form-card > h2)::before { content: ''; inline-size: 0.6rem; block-size: 0.6rem; border-radius: 50%; background-color: var(--whatsapp-500); box-shadow: 0 0 0 4px rgb(37 211 102 / 0.22); }
@@ -64,7 +61,6 @@ const hasMedia = Astro.slots.has('media');
   .photo-hero :global(.form-card .button[type='submit'])::after { content: '→'; margin-inline-start: 0.5em; }
   .photo-hero .text { align-content: center; padding: var(--space-xl) var(--page-margin) var(--space-2xl); position: relative; z-index: 1; }
   .photo-hero .media { aspect-ratio: 4 / 3; overflow: hidden; }
-  /* Mismo tratamiento que las fotos de los banners de servicio: velo azul que se funde hacia el texto */
   @media (max-width: 63.99em) { .photo-hero .media.tint { position: relative; } }
   .photo-hero .media.tint::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgb(29 45 140 / 0.95) 0%, rgb(29 45 140 / 0.72) 32%, rgb(29 45 140 / 0.5) 60%, rgb(29 45 140 / 0.42) 100%); }
   .photo-hero .media :global(picture) { display: block; block-size: 100%; }
@@ -77,12 +73,9 @@ const hasMedia = Astro.slots.has('media');
     .photo-hero { position: relative; }
     .photo-hero .media { position: absolute; inset: auto 0 0 auto; block-size: min(100%, 46rem); inline-size: auto; aspect-ratio: 1570 / 883; max-inline-size: 100%; mask-image: linear-gradient(90deg, transparent 0, #000 22%), linear-gradient(180deg, transparent 0, #000 12%); mask-composite: intersect; }
     .photo-hero .media :global(img) { object-position: 100% 50%; }
-    /* En pantallas medianas el formulario tapa parte de la foto: la foto se corre a la derecha para que la persona quede visible */
     .photo-hero { overflow-x: clip; }
     .photo-hero .media { inset-inline-end: min(0px, calc((100vw - 1700px) * 0.55)); }
     .photo-hero::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, var(--scrim-soft) 0%, transparent 20%), linear-gradient(0deg, color-mix(in srgb, var(--ink-900) 55%, transparent) 0%, transparent 30%), linear-gradient(90deg, var(--scrim-strong) 0%, var(--scrim-strong) 24%, transparent 60%); }
-    /* Escritorio: texto a la izquierda y formulario compacto al lado; la foto queda libre a la derecha */
-    /* Etiquetas de confianza siempre en una sola línea en escritorio */
     .page-hero :global(.trust) { flex-wrap: nowrap; gap: 0.35rem; }
     .page-hero :global(.trust li) { white-space: nowrap; padding-inline-end: 0.7em; font-size: 0.78rem; }
     .photo-hero .text { grid-template-columns: minmax(0, 37rem) minmax(0, 31rem); column-gap: var(--space-2xl); align-items: center; align-content: center; padding-inline: var(--edge) var(--space-l); padding-block: var(--space-l); max-inline-size: none; }
@@ -95,7 +88,6 @@ const hasMedia = Astro.slots.has('media');
     .photo-hero .text :global(.form-card textarea) { min-block-size: 5.5rem; block-size: 5.5rem; overflow-y: auto; scrollbar-width: thin; }
     .photo-hero .text > :global(.text-lead) { max-inline-size: none; text-wrap: balance; }
     .photo-hero .text :global(.form-card) { max-inline-size: 31rem; margin-block-start: 0; padding: var(--space-m) var(--space-l) var(--space-l); gap: var(--space-xs); --input-height: 2.85rem; box-shadow: 0 24px 60px -24px color-mix(in srgb, var(--ink-900) 55%, transparent); }
-    /* Mismo tamaño de título en todas las páginas de servicio (cabe el más largo, el del TSP) */
     .page-hero.photo-hero :global(h1) { font-size: clamp(2.4rem, 1.3rem + 2.1vw, 3.4rem); line-height: 1.02; letter-spacing: -0.03em; max-inline-size: none; }
     .page-hero :global(h1) { font-size: min(var(--step-display), 5vw); }
     .favor-media :global(h1) { font-size: min(var(--step-display), 4vw); }

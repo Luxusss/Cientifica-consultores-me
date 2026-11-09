@@ -1,5 +1,4 @@
 ---
-// Barra de progreso de lectura (arriba) y botón "volver arriba" (abajo a la izquierda).
 ---
 
 <div class="progress" aria-hidden="true"><span data-progress></span></div>
@@ -19,7 +18,6 @@
       top.hidden = scrollY < innerHeight * 0.8;
       if (!top.hidden) top.classList.toggle('on-dark', isDarkBehind());
     };
-    // ¿El botón está sobre un fondo oscuro (azul de la marca, foto, footer)? Entonces va en naranja.
     const isDarkBehind = () => {
       const r = top.getBoundingClientRect();
       const x = r.left + r.width / 2;

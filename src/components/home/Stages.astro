@@ -8,7 +8,6 @@ interface Props {
   headingLevel?: 2 | 3;
   title?: string;
   band?: boolean;
-  /** Muestra solo el grado inicial, sin pestañas */
   only?: boolean;
 }
 
@@ -122,8 +121,6 @@ const phase = (i: number, n: number) => (i < 2 ? 'Planificación' : i >= n - 3 ?
       show(0);
     }
 
-    // Avance automático: cuando la barrita termina de llenarse pasa a la siguiente etapa.
-    // Se pausa al pasar el mouse, fuera de pantalla, o 12 s después de tocar una etapa.
     let visible = false;
     let hovering = false;
     let held = 0;
@@ -180,7 +177,6 @@ const phase = (i: number, n: number) => (i < 2 ? 'Planificación' : i >= n - 3 ?
   .is-tabs .panel-title { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
   .panel-title { font-weight: var(--weight-semibold); }
 
-  /* Línea de estaciones */
   .line { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(4.5rem, 1fr); overflow-x: auto; scrollbar-width: none; padding-block-end: var(--space-2xs); }
   .line[hidden] { display: none; }
   .line-track { position: absolute; inset-block-start: 1.2rem; inset-inline: 2.25rem; block-size: 4px; border-radius: 4px; background-color: var(--paper-2); }
@@ -192,14 +188,13 @@ const phase = (i: number, n: number) => (i < 2 ? 'Planificación' : i >= n - 3 ?
   .station.is-current .dot { background-image: var(--gradient-warm); color: var(--paper-0); box-shadow: 0 0 0 5px rgb(254 143 1 / 0.2); transform: scale(1.12); }
   .station.is-current .label { color: var(--ink-900); }
 
-  /* Detalle de la etapa */
   .details { display: grid; gap: var(--space-s); }
   .detail { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-m); align-items: center; padding: var(--space-m); border-radius: var(--radius-card); background: linear-gradient(120deg, var(--tone-soft), var(--paper-0) 75%); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tone) 20%, transparent); }
   .detail[hidden] { display: none; }
   .d-icon { display: grid; place-items: center; inline-size: 4rem; block-size: 4rem; border-radius: 1.1rem; background-image: var(--tone-grad); color: var(--paper-0); box-shadow: 0 14px 28px -14px var(--tone); }
   .d-body { display: grid; gap: var(--space-3xs); }
   .d-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6em; color: var(--ink-600); font-size: var(--step-small); font-weight: var(--weight-semibold); }
-  .d-phase { padding: 0.2em 0.7em; border-radius: var(--radius-pill); background-color: var(--paper-0); color: var(--tone); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tone) 30%, transparent); }
+  .d-phase { padding: 0.2em 0.7em; border-radius: var(--radius-pill); background-color: var(--paper-0); color: var(--tone-ink, var(--tone)); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tone) 30%, transparent); }
   .d-name { font-family: var(--font-display); font-size: var(--step-head); line-height: 1.15; }
   .d-text { color: var(--color-text-soft); font-size: var(--step-body); }
 

@@ -14,7 +14,6 @@ import CtaBlock from '@/components/sections/CtaBlock.astro';
 import type { ServicePage } from '@/data/servicePages';
 import { breadcrumb, faqPage } from '@/lib/schema';
 import { site, whatsappUrl } from '@/config/site';
-import { stats } from '@/data/stats';
 import Icon from '@/components/ui/Icon.astro';
 
 interface Props {
@@ -22,12 +21,10 @@ interface Props {
 }
 
 const { page } = Astro.props;
-// Título en dos partes: la segunda va resaltada ("Asesoría de tesis" + "de pregrado")
 const accentAt = page.h1Accent ? page.h1.lastIndexOf(page.h1Accent) : -1;
 const h1Main = accentAt > 0 ? page.h1.slice(0, accentAt).trim() : page.h1;
 const h1Tail = accentAt > 0 ? page.h1Accent! : '';
 const trust = page.trust;
-// ¿En qué punto estás? Cuatro situaciones; al elegir una se muestra qué hacemos en ese caso
 const moments = [
   { icon: 'search', title: 'Empiezo desde cero', lead: 'Te ayudamos a arrancar con un rumbo claro.', steps: ['Elegimos un tema viable y con fuentes', 'Planteamos el problema y los objetivos', 'Armamos el proyecto según tu universidad'] },
   { icon: 'pen', title: 'Estoy redactando', lead: 'Avanzas capítulo por capítulo, sin trabarte.', steps: ['Revisamos tu marco teórico y metodología', 'Te apoyamos en el análisis de tus datos', 'Cuidamos redacción, citas y normas APA'] },
@@ -38,10 +35,8 @@ const eyebrows: Record<string, string> = {
   metodo: 'Nuestro método', 'por-que': 'Por qué elegirnos', incluye: 'Qué incluye', normativa: 'Tu universidad', tipos: 'Tipos de asesoría',
   empezar: 'Para empezar', online: '100 % online', 'que-es': 'Qué es un TSP', confianza: 'Confianza', etapas: 'Paso a paso',
 };
-// Fondos alternos: la presentación va en blanco y luego se intercalan franjas azul suave
-const rendered = page.sections.filter((sec) => sec.kind !== 'photos');
-const band = (sec: (typeof page.sections)[number]) => rendered.indexOf(sec) % 2 === 0;
-// Preguntas frecuentes y contacto siguen alternando después de la última sección
+const rendered = page.sections.filter((sec): sec is Exclude<(typeof page.sections)[number], { kind: 'photos' }> => sec.kind !== 'photos');
+const band = (sec: (typeof page.sections)[number]) => rendered.indexOf(sec as (typeof rendered)[number]) % 2 === 0;
 const lastBand = rendered.length > 0 && (rendered.length - 1) % 2 === 0;
 const schema = [
   breadcrumb([
@@ -123,7 +118,6 @@ import BrandPhoto from '@/components/ui/BrandPhoto.astro';
 </Base>
 
 <script>
-  // Pestañas de "¿En qué punto estás?"
   for (const root of document.querySelectorAll<HTMLElement>('[data-moments]')) {
     const tabs = [...root.querySelectorAll<HTMLButtonElement>('[data-m-tab]')];
     const panels = [...root.querySelectorAll<HTMLElement>('[data-m-panel]')];
@@ -144,12 +138,9 @@ import BrandPhoto from '@/components/ui/BrandPhoto.astro';
 </script>
 
 <style>
-  /* Hero */
 
-  /* Presentación */
   .standfirst { padding-block: var(--space-m) var(--space-xl); }
   .intro { display: grid; gap: var(--space-l) var(--gutter); align-items: center; }
-  /* Texto suelto (sin tarjeta) para no repetir el diseño de los bloques de abajo */
   .intro-copy { align-self: center; display: grid; gap: var(--space-s); justify-items: start; }
   .intro-title { font-size: var(--step-head); line-height: 1.12; max-inline-size: 18ch; }
   .intro-copy p { color: var(--color-text-soft); font-size: var(--step-lead); line-height: var(--leading-lead); max-inline-size: 70ch; }

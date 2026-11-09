@@ -3,6 +3,7 @@
   --navy-600: #1d2d8c;
   --navy-100: #c9cde8;
   --orange-600: #e07a00;
+  --orange-ink: #a85400;
   --whatsapp-500: #25d366;
   --whatsapp-600: #1ebe57;
   --orange-500: #fe8f01;
@@ -13,10 +14,10 @@
   --ink-900: #13183d;
   --ink-600: #4b5072;
 
-  /* Paleta de acentos */
   --navy-50: #eceefb;
   --orange-50: #fff3e3;
   --sky-500: #1f7ae0;
+  --sky-ink: #1866c2;
   --sky-50: #e8f3ff;
   --teal-500: #0b9490;
   --teal-50: #e1f6f4;
@@ -37,7 +38,6 @@
   --red-700: #b42318;
   --green-700: #1f6f43;
 
-  /* Texto en sans moderna; títulos con la serif de marca */
   --font-text: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-display: var(--font-literata), Georgia, serif;
 
@@ -46,7 +46,6 @@
   --weight-semibold: 600;
   --weight-bold: 700;
 
-  /* Escala de letra moderada: texto 14–15 px, títulos de sección 22–30 px */
   --step-small: clamp(0.75rem, 0.74rem + 0.04vw, 0.78rem);
   --step-ui: clamp(0.8125rem, 0.8rem + 0.05vw, 0.875rem);
   --step-body: clamp(0.875rem, 0.86rem + 0.06vw, 0.9375rem);
@@ -174,19 +173,12 @@
   color: var(--color-text);
 }
 
-/* Va fuera de las capas para ganar a los temas de cada sección (.theme-surface, etc.). */
-/* Fondos alternos automáticos: entre las secciones claras de cada página, una sí y una no lleva el azul suave.
-   Las secciones oscuras (hero, foto, testimonios, bloques azules) no cuentan, así que el orden se mantiene solo
-   al agregar, quitar o mover secciones. No hace falta poner clases a mano. */
 main > section:nth-child(even of section:not(.theme-field, .photo, .quote, .hero, .page-hero, .custom-hero)) { background-color: var(--color-band); }
 main > section:nth-child(odd of section:not(.theme-field, .photo, .quote, .hero, .page-hero, .custom-hero)) { background-color: var(--paper-0); background-image: none; }
 
-/* Identidad de marca en las fotos (ver BrandMark.astro):
-   - tratamiento de color propio (azul de la marca en sombras y cálido en luces) para que las fotos de banco se vean de una misma sesión
-   - el logo sobre una placa azul sólida, para que se lea en cualquier foto */
 :where(.brand-frame) { position: relative; isolation: isolate; }
 .brand-frame img { filter: saturate(0.82) contrast(1.06) brightness(1.02); }
 .brand-frame::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(145deg, rgb(29 45 140 / 0.55) 0%, rgb(29 45 140 / 0.12) 45%, rgb(254 143 1 / 0.28) 100%); mix-blend-mode: soft-light; }
 .brand-mark { position: absolute; z-index: 3; inset-block-start: 0; inset-inline-end: 0; display: block; inline-size: 6.4rem; padding: 0.5rem 0.75rem 0.5rem 0.9rem; border-end-start-radius: 1rem; background-image: var(--gradient-brand); color: #fff; box-shadow: 0 8px 18px -8px rgb(0 0 0 / 0.55); pointer-events: none; }
 .brand-mark.dark { background: #fff; color: var(--navy-700); }
-.brand-mark svg { display: block; inline-size: 100%; block-size: auto; }
+.brand-mark-logo { display: block; aspect-ratio: 3375 / 1236; background-color: currentColor; -webkit-mask: url('/brand-logo.svg') center / contain no-repeat; mask: url('/brand-logo.svg') center / contain no-repeat; }

@@ -1,4 +1,4 @@
-export const planNames = ['Plan Tesis Completa', 'Plan Científica Consultores'] as const;
+export const planNames = ['Plan Acompañamiento Completo', 'Plan Científica Consultores'] as const;
 
 export const planRows: { feature: string; values: [string, string] }[] = [
   { feature: 'Acompañamiento', values: ['Acompañamiento en el proyecto y el informe final de tesis.', 'Acompañamiento en el proyecto y el informe final de tesis.'] },

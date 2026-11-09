@@ -106,14 +106,13 @@ const schema = [
 </script>
 
 <style>
-  /* Blog como lista editorial: fondo claro azulado de principio a fin, cada artículo en una fila */
   .mag { padding-block: var(--space-xl) var(--space-2xl); background-color: var(--color-band); color: var(--ink-900); }
   .mag-inner { display: grid; gap: var(--space-l); }
   .mag-head { display: grid; gap: var(--space-m) var(--gutter); align-items: end; padding-block-end: var(--space-m); border-block-end: 2px solid var(--navy-600); }
   .mag-title { display: grid; gap: var(--space-xs); justify-items: start; }
-  .mag-eyebrow { background-color: var(--paper-0); color: var(--orange-600); }
+  .mag-eyebrow { background-color: var(--paper-0); color: var(--orange-ink); }
   .mag-title h1 { color: var(--navy-700); font-size: clamp(2.2rem, 1.3rem + 1.9vw, 3.2rem); line-height: 1.05; letter-spacing: -0.03em; max-inline-size: none; }
-  .mag-accent { color: var(--orange-500); }
+  .mag-accent { color: var(--orange-ink); }
   .mag-lede { color: var(--ink-600); font-size: var(--step-lead); max-inline-size: 48ch; }
   .mag-tools { display: grid; gap: var(--space-xs); }
   .mag-search { display: flex; align-items: center; gap: 0.6rem; padding: 0.35rem 0.5rem 0.35rem 1rem; border-radius: var(--radius-pill); background-color: var(--paper-0); color: var(--navy-600); box-shadow: var(--shadow-card); }
@@ -129,7 +128,7 @@ const schema = [
   .cover-box { display: block; overflow: hidden; background-color: var(--navy-50); }
   .cover { display: block; inline-size: 100%; block-size: 100%; aspect-ratio: 16 / 9; object-fit: cover; transition: transform var(--duration-reveal) var(--ease-out); }
   .post-body { display: grid; align-content: center; gap: var(--space-xs); padding: var(--space-m); }
-  .post-tag { inline-size: fit-content; padding: 0.3em 0.8em; border-radius: var(--radius-pill); background-color: var(--orange-50); color: var(--orange-600); font-size: 0.72rem; font-weight: var(--weight-bold); letter-spacing: 0.03em; text-transform: uppercase; }
+  .post-tag { inline-size: fit-content; padding: 0.3em 0.8em; border-radius: var(--radius-pill); background-color: var(--orange-50); color: var(--orange-ink); font-size: 0.72rem; font-weight: var(--weight-bold); letter-spacing: 0.03em; text-transform: uppercase; }
   .num { position: absolute; inset-block-start: var(--space-s); inset-inline-end: var(--space-m); font-family: var(--font-display); font-size: clamp(3.5rem, 2.5rem + 3vw, 6rem); font-weight: var(--weight-bold); line-height: 0.9; color: transparent; -webkit-text-stroke: 1.5px rgb(254 143 1 / 0.45); pointer-events: none; }
   .post-body { position: relative; }
   .post-title { max-inline-size: none; font-family: var(--font-display); font-size: var(--step-title); font-weight: var(--weight-semibold); line-height: 1.2; color: var(--navy-700); }
@@ -145,7 +144,6 @@ const schema = [
     .post-link { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
     .post-body { padding: var(--space-m) var(--space-l); }
     .lead .post-link { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); }
-    /* Zigzag: una fila con la portada a la izquierda y la siguiente a la derecha */
     .post:nth-child(odd):not(.lead) .post-link { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
     .post:nth-child(odd):not(.lead) .cover-box { order: 2; }
     .post-body { padding-inline-end: calc(var(--space-l) + 4rem); }

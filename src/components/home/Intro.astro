@@ -28,7 +28,6 @@ const facts = [
 </section>
 
 <script>
-  // Las cifras cuentan desde 0 una sola vez, cuando quedan a la vista; después se quedan en su valor final.
   const root = document.querySelector<HTMLElement>('[data-counters]');
   if (root && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const nums = [...root.querySelectorAll<HTMLElement>('.facts [data-count]')];

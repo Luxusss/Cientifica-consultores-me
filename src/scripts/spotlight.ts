@@ -1,8 +1,3 @@
-/**
- * Luz que sigue al mouse sobre las tarjetas: un brillo suave y un borde que se ilumina
- * en naranja de la marca justo donde está el cursor. Solo en equipos con mouse y sin
- * “reducir movimiento”. Se aplica a las tarjetas existentes sin tocar cada componente.
- */
 const CARDS = '.card, .tile, .rel-card, .post-link, .where-card, .q-card, .visit-card, .way, .pillar';
 const fine = matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
 

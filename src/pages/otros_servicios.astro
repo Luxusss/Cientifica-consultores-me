@@ -90,7 +90,6 @@ import BrandMark from '@/components/ui/BrandMark.astro';
 </Base>
 
 <style>
-  /* Accesos rápidos a cada área, debajo del banner */
   .quick { padding-block: var(--space-m); }
   .index ul { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(13rem, 100%), 1fr)); gap: var(--space-xs); }
   .index li { display: grid; }
@@ -101,7 +100,6 @@ import BrandMark from '@/components/ui/BrandMark.astro';
   .idx-text span { color: var(--color-text-soft); font-size: var(--step-small); }
   .idx-go { color: var(--orange-500); font-weight: var(--weight-bold); transition: transform var(--duration-hover) var(--ease-out); }
 
-  /* Encabezado de cada grupo, centrado como en el resto de la web */
   .g-head { justify-items: center; }
   .g-icon { display: grid; place-items: center; inline-size: 3.6rem; block-size: 3.6rem; margin-block-end: var(--space-2xs); border-radius: 1.1rem; background-image: var(--tone-grad); color: var(--paper-0); box-shadow: 0 12px 24px -12px var(--tone); }
   .for { display: inline-flex; align-items: center; gap: 0.5em; padding: 0.45em 0.95em; border-radius: var(--radius-pill); background-color: var(--orange-50); color: var(--orange-600) !important; font-size: var(--step-small) !important; font-weight: var(--weight-bold); }
@@ -109,8 +107,6 @@ import BrandMark from '@/components/ui/BrandMark.astro';
   .cards { display: grid; gap: var(--space-m); grid-template-columns: 1fr; }
   .card { position: relative; isolation: isolate; display: grid; grid-template-rows: auto 1fr; border-radius: var(--radius-card); background-color: var(--paper-0); box-shadow: var(--shadow-card); transition: opacity var(--duration-reveal) var(--ease-expo), transform var(--duration-reveal) var(--ease-expo), translate var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) ease; }
   .frame { position: relative; overflow: hidden; border-start-start-radius: var(--radius-card); border-start-end-radius: var(--radius-card); }
-  /* Misma altura de foto en todos los grupos, sin importar cuántas tarjetas tenga */
-  /* Encuadre de cada foto: deja a la vista a la persona y a quien la acompaña cuando la tarjeta recorta los lados */
   .photo.fx-35 { object-position: 35% 50%; }
   .photo.fx-65 { object-position: 65% 50%; }
   .photo.fx-70 { object-position: 70% 50%; }
@@ -133,7 +129,6 @@ import BrandMark from '@/components/ui/BrandMark.astro';
   }
   @media (min-width: 64em) {
     .cards.n-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    /* Con 2 servicios, las tarjetas mantienen el tamaño de las de 3 y van centradas */
     .cards.n-2 { grid-template-columns: repeat(2, minmax(0, calc((100% - 2 * var(--space-m)) / 3))); justify-content: center; }
     .cards.n-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .index ul { grid-template-columns: repeat(5, minmax(0, 1fr)); }

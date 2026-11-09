@@ -75,7 +75,6 @@ const mapLink = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
   }
   .footer::before { content: ''; position: absolute; inset: 0 0 auto; block-size: 4px; background-image: linear-gradient(90deg, var(--orange-500), var(--gold-400), var(--sky-500)); }
 
-  /* Todo en una sola fila de columnas: marca, enlaces y datos de visita (medios de pago como quinta columna; el mapa grande va debajo) */
   .top { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: var(--space-l) var(--gutter); }
   .brand { grid-column: 1 / -1; display: grid; gap: var(--space-s); justify-items: start; align-content: start; }
   .logo { block-size: 3rem; inline-size: auto; }
@@ -84,7 +83,6 @@ const mapLink = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
 
   .social { display: flex; flex-wrap: wrap; gap: var(--space-2xs); }
   .social a { display: grid; place-items: center; inline-size: 2.4rem; block-size: 2.4rem; border-radius: 50%; background-color: transparent; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.18); transition: background-color var(--duration-hover) ease, box-shadow var(--duration-hover) ease, transform var(--duration-hover) var(--ease-out); }
-  /* Colores de cada red, aclarados lo justo para contrastar con el azul oscuro del footer */
   .s-facebook { color: #4b9bff; }
   .s-instagram { color: #ff5a8c; }
   .s-tiktok { color: #fff; }
@@ -96,13 +94,11 @@ const mapLink = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
   .col ul { display: grid; gap: var(--space-2xs); }
   .col a { color: var(--navy-100); font-weight: var(--weight-regular); line-height: var(--leading-small); transition: color var(--duration-hover) ease, padding var(--duration-hover) var(--ease-out); }
 
-  /* Medios de pago como quinta columna, con el mismo título que las demás */
   .pay-col { grid-column: 1 / -1; }
   .pay-col :global(.pay) { display: grid; gap: 0; justify-items: start; }
   .pay-col :global(.pay-label) { margin-block-end: var(--space-xs); letter-spacing: 0.08em; }
   .pay-col :global(.pay-list) { gap: 0.35rem; }
 
-  /* Visítanos con el mapa grande */
   .visit { display: grid; gap: var(--space-l) var(--gutter); margin-block-start: var(--space-l); padding-block: var(--space-l); border-block: 1px solid rgb(255 255 255 / 0.1); align-items: stretch; }
   .contact { display: grid; gap: var(--space-xs); align-content: start; font-style: normal; }
   .row { display: flex; align-items: flex-start; gap: 0.7em; color: var(--paper-0); font-weight: var(--weight-regular); overflow-wrap: anywhere; }

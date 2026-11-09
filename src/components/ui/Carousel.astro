@@ -1,18 +1,8 @@
 ---
-/**
- * Carrusel accesible y sin dependencias.
- * Cada hijo directo del slot es una diapositiva (normalmente <li>).
- * - Desliza con el dedo o el trackpad (scroll-snap).
- * - Flechas anterior/siguiente y puntos de paginación.
- * - Autoplay opcional que se pausa al pasar el mouse, al enfocar y con "reducir movimiento".
- */
 interface Props {
   label: string;
-  /** Diapositivas visibles en escritorio (≥64em). */
   perView?: 1 | 2 | 3 | 4;
-  /** Milisegundos entre cambios automáticos; 0 lo desactiva. */
   autoplay?: number;
-  /** Botones claros para fondos oscuros. */
   dark?: boolean;
   class?: string;
 }
@@ -55,8 +45,6 @@ const { label, perView = 3, autoplay = 0, dark = false, class: className } = Ast
 
     controls.hidden = false;
     slides.forEach((s, i) => {
-      s.setAttribute('role', 'group');
-      s.setAttribute('aria-roledescription', 'diapositiva');
       s.setAttribute('aria-label', `${i + 1} de ${slides.length}`);
     });
 
@@ -136,7 +124,6 @@ const { label, perView = 3, autoplay = 0, dark = false, class: className } = Ast
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
-    /* Aire alrededor para que la sombra y el salto al pasar el mouse no se corten */
     padding: 0.75rem 1rem 2rem;
     margin: -0.75rem -1rem -1.25rem;
     scroll-padding-inline: 1rem;
@@ -161,18 +148,20 @@ const { label, perView = 3, autoplay = 0, dark = false, class: className } = Ast
     transition: background-color var(--duration-hover) ease, color var(--duration-hover) ease, transform var(--duration-press) var(--ease-out);
   }
   .nav:active { transform: scale(0.92); }
-  .dots { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem; }
-  .dots :global(.dot) {
+  .dots { display: flex; flex-wrap: wrap; justify-content: center; }
+  .dots :global(.dot) { display: grid; place-items: center; min-inline-size: 1.5rem; block-size: 1.5rem; padding-inline: 0.2rem; background: none; }
+  .dots :global(.dot)::before {
+    content: '';
     inline-size: 0.6rem;
     block-size: 0.6rem;
     border-radius: var(--radius-pill);
     background-color: color-mix(in srgb, var(--navy-600) 25%, transparent);
     transition: inline-size var(--duration-ui) var(--ease-out), background-color var(--duration-ui) ease;
   }
-  .dots :global(.dot[aria-current='true']) { inline-size: 1.75rem; background-image: var(--gradient-warm); }
+  .dots :global(.dot[aria-current='true'])::before { inline-size: 1.75rem; background-image: var(--gradient-warm); }
 
   .dark .nav { background-color: rgb(255 255 255 / 0.12); color: var(--paper-0); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.2); }
-  .dark .dots :global(.dot) { background-color: rgb(255 255 255 / 0.3); }
+  .dark .dots :global(.dot)::before { background-color: rgb(255 255 255 / 0.3); }
 
   @media (hover: hover) and (pointer: fine) {
     .nav:hover { background-color: var(--orange-500); color: var(--ink-900); }

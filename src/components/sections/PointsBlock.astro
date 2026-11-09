@@ -8,7 +8,6 @@ interface Props {
   block: Block;
   eyebrow?: string;
   band?: boolean;
-  /** @deprecated se mantiene por compatibilidad */
   surface?: boolean;
 }
 
@@ -93,7 +92,6 @@ import BrandMark from '@/components/ui/BrandMark.astro';
   .card h3 { font-size: var(--step-title); line-height: 1.25; }
   .card p { color: var(--color-text-soft); font-size: var(--step-ui); line-height: var(--leading-body); }
 
-  /* Variante con foto completa de fondo y texto encima */
   .tag { display: none; }
   .overlay .card { position: relative; grid-template-rows: none; min-block-size: 24rem; isolation: isolate; align-content: end; }
   .overlay .frame { position: absolute; inset: 0; z-index: -2; }
@@ -105,7 +103,6 @@ import BrandMark from '@/components/ui/BrandMark.astro';
   .overlay .card h3 { color: var(--paper-0); font-size: var(--step-title); }
   .overlay .card p { color: var(--navy-100); }
 
-  /* Variante destacada: dos tarjetas grandes con cifra o logos */
   .features { display: grid; gap: var(--space-m) var(--gutter); }
   .feature { position: relative; display: grid; gap: var(--space-s); align-content: start; padding: var(--space-l); overflow: hidden; border-radius: calc(var(--radius-card) + 0.35rem); background-color: var(--paper-0); box-shadow: var(--shadow-card); }
   .feature:first-child { background-image: var(--gradient-brand); color: var(--paper-0); }
@@ -138,7 +135,6 @@ import BrandMark from '@/components/ui/BrandMark.astro';
   @media (min-width: 64em) {
     .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .cards.n-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    /* Cinco tarjetas: 3 arriba y 2 más anchas abajo */
     .cards.n-5 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
     .cards.n-5 > .card { grid-column: span 2; }
     .cards.n-5 > .card:nth-child(n + 4) { grid-column: span 3; }
