@@ -4,7 +4,7 @@ import metaanalisis from '@/assets/images/otros_servicios/estudios_teoricos/meta
 import articuloRevision from '@/assets/images/otros_servicios/estudios_teoricos/articulo-revision-asesora.jpg';
 import tsp from '@/assets/images/otros_servicios/estudios_empiricos/tsp-asesor-empresa.jpg';
 import negocios from '@/assets/images/otros_servicios/estudios_empiricos/plan-negocio-asesora-cafeteria.jpg';
-import mejora from '@/assets/images/otros_servicios/proyectos/Proyectos-de-mejora.jpg';
+import mejora from '@/assets/images/otros_servicios/proyectos/mejora-asesor-planta.jpg';
 import innovacion from '@/assets/images/otros_servicios/proyectos/innovacion-asesora-prototipo.jpg';
 import factibilidad from '@/assets/images/otros_servicios/proyectos/factibilidad-asesor-local.jpg';
 import tecnologicos from '@/assets/images/otros_servicios/proyectos/tecnologico-asesora-bodega.jpg';
