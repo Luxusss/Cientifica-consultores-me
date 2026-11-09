@@ -2,7 +2,8 @@
 import { Image } from 'astro:assets';
 import type { Testimonial } from '@/data/proof';
 import { stats } from '@/data/stats';
-import { chatQuotes } from '@/data/captures';
+import { wins } from '@/data/captures';
+import Icon from '@/components/ui/Icon.astro';
 import graduados from '@/assets/images/otros/graduados.jpg';
 
 interface Props {
@@ -12,12 +13,7 @@ interface Props {
 const { testimonials } = Astro.props;
 // Iniciales solo de las palabras con mayúscula (así "Equipo de tesis de Daniel" da "ED")
 const initials = (name: string) => name.split(' ').filter((w) => /^\p{Lu}/u.test(w)).slice(0, 2).map((w) => w[0]).join('');
-// Fila 1: reseñas escritas. Fila 2: mensajes reales de WhatsApp de la página de Testimonios, así ninguna tarjeta se repite entre filas
-type Card = { quote: string; name: string; meta: string; wa?: boolean };
-const rows: Card[][] = [
-  testimonials.map((t) => ({ quote: t.quote, name: t.name, meta: `${t.university}, ${t.country}` })),
-  chatQuotes.map((c) => ({ quote: c.quote, name: c.name, meta: `${c.tag} · por WhatsApp`, wa: true })),
-];
+const rows = [testimonials];
 ---
 
 <section class="quote section-wide" aria-labelledby="testimonios-titulo">
@@ -45,7 +41,7 @@ const rows: Card[][] = [
                     <span class="avatar" aria-hidden="true">{initials(t.name)}</span>
                     <span class="who">
                       <strong>{t.name}</strong>
-                      <span>{t.meta}</span>
+                      <span>{t.university}, {t.country}</span>
                     </span>
                   </figcaption>
                 </figure>
@@ -56,6 +52,17 @@ const rows: Card[][] = [
       </div>
     ))}
   </div>
+
+  <div class="wins" aria-label="Logros que nos compartieron nuestros tesistas por WhatsApp">
+    {[0, 1].map((copy) => (
+      <ul class="wins-track" role="list" aria-hidden={copy === 1 ? 'true' : undefined}>
+        {wins.map((w) => (
+          <li class="win"><span class="win-ico" aria-hidden="true"><Icon name="check" size="0.8rem" /></span><strong>{w.name}</strong><span>{w.result}</span></li>
+        ))}
+      </ul>
+    ))}
+  </div>
+  <p class="wins-note"><Icon name="whatsapp" size="0.95rem" />Logros que nos compartieron por WhatsApp</p>
 
   <div class="page more-wrap">
     <a class="link-pill" href="/testimonios.html">Ver más testimonios</a>
@@ -105,12 +112,27 @@ const rows: Card[][] = [
 
   .more-wrap { display: grid; justify-items: center; }
 
+  /* Cinta de logros: frases cortas reales, en una línea fina que corre debajo de las reseñas */
+  .wins { display: flex; gap: var(--space-xs); overflow-x: auto; scrollbar-width: none; padding-inline: var(--page-margin); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  .wins-track { display: flex; gap: var(--space-xs); flex-shrink: 0; }
+  .wins-track[aria-hidden='true'] { display: none; }
+  .win { display: inline-flex; align-items: center; gap: 0.5em; flex-shrink: 0; padding: 0.55em 1.1em 0.55em 0.6em; border-radius: var(--radius-pill); background-color: rgb(255 255 255 / 0.1); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.18); color: var(--navy-100); font-size: var(--step-small); white-space: nowrap; backdrop-filter: blur(4px); }
+  .win strong { color: var(--paper-0); }
+  .win-ico { display: grid; place-items: center; inline-size: 1.4rem; block-size: 1.4rem; border-radius: 50%; background-color: var(--whatsapp-500); color: var(--ink-900); }
+  .wins-note { display: flex; align-items: center; justify-content: center; gap: 0.45em; margin-block-start: calc(var(--space-s) * -0.5); color: var(--navy-100); font-size: var(--step-small); max-inline-size: none; }
+  .wins-note :global(svg) { color: var(--whatsapp-500); }
+
   @media (prefers-reduced-motion: no-preference) {
     .marquee { overflow: hidden; padding-inline: 0; }
     .track[aria-hidden='true'] { display: flex; }
     .track { animation: slide 60s linear infinite; }
     .reverse .track { animation-direction: reverse; animation-duration: 70s; }
     .marquee:hover .track, .marquee:focus-within .track { animation-play-state: paused; }
+    .wins { overflow: hidden; padding-inline: 0; }
+    .wins-track[aria-hidden='true'] { display: flex; }
+    .wins-track { animation: slide-wins 55s linear infinite reverse; }
+    .wins:hover .wins-track { animation-play-state: paused; }
+    @keyframes slide-wins { to { transform: translateX(calc(-100% - var(--space-xs))); } }
     @keyframes slide { to { transform: translateX(calc(-100% - var(--space-s))); } }
   }
 </style>
