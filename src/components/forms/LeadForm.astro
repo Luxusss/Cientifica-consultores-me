@@ -153,15 +153,12 @@ const options = countries.map((c) => ({ value: c.name, name: c.name, code: c.cod
       const phone = code === '+' ? `+${tel.replace(/^\+/, '')}` : `${code} ${tel}`.trim();
       data.set('telefono_completo', phone);
 
-      const sentAt = Date.now();
       const email = String(data.get('email') ?? '').trim();
       const payload = {
-        social_network: 'Página web',
-        name: String(data.get('nombre') ?? ''),
-        email: email || `web_${sentAt}@no-email.local`,
-        phone,
-        notes: `${data.get('_subject')} ${isTouch() ? '(Móvil)' : '(PC)'} - ${country} - ${String(data.get('mensaje') ?? '').trim() || 'Interesado en asesoría'}`,
-        page: window.location.href,
+        name: String(data.get('nombre') ?? '').trim(),
+        ...(email && { email }),
+        ...(tel && { phone }),
+        notes: `${data.get('_subject')} ${isTouch() ? '(Móvil)' : '(PC)'} - ${country} - ${String(data.get('mensaje') ?? '').trim() || 'Interesado en asesoría'} - ${window.location.pathname}`,
       };
 
       button.disabled = true;
