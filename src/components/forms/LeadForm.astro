@@ -148,7 +148,9 @@ const options = countries.map((c) => ({ value: c.name, name: c.name, code: c.cod
       }
 
       const country = String(data.get('pais') ?? '');
-      const phone = `${codes[country] ?? ''} ${String(data.get('telefono') ?? '')}`.trim();
+      const code = codes[country] ?? '';
+      const tel = String(data.get('telefono') ?? '').trim();
+      const phone = code === '+' ? `+${tel.replace(/^\+/, '')}` : `${code} ${tel}`.trim();
       data.set('telefono_completo', phone);
 
       const payload = {
