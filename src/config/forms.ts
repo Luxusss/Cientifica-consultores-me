@@ -1,5 +1,5 @@
 export const endpoints = {
-  crm: 'https://sinaptiq.incitap.com/api/webhooks/social/form',
+  crm: 'https://app.automatacrm.net/api/webhooks/social/form?source_token=Jt79jZHvbEYVN8HUlfFNzpmXA5WnQp0PEJwJZF68PK8',
   leads: 'marketingcientificaconsultores@gmail.com',
   claims: 'informes@cientificaconsultores.com',
 } as const;

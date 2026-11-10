@@ -153,13 +153,14 @@ const options = countries.map((c) => ({ value: c.name, name: c.name, code: c.cod
       const phone = code === '+' ? `+${tel.replace(/^\+/, '')}` : `${code} ${tel}`.trim();
       data.set('telefono_completo', phone);
 
+      const sentAt = Date.now();
+      const email = String(data.get('email') ?? '').trim();
       const payload = {
-        social_network: 'google',
-        external_id: `google_${Date.now()}`,
+        social_network: 'Página web',
         name: String(data.get('nombre') ?? ''),
-        email: String(data.get('email') ?? ''),
+        email: email || `web_${sentAt}@no-email.local`,
         phone,
-        notes: `${data.get('_subject')} ${isTouch() ? '(Móvil)' : '(PC)'} - ${String(data.get('mensaje') ?? '').trim() || 'Interesado en asesoría'}`,
+        notes: `${data.get('_subject')} ${isTouch() ? '(Móvil)' : '(PC)'} - ${country} - ${String(data.get('mensaje') ?? '').trim() || 'Interesado en asesoría'}`,
         page: window.location.href,
       };
 
