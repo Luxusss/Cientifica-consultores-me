@@ -28,10 +28,10 @@ export const site = {
   countries: ['Perú', 'Colombia', 'México', 'Bolivia', 'Ecuador', 'Venezuela', 'Chile', 'España'],
   social: [
     { name: 'Facebook', icon: 'facebook', href: 'https://www.facebook.com/tesisasyesoriacientificaconsultores' },
-    { name: 'Instagram', icon: 'instagram', href: 'https://www.instagram.com/cientificaconsultores/' },
+    { name: 'Instagram', icon: 'instagram', href: 'https://www.instagram.com/cientifica.consultores/' },
     { name: 'TikTok', icon: 'tiktok', href: 'https://www.tiktok.com/@cientificaconsultores' },
-    { name: 'YouTube', icon: 'youtube', href: 'https://www.youtube.com/@TesisCientificaConsultores' },
-    { name: 'LinkedIn', icon: 'linkedin', href: 'https://www.linkedin.com/company/cient%C3%ADfica-consultores/' },
+    { name: 'YouTube', icon: 'youtube', href: 'https://www.youtube.com/@Tesis.Cient%C3%ADficaConsultores' },
+    { name: 'LinkedIn', icon: 'linkedin', href: 'https://www.linkedin.com/in/cient%C3%ADfica-consultores-9b9a56313/' },
   ],
   gtmId: 'GTM-5TNL7PM2',
 } as const;
