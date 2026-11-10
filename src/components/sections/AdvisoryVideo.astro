@@ -7,7 +7,7 @@ const { featured = false } = Astro.props;
 
 <figure class:list={['video', { featured }]} data-reveal data-video>
   <div class="frame">
-    <video controls={!featured} preload="none" playsinline poster="/videos/thumbnail-asesorias.jpg" width="1280" height="720" data-video-el>
+    <video controls={!featured} preload="none" playsinline poster="/videos/thumbnail-asesorias.webp" width="1280" height="720" data-video-el>
       <source src="/videos/Asi-son-nuestras-asesorias.mp4" type="video/mp4" />
     </video>
     {featured && (

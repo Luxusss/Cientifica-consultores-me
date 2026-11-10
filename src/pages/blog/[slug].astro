@@ -1,5 +1,5 @@
 ---
-import { Picture } from 'astro:assets';
+import { Image, Picture } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
 import Base from '@/layouts/Base.astro';
 import FormButton from '@/components/ui/FormButton.astro';
@@ -7,6 +7,7 @@ import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import Prose from '@/components/ui/Prose.astro';
 import Icon from '@/components/ui/Icon.astro';
+import advisorImg from '@/assets/images/otros/asesora-de-tesis-de-pregardo.jpg';
 import logoSvg from '@/assets/brand/logo.svg?raw';
 import { breadcrumb } from '@/lib/schema';
 import { formatDate, isoDate } from '@/lib/dates';
@@ -131,6 +132,12 @@ const schema = [
             <WhatsAppButton label="Escríbenos" message={`Hola, leí el artículo "${post.data.heading}" y quiero una asesoría.`} />
           </div>
         </div>
+        <figure class="a-cta-person" aria-hidden="true">
+          <span class="ring"></span>
+          <Image src={advisorImg} alt="" widths={[320, 480]} sizes="16rem" class="a-cta-img" />
+          <span class="chip chip-1"><span class="live"></span>Asesora en línea</span>
+          <span class="chip chip-2"><Icon name="badge" size="0.95rem" />+10 años guiando tesis</span>
+        </figure>
       </aside>
     </article>
   </div>
@@ -146,6 +153,7 @@ const schema = [
           {related.map((r) => (
             <li>
               <a href={`/blog/${r.id}.html`} class="rel-card">
+                <span class="rel-media"><Image src={r.data.cover} alt="" widths={[400, 640]} sizes="(min-width: 64em) 24rem, 100vw" class="rel-img" /></span>
                 <span class="rel-body">
                   <span class="rel-tag">{categoryLabel(categoryOf(r.id))}</span>
                   <span class="rel-title">{r.data.heading}</span>
@@ -281,7 +289,18 @@ const schema = [
   .a-cta-actions :global(.button) { min-block-size: 3rem; border-radius: var(--radius-pill); font-weight: var(--weight-bold); }
   .a-cta-actions :global(.button:not(.button-whatsapp)) { background-image: var(--gradient-warm); color: var(--ink-900); }
 
+  .a-cta-person { position: relative; justify-self: center; inline-size: min(16rem, 80%); margin: 0; }
+  .a-cta-person .ring { position: absolute; inset: -0.6rem; border-radius: 999px 999px calc(var(--radius-card) + 0.5rem) calc(var(--radius-card) + 0.5rem); border: 2px dashed rgb(254 143 1 / 0.7); }
+  .a-cta-person :global(.a-cta-img) { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; border-radius: 999px 999px var(--radius-card) var(--radius-card); box-shadow: 0 0 0 4px var(--orange-500), 0 30px 50px -24px rgb(0 0 0 / 0.6); }
+  .chip { position: absolute; display: inline-flex; align-items: center; gap: 0.45em; padding: 0.45em 0.85em; border-radius: var(--radius-pill); background-color: var(--paper-0); color: var(--navy-700); font-size: 0.78rem; font-weight: var(--weight-bold); white-space: nowrap; box-shadow: 0 14px 28px -14px rgb(0 0 0 / 0.5); }
+  .chip :global(svg) { color: var(--orange-500); }
+  .chip-1 { inset-block-start: 18%; inset-inline-start: -2.5rem; }
+  .chip-2 { inset-block-end: 12%; inset-inline-end: -2rem; }
+  .live { inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; background-color: var(--whatsapp-500); box-shadow: 0 0 0 3px rgb(37 211 102 / 0.25); }
   @media (prefers-reduced-motion: no-preference) {
+    .chip-1 { animation: chip-bob 5s ease-in-out infinite; }
+    .chip-2 { animation: chip-bob 5s ease-in-out 1.6s infinite; }
+    @keyframes chip-bob { 50% { translate: 0 -6px; } }
   }
 
   .a-related { padding-block: var(--section-gap); background-color: var(--color-band, var(--paper-1)); }
@@ -289,13 +308,16 @@ const schema = [
   .rel-head h2 { color: var(--navy-700); font-size: var(--step-head); }
   .rel-list { display: grid; gap: var(--space-m); }
   .rel-card { display: grid; grid-template-rows: auto 1fr; overflow: hidden; block-size: 100%; border-radius: calc(var(--radius-card) + 0.25rem); background-color: var(--paper-0); color: var(--ink-900); text-decoration: none; box-shadow: 0 20px 40px -30px rgb(15 22 80 / 0.5); transition: translate var(--duration-ui) var(--ease-out), box-shadow var(--duration-ui) var(--ease-out); }
+  .rel-media { display: block; overflow: hidden; aspect-ratio: 16 / 9; }
+  .rel-card :global(.rel-img) { inline-size: 100%; block-size: 100%; object-fit: cover; transition: scale 600ms var(--ease-out); }
   .rel-body { display: grid; gap: 0.4rem; align-content: start; padding: var(--space-m); }
   .rel-tag { color: var(--orange-600); font-size: 0.75rem; font-weight: var(--weight-bold); letter-spacing: 0.06em; text-transform: uppercase; }
   .rel-title { color: var(--navy-700); font-family: var(--font-display); font-size: 1.15rem; line-height: 1.3; }
   .rel-meta { color: var(--ink-600); font-size: 0.8rem; }
 
   @media (min-width: 40em) {
-    .a-cta { align-items: center; padding: var(--space-xl) var(--space-xl) var(--space-xl) var(--space-l); }
+    .a-cta { grid-template-columns: minmax(0, 1fr) minmax(0, 15rem); align-items: center; padding: var(--space-xl) var(--space-xl) var(--space-xl) var(--space-l); }
+    .a-cta-person { inline-size: 100%; }
   }
   @media (min-width: 48em) { .rel-list { grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); } }
   @media (min-width: 64em) {
@@ -317,6 +339,7 @@ const schema = [
     .a-toc a:hover span:last-child { color: var(--orange-600); }
     .sh:hover { transform: translateY(-2px); box-shadow: inset 0 0 0 1.5px currentColor; }
     .rel-card:hover { translate: 0 -4px; box-shadow: 0 30px 50px -30px rgb(15 22 80 / 0.6); }
+    .rel-card:hover :global(.rel-img) { scale: 1.05; }
     .rel-card:hover .rel-title { color: var(--navy-600); }
   }
 </style>
