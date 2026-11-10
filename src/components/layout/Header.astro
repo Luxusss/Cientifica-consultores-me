@@ -31,7 +31,6 @@ const flags = [
   { src: espana, name: 'España' },
 ];
 const isCurrent = (href: string) => current === href || (href === '/index.html' && current === '/');
-const serviceIcon: Record<string, 'user' | 'badge' | 'institution' | 'document' | 'pen'> = { pregrado: 'user', maestria: 'badge', doctorado: 'institution', tsp: 'document', articulos: 'pen' };
 ---
 
 <header class:list={['header', 'theme-field', { overlay }]} data-header>
@@ -76,7 +75,7 @@ const serviceIcon: Record<string, 'user' | 'badge' | 'institution' | 'document' 
           {serviceData.filter((d) => d.id !== 'proyecto').map((d) => (
             <li>
               <a class="service" href={d.href} aria-current={isCurrent(d.href) ? 'page' : undefined}>
-                <span class="service-thumb other-icon" aria-hidden="true"><Icon name={serviceIcon[d.id] ?? 'document'} size="1.25rem" /></span>
+                <Image src={d.image} alt="" width={96} height={96} class="service-thumb" />
                 <span class="service-text">
                   <span class="service-name">{d.navLabel}</span>
                   <span class="service-desc">{d.summary}</span>
