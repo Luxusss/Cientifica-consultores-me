@@ -150,7 +150,7 @@ export const servicePages: Record<string, ServicePage> = {
     description: 'Asesoría de tesis de maestría en Lima y online: marco teórico, metodología, análisis de datos y sustentación con un asesor de posgrado de tu área.',
     h1: 'Asesoría de tesis de maestría',
     h1Accent: 'de maestría',
-    lede: '¿Buscas ayuda profesional para hacer tu tesis de maestría?',
+    lede: '¿Buscas un asesor para tu tesis de maestría?',
     image: maestriaImg,
     imageAlt: 'Asesoría de tesis de maestría',
     formSubject: 'Nuevo lead - Tesis de Maestría',
@@ -164,7 +164,7 @@ export const servicePages: Record<string, ServicePage> = {
       {
         kind: 'text',
         id: 'empezar',
-        title: '¿Necesitas hacer tu tesis de maestría y no sabes por dónde empezar?',
+        title: '¿Estás empezando tu tesis de maestría y no sabes por dónde seguir?',
         text: ['Este servicio está diseñado para estudiantes de maestría que buscan apoyo integral en la investigación, redacción y sustentación de su tesis. Ya sea que estés iniciando o necesites levantar observaciones, podemos ayudarte.'],
       },
       { kind: 'photos' },
